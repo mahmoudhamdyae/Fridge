@@ -24,10 +24,10 @@ class AuthLocalDataSourceImpl extends AuthLocalDataSource {
 
   @override
   bool isFirstEntry() {
-    return true; // todo
+    // return true;
     try {
       bool firstEntry =  sharedPreferences.getBool(_isFirstEntry) ?? true;
-      sharedPreferences.setBool(_isFirstEntry, true);
+      sharedPreferences.setBool(_isFirstEntry, false);
       return firstEntry;
     } on Exception catch(error) {
       throw LocalDatabaseException(message: error.toString());
