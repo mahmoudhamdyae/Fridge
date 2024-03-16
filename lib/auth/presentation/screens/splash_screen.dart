@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
         turns: _animation,
         child: Center(
           child: Image.asset(
-            AppAssets.a,
+            AppAssets.appLogo,
             height: context.dynamicHeight(0.2),
             width: context.dynamicWidth(0.9),
           ),

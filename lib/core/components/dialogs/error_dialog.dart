@@ -1,0 +1,40 @@
+import 'package:flutter/material.dart';
+
+import '../../resources/app_strings.dart';
+
+showError(BuildContext context, String message, Function retryAction) {
+  return showDialog(context: context, builder: (BuildContext context) {
+    return AlertDialog(
+      // The shape of the dialog
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      // The title of the dialog
+      title: const Text('errrrrrrrr'),
+      // The content of the dialog
+      content: Text(message.replaceFirst('Exception: ', '')),
+      // The actions of the dialog
+      actions: [
+        // A button to cancel the operation
+        TextButton(
+          onPressed: () {
+            // Close the dialog
+            Navigator.of(context).pop();
+          },
+          child: const Text('cancellllll'),
+        ),
+        // A button to retry the operation
+        TextButton(
+          onPressed: () {
+            // Close the dialog
+            Navigator.of(context).pop();
+            // Retry the operation
+            retryAction();
+          },
+          child: const Text(AppStrings.retryAgain),
+        ),
+      ],
+    );
+  }
+  );
+}

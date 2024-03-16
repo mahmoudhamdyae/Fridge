@@ -9,7 +9,7 @@ class AuthState extends Equatable {
     this.error,
   });
 
-  const AuthState.unknown(): this._();
+  const AuthState.unKnown(): this._();
 
   const AuthState.firstEntry(): this._(
     status: AuthStatus.firstEntry,

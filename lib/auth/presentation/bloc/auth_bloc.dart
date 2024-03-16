@@ -24,7 +24,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       this.isLoggedInUsecase,
       this.isFirstEntryUsecase,
       )
-      : super(const AuthState.unknown()) {
+      : super(const AuthState.unKnown()) {
     on<AppStarted>((event, emit) async {
       await _init(emit);
     });

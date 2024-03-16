@@ -35,21 +35,24 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     required String phone,
     required String password,
   }) async {
-    var response = await dioManager.dio.post(
-      ApiConstants.loginPath,
-      data: LoginRequest(
-        phone: phone,
-        password: password,
-      ).toJson(),
-    );
+    await Future.delayed(const Duration(microseconds: 2000));
+    // var response = await dioManager.dio.post(
+    //   ApiConstants.loginPath,
+    //   data: LoginRequest(
+    //     phone: phone,
+    //     password: password,
+    //   ).toJson(),
+    // );
+    //
+    // if (response.statusCode == HttpStatus.ok) {
+    //   return AuthResponse.fromJson(response.data).token;
+    // } else {
+    //   return throw ServerException(
+    //       errorMessageModel: ErrorMessageModel.fromJson(response.data)
+    //   );
+    // }
 
-    if (response.statusCode == HttpStatus.ok) {
-      return AuthResponse.fromJson(response.data).token;
-    } else {
-      return throw ServerException(
-          errorMessageModel: ErrorMessageModel.fromJson(response.data)
-      );
-    }
+    return 'gg';
   }
 
   @override
