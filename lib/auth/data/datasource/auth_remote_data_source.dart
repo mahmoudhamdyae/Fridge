@@ -35,24 +35,26 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     required String phone,
     required String password,
   }) async {
-    await Future.delayed(const Duration(microseconds: 2000));
-    // var response = await dioManager.dio.post(
-    //   ApiConstants.loginPath,
-    //   data: LoginRequest(
-    //     phone: phone,
-    //     password: password,
-    //   ).toJson(),
-    // );
-    //
-    // if (response.statusCode == HttpStatus.ok) {
-    //   return AuthResponse.fromJson(response.data).token;
-    // } else {
-    //   return throw ServerException(
-    //       errorMessageModel: ErrorMessageModel.fromJson(response.data)
-    //   );
-    // }
-
-    return 'gg';
+    try {
+      var response = await dioManager.dio.post(
+        ApiConstants.loginPath,
+        data: LoginRequest(
+          phone: phone,
+          password: password,
+        ).toJson(),
+      );
+      if (response.statusCode == HttpStatus.ok) {
+        return AuthResponse.fromJson(response.data).token;
+      } else {
+        return throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(response.data)
+        );
+      }
+    } on Exception catch (error) {
+      throw ServerException(
+          errorMessageModel: ErrorMessageModel(status: false, message: error.toString())
+      );
+    }
   }
 
   @override
@@ -62,21 +64,28 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     required String password,
     required String confirmPassword,
   }) async {
-    var response = await dioManager.dio.post(
-      ApiConstants.registerPath,
-      data: RegisterRequest(
-        name: name,
-        phone: phone,
-        password: password,
-        confirmPassword: confirmPassword,
-      ).toJson(),
-    );
+    try {
+      var response = await dioManager.dio.post(
+        ApiConstants.registerPath,
+        data: RegisterRequest(
+          name: name,
+          phone: phone,
+          password: password,
+          confirmPassword: confirmPassword,
+        ).toJson(),
+      );
 
-    if (response.statusCode == HttpStatus.ok) {
-      return AuthResponse.fromJson(response.data).token;
-    } else {
-      return throw ServerException(
-          errorMessageModel: ErrorMessageModel.fromJson(response.data)
+      if (response.statusCode == HttpStatus.ok) {
+        return AuthResponse.fromJson(response.data).token;
+      } else {
+        return throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(response.data)
+        );
+      }
+    } on Exception catch (error) {
+      throw ServerException(
+          errorMessageModel: ErrorMessageModel(
+              status: false, message: error.toString())
       );
     }
   }

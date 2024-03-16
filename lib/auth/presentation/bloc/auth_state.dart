@@ -4,26 +4,28 @@ class AuthState extends Equatable {
   final AuthStatus status;
   final AuthError? error;
 
-  const AuthState._({
+  AuthState._({
     this.status = AuthStatus.unknown,
     this.error,
-  });
+  }) {
+    print('================ee2345 ${error}');
+  }
 
-  const AuthState.unKnown(): this._();
+  AuthState.unKnown(): this._();
 
-  const AuthState.firstEntry(): this._(
+  AuthState.firstEntry(): this._(
     status: AuthStatus.firstEntry,
   );
 
-  const AuthState.authenticated(): this._(
+  AuthState.authenticated(): this._(
     status: AuthStatus.authenticated,
   );
 
-  const AuthState.unAuthenticated(): this._(
+  AuthState.unAuthenticated(): this._(
     status: AuthStatus.unAuthenticated,
   );
 
-  const AuthState.error({AuthError error = AuthError.unknown})
+  AuthState.error({AuthError error = AuthError.unknown})
       : this._(status: AuthStatus.unknown, error: error);
 
   @override

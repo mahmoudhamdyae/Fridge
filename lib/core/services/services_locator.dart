@@ -26,7 +26,7 @@ class ServicesLocator {
     await GetIt.instance.isReady<SharedPreferences>();
 
     /// Bloc
-    instance.registerFactory(() => AuthBloc(
+    instance.registerLazySingleton(() => AuthBloc(
         instance<LoginUsecase>(),
         instance<RegisterUsecase>(),
         instance<SignOutUsecase>(),

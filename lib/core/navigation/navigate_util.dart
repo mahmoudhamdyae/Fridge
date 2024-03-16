@@ -12,4 +12,8 @@ class NavigateUtil {
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => route)
     );
   }
+
+  void navigateUp(BuildContext context) {
+    Navigator.pop(context);
+  }
 }

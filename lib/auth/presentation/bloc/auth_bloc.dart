@@ -24,7 +24,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       this.isLoggedInUsecase,
       this.isFirstEntryUsecase,
       )
-      : super(const AuthState.unKnown()) {
+      : super( AuthState.unKnown()) {
+    print('============= hahahahahahah');
     on<AppStarted>((event, emit) async {
       await _init(emit);
     });
@@ -48,25 +49,25 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       final isFirstEntryResult = isFirstEntryUsecase.call();
       isFirstEntryResult.fold((l) {
-        emit(const AuthState.error(),);
+        emit( AuthState.error(),);
       }, (bool firstEntry) {
         if (firstEntry) {
-          emit(const AuthState.firstEntry());
+          emit( AuthState.firstEntry());
         } else {
           final isLoggedInResult = isLoggedInUsecase.call();
           isLoggedInResult.fold((l) {
-            emit(const AuthState.error(),);
+            emit( AuthState.error(),);
           }, (bool isUserLoggedIn) {
             if (isUserLoggedIn) {
-              emit(const AuthState.authenticated());
+              emit( AuthState.authenticated());
             } else {
-              emit(const AuthState.unAuthenticated());
+              emit( AuthState.unAuthenticated());
             }
           });
         }
       });
     } on Exception {
-      emit(const AuthState.error());
+      emit( AuthState.error());
     }
   }
 
@@ -76,9 +77,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         event.password,
     );
     result.fold((l) {
-      emit(const AuthState.error(error: AuthError.wrongData));
+      emit( AuthState.error(error: AuthError.wrongData));
+      print('================ee2 ${state.error}');
     }, (r) {
-      emit(const AuthState.authenticated());
+      emit( AuthState.authenticated());
     });
   }
 
@@ -90,9 +92,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         event.confirmPassword
     );
     result.fold((l) {
-      emit(const AuthState.error(error: AuthError.wrongData));
+      emit( AuthState.error(error: AuthError.wrongData));
     }, (r) {
-      emit(const AuthState.authenticated());
+      emit( AuthState.authenticated());
     });
   }
 
@@ -100,12 +102,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       final result = await signOutUsecase.call();
       result.fold((l) {
-        emit(const AuthState.error());
+        emit( AuthState.error());
       }, (r) {
-        emit(const AuthState.unAuthenticated());
+        emit( AuthState.unAuthenticated());
       });
     } catch (_) {
-      emit(const AuthState.error());
+      emit( AuthState.error());
     }
   }
 }

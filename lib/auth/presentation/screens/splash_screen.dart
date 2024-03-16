@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
     authStream = authBloc.stream.listen((state) {
       Future.delayed(const Duration(seconds: 2)).then((_) =>
-          NavigateUtil().navigateToScreen(context, state.status.firstView));
+          NavigateUtil().navigateAndClear(context, state.status.firstView));
     });
   }
 
