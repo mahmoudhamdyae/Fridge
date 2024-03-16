@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 
@@ -6,10 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/core/components/dialogs/error_dialog.dart';
 import 'package:fridge/core/components/dialogs/loading_dialog.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
-import 'package:fridge/core/navigation/navigate_extension.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
+import 'package:fridge/home/presentation/screens/home_screen.dart';
 
 import '../../../core/components/appbar.dart';
+import '../../../core/enums/auth_enums.dart';
 import '../../../core/services/services_locator.dart';
 import '../bloc/auth_bloc.dart';
 import '../components/email_form_field.dart';
@@ -38,11 +38,11 @@ class _LoginScreenState extends State<LoginScreen> {
       create: (context) => instance<AuthBloc>(),
       child: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          debugPrint('================ee ${state.error}');
-          debugPrint('================eeeeeee ${state.status}');
           if (state.error != null) {
             NavigateUtil().navigateUp(context);
             showError(context, 'message', () {});
+          } else if (state.status == AuthStatus.authenticated) {
+            NavigateUtil().navigateAndClear(context, const HomeScreen());
           }
         },
         child: Scaffold(
