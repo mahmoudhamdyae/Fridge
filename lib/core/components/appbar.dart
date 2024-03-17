@@ -12,10 +12,14 @@ import '../../auth/presentation/bloc/auth_bloc.dart';
 import 'custom_text.dart';
 
 class CustomAppBar extends AppBar {
-  CustomAppBar({
-    super.key,
-    this.isHome = false,
-  });
+
+  final String text;
+
+  CustomAppBar(
+      this.text, {
+        super.key,
+        this.isHome = false,
+      });
 
   final bool isHome;
 

@@ -15,13 +15,13 @@ class ValidateOperations {
   }
 
   static emailValidation(dynamic email) {
-    bool emailValid = RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(email);
-
-    if (email == null || email.isEmpty || !emailValid) {
-      return AppStrings.makeSureCorrectMail;
-    }
+    // bool emailValid = RegExp(
+    //     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+    //     .hasMatch(email);
+    //
+    // if (email == null || email.isEmpty || !emailValid) {
+    //   return AppStrings.makeSureCorrectMail;
+    // }
     return null;
   }
 }

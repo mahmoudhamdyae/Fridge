@@ -6,6 +6,7 @@ import 'package:fridge/core/components/dialogs/error_dialog.dart';
 import 'package:fridge/core/components/dialogs/loading_dialog.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
+import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/home/presentation/screens/home_screen.dart';
 
 import '../../../core/components/appbar.dart';
@@ -46,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
           }
         },
         child: Scaffold(
-          appBar: CustomAppBar(),
+          appBar: CustomAppBar(AppStrings.appName),
           body: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.symmetric(
