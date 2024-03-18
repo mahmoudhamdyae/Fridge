@@ -41,7 +41,11 @@ class _LoginScreenState extends State<LoginScreen> {
         listener: (context, state) {
           if (state.error != null) {
             NavigateUtil().navigateUp(context);
-            showError(context, 'message', () {});
+            showError(context, 'message',() {
+              BlocProvider.of<AuthBloc>(context).add(AppStarted());
+            }, () {
+              BlocProvider.of<AuthBloc>(context).add(AppStarted());
+            });
           } else if (state.status == AuthStatus.authenticated) {
             NavigateUtil().navigateAndClear(context, const HomeScreen());
           }
