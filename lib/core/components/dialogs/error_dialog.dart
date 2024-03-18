@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../resources/app_strings.dart';
 
-showError(BuildContext context, String message, Function cancelAction, Function retryAction) {
+showError(BuildContext context, String message, Function retryAction) {
   return showDialog(context: context, builder: (BuildContext context) {
     return AlertDialog(
       // The shape of the dialog
@@ -20,7 +20,6 @@ showError(BuildContext context, String message, Function cancelAction, Function 
           onPressed: () {
             // Close the dialog
             Navigator.of(context).pop();
-            cancelAction();
           },
           child: const Text(AppStrings.cancel),
         ),

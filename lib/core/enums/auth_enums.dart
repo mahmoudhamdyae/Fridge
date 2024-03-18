@@ -1,8 +1,12 @@
+import 'package:fridge/core/resources/app_strings.dart';
+
 enum AuthStatus { firstEntry, unknown, authenticated, unAuthenticated }
 
 enum AuthError {
-  unknown(''),
-  wrongData('');
+  unknown(AppStrings.unknownError),
+  wrongData(AppStrings.wrongData);
 
-  const AuthError(String errorMessage);
+  const AuthError(this.errorMessage);
+
+  final String errorMessage;
 }

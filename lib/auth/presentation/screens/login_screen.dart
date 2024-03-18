@@ -41,11 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
         listener: (context, state) {
           if (state.error != null) {
             NavigateUtil().navigateUp(context);
-            showError(context, 'message',() {
-              BlocProvider.of<AuthBloc>(context).add(AppStarted());
-            }, () {
-              BlocProvider.of<AuthBloc>(context).add(AppStarted());
-            });
+            showError(context, state.error ?? '', () {});
           } else if (state.status == AuthStatus.authenticated) {
             NavigateUtil().navigateAndClear(context, const HomeScreen());
           }
@@ -75,10 +71,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               emailController.text.trim(),
                               passwordController.text.trim(),
                             ));
-                            // context.read<AuthBloc>().add(LoginRequested(
-                            //   emailController.text.trim(),
-                            //   passwordController.text.trim(),
-                            // ));
                           }
                         },
                       ),

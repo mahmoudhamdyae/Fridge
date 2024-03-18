@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/auth/domain/usecases/is_logged_in_usecase.dart';
 import 'package:fridge/auth/domain/usecases/login_usecase.dart';
 import 'package:fridge/auth/domain/usecases/sign_out_usecase.dart';
+import 'package:fridge/core/resources/app_strings.dart';
 import '../../../core/enums/auth_enums.dart';
 import '../../domain/usecases/is_first_entry_usecase.dart';
 import '../../domain/usecases/register_usecase.dart';
@@ -71,18 +72,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _login(LoginRequested event, Emitter<AuthState> emit) async {
+    emit(const AuthState.unKnown());
     final result = await loginUsecase.call(
         event.phone,
         event.password,
     );
     result.fold((l) {
-      emit(const AuthState.error(error: AuthError.wrongData));
+      emit(AuthState.error(error: l.message));
     }, (r) {
       emit(const AuthState.authenticated());
     });
   }
 
   Future<void> _register(RegisterRequested event, Emitter<AuthState> emit) async {
+    emit(const AuthState.unKnown());
     final result = await registerUsecase.call(
         event.name,
         event.phone,
@@ -90,7 +93,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         event.confirmPassword
     );
     result.fold((l) {
-      emit(const AuthState.error(error: AuthError.wrongData));
+      emit(AuthState.error(error: l.message));
     }, (r) {
       emit(const AuthState.authenticated());
     });

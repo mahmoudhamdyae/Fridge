@@ -2,7 +2,7 @@ part of 'auth_bloc.dart';
 
 class AuthState extends Equatable {
   final AuthStatus status;
-  final AuthError? error;
+  final String? error;
 
   const AuthState._({
     this.status = AuthStatus.unknown,
@@ -23,7 +23,7 @@ class AuthState extends Equatable {
     status: AuthStatus.unAuthenticated,
   );
 
-  const AuthState.error({AuthError error = AuthError.unknown})
+  const AuthState.error({String error = AppStrings.unknownError})
       : this._(status: AuthStatus.unknown, error: error);
 
   @override

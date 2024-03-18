@@ -23,6 +23,8 @@ class AppStrings {
   static const String passwordTitle = "Password";
   static const String emailHint = 'example@gmail.com';
   static const String passwordHint = '···········';
+  static const String unknownError = 'خطأ غير معروف';
+  static const String wrongData = 'بيانات الدخول غير صحيحة';
   // Validators
   static const String requiredField = "Required field";
   static const String makeSureCorrectMail = "Please make sure you enter the correct email.";
