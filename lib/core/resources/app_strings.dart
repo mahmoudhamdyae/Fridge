@@ -1,3 +1,8 @@
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
+
 class AppStrings {
   static const String appName = 'Fridge';
 
