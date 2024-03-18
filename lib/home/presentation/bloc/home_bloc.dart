@@ -54,7 +54,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   void _storeProduct(StoreProduct event, Emitter<HomeState> emit) async {
-    emit(state.copyWith(storeProductState: RequestState.error));
+    emit(state.copyWith(storeProductState: RequestState.loading));
     final result = await storeProductUsecase.call(
       event.name,
       event.description
@@ -70,7 +70,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   void _updateProduct(UpdateProduct event, Emitter<HomeState> emit) async {
-    emit(state.copyWith(updateProductState: RequestState.error));
+    emit(state.copyWith(updateProductState: RequestState.loading));
     final result = await updateProductUsecase.call(
         event.id,
         event.name,
@@ -87,7 +87,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   void _delProduct(DelProduct event, Emitter<HomeState> emit) async {
-    emit(state.copyWith(delProductState: RequestState.error));
+    emit(state.copyWith(delProductState: RequestState.loading));
     final result = await delProductUsecase.call(event.productId);
     result.fold((l) {
       emit(state.copyWith(
