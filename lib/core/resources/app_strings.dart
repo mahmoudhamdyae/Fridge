@@ -23,6 +23,10 @@ class AppStrings {
   static const String makeSureCorrectMail = "Please make sure you enter the correct email.";
 
   // Dialogs
+  // Loading
   static const loading = 'جاري التحميل...';
+  // Error
+  static const errorDialogTitle = 'خطأ!';
   static const retryAgain = 'حاول مرة أخرى';
+  static const cancel = 'الغاء';
 }

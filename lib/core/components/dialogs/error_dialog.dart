@@ -10,7 +10,7 @@ showError(BuildContext context, String message, Function cancelAction, Function 
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
       // The title of the dialog
-      title: const Text('errrrrrrrr'),
+      title: const Text(AppStrings.errorDialogTitle),
       // The content of the dialog
       content: Text(message.replaceFirst('Exception: ', '')),
       // The actions of the dialog
@@ -22,7 +22,7 @@ showError(BuildContext context, String message, Function cancelAction, Function 
             Navigator.of(context).pop();
             cancelAction();
           },
-          child: const Text('cancellllll'),
+          child: const Text(AppStrings.cancel),
         ),
         // A button to retry the operation
         TextButton(
