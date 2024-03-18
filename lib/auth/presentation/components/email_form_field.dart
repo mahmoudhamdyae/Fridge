@@ -16,7 +16,7 @@ class EmailFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormFieldWidget(
       controller: emailController,
-      title: AppStrings.emailTitle,
+      title: AppStrings.phoneTitle,
       hintText: AppStrings.emailHint,
       keyboardType: TextInputType.emailAddress,
       onSaved: (value) {

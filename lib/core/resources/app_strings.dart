@@ -1,8 +1,3 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart';
-
 class AppStrings {
   static const String appName = 'Fridge';
 
@@ -19,8 +14,8 @@ class AppStrings {
   // Login Screen
   static const String loginTitle = "You can log in with your information.";
   static const String loginButtonText = "LOGIN";
-  static const String emailTitle = "Email";
-  static const String passwordTitle = "Password";
+  static const String phoneTitle = "رقم الهاتف";
+  static const String passwordTitle = "كلمة السر";
   static const String emailHint = 'example@gmail.com';
   static const String passwordHint = '···········';
   static const String unknownError = 'خطأ غير معروف';
