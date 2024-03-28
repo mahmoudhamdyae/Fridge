@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/auth/presentation/screens/splash_screen.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:fridge/core/resources/theme_manager.dart';
 
 import 'auth/presentation/bloc/auth_bloc.dart';
 import 'core/services/services_locator.dart';
@@ -25,10 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: AppStrings.appName,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: getApplicationTheme(),
       debugShowCheckedModeBanner: false,
       locale: const Locale('ar'),
       supportedLocales: const [
