@@ -21,8 +21,15 @@ class HomeScreenItem extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(20.0)),
           child: Container(
             decoration: const BoxDecoration(
-                color: AppColors.colorRamps1,
-                borderRadius: BorderRadius.all(Radius.circular(20.0))
+                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color(0xff1F3A6F),
+                   Color(0xff3D6AC1),
+                  ],
+                )
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 24.0),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
+import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/home/presentation/composables/home_screen_item.dart';
 
@@ -33,8 +34,18 @@ class HomeScreen extends StatelessWidget {
                   return Text(products.length.toString());
               }
             },),
-        )*/Padding(
+        )*/Container(
           padding: EdgeInsets.symmetric(horizontal: context.dynamicWidth(0.04)),
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  AppColors.white,
+                  AppColors.primaryLight,
+                ],
+              )
+          ),
           child: ListView(
             shrinkWrap: true,
             physics: const ClampingScrollPhysics(),
@@ -55,6 +66,7 @@ class HomeScreen extends StatelessWidget {
                 textInputAction: TextInputAction.done,
                 keyboardType: TextInputType.text,
               ),
+              12.ph,
               HomeScreenItem(
                 text: AppStrings.homeScreenClients,
                 onTab: () {},
