@@ -67,6 +67,8 @@ ButtonStyle getOutlinedButtonStyle({Color color = AppColors.primary}) {
 
 InputDecoration getFilledTextFieldDecoration({
   required String hint,
+  double radius = 15.0,
+  IconData? prefixIcon,
 }) {
   return InputDecoration(
     filled: true,
@@ -75,10 +77,11 @@ InputDecoration getFilledTextFieldDecoration({
       maxWidth: 32.0,
       minWidth: 32.0,
     ),
+    prefixIcon: Icon(prefixIcon, color: const Color(0xff545454), size: 17,),
     hintText: hint,
-    border: const OutlineInputBorder(
-      borderSide: BorderSide(color: AppColors.grey),
-      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+    border: OutlineInputBorder(
+      borderSide: const BorderSide(color: AppColors.grey),
+      borderRadius: BorderRadius.all(Radius.circular(radius)),
     ),
     contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
   );
