@@ -69,8 +69,13 @@ InputDecoration getFilledTextFieldDecoration({
   required String hint,
   double radius = 15.0,
   IconData? prefixIcon,
+  TextStyle? textStyle
 }) {
   return InputDecoration(
+    hintStyle: textStyle ?? getSmallStyle(
+      fontSize: 14.0,
+      color: AppColors.dark2,
+    ),
     filled: true,
     fillColor: AppColors.grey,
     prefixIconConstraints: const BoxConstraints(
