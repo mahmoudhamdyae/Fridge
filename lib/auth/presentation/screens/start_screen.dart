@@ -8,6 +8,7 @@ import 'package:fridge/core/resources/app_assets.dart';
 import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
+import 'package:fridge/home/presentation/screens/main_screen.dart';
 
 import '../../../core/components/dialogs/error_dialog.dart';
 import '../../../core/enums/auth_enums.dart';
@@ -31,7 +32,7 @@ class StartScreen extends StatelessWidget {
                 NavigateUtil().navigateUp(context);
                 showError(context, state.error ?? '', () {});
               } else if (state.status == AuthStatus.authenticated) {
-                NavigateUtil().navigateAndClear(context, const HomeScreen());
+                NavigateUtil().navigateAndClear(context, const MainScreen());
               }
             },
             child: Padding(
