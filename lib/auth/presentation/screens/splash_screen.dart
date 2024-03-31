@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/navigation/navigate_extension.dart';
 import 'package:fridge/core/resources/app_assets.dart';
+import 'package:fridge/core/resources/app_constants.dart';
 
 import '../../../core/navigation/navigate_util.dart';
 import '../bloc/auth_bloc.dart';
@@ -30,12 +31,12 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     /// For [animation]
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 0),
     )..repeat();
     _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
 
     authStream = authBloc.stream.listen((state) {
-      Future.delayed(const Duration(seconds: 2)).then((_) =>
+      Future.delayed(AppConstants.splashScreenTime).then((_) =>
           NavigateUtil().navigateAndClear(context, state.status.firstView));
     });
   }

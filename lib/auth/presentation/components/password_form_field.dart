@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/components/text_form_field.dart';
 import '../../../core/resources/app_strings.dart';
+import '../../../core/resources/styles_manager.dart';
 import '../../../core/utils/validate_operations.dart';
 
 class PasswordFormField extends StatelessWidget {
@@ -14,11 +15,13 @@ class PasswordFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormFieldWidget(
+    return TextFormField(
+      decoration: getFilledTextFieldDecoration(
+        hint: AppStrings.loginScreenPasswordHint,
+      ),
+      textInputAction: TextInputAction.next,
+      obscureText: true,
       controller: passwordController,
-      title: AppStrings.passwordTitle,
-      hintText: AppStrings.passwordHint,
-      isPassword: true,
       onSaved: (value) {
         passwordController.text = value!;
       },

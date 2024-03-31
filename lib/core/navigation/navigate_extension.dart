@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fridge/auth/presentation/screens/login_screen.dart';
+import 'package:fridge/auth/presentation/screens/start_screen.dart';
 import 'package:fridge/home/presentation/screens/home_screen.dart';
 import 'package:fridge/onboarding/presentation/screens/onboarding_screen.dart';
 
@@ -11,11 +12,12 @@ extension NavigateExtension on AuthStatus {
       case AuthStatus.authenticated:
         return const HomeScreen();
       case AuthStatus.firstEntry:
-        return OnboardingScreen();
+        // return OnboardingScreen();
+        return const StartScreen();
       case AuthStatus.unknown:
-        return const LoginScreen();
+        return const StartScreen();
       case AuthStatus.unAuthenticated:
-        return const LoginScreen();
+        return const StartScreen();
     }
   }
 }

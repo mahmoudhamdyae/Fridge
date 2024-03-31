@@ -18,8 +18,8 @@ TextStyle _getTextStyle(
 }
 
 TextStyle getLargeStyle({
-  double fontSize = 16,
-  FontWeight fontWeight = FontWeightManager.bold,
+  double fontSize = 32,
+  FontWeight fontWeight = FontWeightManager.semiBold,
   Color color = AppColors.black,
   TextDecoration decoration = TextDecoration.none
 }) {
@@ -27,7 +27,7 @@ TextStyle getLargeStyle({
 }
 
 TextStyle getSmallStyle({
-  double fontSize = 14,
+  double fontSize = 16,
   FontWeight fontWeight = FontWeightManager.regular,
   Color color = AppColors.black,
   TextDecoration decoration = TextDecoration.none
@@ -46,52 +46,40 @@ ButtonStyle getFilledButtonStyle({Color color = AppColors.primary}) {
   return ButtonStyle(
     shape: MaterialStateProperty.all(
         const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          borderRadius: BorderRadius.all(Radius.circular(15.0)),
         )
     ),
     backgroundColor: MaterialStateProperty.all(color),
   );
 }
 
-ButtonStyle getOutlinedButtonStyle() {
+ButtonStyle getOutlinedButtonStyle({Color color = AppColors.primary}) {
   return OutlinedButton.styleFrom(
-    side: const BorderSide(
+    side: BorderSide(
       width: 1.0,
-      color: AppColors.primary,
+      color: color,
     ),
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8.0),
+      borderRadius: BorderRadius.circular(15.0),
     ),
   );
 }
 
-InputDecoration getTextFieldDecoration({
+InputDecoration getFilledTextFieldDecoration({
   required String hint,
-  required IconData? prefixIcon,
-  IconData? suffixIcon,
-  required Function onPressed
 }) {
   return InputDecoration(
-    prefixIconConstraints: BoxConstraints(
-      maxWidth: prefixIcon == null ? 16.0 : 32.0,
-      minWidth: prefixIcon == null ? 16.0 : 32.0,
+    filled: true,
+    fillColor: AppColors.grey,
+    prefixIconConstraints: const BoxConstraints(
+      maxWidth: 32.0,
+      minWidth: 32.0,
     ),
-      prefixIcon: Icon(prefixIcon, color: const Color(0xff545454), size: 17,),
-      suffixIcon: IconButton(
-        icon: Icon(
-          suffixIcon,
-          color: const Color(0xff545454),
-          size: 17,
-        ),
-        onPressed: () {
-          onPressed();
-        },
-      ),
-      hintText: hint,
-      border: const OutlineInputBorder(
-        borderSide: BorderSide(width: 1, color: AppColors.primaryLight),
-        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-      ),
-    contentPadding: const EdgeInsets.symmetric(vertical: 0.0),
+    hintText: hint,
+    border: const OutlineInputBorder(
+      borderSide: BorderSide(color: AppColors.grey),
+      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+    ),
+    contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
   );
 }

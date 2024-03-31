@@ -21,8 +21,7 @@ class AppStrings {
   static const String unknownError = 'خطأ غير معروف';
   static const String wrongData = 'بيانات الدخول غير صحيحة';
   // Validators
-  static const String requiredField = "Required field";
-  static const String makeSureCorrectMail = "Please make sure you enter the correct email.";
+  static const String requiredField = "هذا الحقل مطلوب";
 
   // Dialogs
   // Loading
@@ -46,7 +45,7 @@ class AppStrings {
 
   // Start Screen
   static const String startScreenHello = 'مرحبا..';
-  static const String startScreenHelloDesc = 'يرجى تسجيل الدخول للوصول إلى خدماتنا وبدء تجربتك مع ثلاجة';
+  static const String startScreenHelloDesc = 'يرجى تسجيل الدخول للوصول إلى خدماتنا\nوبدء تجربتك مع ثلاجة';
   static const String startScreenLoginButton = 'تسجيل الدخول';
   static const String startScreenRegisterButton = 'مستخدم جديد';
 
