@@ -19,7 +19,7 @@ import '../../../core/enums/auth_enums.dart';
 import '../../../core/services/services_locator.dart';
 import '../bloc/auth_bloc.dart';
 import '../components/phone_form_field.dart';
-import '../components/login_button.dart';
+import '../components/auth_button.dart';
 import '../components/password_form_field.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  const AuthAppBar(),
+                  const AuthAppBar(title: AppStrings.loginScreenTitle,),
                   Container(
                     padding: EdgeInsets.only(
                       top: context.dynamicHeight(.04),
@@ -121,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ],
                             ),
                             24.ph,
-                            LoginButton(
+                            AuthButton(
                               onTap: () {
                                 if (validate != null && validate == true) {
                                   showLoading(context);
@@ -130,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     passwordController.text.trim(),
                                   ));
                                 }
-                              },
+                              }, text: AppStrings.loginScreenLoginButton,
                             ),
                             context.dynamicHeight(.21).ph,
                             Row(

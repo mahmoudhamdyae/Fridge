@@ -2,13 +2,13 @@ class RegisterRequest {
   String? name;
   String? phone;
   String? password;
-  String? confirmPassword;
+  String? address;
 
   RegisterRequest({
     this.name,
     this.phone,
     this.password,
-    this.confirmPassword,
+    this.address,
   });
 
   Map<String, dynamic> toJson() {
@@ -16,7 +16,7 @@ class RegisterRequest {
       'name': name,
       'phone': phone,
       'password': password,
-      'confirm_password': confirmPassword,
+      'address': address,
     };
   }
 }

@@ -1,14 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
+import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/resources/app_assets.dart';
 import 'package:fridge/core/resources/app_colors.dart';
-import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 
 class AuthAppBar extends StatelessWidget {
-  const AuthAppBar({super.key});
+
+  final String title;
+  const AuthAppBar({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,9 @@ class AuthAppBar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    NavigateUtil().navigateUp(context);
+                  },
                   icon: const Icon(
                     Icons.arrow_back,
                     color: AppColors.white,
@@ -33,7 +35,7 @@ class AuthAppBar extends StatelessWidget {
                     bottom: context.dynamicHeight(0.035),
                 ),
                 child: Text(
-                  AppStrings.loginScreenTitle,
+                  title,
                   style: getLargeStyle(
                     fontSize: 24.0,
                     color: AppColors.white

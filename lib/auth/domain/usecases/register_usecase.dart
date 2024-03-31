@@ -7,7 +7,7 @@ class RegisterUsecase {
 
   RegisterUsecase(this.repository);
 
-  Future<Either<Failure, void>> call(String name, String phone, String password, String confirmPassword) async {
-    return await repository.register(name: name, phone: phone, password: password, confirmPassword: confirmPassword);
+  Future<Either<Failure, void>> call(String name, String phone, String password, String address) async {
+    return await repository.register(name: name, phone: phone, password: password, address: address);
   }
 }

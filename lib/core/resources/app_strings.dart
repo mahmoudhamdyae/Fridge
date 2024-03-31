@@ -74,7 +74,7 @@ class AppStrings {
   static const String registerScreenPasswordHint = 'ادخل كلمة السر';
   static const String registerScreenAddressLabel = 'العنوان';
   static const String registerScreenAddressHint = 'ادخل العنوان';
-  static const String registerScreenRegisterButton = 'تسجيل الدخول';
+  static const String registerScreenRegisterButton = 'انشاء حساب';
   static const String registerScreenExistingAccount = 'لديك حساب بالفعل؟';
   static const String registerScreenLogin = 'تسجيل الدخول';
 

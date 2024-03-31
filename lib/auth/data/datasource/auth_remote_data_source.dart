@@ -23,7 +23,7 @@ abstract class AuthRemoteDataSource {
     required String name,
     required String phone,
     required String password,
-    required String confirmPassword,
+    required String address,
   });
 }
 
@@ -62,7 +62,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     required String name,
     required String phone,
     required String password,
-    required String confirmPassword,
+    required String address,
   }) async {
     try {
       var response = await dioManager.dio.post(
@@ -71,7 +71,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
           name: name,
           phone: phone,
           password: password,
-          confirmPassword: confirmPassword,
+          address: address,
         ).toJson(),
       );
 
