@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fridge/auth/presentation/screens/login_screen.dart';
 import 'package:fridge/auth/presentation/screens/register_screen.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
@@ -50,11 +49,13 @@ class _MainScreenState extends State<MainScreen> {
             _controller.index = 0;
           });
         },
-        // textStyle: getSmallStyle(fontSize: 14.0),
-        iconSize: 20,
+        textStyle: getSmallStyle(
+            fontSize: 14.0,
+            color: _selectedIndex == 0 ? const Color(0xff2D5AAF) : AppColors.dark3
+        ),
         icon: _selectedIndex == 0 ? Image.asset(AppAssets.homeSelected, width: 20, height: 20,) : Image.asset(AppAssets.home, width: 20, height: 20,),
         title: AppStrings.bottomBarMain,
-        // activeColorPrimary: AppColors.primary,
+        activeColorPrimary: const Color(0xff2D5AAF),
       ),
       PersistentBottomNavBarItem(
         onPressed: (BuildContext? context) {
@@ -63,11 +64,13 @@ class _MainScreenState extends State<MainScreen> {
             _controller.index = 1;
           });
         },
-        // textStyle: getSmallStyle(fontSize: 14.0),
-        icon: _selectedIndex == 1 ? Image.asset(AppAssets.clientsSelected,) : Image.asset(AppAssets.clients,),
+        textStyle: getSmallStyle(
+            fontSize: 14.0,
+            color: _selectedIndex == 1 ? const Color(0xff2D5AAF) : AppColors.dark3
+        ),
+        icon: _selectedIndex == 1 ? Image.asset(AppAssets.clientsSelected, width: 20, height: 20,) : Image.asset(AppAssets.clients, width: 20, height: 20,),
         title: AppStrings.bottomBarClients,
-        iconSize: 20,
-        // activeColorPrimary: AppColors.primary,
+        activeColorPrimary: const Color(0xff2D5AAF),
       ),
       PersistentBottomNavBarItem(
         onPressed: (BuildContext? context) {
@@ -76,11 +79,13 @@ class _MainScreenState extends State<MainScreen> {
             _controller.index = 2;
           });
         },
-        iconSize: 20,
-        // textStyle: getSmallStyle(fontSize: 14.0),
-        icon: _selectedIndex == 2 ? Image.asset(AppAssets.fridgeSelected,) : Image.asset(AppAssets.fridge,),
+        textStyle: getSmallStyle(
+            fontSize: 14.0,
+            color: _selectedIndex == 2 ? const Color(0xff2D5AAF) : AppColors.dark3
+        ),
+        icon: _selectedIndex == 2 ? Image.asset(AppAssets.fridgeSelected, width: 20, height: 20,) : Image.asset(AppAssets.fridge, width: 20, height: 20,),
         title: AppStrings.bottomBarFridge,
-        // activeColorPrimary: AppColors.primary,
+        activeColorPrimary: const Color(0xff2D5AAF),
       ),
       PersistentBottomNavBarItem(
         onPressed: (BuildContext? context) {
@@ -89,11 +94,13 @@ class _MainScreenState extends State<MainScreen> {
             _controller.index = 3;
           });
         },
-        iconSize: 20,
-        // textStyle: getSmallStyle(fontSize: 14.0),
-        icon: _selectedIndex == 3 ? Image.asset(AppAssets.reportsSelected,) : Image.asset(AppAssets.reports,),
+        textStyle: getSmallStyle(
+            fontSize: 14.0,
+            color: _selectedIndex == 3 ? const Color(0xff2D5AAF) : AppColors.dark3
+        ),
+        icon: _selectedIndex == 3 ? Image.asset(AppAssets.reportsSelected, width: 20, height: 20,) : Image.asset(AppAssets.reports, width: 20, height: 20,),
         title: AppStrings.bottomBarReports,
-        // activeColorPrimary: AppColors.primary,
+        activeColorPrimary: const Color(0xff2D5AAF),
       ),
     ];
   }
@@ -128,7 +135,7 @@ class _MainScreenState extends State<MainScreen> {
           curve: Curves.ease,
           duration: AppConstants.sliderAnimationTime,
         ),
-        navBarStyle: NavBarStyle.style6 // Choose the nav bar style with this property.
+        navBarStyle: NavBarStyle.style6
       ),
     );
   }
