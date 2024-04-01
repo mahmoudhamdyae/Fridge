@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/resources/font_manager.dart';
 
 import '../../../core/resources/app_strings.dart';
@@ -10,7 +11,8 @@ class CancelButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => {
+      onTap: () {
+        NavigateUtil().navigateUp(context);
       },
       borderRadius: const BorderRadius.all(Radius.circular(15.0)),
       child: Padding(
