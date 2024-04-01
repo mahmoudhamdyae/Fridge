@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:fridge/core/components/decorations.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/resources/app_colors.dart';
-import 'package:fridge/home/presentation/composables/home_screen_item.dart';
 
 import '../../../core/components/appbar.dart';
 import '../../../core/resources/app_strings.dart';
 import '../../../core/resources/font_manager.dart';
 import '../../../core/resources/styles_manager.dart';
+import '../components/home_screen_item.dart';
 
 class HomeScreen extends StatelessWidget {
 

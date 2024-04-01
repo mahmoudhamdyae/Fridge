@@ -4,8 +4,8 @@ import 'package:flutter/painting.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/resources/font_manager.dart';
 
-import '../../../../core/resources/app_colors.dart';
-import '../../../../core/resources/styles_manager.dart';
+import '../../../core/resources/app_colors.dart';
+import '../../../core/resources/styles_manager.dart';
 
 class TraderDealerButton extends StatelessWidget {
 

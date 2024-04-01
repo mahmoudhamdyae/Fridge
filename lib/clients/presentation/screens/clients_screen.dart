@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
-import 'package:fridge/home/presentation/composables/clients/add_client_button.dart';
-import 'package:fridge/home/presentation/composables/clients/client_details_button.dart';
 
 import '../../../core/components/appbar.dart';
 import '../../../core/components/decorations.dart';
+import '../components/add_client_button.dart';
+import '../components/client_details_button.dart';
 
 class ClientsScreen extends StatelessWidget {
   const ClientsScreen({super.key});
@@ -22,7 +22,7 @@ class ClientsScreen extends StatelessWidget {
               physics: const ClampingScrollPhysics(),
               children: [
                 const MainAppBar(),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     AddClientButton(),
@@ -32,8 +32,6 @@ class ClientsScreen extends StatelessWidget {
                 ListView(
                   shrinkWrap: true,
                   physics: const ClampingScrollPhysics(),
-                  children: [
-                  ],
                 )
               ],
             ),

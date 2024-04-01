@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fridge/core/resources/font_manager.dart';
 
-import '../../../../core/resources/app_strings.dart';
-import '../../../../core/resources/styles_manager.dart';
+import '../../../core/resources/app_strings.dart';
+import '../../../core/resources/styles_manager.dart';
 
 class CancelButton extends StatelessWidget {
   const CancelButton({super.key});

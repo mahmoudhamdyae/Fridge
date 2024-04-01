@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fridge/auth/presentation/screens/login_screen.dart';
-import 'package:fridge/auth/presentation/screens/register_screen.dart';
-import 'package:fridge/home/presentation/screens/clients_screen.dart';
+import 'package:fridge/clients/presentation/screens/clients_screen.dart';
+import 'package:fridge/reports/presentation/screens/reports_screen.dart';
+import 'package:fridge/ward/presentation/screens/ward_screen.dart';
 import '../../../core/resources/app_assets.dart';
 import '../../../core/resources/app_colors.dart';
 import '../../../core/resources/app_strings.dart';
@@ -26,8 +26,8 @@ class _MainScreenState extends State<MainScreen> {
         _onItemTapped(index);
       },),
       const ClientsScreen(),
-      const RegisterScreen(),
-      const LoginScreen(),
+      const WardScreen(),
+      const ReportsScreen(),
     ];
   }
 

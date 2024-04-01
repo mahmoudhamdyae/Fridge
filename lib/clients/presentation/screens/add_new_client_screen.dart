@@ -5,11 +5,11 @@ import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/font_manager.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
-import 'package:fridge/home/presentation/composables/clients/cancel_button.dart';
-import 'package:fridge/home/presentation/composables/clients/next_button.dart';
-import 'package:fridge/home/presentation/composables/clients/trader_dealer_button.dart';
 
 import '../../../core/components/decorations.dart';
+import '../components/cancel_button.dart';
+import '../components/next_button.dart';
+import '../components/trader_dealer_button.dart';
 
 class AddNewClientScreen extends StatelessWidget {
   const AddNewClientScreen({super.key});
@@ -26,8 +26,8 @@ class AddNewClientScreen extends StatelessWidget {
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
               children: [
-                MainAppBar(),
-                SecondaryAppBar(
+                const MainAppBar(),
+                const SecondaryAppBar(
                     text: AppStrings.addClientScreenAddClient,
                     icon: Icons.person_add_sharp
                 ),
