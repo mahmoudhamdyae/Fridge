@@ -26,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
         _onItemTapped(index);
       },),
       const ClientsScreen(),
-      const WardScreen(),
+      WardScreen(),
       const ReportsScreen(),
     ];
   }
