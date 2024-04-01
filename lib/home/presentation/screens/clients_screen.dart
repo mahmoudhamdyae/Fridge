@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
-import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/home/presentation/composables/clients/add_client_button.dart';
 import 'package:fridge/home/presentation/composables/clients/client_details_button.dart';
-import 'package:fridge/home/presentation/composables/home_screen_item.dart';
 
 import '../../../core/components/appbar.dart';
 import '../../../core/components/decorations.dart';
@@ -29,6 +27,12 @@ class ClientsScreen extends StatelessWidget {
                   children: [
                     AddClientButton(),
                     ClientDetailsButton()
+                  ],
+                ),
+                ListView(
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+                  children: [
                   ],
                 )
               ],

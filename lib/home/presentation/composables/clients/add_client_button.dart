@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/core/resources/app_strings.dart';
+import 'package:fridge/home/presentation/screens/add_new_client_screen.dart';
 
 import '../../../../core/resources/styles_manager.dart';
 
@@ -10,7 +12,8 @@ class AddClientButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => {
+      onTap: () {
+        NavigateUtil().navigateToScreen(context, const AddNewClientScreen());
       },
       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
       child: Container(
