@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fridge/core/extensions/context_extension.dart';
+import 'package:fridge/core/components/decorations.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/home/presentation/composables/home_screen_item.dart';
@@ -10,7 +10,9 @@ import '../../../core/resources/font_manager.dart';
 import '../../../core/resources/styles_manager.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+
+  final Function(int) onItemClick;
+  const HomeScreen({super.key, required this.onItemClick});
 
   @override
   Widget build(BuildContext context) {
@@ -35,17 +37,8 @@ class HomeScreen extends StatelessWidget {
               }
             },),
         )*/Container(
-          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidth(0.04)),
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  AppColors.white,
-                  AppColors.primaryLight,
-                ],
-              )
-          ),
+          padding: getMainPadding(context),
+          decoration: getMainDecoration(),
           child: ListView(
             shrinkWrap: true,
             physics: const ClampingScrollPhysics(),
@@ -62,14 +55,13 @@ class HomeScreen extends StatelessWidget {
                       color: AppColors.dark2
                   )
                 ),
-                // controller: addressController,
                 textInputAction: TextInputAction.done,
                 keyboardType: TextInputType.text,
               ),
               12.ph,
               HomeScreenItem(
                 text: AppStrings.homeScreenClients,
-                onTab: () {},
+                onTab: () { onItemClick(1); },
               ),
               HomeScreenItem(
                 text: AppStrings.homeScreenSettings,
@@ -85,7 +77,7 @@ class HomeScreen extends StatelessWidget {
               ),
               HomeScreenItem(
                 text: AppStrings.homeScreenReports,
-                onTab: () {},
+                onTab: () { onItemClick(3); },
               ),
               16.ph,
             ],

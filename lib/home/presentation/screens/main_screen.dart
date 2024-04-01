@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fridge/auth/presentation/screens/login_screen.dart';
 import 'package:fridge/auth/presentation/screens/register_screen.dart';
+import 'package:fridge/home/presentation/screens/clients_screen.dart';
 import '../../../core/resources/app_assets.dart';
 import '../../../core/resources/app_colors.dart';
 import '../../../core/resources/app_strings.dart';
@@ -15,12 +16,20 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
-    LoginScreen(),
-    RegisterScreen(),
-    HomeScreen(),
-  ];
+  late final List<Widget> _widgetOptions;
+
+  @override
+  void initState() {
+    super.initState();
+    _widgetOptions = <Widget>[
+      HomeScreen(onItemClick: (int index) {
+        _onItemTapped(index);
+      },),
+      const ClientsScreen(),
+      const RegisterScreen(),
+      const LoginScreen(),
+    ];
+  }
 
   void _onItemTapped(int index) {
     setState(() {
