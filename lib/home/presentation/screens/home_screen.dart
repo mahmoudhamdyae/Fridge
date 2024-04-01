@@ -87,6 +87,7 @@ class HomeScreen extends StatelessWidget {
                 text: AppStrings.homeScreenReports,
                 onTab: () {},
               ),
+              16.ph,
             ],
           ),
         ),
