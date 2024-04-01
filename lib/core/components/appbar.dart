@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
-import 'package:fridge/core/resources/app_assets.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/font_manager.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
@@ -82,26 +81,22 @@ class SecondaryAppBarWithImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: context.width,
-      height: context.dynamicHeight(.07),
-      child: Row(
-        children: [
-          Image.asset(
-            image,
-            width: 25,
-            height: 25,
+    return Row(
+      children: [
+        Image.asset(
+          image,
+          width: 25,
+          height: 25,
+        ),
+        16.pw,
+        Text(
+          text,
+          textAlign: TextAlign.center,
+          style: getLargeStyle(
+            fontSize: 24.0,
           ),
-          16.pw,
-          Text(
-            text,
-            textAlign: TextAlign.center,
-            style: getLargeStyle(
-              fontSize: 24.0,
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
