@@ -28,5 +28,6 @@ abstract class AuthRepository {
     required String phone,
     required String password,
     required String address,
+    required String fridgeName,
   });
 }

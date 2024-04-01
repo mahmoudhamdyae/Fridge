@@ -5,6 +5,8 @@ import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/font_manager.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
+import 'package:fridge/home/presentation/composables/clients/cancel_button.dart';
+import 'package:fridge/home/presentation/composables/clients/next_button.dart';
 import 'package:fridge/home/presentation/composables/clients/trader_dealer_button.dart';
 
 import '../../../core/components/decorations.dart';
@@ -49,7 +51,11 @@ class AddNewClientScreen extends StatelessWidget {
                     ),
                     8.pw,
                   ],
-                )
+                ),
+                32.ph,
+                const NextButton(),
+                8.ph,
+                const CancelButton(),
               ],
             ),
           ),

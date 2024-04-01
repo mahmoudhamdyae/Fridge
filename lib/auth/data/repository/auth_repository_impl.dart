@@ -55,9 +55,9 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<Failure, void>> register({required String name, required String phone, required String password, required String address}) async {
+  Future<Either<Failure, void>> register({required String name, required String phone, required String password, required String address, required String fridgeName}) async {
     try {
-      final result = await remoteDataSource.register(name: name, phone: phone, password: password, address: address);
+      final result = await remoteDataSource.register(name: name, phone: phone, password: password, address: address, fridgeName: fridgeName);
       localDataSource.updateToken(result);
       return const Right(null);
     } on ServerException catch(failure) {

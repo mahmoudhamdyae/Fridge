@@ -24,6 +24,7 @@ abstract class AuthRemoteDataSource {
     required String phone,
     required String password,
     required String address,
+    required String fridgeName,
   });
 }
 
@@ -63,6 +64,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     required String phone,
     required String password,
     required String address,
+    required String fridgeName,
   }) async {
     try {
       var response = await dioManager.dio.post(
@@ -72,6 +74,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
           phone: phone,
           password: password,
           address: address,
+          fridgeName: fridgeName
         ).toJson(),
       );
 

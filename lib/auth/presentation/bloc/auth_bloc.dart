@@ -90,7 +90,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         event.name,
         event.phone,
         event.password,
-        event.address
+        event.address,
+        event.fridgeName
     );
     result.fold((l) {
       emit(AuthState.error(error: l.message));

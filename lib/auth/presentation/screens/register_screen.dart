@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/auth/presentation/components/auth_app_bar.dart';
+import 'package:fridge/auth/presentation/components/fridge_name_form_field.dart';
 import 'package:fridge/auth/presentation/components/name_form_field.dart';
 import 'package:fridge/auth/presentation/screens/login_screen.dart';
 import 'package:fridge/core/components/dialogs/loading_dialog.dart';
@@ -33,6 +34,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController fridgeNameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
 
   bool? get validate => _formKey.currentState?.validate();
@@ -113,6 +115,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                         8.ph,
+                        FridgeNameFormField(fridgeNameController: fridgeNameController),
+                        16.ph,
+                        Text(
+                          AppStrings.registerScreenAddressLabel,
+                          style: getSmallStyle(
+                            fontWeight: FontWeightManager.medium,
+                          ),
+                        ),
+                        8.ph,
                         AddressFormField(addressController: addressController),
                         24.ph,
                         AuthButton(
@@ -124,6 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 phoneController.text.trim(),
                                 passwordController.text.trim(),
                                 addressController.text.trim(),
+                                fridgeNameController.text.trim(),
                               ));
                             }
                           }, text: AppStrings.registerScreenRegisterButton,

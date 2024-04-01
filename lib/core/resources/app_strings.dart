@@ -12,12 +12,6 @@ class AppStrings {
   static const String onboardingDesc3 = 'onboardingDesc3';
 
   // Login Screen
-  static const String loginTitle = "You can log in with your information.";
-  static const String loginButtonText = "LOGIN";
-  static const String phoneTitle = "رقم الهاتف";
-  static const String passwordTitle = "كلمة السر";
-  static const String emailHint = 'example@gmail.com';
-  static const String passwordHint = '···········';
   static const String unknownError = 'خطأ غير معروف';
   static const String wrongData = 'بيانات الدخول غير صحيحة';
   // Validators
@@ -74,6 +68,8 @@ class AppStrings {
   static const String registerScreenPasswordHint = 'ادخل كلمة السر';
   static const String registerScreenAddressLabel = 'العنوان';
   static const String registerScreenAddressHint = 'ادخل العنوان';
+  static const String registerScreenFridgeNameLabel = 'اسم الثلاجة';
+  static const String registerScreenFridgeNameHint = 'ادخل اسم الثلاجة';
   static const String registerScreenRegisterButton = 'انشاء حساب';
   static const String registerScreenExistingAccount = 'لديك حساب بالفعل؟';
   static const String registerScreenLogin = 'تسجيل الدخول';

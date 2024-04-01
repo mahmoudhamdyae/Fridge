@@ -24,8 +24,9 @@ class RegisterRequested extends AuthEvent {
   final String phone;
   final String password;
   final String address;
+  final String fridgeName;
 
-  const RegisterRequested(this.name, this.phone, this.password, this.address);
+  const RegisterRequested(this.name, this.phone, this.password, this.address, this.fridgeName);
 
   @override
   List<Object?> get props => [name, phone, password, address];

@@ -3,12 +3,14 @@ class RegisterRequest {
   String? phone;
   String? password;
   String? address;
+  String? fridgeName;
 
   RegisterRequest({
     this.name,
     this.phone,
     this.password,
     this.address,
+    this.fridgeName,
   });
 
   Map<String, dynamic> toJson() {
@@ -17,6 +19,7 @@ class RegisterRequest {
       'phone': phone,
       'password': password,
       'address': address,
+      'fridge_name': fridgeName
     };
   }
 }
