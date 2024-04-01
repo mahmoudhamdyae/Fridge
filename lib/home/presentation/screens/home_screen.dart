@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fridge/core/components/decorations.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
+import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/resources/app_colors.dart';
+import 'package:fridge/settings/presentation/screens/settings_screen.dart';
 
 import '../../../core/components/appbar.dart';
 import '../../../core/resources/app_strings.dart';
@@ -65,15 +67,17 @@ class HomeScreen extends StatelessWidget {
               ),
               HomeScreenItem(
                 text: AppStrings.homeScreenSettings,
-                onTab: () {},
+                onTab: () {
+                  NavigateUtil().navigateToScreen(context, const SettingsScreen());
+                },
               ),
               HomeScreenItem(
                 text: AppStrings.homeScreenWards,
-                onTab: () {},
+                onTab: () { onItemClick(2); },
               ),
               HomeScreenItem(
                 text: AppStrings.homeScreenExpenses,
-                onTab: () {},
+                onTab: () { onItemClick(3); },
               ),
               HomeScreenItem(
                 text: AppStrings.homeScreenReports,
