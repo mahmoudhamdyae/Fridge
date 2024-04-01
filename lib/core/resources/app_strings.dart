@@ -117,7 +117,7 @@ class AppStrings {
   static const String addClientScreenNumberLabel = 'العدد';
   static const String addClientScreenUnitWeightLabel = 'الوزن للوحدة';
   static const String addClientScreenTotalWeightLabel = 'الوزن الكلى';
-  static const String addClientScreenStorePriceLabel = 'سعر التخزين';
+  static const String addClientScreenStorePriceLabel = 'سعر التخزين للوحدة';
   static const String addClientScreenAddProduct = 'إضافة منتج آخر';
 
 
@@ -132,8 +132,8 @@ class AppStrings {
   static const String billClientScreenDealer = 'أهالى';
   static const String billScreenProduct = 'المنتج';
   static const String billScreenQuantity = 'الكمية';
-  static const String billScreenWardsNumber = 'عدد العنابر';
-  static const String billScreenWardArea = 'مساحة العنبر';
+  static const String billScreenWardsNumber = 'رقم العنبر';
+  static const String billScreenWardArea = 'أبعاد التخزين';
   static const String billScreenStoreType = 'طريقة التخزين';
   static const String billScreenPrice = 'سعر الوحدة';
   static const String billScreenTotalPrice = 'المبلغ المدفوع';
