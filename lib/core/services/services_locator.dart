@@ -1,5 +1,5 @@
-import 'package:fridge/auth/data/datasource/auth_local_data_source.dart';
-import 'package:fridge/auth/data/datasource/auth_remote_data_source.dart';
+import 'package:fridge/auth/data/data_source/auth_local_data_source.dart';
+import 'package:fridge/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:fridge/auth/data/repository/auth_repository_impl.dart';
 import 'package:fridge/auth/domain/repository/auth_repository.dart';
 import 'package:fridge/auth/domain/usecases/is_first_entry_usecase.dart';
@@ -16,6 +16,12 @@ import 'package:fridge/home/domain/usecases/store_product_usecase.dart';
 import 'package:fridge/home/domain/usecases/update_product_usecase.dart';
 import 'package:fridge/home/presentation/bloc/home_bloc.dart';
 import 'package:fridge/onboarding/presentation/bloc/onboarding_bloc.dart';
+import 'package:fridge/settings/data/data_source/settings_remote_data_source.dart';
+import 'package:fridge/settings/data/repository/settings_repository_impl.dart';
+import 'package:fridge/settings/domain/repository/settings_repository.dart';
+import 'package:fridge/settings/domain/usecases/get_settings_usecase.dart';
+import 'package:fridge/settings/domain/usecases/update_settings_usecase.dart';
+import 'package:fridge/settings/presentation/bloc/settings_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -80,5 +86,21 @@ class ServicesLocator {
     // DATA SOURCE
     instance.registerLazySingleton<HomeRemoteDataSource>(
             () => HomeRemoteDataSourceImpl(DioManager.instance));
+
+
+    /// Settings
+    instance.registerLazySingleton(() => SettingsBloc(
+      instance<GetSettingsUsecase>(),
+      instance<UpdateSettingsUsecase>(),
+    ));
+    // Use Cases
+    instance.registerLazySingleton(() => GetSettingsUsecase(instance<SettingsRepository>()));
+    instance.registerLazySingleton(() => UpdateSettingsUsecase(instance<SettingsRepository>()));
+    // Repository
+    instance.registerLazySingleton<SettingsRepository>(
+            () => SettingsRepositoryImpl(instance<SettingsRemoteDataSource>()));
+    // DATA SOURCE
+    instance.registerLazySingleton<SettingsRemoteDataSource>(
+            () => SettingsRemoteDataSourceImpl(DioManager.instance));
   }
 }

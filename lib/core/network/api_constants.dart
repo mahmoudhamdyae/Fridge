@@ -13,4 +13,7 @@ class ApiConstants {
   static const String storeProductPath = "app/products/store";
   static const String updateProductPath = "app/products/update";
   static String delProductPath(int productId) => "app/products/delete/$productId";
+
+  /// Settings
+  static const String getSettingsPath = "app/setting";
 }

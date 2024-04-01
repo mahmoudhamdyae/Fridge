@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:fridge/auth/data/datasource/auth_local_data_source.dart';
-import 'package:fridge/auth/data/datasource/auth_remote_data_source.dart';
+import 'package:fridge/auth/data/data_source/auth_local_data_source.dart';
+import 'package:fridge/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:fridge/core/error/failure.dart';
 
 abstract class AuthRepository {
