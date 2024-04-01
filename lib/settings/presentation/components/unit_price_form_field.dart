@@ -6,7 +6,12 @@ import '../../../core/utils/validate_operations.dart';
 
 class UnitPriceFormField extends StatelessWidget {
 
-  const UnitPriceFormField({super.key});
+  final TextEditingController unitPriceController;
+  const UnitPriceFormField({
+    super.key,
+    required this.unitPriceController,
+  });
+
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +19,7 @@ class UnitPriceFormField extends StatelessWidget {
       decoration: getFilledTextFieldDecoration(
         hint: AppStrings.settingsScreenUnitPriceHint,
       ),
+      controller: unitPriceController,
       textInputAction: TextInputAction.done,
       keyboardType: TextInputType.number,
       validator: (value) => ValidateOperations.normalValidation(value),

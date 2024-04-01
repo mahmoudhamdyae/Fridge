@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fridge/clients/presentation/components/cancel_button.dart';
 import 'package:fridge/core/components/appbar.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
@@ -29,6 +27,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   TextEditingController productTypeController = TextEditingController();
   String packagingTypeController = '';
   TextEditingController unitPriceController = TextEditingController();
+  String _unit = AppStrings.settingsScreenUnitKiloGram;
 
   bool? get validate => _formKey.currentState?.validate();
 
@@ -97,19 +96,66 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   8.ph,
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      // ListTile(
-                      //   title: const Text(AppStrings.settingsScreenUnitGram),
-                      //   leading: Radio(
-                      //     value: true,
-                      //     groupValue: _site,
-                      //     onChanged: (String value) {
-                      //       setState(() {
-                      //         _site = value;
-                      //       });
-                      //     },
-                      //   ),
+                      Row(
+                        children: [
+                          Radio(
+                              value: AppStrings.settingsScreenUnitGram,
+                              groupValue: _unit,
+                              onChanged: (value){
+                                setState(() {
+                                  _unit = value ?? '';
+                                });
+                              }
+                          ),
+                          Text(
+                            AppStrings.settingsScreenUnitGram,
+                            style: getSmallStyle(
+                              fontWeight: FontWeightManager.medium
+                            ),
+                          )
                         ],
+                      ),
+                      Row(
+                        children: [
+                          Radio(
+                              value: AppStrings.settingsScreenUnitKiloGram,
+                              groupValue: _unit,
+                              onChanged: (value){
+                                setState(() {
+                                  _unit = value ?? '';
+                                });
+                              }
+                          ),
+                          Text(
+                            AppStrings.settingsScreenUnitKiloGram,
+                            style: getSmallStyle(
+                                fontWeight: FontWeightManager.medium
+                            ),
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Radio(
+                              value: AppStrings.settingsScreenUnitTon,
+                              groupValue: _unit,
+                              onChanged: (value){
+                                setState(() {
+                                  _unit = value ?? '';
+                                });
+                              }
+                          ),
+                          Text(
+                            AppStrings.settingsScreenUnitTon,
+                            style: getSmallStyle(
+                                fontWeight: FontWeightManager.medium
+                            ),
+                          )
+                        ],
+                      ),
+                    ]
                   ),
                   8.ph,
                   32.ph,
@@ -123,8 +169,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                       ),
                       16.pw,
-                      const Expanded(
-                          child: UnitPriceFormField()
+                      Expanded(
+                          child: UnitPriceFormField(unitPriceController: unitPriceController,)
                       ),
                     ],
                   ),

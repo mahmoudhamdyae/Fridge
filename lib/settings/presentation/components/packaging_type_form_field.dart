@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 
 import '../../../core/resources/app_strings.dart';
+import '../../../core/utils/validate_operations.dart';
 
-class PackagingTypeFormField extends StatelessWidget {
+class PackagingTypeFormField extends StatefulWidget {
 
   final Function(String) chosenPackage;
   const PackagingTypeFormField({
@@ -11,15 +12,26 @@ class PackagingTypeFormField extends StatelessWidget {
     required this.chosenPackage,
   });
 
+  @override
+  State<PackagingTypeFormField> createState() => _PackagingTypeFormFieldState();
+}
+
+class _PackagingTypeFormFieldState extends State<PackagingTypeFormField> {
+
+  String text = AppStrings.settingsScreenPackagingTypeHint;
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField(
+        validator: (value) => ValidateOperations.normalValidation(text == AppStrings.settingsScreenPackagingTypeHint ? null : text),
         decoration: getFilledTextFieldDecoration(hint: AppStrings.settingsScreenPackagingTypeHint),
         isExpanded: true,
         value: AppStrings.settingsScreenPackagingTypeHint,
         onChanged: (newValue) {
-          chosenPackage(newValue ?? AppStrings.settingsScreenPackagingTypeHint);
+          setState(() {
+            text = newValue ?? AppStrings.settingsScreenPackagingTypeHint;
+          });
+          widget.chosenPackage(newValue ?? AppStrings.settingsScreenPackagingTypeHint);
         },
         style: getSmallStyle(),
         items: [
