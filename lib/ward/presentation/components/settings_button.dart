@@ -5,14 +5,13 @@ import 'package:fridge/settings/presentation/screens/settings_screen.dart';
 
 class SettingsButton extends StatelessWidget {
 
-  const SettingsButton({super.key});
+  final Function onTab;
+  const SettingsButton({super.key, required this.onTab});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        NavigateUtil().navigateToScreen(context, const SettingsScreen());
-      },
+      onTap: () { onTab(); },
       child: Container(
         decoration: BoxDecoration(
           color: const Color(0xff193263),

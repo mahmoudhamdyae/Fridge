@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fridge/clients/presentation/screens/clients_screen.dart';
 import 'package:fridge/reports/presentation/screens/reports_screen.dart';
-import 'package:fridge/ward/presentation/screens/ward_screen.dart';
+import 'package:fridge/ward/presentation/screens/wards_screen.dart';
 import '../../../core/resources/app_assets.dart';
 import '../../../core/resources/app_colors.dart';
 import '../../../core/resources/app_strings.dart';
@@ -26,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
         _onItemTapped(index);
       },),
       const ClientsScreen(),
-      WardScreen(),
+      WardsScreen(),
       const ReportsScreen(),
     ];
   }

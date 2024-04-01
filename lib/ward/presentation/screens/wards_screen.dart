@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:fridge/core/components/appbar.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
-import 'package:fridge/ward/presentation/screens/ward_settings_screen.dart';
+import 'package:fridge/core/navigation/navigate_util.dart';
+import 'package:fridge/core/resources/app_assets.dart';
+import 'package:fridge/core/resources/app_colors.dart';
+import 'package:fridge/core/resources/app_strings.dart';
+import 'package:fridge/core/resources/font_manager.dart';
+import 'package:fridge/core/resources/styles_manager.dart';
+import 'package:fridge/ward/presentation/components/settings_button.dart';
+import 'package:fridge/ward/presentation/screens/ward_screen.dart';
 
-import '../../../core/components/appbar.dart';
 import '../../../core/components/decorations.dart';
-import '../../../core/navigation/navigate_util.dart';
-import '../../../core/resources/app_assets.dart';
-import '../../../core/resources/app_strings.dart';
 import '../../../settings/presentation/screens/settings_screen.dart';
-import '../components/settings_button.dart';
 
-class WardScreen extends StatelessWidget {
+class WardsScreen extends StatelessWidget {
 
-  final String wardName;
-  const WardScreen({super.key, required this.wardName});
+  final List<String> _wards = [
+    'عنبر ١',
+    'عنبر ٢',
+    'عنبر ٣',
+    'عنبر ٤',
+    'عنبر ٥',
+  ];
+  WardsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +40,12 @@ class WardScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SecondaryAppBarWithImage(
-                      text: wardName,
-                      image: AppAssets.goods,
+                    const SecondaryAppBarWithImage(
+                        text: AppStrings.wardsScreenTitle,
+                        image: AppAssets.goods,
                     ),
                     SettingsButton(onTab: () {
-                      NavigateUtil().navigateToScreen(context, const WardSettingsScreen());
+                      NavigateUtil().navigateToScreen(context, const SettingsScreen());
                     },),
                   ],
                 ),
@@ -48,7 +57,7 @@ class WardScreen extends StatelessWidget {
                   crossAxisSpacing: 15,
                   mainAxisSpacing: 20,
                   childAspectRatio: 1.1,
-                  /*children: List.generate(_wards.length, (index) {
+                  children: List.generate(_wards.length, (index) {
                     return InkWell(
                       onTap: () {
                         NavigateUtil().navigateToScreen(context, WardScreen(wardName: _wards[index]));
@@ -60,17 +69,17 @@ class WardScreen extends StatelessWidget {
                         ),
                         child: Center(
                           child: Text(
-                            _wards[index],
+                              _wards[index],
                             style: getSmallStyle(
-                                color: AppColors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeightManager.medium
+                              color: AppColors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeightManager.medium
                             ),
                           ),
                         ),
                       ),
                     );
-                  })*/
+                  }),
                 )
               ],
             ),
