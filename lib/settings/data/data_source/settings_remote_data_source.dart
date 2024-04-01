@@ -42,7 +42,7 @@ class SettingsRemoteDataSourceImpl extends SettingsRemoteDataSource {
   Future<void> updateSettings(SettingsRequest request) async {
     try {
       var response = await dioManager.dio.post(
-        ApiConstants.loginPath,
+        ApiConstants.updateSettingsPath,
         data: request.toJson(),
       );
       if (response.statusCode != HttpStatus.ok) {

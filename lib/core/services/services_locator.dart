@@ -89,6 +89,8 @@ class ServicesLocator {
 
 
     /// Settings
+
+    // Bloc
     instance.registerLazySingleton(() => SettingsBloc(
       instance<GetSettingsUsecase>(),
       instance<UpdateSettingsUsecase>(),
