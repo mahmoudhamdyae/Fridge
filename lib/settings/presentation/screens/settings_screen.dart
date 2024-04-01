@@ -10,6 +10,7 @@ import 'package:fridge/settings/presentation/components/complete_button.dart';
 import 'package:fridge/settings/presentation/components/packaging_type_form_field.dart';
 import 'package:fridge/settings/presentation/components/product_type_form_field.dart';
 import 'package:fridge/settings/presentation/components/unit_price_form_field.dart';
+import 'package:fridge/settings/presentation/components/wards_number_form_field.dart';
 
 import '../../../core/components/decorations.dart';
 import '../../../core/resources/app_assets.dart';
@@ -24,6 +25,7 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  TextEditingController wardsNumberController = TextEditingController();
   TextEditingController productTypeController = TextEditingController();
   String packagingTypeController = '';
   TextEditingController unitPriceController = TextEditingController();
@@ -51,6 +53,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       image: AppAssets.goods
                   ),
                   16.ph,
+                  Row(
+                    children: [
+                      Text(
+                        AppStrings.settingsScreenWardsNumberLabel,
+                        style: getSmallStyle(
+                          fontWeight: FontWeightManager.medium,
+                          fontSize: 18.0,
+                        ),
+                      ),
+                      16.pw,
+                      Expanded(
+                          child: WardsNumberFormField(wardsNumberController: wardsNumberController,)
+                      ),
+                    ],
+                  ),
+                  32.ph,
                   Row(
                     children: [
                       Text(

@@ -148,6 +148,8 @@ class AppStrings {
   static const String settingsScreenUnitTon = 'طن';
   static const String settingsScreenUnitPriceLabel = 'سعر الوحدة';
   static const String settingsScreenUnitPriceHint = 'ادخل سعر الوحدة';
+  static const String settingsScreenWardsNumberLabel = 'عدد العنابر';
+  static const String settingsScreenWardsNumberHint = 'ادخل عدد العنابر';
   static const String settingsScreenCompleteButton = 'ادخال';
   static const String settingsScreenCancelButton = 'الغاء';
 
