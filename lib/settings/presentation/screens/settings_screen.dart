@@ -2,13 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/presentation/components/cancel_button.dart';
 import 'package:fridge/core/components/appbar.dart';
+import 'package:fridge/core/components/dialogs/error_dialog.dart';
+import 'package:fridge/core/components/dialogs/loading_dialog.dart';
+import 'package:fridge/core/components/states/error_screen.dart';
+import 'package:fridge/core/components/states/loading_screen.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
+import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/font_manager.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 import 'package:fridge/core/services/services_locator.dart';
 import 'package:fridge/settings/presentation/bloc/settings_bloc.dart';
+import 'package:fridge/settings/presentation/components/add_button.dart';
 import 'package:fridge/settings/presentation/components/complete_button.dart';
 import 'package:fridge/settings/presentation/components/packaging_type_form_field.dart';
 import 'package:fridge/settings/presentation/components/product_type_form_field.dart';
@@ -30,14 +36,37 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController wardsNumberController = TextEditingController();
   List<TextEditingController> productTypeController = [];
-  String packagingTypeController = '';
+  List<TextEditingController> addProductTypeController = [];
+  List<TextEditingController> packagingTypeController = [];
+  List<TextEditingController> addPackagingTypeController = [];
   TextEditingController unitPriceController = TextEditingController();
   String _unit = AppStrings.settingsScreenUnitKiloGram;
 
   bool? get validate => _formKey.currentState?.validate();
 
+
+  @override
+  void dispose() {
+    super.dispose();
+    for (var element in productTypeController) {
+      element.dispose();
+    }
+    for (var element in addProductTypeController) {
+      element.dispose();
+    }
+    for (var element in packagingTypeController) {
+      element.dispose();
+    }
+    for (var element in addPackagingTypeController) {
+      element.dispose();
+    }
+    wardsNumberController.dispose();
+    unitPriceController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    instance<SettingsBloc>().add(GetSettingsEvent());
     return SafeArea(
         child: Scaffold(
       body: Container(
@@ -46,28 +75,47 @@ class _SettingsScreenState extends State<SettingsScreen> {
         decoration: getMainDecoration(),
         child: BlocProvider(
           create: (BuildContext context) =>
-            instance<SettingsBloc>()..add(GetSettingsEvent()),
+            instance<SettingsBloc>()/*..add(GetSettingsEvent())*/,
           child: BlocConsumer<SettingsBloc, SettingsState>(
             listener: (BuildContext context, SettingsState state) {
-              // if (state.error != null) {
-              //   NavigateUtil().navigateUp(context);
-              //   showError(context, state.error ?? '', () {});
-              // } else if (state.status == AuthStatus.authenticated) {
-              //   NavigateUtil().navigateAndClear(context, const MainScreen());
-              // }
+              if (state.updateSettingsState == RequestState.loading) {
+                showLoading(context);
+              } else if (state.updateSettingsState == RequestState.error) {
+                NavigateUtil().navigateUp(context);
+                showError(context, state.updateSettingsErrorMessage, () {});
+              } else if (state.updateSettingsState == RequestState.loaded) {
+                NavigateUtil().navigateUp(context);
+                NavigateUtil().navigateUp(context);
+              }
             },
             builder: (context, state) {
               if (state.getSettingsState == RequestState.loading) {
+                return const LoadingScreen();
               } else if (state.getSettingsState == RequestState.error) {
+                return ErrorScreen(error: state.getSettingsErrorMessage);
               }
               wardsNumberController.text = (state.settingsResponse.data?.partsCount ?? '').toString();
               unitPriceController.text = (state.settingsResponse.data?.price ?? '').toString();
               _unit = (state.settingsResponse.data?.units ?? AppStrings.settingsScreenUnitKiloGram).toString();
+
+              // Product Type
               productTypeController = [];
               state.settingsResponse.data?.products?.forEach((element) {
                 productTypeController.add(TextEditingController(text: element));
+                for (var productToAdd in addProductTypeController) {
+                  productTypeController.add(TextEditingController(text: productToAdd.text));
+                }
               });
-              // return Container();
+
+              // Packaging Type
+              packagingTypeController = [];
+              state.settingsResponse.data?.boxing?.forEach((element) {
+                packagingTypeController.add(TextEditingController(text: element));
+                for (var packageToAdd in addPackagingTypeController) {
+                  packagingTypeController.add(TextEditingController(text: packageToAdd.text));
+                }
+              });
+
               return Form(
                 key: _formKey,
                 child: ListView(
@@ -99,6 +147,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     32.ph,
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           AppStrings.settingsScreenProductTypeLabel,
@@ -111,10 +160,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Expanded(
                             child: ProductTypeFormField(
                                 productTypeController: productTypeController)),
+                        12.pw,
+                        AddButton(onClick: () {
+                          setState(() {
+                            addProductTypeController.add(TextEditingController(text: ''));
+                          });
+                        },),
                       ],
                     ),
                     32.ph,
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           AppStrings.settingsScreenPackagingTypeLabel,
@@ -124,12 +180,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ),
                         ),
                         16.pw,
-                        Expanded(child: PackagingTypeFormField(
-                            chosenPackage: (String package) {
+                        Expanded(child: PackagingTypeFormField(packagingTypeController: packagingTypeController,)),
+                        12.pw,
+                        AddButton(onClick: () {
                           setState(() {
-                            packagingTypeController = package;
+                            addPackagingTypeController.add(TextEditingController(text: ''));
                           });
-                        })),
+                        },),
                       ],
                     ),
                     32.ph,
@@ -218,15 +275,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     CompleteButton(
                       onTap: () {
                         if (validate != null && validate == true) {
-                          // todo update event
-                          // BlocProvider.of<SettingsBloc>(context)
-                          //     .add(UpdateSettingsEvent(
-                          //     products,
-                          //     boxing,
-                          //     units,
-                          //     price,
-                          //     wardsNumber
-                          // ));
+                          List<String> product = [];
+                          for (var element in productTypeController) {
+                            product.add(element.text);
+                          }
+                          List<String> boxing = [];
+                          for (var element in packagingTypeController) {
+                            boxing.add(element.text);
+                          }
+                          BlocProvider.of<SettingsBloc>(context)
+                              .add(UpdateSettingsEvent(
+                              product,
+                              boxing,
+                              _unit,
+                              // int.parse(unitPriceController.text),
+                              // int.parse(wardsNumberController.text),
+                            1,1
+                          ));
                         }
                       },
                     ),

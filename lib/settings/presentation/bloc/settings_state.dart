@@ -15,7 +15,7 @@ class SettingsState extends Equatable {
     ),
     this.getSettingsState = RequestState.loading,
     this.getSettingsErrorMessage = '',
-    this.updateSettingsState = RequestState.loaded,
+    this.updateSettingsState = RequestState.init,
     this.updateSettingsErrorMessage = ''
   });
 

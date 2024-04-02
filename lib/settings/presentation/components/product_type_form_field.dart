@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fridge/core/extensions/num_extensions.dart';
 
 import '../../../core/resources/app_strings.dart';
 import '../../../core/resources/styles_manager.dart';
@@ -15,7 +16,7 @@ class ProductTypeFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: productTypeController.length,
@@ -29,7 +30,9 @@ class ProductTypeFormField extends StatelessWidget {
           keyboardType: TextInputType.text,
           validator: (value) => ValidateOperations.normalValidation(value),
         );
-      },
+      }, separatorBuilder: (BuildContext context, int index) {
+        return 8.ph;
+    },
     );
   }
 }

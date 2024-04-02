@@ -59,8 +59,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           products: products,
           boxing: boxing,
           units: data?.units,
-          price: int.parse(data?.price ?? '0'),
-          partsCount: data?.partsCount
+          price: int.parse(/*data?.price ?? */'10'),
+          partsCount: 12//data?.partsCount
         )
     );
     result.fold((l) {
