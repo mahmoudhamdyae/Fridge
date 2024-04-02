@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/core/components/appbar.dart';
+import 'package:fridge/core/components/states/error_screen.dart';
+import 'package:fridge/core/components/states/loading_screen.dart';
 import 'package:fridge/core/enums/request_state.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
@@ -18,15 +20,8 @@ import '../../../core/components/decorations.dart';
 import '../../../settings/presentation/screens/settings_screen.dart';
 
 class WardsScreen extends StatelessWidget {
-  final List<String> _wards = [
-    'عنبر ١',
-    'عنبر ٢',
-    'عنبر ٣',
-    'عنبر ٤',
-    'عنبر ٥',
-  ];
 
-  WardsScreen({super.key});
+  const WardsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +57,9 @@ class WardsScreen extends StatelessWidget {
               child: BlocBuilder<WardsBloc, WardsState>(
                 builder: (context, state) {
                   if (state.getWardsState == RequestState.loading) {
+                    return const LoadingScreen();
                   } else if (state.getWardsState == RequestState.error) {
+                    return ErrorScreen(error: state.getWardsErrorMessage);
                   }
                   return GridView.count(
                     shrinkWrap: true,
@@ -73,11 +70,11 @@ class WardsScreen extends StatelessWidget {
                     crossAxisSpacing: 15,
                     mainAxisSpacing: 20,
                     childAspectRatio: 1.1,
-                    children: List.generate(_wards.length, (index) {
+                    children: List.generate(state.wards.length, (index) {
                       return InkWell(
                         onTap: () {
                           NavigateUtil().navigateToScreen(
-                              context, WardScreen(wardName: _wards[index]));
+                              context, WardScreen(wardName: state.wards[index].name ?? ''));
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -86,7 +83,7 @@ class WardsScreen extends StatelessWidget {
                           ),
                           child: Center(
                             child: Text(
-                              _wards[index],
+                              state.wards[index].name ?? '',
                               style: getSmallStyle(
                                   color: AppColors.white,
                                   fontSize: 12,

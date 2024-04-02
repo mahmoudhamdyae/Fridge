@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/presentation/screens/clients_screen.dart';
 import 'package:fridge/reports/presentation/screens/reports_screen.dart';
-import 'package:fridge/ward/presentation/bloc/wards_bloc.dart';
 import 'package:fridge/ward/presentation/screens/wards_screen.dart';
 import '../../../core/resources/app_assets.dart';
 import '../../../core/resources/app_colors.dart';
 import '../../../core/resources/app_strings.dart';
-import '../../../core/services/services_locator.dart';
-import '../../../settings/presentation/bloc/settings_bloc.dart';
 import 'home_screen.dart';
 
 class MainScreen extends StatefulWidget {

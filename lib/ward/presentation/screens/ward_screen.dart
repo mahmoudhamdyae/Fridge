@@ -6,8 +6,6 @@ import '../../../core/components/appbar.dart';
 import '../../../core/components/decorations.dart';
 import '../../../core/navigation/navigate_util.dart';
 import '../../../core/resources/app_assets.dart';
-import '../../../core/resources/app_strings.dart';
-import '../../../settings/presentation/screens/settings_screen.dart';
 import '../components/settings_button.dart';
 
 class WardScreen extends StatelessWidget {
@@ -27,7 +25,7 @@ class WardScreen extends StatelessWidget {
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
               children: [
-                const MainAppBar(),
+                const MainAppBar(canNavigateUp: true,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
