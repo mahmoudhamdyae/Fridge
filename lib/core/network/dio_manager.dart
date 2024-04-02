@@ -3,8 +3,10 @@ import 'package:flutter/foundation.dart';
 import 'package:fridge/core/network/api_constants.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-const String applicationJson = "application/json";
-const String contentType = "content-type";
+// const String applicationJson = "application/json";
+const String applicationJson = "application/json;charset=utf-8";
+// const String contentType = "content-type";
+const String contentType = "utf-8";
 const String accept = "accept";
 const String authorization = "authorization";
 
@@ -24,7 +26,7 @@ class DioManager {
     Map<String, String> headers = {
       contentType: applicationJson,
       accept: applicationJson,
-      authorization: ApiConstants.token,
+      authorization: 'bearer ${ApiConstants.token}',//ApiConstants.token,
     };
 
     dio.options = BaseOptions(

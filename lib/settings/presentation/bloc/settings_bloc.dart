@@ -20,15 +20,15 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       this.getSettingsUsecase,
       this.updateSettingsUsecase,
       ) : super(const SettingsState()) {
-    on<GetSettingsEvent>((event, emit) {
-      _getSettingsEvent(event, emit);
+    on<GetSettingsEvent>((event, emit) async {
+      await _getSettingsEvent(event, emit);
     });
-    on<UpdateSettingsEvent>((event, emit) {
-      _updateSettingsEvent(event, emit);
+    on<UpdateSettingsEvent>((event, emit) async {
+      await _updateSettingsEvent(event, emit);
     });
   }
 
-  void _getSettingsEvent(GetSettingsEvent event, Emitter<SettingsState> emit) async {
+  Future<void> _getSettingsEvent(GetSettingsEvent event, Emitter<SettingsState> emit) async {
     final result = await getSettingsUsecase.call();
     result.fold((l) {
       emit(state.copyWith(
@@ -43,7 +43,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     });
   }
 
-  void _updateSettingsEvent(UpdateSettingsEvent event, Emitter<SettingsState> emit) async {
+  Future<void> _updateSettingsEvent(UpdateSettingsEvent event, Emitter<SettingsState> emit) async {
     emit(state.copyWith(updateSettingsState: RequestState.loading));
     final result = await updateSettingsUsecase.call(
         SettingsRequest(

@@ -6,7 +6,7 @@ import '../../../core/utils/validate_operations.dart';
 
 class ProductTypeFormField extends StatelessWidget {
 
-  final TextEditingController productTypeController;
+  final List<TextEditingController> productTypeController;
   const ProductTypeFormField({
     super.key,
     required this.productTypeController,
@@ -15,14 +15,20 @@ class ProductTypeFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: getFilledTextFieldDecoration(
-        hint: AppStrings.settingsScreenProductTypeHint,
-      ),
-      controller: productTypeController,
-      textInputAction: TextInputAction.next,
-      keyboardType: TextInputType.text,
-      validator: (value) => ValidateOperations.normalValidation(value),
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (BuildContext context, int index) {
+        return Container()/*TextFormField(
+          decoration: getFilledTextFieldDecoration(
+            hint: AppStrings.settingsScreenProductTypeHint,
+          ),
+          controller: productTypeController[index],
+          textInputAction: TextInputAction.next,
+          keyboardType: TextInputType.text,
+          validator: (value) => ValidateOperations.normalValidation(value),
+        )*/;
+      },
     );
   }
 }

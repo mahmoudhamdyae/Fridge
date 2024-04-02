@@ -23,7 +23,9 @@ class SettingsRemoteDataSourceImpl extends SettingsRemoteDataSource {
   @override
   Future<SettingsResponseModel> getSettings() async {
     try {
-      var response = await dioManager.dio.get(ApiConstants.getSettingsPath);
+      var response = await dioManager.dio.get(
+          ApiConstants.getSettingsPath,
+      );
       if (response.statusCode == HttpStatus.ok) {
         return SettingsResponseModel.fromJson((response.data));
       } else {

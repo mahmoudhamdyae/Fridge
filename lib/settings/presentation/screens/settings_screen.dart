@@ -16,6 +16,7 @@ import 'package:fridge/settings/presentation/components/unit_price_form_field.da
 import 'package:fridge/settings/presentation/components/wards_number_form_field.dart';
 
 import '../../../core/components/decorations.dart';
+import '../../../core/enums/request_state.dart';
 import '../../../core/resources/app_assets.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -28,7 +29,7 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController wardsNumberController = TextEditingController();
-  TextEditingController productTypeController = TextEditingController();
+  List<TextEditingController> productTypeController = [];
   String packagingTypeController = '';
   TextEditingController unitPriceController = TextEditingController();
   String _unit = AppStrings.settingsScreenUnitKiloGram;
@@ -55,6 +56,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
               // }
             },
             builder: (context, state) {
+              if (state.getSettingsState == RequestState.loading) {
+              } else if (state.getSettingsState == RequestState.error) {
+              }
+              wardsNumberController.text = (state.settingsResponse.data?.partsCount ?? '').toString();
+              unitPriceController.text = (state.settingsResponse.data?.price ?? '').toString();
+              _unit = (state.settingsResponse.data?.units ?? AppStrings.settingsScreenUnitKiloGram).toString();
+              state.settingsResponse.data?.products?.forEach((element) {
+                productTypeController.add(TextEditingController(text: element));
+              });
               return Form(
                 key: _formKey,
                 child: ListView(

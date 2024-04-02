@@ -2,14 +2,17 @@ part of 'settings_bloc.dart';
 
 class SettingsState extends Equatable {
 
-  final SettingsResponse? settingsResponse;
+  final SettingsResponse settingsResponse;
   final RequestState getSettingsState;
   final String getSettingsErrorMessage;
   final RequestState updateSettingsState;
   final String updateSettingsErrorMessage;
 
   const SettingsState({
-    this.settingsResponse,
+    this.settingsResponse = const SettingsResponse(
+      status: false,
+      data: Data(),
+    ),
     this.getSettingsState = RequestState.loading,
     this.getSettingsErrorMessage = '',
     this.updateSettingsState = RequestState.loaded,
@@ -34,7 +37,7 @@ class SettingsState extends Equatable {
 
   @override
   List<Object> get props => [
-    settingsResponse!,
+    settingsResponse,
     getSettingsState,
     getSettingsErrorMessage,
     updateSettingsState,
