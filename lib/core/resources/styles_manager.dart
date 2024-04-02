@@ -88,6 +88,5 @@ InputDecoration getFilledTextFieldDecoration({
       borderSide: const BorderSide(color: AppColors.grey),
       borderRadius: BorderRadius.all(Radius.circular(radius)),
     ),
-    contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
   );
 }

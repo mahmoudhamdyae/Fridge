@@ -51,9 +51,9 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
             errorMessageModel: ErrorMessageModel.fromJson(response.data)
         );
       }
-    } on Exception catch (error) {
-      throw ServerException(
-          errorMessageModel: ErrorMessageModel(status: false, message: error.toString())
+    } on Exception {
+      throw const ServerException(
+          errorMessageModel: ErrorMessageModel(status: false, message: 'بيانات الدخول غير صحيحة')
       );
     }
   }

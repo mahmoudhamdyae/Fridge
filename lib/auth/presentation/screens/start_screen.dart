@@ -13,7 +13,6 @@ import 'package:fridge/home/presentation/screens/main_screen.dart';
 import '../../../core/components/dialogs/error_dialog.dart';
 import '../../../core/enums/auth_enums.dart';
 import '../../../core/services/services_locator.dart';
-import '../../../home/presentation/screens/home_screen.dart';
 import '../bloc/auth_bloc.dart';
 
 class StartScreen extends StatelessWidget {

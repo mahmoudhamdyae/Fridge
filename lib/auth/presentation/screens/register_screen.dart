@@ -109,7 +109,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             passwordController: passwordController),
                         16.ph,
                         Text(
-                          AppStrings.registerScreenAddressLabel,
+                          AppStrings.registerScreenFridgeNameLabel,
                           style: getSmallStyle(
                             fontWeight: FontWeightManager.medium,
                           ),
