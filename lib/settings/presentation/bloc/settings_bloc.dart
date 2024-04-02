@@ -45,13 +45,22 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
   Future<void> _updateSettingsEvent(UpdateSettingsEvent event, Emitter<SettingsState> emit) async {
     emit(state.copyWith(updateSettingsState: RequestState.loading));
+    Data? data = state.settingsResponse.data;
+    List<String> products = [];
+    data?.products?.forEach((element) {
+      products.add(element);
+    });
+    List<String> boxing = [];
+    data?.boxing?.forEach((element) {
+      boxing.add(element);
+    });
     final result = await updateSettingsUsecase.call(
         SettingsRequest(
-          products: state.settingsResponse?.data?.products,
-          boxing: state.settingsResponse?.data?.boxing,
-          units: state.settingsResponse?.data?.units,
-          price: int.parse(state.settingsResponse?.data?.price ?? '0'),
-          partsCount: state.settingsResponse?.data?.partsCount
+          products: products,
+          boxing: boxing,
+          units: data?.units,
+          price: int.parse(data?.price ?? '0'),
+          partsCount: data?.partsCount
         )
     );
     result.fold((l) {

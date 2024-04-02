@@ -45,7 +45,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         padding: getMainPadding(context),
         decoration: getMainDecoration(),
         child: BlocProvider(
-          create: (BuildContext context) => instance<SettingsBloc>()..add(GetSettingsEvent()),
+          create: (BuildContext context) =>
+            instance<SettingsBloc>()..add(GetSettingsEvent()),
           child: BlocConsumer<SettingsBloc, SettingsState>(
             listener: (BuildContext context, SettingsState state) {
               // if (state.error != null) {
@@ -62,9 +63,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               wardsNumberController.text = (state.settingsResponse.data?.partsCount ?? '').toString();
               unitPriceController.text = (state.settingsResponse.data?.price ?? '').toString();
               _unit = (state.settingsResponse.data?.units ?? AppStrings.settingsScreenUnitKiloGram).toString();
+              productTypeController = [];
               state.settingsResponse.data?.products?.forEach((element) {
                 productTypeController.add(TextEditingController(text: element));
               });
+              // return Container();
               return Form(
                 key: _formKey,
                 child: ListView(

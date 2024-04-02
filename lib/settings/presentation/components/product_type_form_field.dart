@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fridge/core/resources/styles_manager.dart';
 
 import '../../../core/resources/app_strings.dart';
+import '../../../core/resources/styles_manager.dart';
 import '../../../core/utils/validate_operations.dart';
 
 class ProductTypeFormField extends StatelessWidget {
@@ -18,8 +18,9 @@ class ProductTypeFormField extends StatelessWidget {
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
+      itemCount: productTypeController.length,
       itemBuilder: (BuildContext context, int index) {
-        return Container()/*TextFormField(
+        return TextFormField(
           decoration: getFilledTextFieldDecoration(
             hint: AppStrings.settingsScreenProductTypeHint,
           ),
@@ -27,7 +28,7 @@ class ProductTypeFormField extends StatelessWidget {
           textInputAction: TextInputAction.next,
           keyboardType: TextInputType.text,
           validator: (value) => ValidateOperations.normalValidation(value),
-        )*/;
+        );
       },
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fridge/core/components/decorations.dart';
+import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/resources/app_colors.dart';
@@ -20,25 +21,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: /*BlocProvider(
-          create: (BuildContext context) => instance<HomeBloc>()..add(GetProducts()),
-          child: BlocBuilder(
-            bloc: instance<HomeBloc>(),
-            builder: (BuildContext context, HomeState state) {
-              switch(state.productsState) {
-                case RequestState.loading:
-                  return const LoadingScreen();
-                case RequestState.error:
-                  return ErrorScreen(error: state.productsErrorMessage);
-                case RequestState.loaded:
-                  List<Product> products = state.products;
-                  if (products.isEmpty) {
-                    return const EmptyScreen(emptyString: 'emptyString');
-                  }
-                  return Text(products.length.toString());
-              }
-            },),
-        )*/Container(
+        body: Container(
+          height: context.height,
           padding: getMainPadding(context),
           decoration: getMainDecoration(),
           child: ListView(

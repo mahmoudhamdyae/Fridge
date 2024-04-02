@@ -11,9 +11,9 @@ class SettingsResponse extends Equatable {
 }
 
 class Data extends Equatable {
-  final List<String>? products;
+  final List<dynamic>? products;
   final String? units;
-  final List<String>? boxing;
+  final List<dynamic>? boxing;
   final String? price;
   final int? partsCount;
 

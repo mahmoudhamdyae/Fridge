@@ -45,7 +45,7 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<Either<Failure, void>> login({required String phone, required String password}) async {
     try {
       final result = await remoteDataSource.login(phone: phone, password: password);
-      localDataSource.updateToken(result);
+      await localDataSource.updateToken(result);
       return const Right(null);
     } on ServerException catch(failure) {
       return Left(ServerFailure(failure.errorMessageModel.message));
@@ -58,7 +58,7 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<Either<Failure, void>> register({required String name, required String phone, required String password, required String address, required String fridgeName}) async {
     try {
       final result = await remoteDataSource.register(name: name, phone: phone, password: password, address: address, fridgeName: fridgeName);
-      localDataSource.updateToken(result);
+      await localDataSource.updateToken(result);
       return const Right(null);
     } on ServerException catch(failure) {
       return Left(ServerFailure(failure.errorMessageModel.message));

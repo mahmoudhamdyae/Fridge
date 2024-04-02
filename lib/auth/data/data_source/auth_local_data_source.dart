@@ -36,6 +36,8 @@ class AuthLocalDataSourceImpl extends AuthLocalDataSource {
   @override
   bool isLoggedIn() {
     try {
+      String token = sharedPreferences.getString(_token) ?? '';
+      ApiConstants.token = token;
       return sharedPreferences.getBool(_authState) ?? false;
     } on Exception catch(error) {
       throw LocalDatabaseException(message: error.toString());
@@ -47,6 +49,7 @@ class AuthLocalDataSourceImpl extends AuthLocalDataSource {
     try {
       await sharedPreferences.setString(_token, '');
       await sharedPreferences.setBool(_authState, false);
+      ApiConstants.token = '';
     } on Exception catch(error) {
       throw LocalDatabaseException(message: error.toString());
     }
