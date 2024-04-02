@@ -17,4 +17,7 @@ class ApiConstants {
   /// Settings
   static const String getSettingsPath = "app/setting";
   static const String updateSettingsPath = "app/setting/update";
+
+  /// Wards
+  static const String getWardsPath = "app/parts";
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/presentation/screens/clients_screen.dart';
 import 'package:fridge/reports/presentation/screens/reports_screen.dart';
+import 'package:fridge/ward/presentation/bloc/wards_bloc.dart';
 import 'package:fridge/ward/presentation/screens/wards_screen.dart';
 import '../../../core/resources/app_assets.dart';
 import '../../../core/resources/app_colors.dart';
@@ -45,6 +46,7 @@ class _MainScreenState extends State<MainScreen> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => instance<SettingsBloc>()),
+        BlocProvider(create: (_) => instance<WardsBloc>()),
       ],
       child: Scaffold(
         backgroundColor: AppColors.primaryLight,

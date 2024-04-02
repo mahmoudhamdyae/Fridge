@@ -22,6 +22,10 @@ import 'package:fridge/settings/domain/repository/settings_repository.dart';
 import 'package:fridge/settings/domain/usecases/get_settings_usecase.dart';
 import 'package:fridge/settings/domain/usecases/update_settings_usecase.dart';
 import 'package:fridge/settings/presentation/bloc/settings_bloc.dart';
+import 'package:fridge/ward/data/data_source/wards_remote_data_source.dart';
+import 'package:fridge/ward/domain/repository/wards_repository.dart';
+import 'package:fridge/ward/domain/usecases/get_wards_usecase.dart';
+import 'package:fridge/ward/presentation/bloc/wards_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -104,5 +108,20 @@ class ServicesLocator {
     // DATA SOURCE
     instance.registerLazySingleton<SettingsRemoteDataSource>(
             () => SettingsRemoteDataSourceImpl(DioManager.instance));
+
+    /// Wards
+
+    // Bloc
+    instance.registerLazySingleton(() => WardsBloc(
+      instance<GetWardsUsecase>(),
+    ));
+    // Use Cases
+    instance.registerLazySingleton(() => GetWardsUsecase(instance<WardsRepository>()));
+    // Repository
+    instance.registerLazySingleton<WardsRepository>(
+            () => WardsRepositoryImpl(instance<WardsRemoteDataSource>()));
+    // DATA SOURCE
+    instance.registerLazySingleton<WardsRemoteDataSource>(
+            () => WardsRemoteDataSourceImpl(DioManager.instance));
   }
 }
