@@ -4,6 +4,7 @@ import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/resources/app_colors.dart';
+import 'package:fridge/expenses/presentation/screens/expenses_screen.dart';
 import 'package:fridge/settings/presentation/screens/settings_screen.dart';
 
 import '../../../core/components/appbar.dart';
@@ -30,21 +31,21 @@ class HomeScreen extends StatelessWidget {
             physics: const ClampingScrollPhysics(),
             children: [
               const MainAppBar(),
-              TextFormField(
-                decoration: getFilledTextFieldDecoration(
-                  hint: AppStrings.homeScreenSearchHint,
-                  radius: 20.0,
-                  prefixIcon: Icons.search,
-                  textStyle: getSmallStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeightManager.medium,
-                      color: AppColors.dark2
-                  )
-                ),
-                textInputAction: TextInputAction.done,
-                keyboardType: TextInputType.text,
-              ),
-              12.ph,
+              // TextFormField(
+              //   decoration: getFilledTextFieldDecoration(
+              //     hint: AppStrings.homeScreenSearchHint,
+              //     radius: 20.0,
+              //     prefixIcon: Icons.search,
+              //     textStyle: getSmallStyle(
+              //         fontSize: 12.0,
+              //         fontWeight: FontWeightManager.medium,
+              //         color: AppColors.dark2
+              //     )
+              //   ),
+              //   textInputAction: TextInputAction.done,
+              //   keyboardType: TextInputType.text,
+              // ),
+              // 12.ph,
               HomeScreenItem(
                 text: AppStrings.homeScreenClients,
                 onTab: () { onItemClick(1); },
@@ -61,7 +62,7 @@ class HomeScreen extends StatelessWidget {
               ),
               HomeScreenItem(
                 text: AppStrings.homeScreenExpenses,
-                onTab: () { onItemClick(3); },
+                onTab: () { NavigateUtil().navigateToScreen(context, const ExpensesScreen()); },
               ),
               HomeScreenItem(
                 text: AppStrings.homeScreenReports,
