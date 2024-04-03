@@ -43,6 +43,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   String _unit = AppStrings.settingsScreenUnitKiloGram;
 
   bool? get validate => _formKey.currentState?.validate();
+  late SettingsBloc bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    bloc = instance<SettingsBloc>();
+    bloc.add(GetSettingsEvent());
+  }
 
 
   @override
@@ -74,8 +82,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         padding: getMainPadding(context),
         decoration: getMainDecoration(),
         child: BlocProvider(
-          create: (BuildContext context) =>
-            instance<SettingsBloc>()/*..add(GetSettingsEvent())*/,
+          create: (BuildContext context) => bloc,
           child: BlocConsumer<SettingsBloc, SettingsState>(
             listener: (BuildContext context, SettingsState state) {
               if (state.updateSettingsState == RequestState.loading) {
