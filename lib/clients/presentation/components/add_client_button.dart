@@ -7,13 +7,15 @@ import 'package:fridge/clients/presentation/screens/add_new_client_screen.dart';
 import '../../../core/resources/styles_manager.dart';
 
 class AddClientButton extends StatelessWidget {
-  const AddClientButton({super.key});
+
+  final Function onClick;
+  const AddClientButton({super.key, required this.onClick});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        NavigateUtil().navigateToScreen(context, const AddNewClientScreen());
+        onClick();
       },
       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
       child: Container(

@@ -21,6 +21,10 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
     on<GetClientsEvent>((event, emit) async {
       await _getClients(event, emit);
     });
+
+    on<AddClientEvent>((event, emit) async {
+      await _addClient(event, emit);
+    });
   }
 
   Future<void> _getClients(GetClientsEvent event, Emitter<ClientsState> emit) async {
@@ -36,5 +40,16 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
         getClientsState: RequestState.loaded,
       ));
     });
+  }
+
+  Future<void> _addClient(AddClientEvent event, Emitter<ClientsState> emit) async {
+    debugPrint('-------4------5');
+    state.copyWith(
+      addClientState: RequestState.loaded,
+      clientName: event.clientName,
+      clientPhone: event.clientPhone,
+      clientAddress: event.clientAddress,
+      clientType: event.isTrader ? 0 : 1,
+    );
   }
 }

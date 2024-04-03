@@ -10,8 +10,9 @@ import '../../../core/resources/styles_manager.dart';
 class TraderDealerButton extends StatelessWidget {
 
   final String text;
+  final bool? isSelected;
   final Function onClicked;
-  const TraderDealerButton({super.key, required this.text, required this.onClicked});
+  const TraderDealerButton({super.key, required this.text, required this.onClicked, required this.isSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class TraderDealerButton extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(10.0)),
           border: Border.all(color: const Color(0xff2C5494), width: 1),
-          color: AppColors.white,
+          color: isSelected == true ? AppColors.primary : AppColors.white,
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 12.0),
@@ -34,6 +35,7 @@ class TraderDealerButton extends StatelessWidget {
             textAlign: TextAlign.center,
             style: getSmallStyle(
               fontWeight: FontWeightManager.medium,
+              color: isSelected == true ? AppColors.white : AppColors.black,
             ),
           ),
         ),

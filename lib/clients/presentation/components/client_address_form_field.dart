@@ -4,12 +4,12 @@ import 'package:fridge/core/resources/styles_manager.dart';
 import '../../../core/resources/app_strings.dart';
 import '../../../core/utils/validate_operations.dart';
 
-class ClientNameFormField extends StatelessWidget {
+class ClientAddressFormField extends StatelessWidget {
 
-  final TextEditingController clientNameController;
-  const ClientNameFormField({
+  final TextEditingController clientAddressController;
+  const ClientAddressFormField({
     super.key,
-    required this.clientNameController,
+    required this.clientAddressController,
   });
 
 
@@ -17,10 +17,10 @@ class ClientNameFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: getFilledTextFieldDecorationWithLabel(
-        label: AppStrings.addClientScreenClientNameLabel,
+        label: AppStrings.addClientScreenClientAddressLabel,
       ),
-      controller: clientNameController,
-      textInputAction: TextInputAction.next,
+      controller: clientAddressController,
+      textInputAction: TextInputAction.done,
       keyboardType: TextInputType.text,
       validator: (value) => ValidateOperations.normalValidation(value),
     );

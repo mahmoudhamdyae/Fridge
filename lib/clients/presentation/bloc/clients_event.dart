@@ -8,7 +8,7 @@ abstract class ClientsEvent extends Equatable {
 class GetClientsEvent extends ClientsEvent {}
 
 class AddClientEvent extends ClientsEvent {
-  final Bool isTrader;
+  final bool isTrader;
   final String clientName;
   final String clientPhone;
   final String clientAddress;
