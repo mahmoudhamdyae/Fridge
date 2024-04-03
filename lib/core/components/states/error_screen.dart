@@ -28,19 +28,19 @@ class ErrorScreen extends StatelessWidget {
                 color: const Color(0xffff0000),
               ),
             ),
-            15.ph,
-            FilledButton(
-              style: getFilledButtonStyle(),
-                onPressed: () {
-                  NavigateUtil().navigateUp(context);
-                },
-                child: Text(
-                  'الرجوع للخلف',
-                  style: getSmallStyle(
-                    color: AppColors.white
-                  ),
-                )
-            )
+            // 15.ph,
+            // FilledButton(
+            //   style: getFilledButtonStyle(),
+            //     onPressed: () {
+            //       NavigateUtil().navigateUp(context);
+            //     },
+            //     child: Text(
+            //       'الرجوع للخلف',
+            //       style: getSmallStyle(
+            //         color: AppColors.white
+            //       ),
+            //     )
+            // )
           ],
         )
     );

@@ -2,7 +2,7 @@ class ApiConstants {
   static const Duration apiTimeOut = Duration(minutes: 1);
   static String token = '';
 
-  static const String baseUrl = "https://55ae-105-35-93-227.ngrok-free.app/api/";
+  static const String baseUrl = "https://f402-105-40-220-125.ngrok-free.app/api/";
 
   /// Authentication
   static const String loginPath = "auth/login";
