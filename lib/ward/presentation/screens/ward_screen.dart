@@ -1,17 +1,21 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
+import 'package:fridge/ward/domain/entities/ward.dart';
 import 'package:fridge/ward/presentation/screens/ward_settings_screen.dart';
 
 import '../../../core/components/appbar.dart';
 import '../../../core/components/decorations.dart';
 import '../../../core/navigation/navigate_util.dart';
 import '../../../core/resources/app_assets.dart';
+import '../../../core/resources/font_manager.dart';
+import '../../../core/resources/styles_manager.dart';
 import '../components/settings_button.dart';
 
 class WardScreen extends StatelessWidget {
 
-  final String wardName;
-  const WardScreen({super.key, required this.wardName});
+  final Ward ward;
+  const WardScreen({super.key, required this.ward});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +34,7 @@ class WardScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SecondaryAppBarWithImage(
-                      text: wardName,
+                      text: ward.name ?? '',
                       image: AppAssets.goods,
                     ),
                     SettingsButton(onTab: () {
@@ -42,25 +46,21 @@ class WardScreen extends StatelessWidget {
                   shrinkWrap: true,
                   physics: const ClampingScrollPhysics(),
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 28),
-                  crossAxisCount: 4,
+                  crossAxisCount: ward.width ?? 1,
                   crossAxisSpacing: 15,
                   mainAxisSpacing: 20,
                   childAspectRatio: 1.1,
-                  /*children: List.generate(_wards.length, (index) {
+                  children: List.generate((ward.width ?? 1) * (ward.height ?? 1), (index) {
                     return InkWell(
                       onTap: () {
-                        NavigateUtil().navigateToScreen(context, WardScreen(wardName: _wards[index]));
                       },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: const Color(0xff2E5AAF),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
+                      child: DottedBorder(
+                        color: const Color(0xff1F3A6F),
+                        strokeWidth: 1,
                         child: Center(
                           child: Text(
-                            _wards[index],
+                            '',
                             style: getSmallStyle(
-                                color: AppColors.white,
                                 fontSize: 12,
                                 fontWeight: FontWeightManager.medium
                             ),
@@ -68,7 +68,7 @@ class WardScreen extends StatelessWidget {
                         ),
                       ),
                     );
-                  })*/
+                  })
                 )
               ],
             ),

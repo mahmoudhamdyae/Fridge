@@ -92,7 +92,7 @@ class _WardsScreenState extends State<WardsScreen> {
                         return InkWell(
                           onTap: () {
                             NavigateUtil().navigateToScreen(
-                                context, WardScreen(wardName: state.wards[index].name ?? ''));
+                                context, WardScreen(ward: state.wards[index]));
                           },
                           child: Container(
                             decoration: BoxDecoration(
