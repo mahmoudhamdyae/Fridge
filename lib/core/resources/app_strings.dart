@@ -188,10 +188,10 @@ class AppStrings {
   static const String expensesScreenDateLabel = 'التاريخ';
   static const String expensesScreenDateHint = 'يوم/شهر/سنة';
   static const String expensesScreenTypeLabel = 'النوع';
-  static const String expensesScreenTypeHint = 'ادخل المنتج';
+  static const String expensesScreenTypeHint = 'ادخل النوع';
   static const String expensesScreenDetailsLabel = 'تفاصيل';
   static const String expensesScreenPriceLabel = 'المبلغ';
-  static const String expensesScreenPriceHint = 'اختر نوع التغليف';
+  static const String expensesScreenPriceHint = 'ادخل المبلغ';
   static const String expensesScreenCompleteButton = 'تسجيل';
   static const String expensesScreenBackButton = 'رجوع';
 
