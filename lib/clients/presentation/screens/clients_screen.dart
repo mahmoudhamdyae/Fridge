@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/domain/entities/client.dart';
 import 'package:fridge/clients/presentation/bloc/clients_bloc.dart';
+import 'package:fridge/clients/presentation/screens/add_client_tabs_screen.dart';
 import 'package:fridge/core/components/states/error_screen.dart';
 import 'package:fridge/core/components/states/loading_screen.dart';
 import 'package:fridge/core/enums/request_state.dart';
@@ -18,8 +19,8 @@ import '../../../core/components/decorations.dart';
 import '../../../core/navigation/navigate_util.dart';
 import '../components/add_client_button.dart';
 import '../components/client_details_button.dart';
-import 'add_new_client_screen.dart';
-import 'add_product_screen.dart';
+import '../tabs/add_new_client_screen.dart';
+import '../tabs/add_product_screen.dart';
 
 class ClientsScreen extends StatefulWidget {
   const ClientsScreen({super.key});
@@ -61,7 +62,7 @@ class _ClientsScreenState extends State<ClientsScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [AddClientButton(onClick: () {
-                  NavigateUtil().navigateToScreen(context, const AddNewClientScreen());
+                  NavigateUtil().navigateToScreen(context, const AddClientTabsScreen());
 
                 },), const ClientDetailsButton()],
               ),

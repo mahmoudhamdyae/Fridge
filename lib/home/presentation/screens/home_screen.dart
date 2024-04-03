@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/core/components/decorations.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
@@ -11,12 +12,15 @@ import '../../../core/components/appbar.dart';
 import '../../../core/resources/app_strings.dart';
 import '../../../core/resources/font_manager.dart';
 import '../../../core/resources/styles_manager.dart';
+import '../../../core/services/services_locator.dart';
+import '../../../settings/presentation/bloc/settings_bloc.dart';
 import '../components/home_screen_item.dart';
 
 class HomeScreen extends StatelessWidget {
 
   final Function(int) onItemClick;
-  const HomeScreen({super.key, required this.onItemClick});
+  final BuildContext blocContext;
+  const HomeScreen({super.key, required this.onItemClick, required this.blocContext});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +57,9 @@ class HomeScreen extends StatelessWidget {
               HomeScreenItem(
                 text: AppStrings.homeScreenSettings,
                 onTab: () {
-                  NavigateUtil().navigateToScreen(context, const SettingsScreen());
+                  NavigateUtil().navigateToScreen(context, BlocProvider.value(
+                      value: instance<SettingsBloc>(),
+                      child: SettingsScreen(blocContext: blocContext,)));
                 },
               ),
               HomeScreenItem(

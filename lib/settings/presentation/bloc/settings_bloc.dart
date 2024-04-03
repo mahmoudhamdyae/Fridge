@@ -29,38 +29,43 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   }
 
   Future<void> _getSettingsEvent(GetSettingsEvent event, Emitter<SettingsState> emit) async {
-    final result = await getSettingsUsecase.call();
-    result.fold((l) {
-      emit(state.copyWith(
-        getSettingsState: RequestState.error,
-        getSettingsErrorMessage: l.message,
-      ));
-    }, (settingsResponse) {
-      emit(state.copyWith(
-        settingsResponse: settingsResponse,
-        getSettingsState: RequestState.loaded,
-      ));
-    });
+    emit(state.copyWith(
+      settingsResponse: SettingsResponse(data: Data(
+          partsCount: 234,
+        price: '1276'
+      )),
+    ));
+    // final result = await getSettingsUsecase.call();
+    // result.fold((l) {
+    //   emit(state.copyWith(
+    //     getSettingsState: RequestState.error,
+    //     getSettingsErrorMessage: l.message,
+    //   ));
+    // }, (settingsResponse) {
+    //   emit(state.copyWith(
+    //     settingsResponse: settingsResponse,
+    //     getSettingsState: RequestState.loaded,
+    //   ));
+    // });
   }
 
   Future<void> _updateSettingsEvent(UpdateSettingsEvent event, Emitter<SettingsState> emit) async {
     emit(state.copyWith(updateSettingsState: RequestState.loading));
-    Data? data = state.settingsResponse.data;
     List<String> products = [];
-    data?.products?.forEach((element) {
+    for (var element in event.products) {
       products.add(element);
-    });
+    }
     List<String> boxing = [];
-    data?.boxing?.forEach((element) {
+    for (var element in event.boxing) {
       boxing.add(element);
-    });
+    }
     final result = await updateSettingsUsecase.call(
         SettingsRequest(
           products: products,
           boxing: boxing,
-          units: data?.units,
-          price: int.parse(/*data?.price ?? */'10'),
-          partsCount: 12//data?.partsCount
+          units: event.units,
+          price: event.price,
+          partsCount: event.wardsNumber
         )
     );
     result.fold((l) {

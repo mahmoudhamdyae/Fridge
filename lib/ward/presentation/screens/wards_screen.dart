@@ -21,7 +21,8 @@ import '../../../settings/presentation/screens/settings_screen.dart';
 
 class WardsScreen extends StatefulWidget {
 
-  const WardsScreen({super.key});
+  final BuildContext blocContext;
+  const WardsScreen({super.key, required this.blocContext});
 
   @override
   State<WardsScreen> createState() => _WardsScreenState();
@@ -74,7 +75,7 @@ class _WardsScreenState extends State<WardsScreen> {
                         SettingsButton(
                           onTab: () {
                             NavigateUtil()
-                                .navigateToScreen(context, const SettingsScreen());
+                                .navigateToScreen(context, SettingsScreen(blocContext: widget.blocContext,));
                           },
                         ),
                       ],

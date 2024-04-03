@@ -29,9 +29,9 @@ class _MainScreenState extends State<MainScreen> {
     _widgetOptions = <Widget>[
       HomeScreen(onItemClick: (int index) {
         _onItemTapped(index);
-      },),
+      }, blocContext: context,),
       const ClientsScreen(),
-      const WardsScreen(),
+      WardsScreen(blocContext: context,),
       const ReportsScreen(),
     ];
   }
