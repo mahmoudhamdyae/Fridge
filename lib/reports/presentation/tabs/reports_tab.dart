@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fridge/core/extensions/num_extensions.dart';
+import 'package:fridge/reports/presentation/tabs/month_tab.dart';
+import 'package:fridge/reports/presentation/tabs/summary_tab.dart';
+import 'package:fridge/reports/presentation/tabs/week_tab.dart';
 
 import '../../../core/resources/app_colors.dart';
 import '../../../core/resources/app_strings.dart';
@@ -69,14 +73,20 @@ class _ReportsTabState extends State<ReportsTab> {
                   Text(
                     AppStrings.reportsTabMonth,
                     style: getSmallStyle(
-                      color: selectedTab == 1 ? AppColors.secondary: const Color(0xff000000),
+                      color: selectedTab == 2 ? AppColors.secondary: const Color(0xff000000),
                     ),
                   ),
                 ],
               ),
-            )
+            ),
           ],
-        )
+        ),
+        16.ph,
+        selectedTab == 0 ? const SummaryTab()
+            :
+        selectedTab == 1 ? const WeekTab()
+            :
+        const MonthTab()
       ],
     );
   }
