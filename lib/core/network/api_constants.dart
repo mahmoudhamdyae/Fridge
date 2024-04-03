@@ -20,4 +20,7 @@ class ApiConstants {
 
   /// Wards
   static const String getWardsPath = "app/parts";
+
+  /// Clients
+  static const String getClientsPath = "app/customer/";
 }

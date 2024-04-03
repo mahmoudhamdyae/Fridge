@@ -1,10 +1,29 @@
 part of 'clients_bloc.dart';
 
-sealed class ClientsState extends Equatable {
-  const ClientsState();
-}
+class ClientsState extends Equatable {
 
-final class ClientsInitial extends ClientsState {
+  final List<Client> clients;
+  final RequestState getClientsState;
+  final String getClientsErrorMessage;
+
+  const ClientsState({
+    this.clients = const [],
+    this.getClientsState = RequestState.loading,
+    this.getClientsErrorMessage = '',
+});
+
+  ClientsState copyWith({
+    List<Client>? clients,
+    RequestState? getClientsState,
+    String? getClientsErrorMessage,
+  }) {
+    return ClientsState(
+      clients: clients ?? this.clients,
+      getClientsState: getClientsState ?? this.getClientsState,
+      getClientsErrorMessage: getClientsErrorMessage ?? this.getClientsErrorMessage,
+    );
+  }
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [clients, getClientsState, getClientsErrorMessage];
 }
