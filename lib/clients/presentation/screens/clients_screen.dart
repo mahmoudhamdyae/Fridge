@@ -125,7 +125,10 @@ class _ClientsScreenState extends State<ClientsScreen> {
                                       ),
                                     ),
                                     Text(
-                                      client.type == 0 ? AppStrings.addClientScreenDealer : AppStrings.addClientScreenTrader,
+                                      client.type == 0 ?
+                                      AppStrings.addClientScreenDealerWithQ
+                                          :
+                                      AppStrings.addClientScreenTraderWithQ,
                                       style: getSmallStyle(
                                         fontWeight: FontWeightManager.medium,
                                         fontSize: 12,

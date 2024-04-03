@@ -95,8 +95,10 @@ class AppStrings {
   // Add Client Screen
   static const String addClientScreenAddClient = 'إضافة عميل جديد';
   static const String addClientScreenChooseType = 'اختر نوع';
-  static const String addClientScreenTrader = '(تاجر)';
-  static const String addClientScreenDealer = '(أهالى)';
+  static const String addClientScreenTraderWithQ = '(تاجر)';
+  static const String addClientScreenDealerWithQ = '(أهالى)';
+  static const String addClientScreenTrader = 'تاجر';
+  static const String addClientScreenDealer = 'أهالى';
   static const String addClientScreenClientNameLabel = 'اسم العميل';
   static const String addClientScreenClientPhoneLabel = 'رقم التليفون';
   static const String addClientScreenClientAddressLabel = 'العنوان';

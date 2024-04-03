@@ -90,3 +90,32 @@ InputDecoration getFilledTextFieldDecoration({
     ),
   );
 }
+
+InputDecoration getFilledTextFieldDecorationWithLabel({
+  required String label,
+  double radius = 15.0,
+  IconData? prefixIcon,
+  TextStyle? textStyle
+}) {
+  return InputDecoration(
+    hintStyle: textStyle ?? getSmallStyle(
+      fontSize: 14.0,
+      color: AppColors.dark2,
+    ),
+    prefixIconConstraints: const BoxConstraints(
+      maxWidth: 32.0,
+      minWidth: 32.0,
+    ),
+    prefixIcon: Icon(prefixIcon, color: const Color(0xff545454), size: 17,),
+    label: Text(
+      label,
+      style: getSmallStyle(
+          fontWeight: FontWeightManager.medium
+      ),
+    ),
+    border: OutlineInputBorder(
+      borderSide: const BorderSide(color: AppColors.grey),
+      borderRadius: BorderRadius.all(Radius.circular(radius)),
+    ),
+  );
+}
