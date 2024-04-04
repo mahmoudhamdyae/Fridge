@@ -34,6 +34,7 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../auth/presentation/bloc/auth_bloc.dart';
+import '../../clients/data/repository/client_repository_impl.dart';
 import '../../home/data/repository/home_repository_impl.dart';
 
 final instance = GetIt.instance;

@@ -9,17 +9,3 @@ abstract class ClientRepository {
 
   Future<Either<Failure, List<Client>>> getClients();
 }
-
-class ClientRepositoryImpl extends ClientRepository {
-  ClientRepositoryImpl(super.remoteDataSource);
-
-  @override
-  Future<Either<Failure, List<Client>>> getClients() async {
-    try {
-      var response = await remoteDataSource.getClients();
-      return Right(response);
-    } on Exception catch (error) {
-      return Left(ServerFailure(error.toString()));
-    }
-  }
-}

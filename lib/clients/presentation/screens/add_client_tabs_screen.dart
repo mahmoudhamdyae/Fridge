@@ -47,8 +47,12 @@ class _AddClientTabsScreenState extends State<AddClientTabsScreen> {
                 });
               },)
                   :
-                  currentTab == 1 ? const AddProductScreen()
-                      : const AddProductScreen()
+                  currentTab == 1 ? AddProductScreen(moveForward: () {
+                    setState(() {
+                      currentTab = 2;
+                    });
+                  },)
+                      : AddProductScreen(moveForward: () {},)
             ],
           ),
         ),

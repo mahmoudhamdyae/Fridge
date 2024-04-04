@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:fridge/clients/presentation/components/cancel_button.dart';
 import 'package:fridge/clients/presentation/components/next_button.dart';
 import 'package:fridge/core/components/appbar.dart';
-import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/resources/app_assets.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 
-import '../../../core/components/decorations.dart';
+class AddProductScreen extends StatefulWidget {
 
-class AddProductScreen extends StatelessWidget {
-  const AddProductScreen({super.key});
+  final Function moveForward;
+  const AddProductScreen({super.key, required this.moveForward});
 
+  @override
+  State<AddProductScreen> createState() => _AddProductScreenState();
+}
+
+class _AddProductScreenState extends State<AddProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -25,6 +29,7 @@ class AddProductScreen extends StatelessWidget {
           ),
           32.ph,
           NextButton(onClick: () {
+            widget.moveForward();
           }),
           const CancelButton(),
         ],
