@@ -88,9 +88,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           },
           builder: (context, state) {
             if (state.getSettingsState == RequestState.loading) {
-              // return const LoadingScreen();
+              return const LoadingScreen();
             } else if (state.getSettingsState == RequestState.error) {
-              // return ErrorScreen(error: state.getSettingsErrorMessage);
+              return ErrorScreen(error: state.getSettingsErrorMessage);
             }
 
             wardsNumberController.text = (state.partsCount).toString();

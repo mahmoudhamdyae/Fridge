@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fridge/settings/data/models/settings_request.dart';
-import 'package:fridge/settings/domain/entities/settings_response.dart';
 import 'package:fridge/settings/domain/usecases/update_settings_usecase.dart';
 import 'package:meta/meta.dart';
 
@@ -44,22 +43,22 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   }
 
   Future<void> _getSettings(GetSettingsEvent event, Emitter<SettingsState> emit) async {
-    emit(state.copyWith(
-          partsCount: 234,
-        price: '1276'
+    final result = await getSettingsUsecase.call();
+    result.fold((l) {
+      emit(state.copyWith(
+        getSettingsState: RequestState.error,
+        getSettingsErrorMessage: l.message,
       ));
-    // final result = await getSettingsUsecase.call();
-    // result.fold((l) {
-    //   emit(state.copyWith(
-    //     getSettingsState: RequestState.error,
-    //     getSettingsErrorMessage: l.message,
-    //   ));
-    // }, (settingsResponse) {
-    //   emit(state.copyWith(
-    //     settingsResponse: settingsResponse,
-    //     getSettingsState: RequestState.loaded,
-    //   ));
-    // });
+    }, (settingsResponse) {
+      emit(state.copyWith(
+        products: settingsResponse.data?.products,
+        boxing: settingsResponse.data?.boxing,
+        units: settingsResponse.data?.units,
+        price: settingsResponse.data?.price,
+        partsCount: settingsResponse.data?.partsCount,
+        getSettingsState: RequestState.loaded,
+      ));
+    });
   }
 
   Future<void> _updateSettings(UpdateSettingsEvent event, Emitter<SettingsState> emit) async {
