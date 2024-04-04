@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fridge/clients/presentation/components/client_address_form_field.dart';
-import 'package:fridge/clients/presentation/components/client_name_form_field.dart';
-import 'package:fridge/clients/presentation/components/client_phone_form_field.dart';
+import 'package:fridge/clients/presentation/components/client/client_address_form_field.dart';
 import 'package:fridge/core/components/appbar.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/resources/app_strings.dart';
@@ -11,6 +9,8 @@ import 'package:fridge/core/resources/styles_manager.dart';
 
 import '../bloc/clients_bloc.dart';
 import '../components/cancel_button.dart';
+import '../components/client/client_name_form_field.dart';
+import '../components/client/client_phone_form_field.dart';
 import '../components/next_button.dart';
 import '../components/trader_dealer_button.dart';
 

@@ -115,7 +115,7 @@ class AppStrings {
   static const String addClientScreenNumberLabel = 'العدد';
   static const String addClientScreenUnitWeightLabel = 'الوزن للوحدة';
   static const String addClientScreenTotalWeightLabel = 'الوزن الكلى';
-  static const String addClientScreenStorePriceLabel = 'سعر التخزين للوحدة';
+  static const String addClientScreenStorePriceLabel = 'سعر التخزين';
   static const String addClientScreenAddProduct = 'إضافة منتج آخر';
 
 
