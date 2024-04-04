@@ -13,7 +13,7 @@ const String authorization = "authorization";
 class DioManager {
   static DioManager? _instance;
   static DioManager get instance {
-    if (_instance != null) return _instance!;
+    // if (_instance != null) return _instance!; // todo refactor this
     _instance = DioManager._init();
     return _instance!;
   }

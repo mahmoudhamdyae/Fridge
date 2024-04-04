@@ -47,6 +47,7 @@ dependencies:
   google_fonts: ^6.2.1
   flutter_localization: ^0.2.0
   dotted_border: ^2.1.0
+  linear_progress_bar: ^1.1.1
 
 dev_dependencies:
   flutter_test:
