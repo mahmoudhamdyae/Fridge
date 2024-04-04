@@ -14,29 +14,21 @@ class AddProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-          body: Container(
-            height: context.height,
-            padding: getMainPadding(context),
-            decoration: getMainDecoration(),
-            child: ListView(
-              shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
-              children: [
-                const MainAppBar(canNavigateUp: true,),
-                const SecondaryAppBarWithImage(
-                    text: AppStrings.addClientScreenAddProducts,
-                    image: AppAssets.person,
-                ),
-                32.ph,
-                NextButton(onClick: () {
-                }),
-                const CancelButton(),
-              ],
-            ),
+    return Form(
+      child: ListView(
+        shrinkWrap: true,
+        physics: const ClampingScrollPhysics(),
+        children: [
+          const SecondaryAppBarWithImage(
+            text: AppStrings.addClientScreenAddProducts,
+            image: AppAssets.person,
           ),
-        )
+          32.ph,
+          NextButton(onClick: () {
+          }),
+          const CancelButton(),
+        ],
+      ),
     );
   }
 }

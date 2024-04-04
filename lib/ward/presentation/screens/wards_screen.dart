@@ -40,12 +40,6 @@ class _WardsScreenState extends State<WardsScreen> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    // bloc.close();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocBuilder<WardsBloc, WardsState>(
       builder: (BuildContext context, WardsState state) {
@@ -75,7 +69,7 @@ class _WardsScreenState extends State<WardsScreen> {
                         SettingsButton(
                           onTab: () {
                             NavigateUtil()
-                                .navigateToScreen(context, SettingsScreen(blocContext: widget.blocContext,));
+                                .navigateToScreen(context, const SettingsScreen());
                           },
                         ),
                       ],

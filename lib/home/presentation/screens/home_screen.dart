@@ -4,14 +4,11 @@ import 'package:fridge/core/components/decorations.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
-import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/expenses/presentation/screens/expenses_screen.dart';
 import 'package:fridge/settings/presentation/screens/settings_screen.dart';
 
 import '../../../core/components/appbar.dart';
 import '../../../core/resources/app_strings.dart';
-import '../../../core/resources/font_manager.dart';
-import '../../../core/resources/styles_manager.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../settings/presentation/bloc/settings_bloc.dart';
 import '../components/home_screen_item.dart';
@@ -19,8 +16,7 @@ import '../components/home_screen_item.dart';
 class HomeScreen extends StatelessWidget {
 
   final Function(int) onItemClick;
-  final BuildContext blocContext;
-  const HomeScreen({super.key, required this.onItemClick, required this.blocContext});
+  const HomeScreen({super.key, required this.onItemClick});
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +53,13 @@ class HomeScreen extends StatelessWidget {
               HomeScreenItem(
                 text: AppStrings.homeScreenSettings,
                 onTab: () {
-                  NavigateUtil().navigateToScreen(context, BlocProvider.value(
-                      value: instance<SettingsBloc>(),
-                      child: SettingsScreen(blocContext: blocContext,)));
+                  NavigateUtil().navigateToScreen(
+                      context,
+                      BlocProvider.value(
+                          value: instance<SettingsBloc>(),
+                          child: const SettingsScreen()
+                      )
+                  );
                 },
               ),
               HomeScreenItem(

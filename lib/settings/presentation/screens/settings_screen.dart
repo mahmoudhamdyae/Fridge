@@ -27,8 +27,7 @@ import '../../../core/resources/app_assets.dart';
 
 class SettingsScreen extends StatefulWidget {
 
-  final BuildContext blocContext;
-  const SettingsScreen({super.key, required this.blocContext});
+  const SettingsScreen({super.key});
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();

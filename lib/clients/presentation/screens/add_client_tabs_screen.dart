@@ -41,7 +41,11 @@ class _AddClientTabsScreenState extends State<AddClientTabsScreen> {
                 progressColor: AppColors.primary,
                 backgroundColor: AppColors.grey,
               ),
-              currentTab == 0 ? const AddNewClientScreen()
+              currentTab == 0 ? AddNewClientScreen(moveForward: () {
+                setState(() {
+                  currentTab = 1;
+                });
+              },)
                   :
                   currentTab == 1 ? const AddProductScreen()
                       : const AddProductScreen()

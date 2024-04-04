@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/presentation/components/client_address_form_field.dart';
 import 'package:fridge/clients/presentation/components/client_name_form_field.dart';
 import 'package:fridge/clients/presentation/components/client_phone_form_field.dart';
-import 'package:fridge/clients/presentation/tabs/add_product_screen.dart';
 import 'package:fridge/core/components/appbar.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
-import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/font_manager.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 
+import '../bloc/clients_bloc.dart';
 import '../components/cancel_button.dart';
 import '../components/next_button.dart';
 import '../components/trader_dealer_button.dart';
 
 class AddNewClientScreen extends StatefulWidget {
-  const AddNewClientScreen({super.key});
+
+  final Function moveForward;
+  const AddNewClientScreen({super.key, required this.moveForward});
 
   @override
   State<AddNewClientScreen> createState() => _AddNewClientScreenState();
@@ -86,14 +88,12 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
                 return NextButton(
                   onClick: () {
                     if (validate != null && validate == true) {
-                      debugPrint('-------4------2');
-                      // BlocProvider.of<ClientsBloc>(context).add(AddClientEvent(
-                      //     isTrader ?? true,
-                      //     clientNameController.text,
-                      //     clientPhoneController.text,
-                      //     clientAddressController.text));
-                      NavigateUtil().navigateToScreen(context, const AddProductScreen());
-                      debugPrint('-------4------3');
+                      BlocProvider.of<ClientsBloc>(context).add(AddClientEvent(
+                          isTrader ?? true,
+                          clientNameController.text,
+                          clientPhoneController.text,
+                          clientAddressController.text));
+                      widget.moveForward();
                     }
                   },
                 );

@@ -1,8 +1,5 @@
-import 'dart:ffi';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/rendering.dart';
 import 'package:fridge/clients/domain/entities/client.dart';
 
 import '../../../core/enums/request_state.dart';
@@ -43,7 +40,6 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
   }
 
   Future<void> _addClient(AddClientEvent event, Emitter<ClientsState> emit) async {
-    debugPrint('-------4------5');
     state.copyWith(
       addClientState: RequestState.loaded,
       clientName: event.clientName,

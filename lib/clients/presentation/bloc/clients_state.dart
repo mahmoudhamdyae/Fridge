@@ -6,7 +6,6 @@ class ClientsState extends Equatable {
   final RequestState getClientsState;
   final String getClientsErrorMessage;
 
-  final RequestState addClientState;
   final String clientName;
   final String clientPhone;
   final String clientAddress;
@@ -16,7 +15,6 @@ class ClientsState extends Equatable {
     this.clients = const [],
     this.getClientsState = RequestState.loading,
     this.getClientsErrorMessage = '',
-    this.addClientState = RequestState.init,
     this.clientName = '',
     this.clientPhone = '',
     this.clientAddress = '',
@@ -37,7 +35,6 @@ class ClientsState extends Equatable {
       clients: clients ?? this.clients,
       getClientsState: getClientsState ?? this.getClientsState,
       getClientsErrorMessage: getClientsErrorMessage ?? this.getClientsErrorMessage,
-      addClientState: addClientState ?? this.addClientState,
       clientName: clientName ?? this.clientName,
       clientPhone: clientPhone ?? this.clientPhone,
       clientAddress: clientAddress ?? this.clientAddress,
@@ -48,6 +45,6 @@ class ClientsState extends Equatable {
   @override
   List<Object> get props => [
     clients, getClientsState, getClientsErrorMessage,
-    addClientState, clientName, clientPhone, clientAddress, clientType,
+    clientName, clientPhone, clientAddress, clientType,
   ];
 }
