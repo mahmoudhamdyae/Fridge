@@ -50,22 +50,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     super.initState();
     bloc = instance<SettingsBloc>();
     bloc.add(GetSettingsEvent());
-
-    wardsNumberController.text = (bloc.state.settingsResponse.data?.partsCount ?? '').toString();
-    unitPriceController.text = (bloc.state.settingsResponse.data?.price ?? '').toString();
-    _unit = (bloc.state.settingsResponse.data?.units ?? AppStrings.settingsScreenUnitKiloGram).toString();
-
-    // Product Type
-    productTypeController = [];
-    bloc.state.settingsResponse.data?.products?.forEach((element) {
-      productTypeController.add(TextEditingController(text: element));
-    });
-
-    // Packaging Type
-    packagingTypeController = [];
-    bloc.state.settingsResponse.data?.boxing?.forEach((element) {
-      packagingTypeController.add(TextEditingController(text: element));
-    });
   }
 
   @override
@@ -109,6 +93,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
               // return ErrorScreen(error: state.getSettingsErrorMessage);
             }
 
+            wardsNumberController.text = (state.partsCount).toString();
+            unitPriceController.text = (state.price).toString();
+            _unit = (state.units).toString();
+
+            // Product Type
+            productTypeController = [];
+            for (var element in state.products) {
+              productTypeController.add(TextEditingController(text: element));
+            }
+
+            // Packaging Type
+            packagingTypeController = [];
+            for (var element in state.boxing) {
+              packagingTypeController.add(TextEditingController(text: element));
+            }
 
             return Form(
               key: _formKey,
@@ -203,6 +202,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 onChanged: (value) {
                                   setState(() {
                                     _unit = value ?? '';
+                                    BlocProvider.of<SettingsBloc>(context).add(UpdateUnitEvent(_unit));
                                   });
                                 }),
                             Text(
@@ -220,6 +220,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 onChanged: (value) {
                                   setState(() {
                                     _unit = value ?? '';
+                                    BlocProvider.of<SettingsBloc>(context).add(UpdateUnitEvent(_unit));
                                   });
                                 }),
                             Text(
@@ -237,6 +238,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 onChanged: (value) {
                                   setState(() {
                                     _unit = value ?? '';
+                                    BlocProvider.of<SettingsBloc>(context).add(UpdateUnitEvent(_unit));
                                   });
                                 }),
                             Text(

@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/presentation/components/client_address_form_field.dart';
 import 'package:fridge/clients/presentation/components/client_name_form_field.dart';
 import 'package:fridge/clients/presentation/components/client_phone_form_field.dart';
 import 'package:fridge/clients/presentation/tabs/add_product_screen.dart';
 import 'package:fridge/core/components/appbar.dart';
-import 'package:fridge/core/enums/request_state.dart';
-import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/font_manager.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
-import 'package:fridge/core/services/services_locator.dart';
 
-import '../../../core/components/decorations.dart';
-import '../bloc/clients_bloc.dart';
 import '../components/cancel_button.dart';
 import '../components/next_button.dart';
 import '../components/trader_dealer_button.dart';

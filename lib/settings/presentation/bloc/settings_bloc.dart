@@ -21,20 +21,33 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       this.updateSettingsUsecase,
       ) : super(const SettingsState()) {
     on<GetSettingsEvent>((event, emit) async {
-      await _getSettingsEvent(event, emit);
+      await _getSettings(event, emit);
     });
     on<UpdateSettingsEvent>((event, emit) async {
-      await _updateSettingsEvent(event, emit);
+      await _updateSettings(event, emit);
+    });
+    on<UpdateWardNumberEvent>((event, emit) async {
+      await _updateWardNumber(event, emit);
+    });
+    on<UpdateProductTypeEvent>((event, emit) async {
+      await _updateProductType(event, emit);
+    });
+    on<UpdatePackagingTypeEvent>((event, emit) async {
+      await _updatePackagingType(event, emit);
+    });
+    on<UpdateUnitEvent>((event, emit) async {
+      await _updateUnit(event, emit);
+    });
+    on<UpdatePriceEvent>((event, emit) async {
+      await _updatePrice(event, emit);
     });
   }
 
-  Future<void> _getSettingsEvent(GetSettingsEvent event, Emitter<SettingsState> emit) async {
+  Future<void> _getSettings(GetSettingsEvent event, Emitter<SettingsState> emit) async {
     emit(state.copyWith(
-      settingsResponse: SettingsResponse(data: Data(
           partsCount: 234,
         price: '1276'
-      )),
-    ));
+      ));
     // final result = await getSettingsUsecase.call();
     // result.fold((l) {
     //   emit(state.copyWith(
@@ -49,7 +62,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     // });
   }
 
-  Future<void> _updateSettingsEvent(UpdateSettingsEvent event, Emitter<SettingsState> emit) async {
+  Future<void> _updateSettings(UpdateSettingsEvent event, Emitter<SettingsState> emit) async {
     emit(state.copyWith(updateSettingsState: RequestState.loading));
     List<String> products = [];
     for (var element in event.products) {
@@ -76,5 +89,25 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     }, (r) {
       emit(state.copyWith(updateSettingsState: RequestState.loaded));
     });
+  }
+
+  Future<void> _updateWardNumber(UpdateWardNumberEvent event, Emitter<SettingsState> emit) async {
+    emit(state.copyWith(partsCount: event.wardsNumber));
+  }
+
+  Future<void> _updateProductType(UpdateProductTypeEvent event, Emitter<SettingsState> emit) async {
+    emit(state.copyWith(products: event.productTypes));
+  }
+
+  Future<void> _updatePackagingType(UpdatePackagingTypeEvent event, Emitter<SettingsState> emit) async {
+    emit(state.copyWith(boxing: event.packagingTypes));
+  }
+
+  Future<void> _updateUnit(UpdateUnitEvent event, Emitter<SettingsState> emit) async {
+    emit(state.copyWith(units: event.unit));
+  }
+
+  Future<void> _updatePrice(UpdatePriceEvent event, Emitter<SettingsState> emit) async {
+    emit(state.copyWith(price: event.price.toString()));
   }
 }

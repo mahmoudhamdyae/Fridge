@@ -2,17 +2,22 @@ part of 'settings_bloc.dart';
 
 class SettingsState extends Equatable {
 
-  final SettingsResponse settingsResponse;
+  final List<dynamic> products;
+  final String units;
+  final List<dynamic> boxing;
+  final String price;
+  final int partsCount;
   final RequestState getSettingsState;
   final String getSettingsErrorMessage;
   final RequestState updateSettingsState;
   final String updateSettingsErrorMessage;
 
   const SettingsState({
-    this.settingsResponse = const SettingsResponse(
-      status: false,
-      data: Data(),
-    ),
+    this.products = const[],
+    this.units = 'كجم',
+    this.boxing = const [],
+    this.price = '',
+    this.partsCount = 0,
     this.getSettingsState = RequestState.loading,
     this.getSettingsErrorMessage = '',
     this.updateSettingsState = RequestState.init,
@@ -20,14 +25,22 @@ class SettingsState extends Equatable {
   });
 
   SettingsState copyWith({
-    SettingsResponse? settingsResponse,
+    List<dynamic>? products,
+    String? units,
+    List<dynamic>? boxing,
+    String? price,
+    int? partsCount,
     RequestState? getSettingsState,
     String? getSettingsErrorMessage,
     RequestState? updateSettingsState,
     String? updateSettingsErrorMessage,
 }) {
     return SettingsState(
-      settingsResponse: settingsResponse ?? this.settingsResponse,
+      products: products ?? this.products,
+      units: units ?? this.units,
+      boxing: boxing ?? this.boxing,
+      price: price ?? this.price,
+      partsCount: partsCount ?? this.partsCount,
       getSettingsState: getSettingsState ?? this.getSettingsState,
       getSettingsErrorMessage: getSettingsErrorMessage ?? this.getSettingsErrorMessage,
       updateSettingsState: updateSettingsState ?? this.updateSettingsState,
@@ -37,7 +50,7 @@ class SettingsState extends Equatable {
 
   @override
   List<Object> get props => [
-    settingsResponse,
+    products, units, boxing, price, partsCount,
     getSettingsState,
     getSettingsErrorMessage,
     updateSettingsState,
