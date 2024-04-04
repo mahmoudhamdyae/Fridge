@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fridge/clients/presentation/components/cancel_button.dart';
 import 'package:fridge/clients/presentation/components/next_button.dart';
+import 'package:fridge/clients/presentation/components/product/add_product_type_form_field.dart';
 import 'package:fridge/clients/presentation/components/product/number_form_field.dart';
 import 'package:fridge/clients/presentation/components/product/product_price_form_field.dart';
 import 'package:fridge/clients/presentation/components/product/total_weight_form_field.dart';
@@ -29,6 +30,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   TextEditingController unitWeightController = TextEditingController();
   TextEditingController totalWeightController = TextEditingController();
   TextEditingController priceController = TextEditingController();
+  String chosenProductType = '';
 
   bool? get validate => _formKey.currentState?.validate();
 
@@ -44,6 +46,26 @@ class _AddProductScreenState extends State<AddProductScreen> {
             image: AppAssets.person,
           ),
           32.ph,
+          Row(
+            children: [
+              SizedBox(
+                width: 80,
+                child: Text(
+                  AppStrings.addClientScreenProductTypeLabel,
+                  style: getSmallStyle(
+                    fontWeight: FontWeightManager.medium,
+                  ),
+                ),
+              ),
+              16.pw,
+              Expanded(child: AddProductTypeFormField(chosenType: (chosenType) {
+                setState(() {
+                  chosenProductType = chosenType;
+                });
+              },)),
+            ],
+          ),
+          16.ph,
           Row(
             children: [
               SizedBox(

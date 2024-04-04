@@ -110,8 +110,6 @@ class AppStrings {
   static const String addClientScreenProductTypeLabel = 'نوع المنتج';
   static const String addClientScreenProductTypeHint = 'ادخل نوع المنتج';
   static const String addClientScreenPackagingTypeLabel = 'نوع التغليف';
-  static const String addClientScreenPackagingType1 = 'شكاير';
-  static const String addClientScreenPackagingType2 = 'براميل';
   static const String addClientScreenNumberLabel = 'العدد';
   static const String addClientScreenUnitWeightLabel = 'الوزن للوحدة';
   static const String addClientScreenTotalWeightLabel = 'الوزن الكلى';

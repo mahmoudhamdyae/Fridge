@@ -133,6 +133,7 @@ class ServicesLocator {
 
     // Bloc
     instance.registerLazySingleton(() => ClientsBloc(
+      instance<GetSettingsUsecase>(),
       instance<GetClientsUsecase>(),
     ));
     // Use Cases
