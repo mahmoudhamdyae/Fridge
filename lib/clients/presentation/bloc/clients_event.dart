@@ -35,3 +35,13 @@ class ChooseWardEvent extends ClientsEvent {
   @override
   List<Object?> get props => [ward];
 }
+
+class ChoosePlaceEvent extends ClientsEvent {
+  final int x;
+  final int y;
+  ChoosePlaceEvent(this.x, this.y);
+  @override
+  List<Object?> get props => [x, y];
+}
+
+class FinishEvent extends ClientsEvent {}

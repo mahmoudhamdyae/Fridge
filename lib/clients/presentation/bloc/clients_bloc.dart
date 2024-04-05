@@ -38,6 +38,14 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
     on<ChooseWardEvent>((event, emit) async {
       await _chooseWard(event, emit);
     });
+
+    on<ChoosePlaceEvent>((event, emit) async {
+      await _choosePlace(event, emit);
+    });
+
+    on<FinishEvent>((event, emit) async {
+      await _finish(event, emit);
+    });
   }
 
   Future<void> _getClients(GetClientsEvent event, Emitter<ClientsState> emit) async {
@@ -99,5 +107,15 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
     state.copyWith(
       ward: event.ward,
     );
+  }
+
+  Future<void> _choosePlace(ChoosePlaceEvent event, Emitter<ClientsState> emit) async {
+    state.copyWith(
+      x: event.x,
+      y: event.y,
+    );
+  }
+
+  Future<void> _finish(FinishEvent event, Emitter<ClientsState> emit) async {
   }
 }
