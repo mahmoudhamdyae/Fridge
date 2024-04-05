@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fridge/clients/presentation/bloc/clients_bloc.dart';
 import 'package:fridge/clients/presentation/components/cancel_button.dart';
 import 'package:fridge/clients/presentation/components/next_button.dart';
 import 'package:fridge/clients/presentation/components/product/add_packaging_type_form_field.dart';
@@ -176,6 +177,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
           ),
           32.ph,
           NextButton(onClick: () {
+            BlocProvider.of<ClientsBloc>(context).add(AddProductEvent(
+              chosenProductType,
+              chosenPackagingType,
+              unitWeightController.text,
+              totalWeightController.text,
+              double.parse(priceController.text),
+            ));
             widget.moveForward();
           }),
           const CancelButton(),

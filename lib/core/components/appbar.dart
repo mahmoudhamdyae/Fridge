@@ -100,3 +100,29 @@ class SecondaryAppBarWithImage extends StatelessWidget {
     );
   }
 }
+
+class ThirdAppBar extends StatelessWidget {
+
+  final String text;
+  final String image;
+  const ThirdAppBar({super.key, required this.text, required this.image});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Image.asset(
+          image,
+          width: 25,
+          height: 25,
+        ),
+        16.pw,
+        Text(
+          text,
+          textAlign: TextAlign.center,
+          style: getSmallStyle(),
+        ),
+      ],
+    );
+  }
+}

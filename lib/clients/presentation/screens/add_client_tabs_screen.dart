@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fridge/clients/presentation/tabs/add_new_client_screen.dart';
 import 'package:fridge/clients/presentation/tabs/add_product_screen.dart';
+import 'package:fridge/clients/presentation/tabs/choose_ward_screen.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/resources/app_colors.dart';
@@ -54,7 +55,7 @@ class _AddClientTabsScreenState extends State<AddClientTabsScreen> {
                       currentTab = 2;
                     });
                   },)
-                      : AddProductScreen(moveForward: () {},)
+                      : const ChooseWardScreen()
             ],
           ),
         ),
