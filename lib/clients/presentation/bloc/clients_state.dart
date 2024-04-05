@@ -22,6 +22,9 @@ class ClientsState extends Equatable {
   final int x;
   final int y;
 
+  final RequestState addClientState;
+  final String addClientErrorMessage;
+
   const ClientsState({
     this.clients = const [],
     this.getClientsState = RequestState.loading,
@@ -37,6 +40,8 @@ class ClientsState extends Equatable {
     this.productToAdd = const ProductToAdd(),
     this.x = 0,
     this.y = 0,
+    this.addClientState = RequestState.loading,
+    this.addClientErrorMessage = '',
 });
 
   ClientsState copyWith({
@@ -47,7 +52,6 @@ class ClientsState extends Equatable {
     List<String>? remotePackagingTypes,
     List<Ward>? wards,
     Ward? ward,
-    RequestState? addClientState,
     String? clientName,
     String? clientPhone,
     String? clientAddress,
@@ -55,6 +59,8 @@ class ClientsState extends Equatable {
     ProductToAdd? productToAdd,
     int? x,
     int? y,
+    RequestState? addClientState,
+    String? addClientErrorMessage,
   }) {
     return ClientsState(
       clients: clients ?? this.clients,
@@ -71,6 +77,8 @@ class ClientsState extends Equatable {
       productToAdd: productToAdd ?? this.productToAdd,
       x: x ?? this.x,
       y: y ?? this.y,
+      addClientState: addClientState ?? this.addClientState,
+      addClientErrorMessage: addClientErrorMessage ?? this.addClientErrorMessage,
     );
   }
 
@@ -82,5 +90,6 @@ class ClientsState extends Equatable {
     clientName, clientPhone, clientAddress, clientType,
     productToAdd,
     x, y,
+    addClientState, addClientErrorMessage,
   ];
 }

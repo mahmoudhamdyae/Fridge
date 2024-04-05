@@ -23,4 +23,5 @@ class ApiConstants {
 
   /// Clients
   static const String getClientsPath = "app/customer/";
+  static const String addClientPath = "app/customer/store";
 }

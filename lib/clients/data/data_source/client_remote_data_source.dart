@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fridge/clients/data/models/add_client_request.dart';
 import 'package:fridge/clients/data/models/client_model.dart';
 import 'package:fridge/clients/domain/entities/client.dart';
 import 'package:fridge/core/network/dio_manager.dart';
@@ -13,6 +14,7 @@ abstract class ClientRemoteDataSource {
   ClientRemoteDataSource(this.dioManager);
 
   Future<List<Client>> getClients();
+  Future<void> addClient(AddClientRequest request);
 }
 
 class ClientRemoteDataSourceImpl extends ClientRemoteDataSource {
@@ -25,6 +27,25 @@ class ClientRemoteDataSourceImpl extends ClientRemoteDataSource {
       if (response.statusCode == HttpStatus.ok) {
         return Clients.fromJson((response.data)).data ?? [];
       } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(response.data)
+        );
+      }
+    } on Exception catch (error) {
+      throw ServerException(
+          errorMessageModel: ErrorMessageModel(status: false, message: error.toString())
+      );
+    }
+  }
+
+  @override
+  Future<void> addClient(AddClientRequest request) async {
+    try {
+      var response = await dioManager.dio.post(
+        ApiConstants.addClientPath,
+        data: request.toJson(),
+      );
+      if (response.statusCode != HttpStatus.ok) {
         throw ServerException(
             errorMessageModel: ErrorMessageModel.fromJson(response.data)
         );

@@ -22,6 +22,7 @@ import '../../../settings/presentation/screens/settings_screen.dart';
 class WardsScreen extends StatefulWidget {
 
   final BuildContext blocContext;
+
   const WardsScreen({super.key, required this.blocContext});
 
   @override
@@ -41,20 +42,20 @@ class _WardsScreenState extends State<WardsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WardsBloc, WardsState>(
-      builder: (BuildContext context, WardsState state) {
-        if (state.getWardsState == RequestState.loading) {
-          return const LoadingScreen();
-        } else if (state.getWardsState == RequestState.error) {
-          return ErrorScreen(error: state.getWardsErrorMessage);
-        }
-        return SafeArea(
-            child: Scaffold(
-              body: Container(
-                height: context.height,
-                padding: getMainPadding(context),
-                decoration: getMainDecoration(),
-                child: ListView(
+    return SafeArea(
+        child: Scaffold(
+          body: Container(
+            height: context.height,
+            padding: getMainPadding(context),
+            decoration: getMainDecoration(),
+            child: BlocBuilder<WardsBloc, WardsState>(
+              builder: (context, state) {
+                if (state.getWardsState == RequestState.loading) {
+                  return const LoadingScreen();
+                } else if (state.getWardsState == RequestState.error) {
+                  return ErrorScreen(error: state.getWardsErrorMessage);
+                }
+                return ListView(
                   shrinkWrap: true,
                   physics: const ClampingScrollPhysics(),
                   children: [
@@ -69,7 +70,8 @@ class _WardsScreenState extends State<WardsScreen> {
                         SettingsButton(
                           onTab: () {
                             NavigateUtil()
-                                .navigateToScreen(context, const SettingsScreen());
+                                .navigateToScreen(
+                                context, const SettingsScreen());
                           },
                         ),
                       ],
@@ -87,7 +89,8 @@ class _WardsScreenState extends State<WardsScreen> {
                         return InkWell(
                           onTap: () {
                             NavigateUtil().navigateToScreen(
-                                context, WardScreen(ward: state.wards[index]));
+                                context,
+                                WardScreen(ward: state.wards[index]));
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -108,10 +111,10 @@ class _WardsScreenState extends State<WardsScreen> {
                       }),
                     )
                   ],
-                ),
-              ),
-            ));
-      },
-    );
+                );
+              },
+            ),
+          ),
+        ));
   }
 }

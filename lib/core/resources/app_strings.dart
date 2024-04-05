@@ -119,6 +119,7 @@ class AppStrings {
 
 
   static const String addClientScreenChooseWard = 'اختر العنبر';
+  static const String addClientScreenChooseWardProduct = 'اضف المنتج';
   static const String addClientScreeFridge = 'ثلاجة ';
 
   // Bill Screen

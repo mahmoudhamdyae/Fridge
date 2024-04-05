@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:fridge/clients/data/models/add_client_request.dart';
 import 'package:fridge/clients/domain/entities/client.dart';
 import 'package:fridge/clients/domain/entities/product_to_add.dart';
 import 'package:fridge/settings/domain/usecases/get_settings_usecase.dart';
@@ -7,6 +8,7 @@ import 'package:fridge/ward/domain/usecases/get_wards_usecase.dart';
 
 import '../../../core/enums/request_state.dart';
 import '../../../ward/domain/entities/ward.dart';
+import '../../domain/usecases/add_client_usecase.dart';
 import '../../domain/usecases/get_clients_usecase.dart';
 
 part 'clients_event.dart';
@@ -17,11 +19,13 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
   final GetSettingsUsecase _getSettingsUsecase;
   final GetWardsUsecase _getWardsUsecase;
   final GetClientsUsecase _getClientsUsecase;
+  final AddClientUsecase _addClientUsecase;
 
   ClientsBloc(
       this._getSettingsUsecase,
       this._getWardsUsecase,
       this._getClientsUsecase,
+      this._addClientUsecase
       ) : super(const ClientsState()) {
     on<GetClientsEvent>((event, emit) async {
       await _getClients(event, emit);
@@ -117,5 +121,33 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
   }
 
   Future<void> _finish(FinishEvent event, Emitter<ClientsState> emit) async {
+    emit(state.copyWith(addClientState: RequestState.loading));
+    final result = await _addClientUsecase.call(
+      AddClientRequest(
+          name: state.clientName,
+          phone: state.clientPhone,
+          address: state.clientAddress,
+          type: state.clientType,
+          productType: state.productToAdd.productType,
+          packagingType: state.productToAdd.packagingType,
+          wardId: state.ward.id,
+          number: state.productToAdd.number,
+          unitWeight: state.productToAdd.unitWeight,
+          totalWeight: state.productToAdd.totalWeight,
+          price: state.productToAdd.price,
+          x: state.x,
+          y: state.y,
+      )
+    );
+    result.fold((l) {
+      emit(state.copyWith(
+        addClientState: RequestState.error,
+        addClientErrorMessage: l.message,
+      ));
+    }, (r) {
+      emit(state.copyWith(
+        addClientState: RequestState.loaded,
+      ));
+    });
   }
 }

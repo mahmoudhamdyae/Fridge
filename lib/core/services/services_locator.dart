@@ -9,6 +9,7 @@ import 'package:fridge/auth/domain/usecases/register_usecase.dart';
 import 'package:fridge/auth/domain/usecases/sign_out_usecase.dart';
 import 'package:fridge/clients/data/data_source/client_remote_data_source.dart';
 import 'package:fridge/clients/domain/repository/client_repository.dart';
+import 'package:fridge/clients/domain/usecases/add_client_usecase.dart';
 import 'package:fridge/clients/domain/usecases/get_clients_usecase.dart';
 import 'package:fridge/clients/presentation/bloc/clients_bloc.dart';
 import 'package:fridge/core/network/dio_manager.dart';
@@ -136,9 +137,11 @@ class ServicesLocator {
       instance<GetSettingsUsecase>(),
       instance<GetWardsUsecase>(),
       instance<GetClientsUsecase>(),
+      instance<AddClientUsecase>(),
     ));
     // Use Cases
     instance.registerLazySingleton(() => GetClientsUsecase(instance<ClientRepository>()));
+    instance.registerLazySingleton(() => AddClientUsecase(instance<ClientRepository>()));
     // Repository
     instance.registerLazySingleton<ClientRepository>(
             () => ClientRepositoryImpl(instance<ClientRemoteDataSource>()));
