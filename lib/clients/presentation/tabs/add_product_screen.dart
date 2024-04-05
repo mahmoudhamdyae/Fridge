@@ -177,14 +177,18 @@ class _AddProductScreenState extends State<AddProductScreen> {
           ),
           32.ph,
           NextButton(onClick: () {
-            BlocProvider.of<ClientsBloc>(context).add(AddProductEvent(
-              chosenProductType,
-              chosenPackagingType,
-              unitWeightController.text,
-              totalWeightController.text,
-              double.parse(priceController.text),
-            ));
-            widget.moveForward();
+            // todo validation here
+            // if (validate != null && validate == true) {
+              BlocProvider.of<ClientsBloc>(context).add(AddProductEvent(
+                chosenProductType,
+                chosenPackagingType,
+                int.parse(numberController.text),
+                int.parse(unitWeightController.text),
+                int.parse(totalWeightController.text),
+                double.parse(priceController.text),
+              ));
+              widget.moveForward();
+            // }
           }),
           const CancelButton(),
         ],

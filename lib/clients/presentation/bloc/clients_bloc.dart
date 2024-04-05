@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fridge/clients/domain/entities/client.dart';
+import 'package:fridge/clients/domain/entities/product_to_add.dart';
 import 'package:fridge/settings/domain/usecases/get_settings_usecase.dart';
 
 import '../../../core/enums/request_state.dart';
@@ -24,6 +25,10 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
 
     on<AddClientEvent>((event, emit) async {
       await _addClient(event, emit);
+    });
+
+    on<AddProductEvent>((event, emit) async {
+      await _addProduct(event, emit);
     });
   }
 
@@ -58,6 +63,19 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
       clientPhone: event.clientPhone,
       clientAddress: event.clientAddress,
       clientType: event.isTrader ? 0 : 1,
+    );
+  }
+
+  Future<void> _addProduct(AddProductEvent event, Emitter<ClientsState> emit) async {
+    state.copyWith(
+      productToAdd: ProductToAdd(
+        productType: event.productType,
+        packagingType: event.packagingType,
+        number: event.number,
+        unitWeight: event.unitWeight,
+        totalWeight: event.totalWeight,
+        price: event.price,
+      )
     );
   }
 }

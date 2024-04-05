@@ -14,6 +14,8 @@ class ClientsState extends Equatable {
   final String clientAddress;
   final int clientType;
 
+  final ProductToAdd productToAdd;
+
   const ClientsState({
     this.clients = const [],
     this.getClientsState = RequestState.loading,
@@ -24,6 +26,7 @@ class ClientsState extends Equatable {
     this.clientPhone = '',
     this.clientAddress = '',
     this.clientType = 0,
+    this.productToAdd = const ProductToAdd(),
 });
 
   ClientsState copyWith({
@@ -37,6 +40,7 @@ class ClientsState extends Equatable {
     String? clientPhone,
     String? clientAddress,
     int? clientType,
+    ProductToAdd? productToAdd
   }) {
     return ClientsState(
       clients: clients ?? this.clients,
@@ -48,6 +52,7 @@ class ClientsState extends Equatable {
       clientPhone: clientPhone ?? this.clientPhone,
       clientAddress: clientAddress ?? this.clientAddress,
       clientType: clientType ?? this.clientType,
+      productToAdd: productToAdd ?? this.productToAdd,
     );
   }
 
@@ -56,5 +61,6 @@ class ClientsState extends Equatable {
     clients, getClientsState, getClientsErrorMessage,
     remoteProductsTypes, remotePackagingTypes,
     clientName, clientPhone, clientAddress, clientType,
+    productToAdd,
   ];
 }
