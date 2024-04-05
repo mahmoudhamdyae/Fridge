@@ -28,3 +28,10 @@ class AddProductEvent extends ClientsEvent {
   @override
   List<Object?> get props => [productType, packagingType, number, unitWeight, totalWeight, price];
 }
+
+class ChooseWardEvent extends ClientsEvent {
+  final Ward ward;
+  ChooseWardEvent(this.ward);
+  @override
+  List<Object?> get props => [ward];
+}

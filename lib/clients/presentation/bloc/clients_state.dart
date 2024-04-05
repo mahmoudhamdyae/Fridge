@@ -9,6 +9,9 @@ class ClientsState extends Equatable {
   final List<String> remoteProductsTypes;
   final List<String> remotePackagingTypes;
 
+  final List<Ward> wards;
+  final Ward ward;
+
   final String clientName;
   final String clientPhone;
   final String clientAddress;
@@ -22,6 +25,8 @@ class ClientsState extends Equatable {
     this.getClientsErrorMessage = '',
     this.remoteProductsTypes = const [],
     this.remotePackagingTypes = const [],
+    this.wards = const [],
+    this.ward = const Ward(),
     this.clientName = '',
     this.clientPhone = '',
     this.clientAddress = '',
@@ -35,6 +40,8 @@ class ClientsState extends Equatable {
     String? getClientsErrorMessage,
     List<String>? remoteProductsTypes,
     List<String>? remotePackagingTypes,
+    List<Ward>? wards,
+    Ward? ward,
     RequestState? addClientState,
     String? clientName,
     String? clientPhone,
@@ -48,6 +55,8 @@ class ClientsState extends Equatable {
       getClientsErrorMessage: getClientsErrorMessage ?? this.getClientsErrorMessage,
       remoteProductsTypes: remoteProductsTypes ?? this.remoteProductsTypes,
       remotePackagingTypes: remotePackagingTypes ?? this.remotePackagingTypes,
+      wards: wards ?? this.wards,
+      ward: ward ?? this.ward,
       clientName: clientName ?? this.clientName,
       clientPhone: clientPhone ?? this.clientPhone,
       clientAddress: clientAddress ?? this.clientAddress,
@@ -60,6 +69,7 @@ class ClientsState extends Equatable {
   List<Object> get props => [
     clients, getClientsState, getClientsErrorMessage,
     remoteProductsTypes, remotePackagingTypes,
+    wards, ward,
     clientName, clientPhone, clientAddress, clientType,
     productToAdd,
   ];

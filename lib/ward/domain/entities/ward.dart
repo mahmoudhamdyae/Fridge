@@ -9,12 +9,12 @@ class Ward extends Equatable {
   final int? fridgeId;
 
   const Ward({
-    required this.id,
-    required this.name,
-    required this.width,
-    required this.height,
-    required this.floorNum,
-    required this.fridgeId
+    this.id,
+    this.name,
+    this.width,
+    this.height,
+    this.floorNum,
+    this.fridgeId
   });
 
   @override

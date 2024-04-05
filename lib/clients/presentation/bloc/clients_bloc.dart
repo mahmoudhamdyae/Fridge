@@ -3,8 +3,10 @@ import 'package:equatable/equatable.dart';
 import 'package:fridge/clients/domain/entities/client.dart';
 import 'package:fridge/clients/domain/entities/product_to_add.dart';
 import 'package:fridge/settings/domain/usecases/get_settings_usecase.dart';
+import 'package:fridge/ward/domain/usecases/get_wards_usecase.dart';
 
 import '../../../core/enums/request_state.dart';
+import '../../../ward/domain/entities/ward.dart';
 import '../../domain/usecases/get_clients_usecase.dart';
 
 part 'clients_event.dart';
@@ -13,10 +15,12 @@ part 'clients_state.dart';
 class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
 
   final GetSettingsUsecase _getSettingsUsecase;
+  final GetWardsUsecase _getWardsUsecase;
   final GetClientsUsecase _getClientsUsecase;
 
   ClientsBloc(
       this._getSettingsUsecase,
+      this._getWardsUsecase,
       this._getClientsUsecase,
       ) : super(const ClientsState()) {
     on<GetClientsEvent>((event, emit) async {
@@ -29,6 +33,10 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
 
     on<AddProductEvent>((event, emit) async {
       await _addProduct(event, emit);
+    });
+
+    on<ChooseWardEvent>((event, emit) async {
+      await _chooseWard(event, emit);
     });
   }
 
@@ -54,6 +62,14 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
           remotePackagingTypes: settingsResponse.data?.boxing as List<String>? ?? []
       );
     });
+    // Get Wards
+    final getWardsResult = await _getWardsUsecase.call();
+    getWardsResult.fold((l) {
+    }, (wards) {
+      state.copyWith(
+          wards: wards
+      );
+    });
   }
 
   Future<void> _addClient(AddClientEvent event, Emitter<ClientsState> emit) async {
@@ -76,6 +92,12 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
         totalWeight: event.totalWeight,
         price: event.price,
       )
+    );
+  }
+
+  Future<void> _chooseWard(ChooseWardEvent event, Emitter<ClientsState> emit) async {
+    state.copyWith(
+      ward: event.ward,
     );
   }
 }
