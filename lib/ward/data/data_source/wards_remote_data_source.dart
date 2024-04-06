@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:fridge/core/network/dio_manager.dart';
 import 'package:fridge/ward/data/models/ward_model.dart';
 
