@@ -13,6 +13,10 @@ import 'package:fridge/clients/domain/usecases/add_client_usecase.dart';
 import 'package:fridge/clients/domain/usecases/get_clients_usecase.dart';
 import 'package:fridge/clients/presentation/bloc/clients_bloc.dart';
 import 'package:fridge/core/network/dio_manager.dart';
+import 'package:fridge/expenses/data/data_source/expenses_remote_data_source.dart';
+import 'package:fridge/expenses/data/repository/expenses_repository_impl.dart';
+import 'package:fridge/expenses/domain/repository/expenses_repository.dart';
+import 'package:fridge/expenses/domain/usecases/store_expenses_usecase.dart';
 import 'package:fridge/home/data/datasource/home_remote_data_source.dart';
 import 'package:fridge/home/domain/repository/home_repository.dart';
 import 'package:fridge/home/domain/usecases/del_product_usecase.dart';
@@ -36,6 +40,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../auth/presentation/bloc/auth_bloc.dart';
 import '../../clients/data/repository/client_repository_impl.dart';
+import '../../expenses/presentation/bloc/expenses_bloc.dart';
 import '../../home/data/repository/home_repository_impl.dart';
 
 final instance = GetIt.instance;
@@ -148,5 +153,20 @@ class ServicesLocator {
     // DATA SOURCE
     instance.registerLazySingleton<ClientRemoteDataSource>(
             () => ClientRemoteDataSourceImpl(DioManager.instance));
+
+    /// Expenses
+
+    // Bloc
+    instance.registerLazySingleton(() => ExpensesBloc(
+      instance<StoreExpensesUsecase>(),
+    ));
+    // Use Cases
+    instance.registerLazySingleton(() => StoreExpensesUsecase(instance<ExpensesRepository>()));
+    // Repository
+    instance.registerLazySingleton<ExpensesRepository>(
+            () => ExpensesRepositoryImpl(instance<ExpensesRemoteDataSource>()));
+    // DATA SOURCE
+    instance.registerLazySingleton<ExpensesRemoteDataSource>(
+            () => ExpensesRemoteDataSourceImpl(DioManager.instance));
   }
 }

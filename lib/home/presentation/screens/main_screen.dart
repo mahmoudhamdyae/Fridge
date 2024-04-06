@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/presentation/bloc/clients_bloc.dart';
 import 'package:fridge/clients/presentation/screens/clients_screen.dart';
+import 'package:fridge/expenses/presentation/bloc/expenses_bloc.dart';
 import 'package:fridge/reports/presentation/screens/reports_screen.dart';
 import 'package:fridge/ward/presentation/screens/wards_screen.dart';
 import '../../../core/resources/app_assets.dart';
@@ -49,6 +50,7 @@ class _MainScreenState extends State<MainScreen> {
         BlocProvider(create: (_) => instance<SettingsBloc>()),
         BlocProvider(create: (_) => instance<WardsBloc>()),
         BlocProvider(create: (_) => instance<ClientsBloc>()),
+        BlocProvider(create: (_) => instance<ExpensesBloc>()),
       ],
       child: Scaffold(
         backgroundColor: AppColors.primaryLight,

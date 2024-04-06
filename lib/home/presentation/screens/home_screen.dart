@@ -4,6 +4,7 @@ import 'package:fridge/core/components/decorations.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
+import 'package:fridge/expenses/presentation/bloc/expenses_bloc.dart';
 import 'package:fridge/expenses/presentation/screens/expenses_screen.dart';
 import 'package:fridge/settings/presentation/screens/settings_screen.dart';
 
@@ -68,7 +69,10 @@ class HomeScreen extends StatelessWidget {
               ),
               HomeScreenItem(
                 text: AppStrings.homeScreenExpenses,
-                onTab: () { NavigateUtil().navigateToScreen(context, const ExpensesScreen()); },
+                onTab: () { NavigateUtil().navigateToScreen(context, BlocProvider.value(
+                    value: instance<ExpensesBloc>(),
+                    child: const ExpensesScreen()
+                )); },
               ),
               HomeScreenItem(
                 text: AppStrings.homeScreenReports,
