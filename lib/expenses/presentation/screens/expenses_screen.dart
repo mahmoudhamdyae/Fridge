@@ -43,7 +43,8 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
         child: Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              NavigateUtil().navigateToScreen(context, const AddExpenseScreen());
+              NavigateUtil().navigateToScreen(context, BlocProvider.value(value: instance<ExpensesBloc>(),
+              child: const AddExpenseScreen()));
             },
             backgroundColor: AppColors.colorRamps3,
             child: const Icon(
