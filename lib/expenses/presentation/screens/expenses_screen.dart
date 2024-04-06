@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/core/components/appbar.dart';
@@ -17,7 +16,6 @@ import 'package:fridge/expenses/presentation/bloc/expenses_bloc.dart';
 import 'package:fridge/expenses/presentation/screens/add_expense_screen.dart';
 
 import '../../../core/components/decorations.dart';
-
 
 class ExpensesScreen extends StatefulWidget {
   const ExpensesScreen({super.key});

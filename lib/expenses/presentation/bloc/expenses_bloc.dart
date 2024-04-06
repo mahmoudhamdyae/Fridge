@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fridge/core/enums/request_state.dart';
+import 'package:fridge/expenses/data/models/expenses_response_model.dart';
 import 'package:fridge/expenses/domain/usecases/get_expenses_usecase.dart';
 import 'package:meta/meta.dart';
 
@@ -35,13 +36,22 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
     );
     result.fold((l) => {
       emit(state.copyWith(
-          storeExpensesState: RequestState.error,
+        storeExpensesState: RequestState.error,
         storeExpensesErrorMessage: l.message,
       ))
-    }, (r) => {
+    }, (r) {
+      var expenses = state.expenses;
+      expenses.add(ExpensesResponseModel(
+          id: -1,
+          title: event.title,
+          date: event.date,
+          description: event.description,
+          amount: event.amount
+      ));
       emit(state.copyWith(
           storeExpensesState: RequestState.loaded,
-      ))
+          expenses: expenses,
+      ));
     });
   }
 
