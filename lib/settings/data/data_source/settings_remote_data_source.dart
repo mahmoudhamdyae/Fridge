@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:dio/dio.dart';
 
 import '../../../core/error/error_message_model.dart';
 import '../../../core/error/exceptions.dart';
@@ -26,36 +26,39 @@ class SettingsRemoteDataSourceImpl extends SettingsRemoteDataSource {
       var response = await dioManager.dio.get(
           ApiConstants.getSettingsPath,
       );
-      if (response.statusCode == HttpStatus.ok) {
-        return SettingsResponseModel.fromJson((response.data));
-      } else {
+      return SettingsResponseModel.fromJson((response.data));
+    }  on DioException catch (error) {
+      if (error.response != null) {
         throw ServerException(
-            errorMessageModel: ErrorMessageModel.fromJson(response.data)
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        // Error due to setting up or sending the request
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
         );
       }
-    } on Exception catch (error) {
-      throw ServerException(
-          errorMessageModel: ErrorMessageModel(status: false, message: error.toString())
-      );
     }
   }
 
   @override
   Future<void> updateSettings(SettingsRequest request) async {
     try {
-      var response = await dioManager.dio.post(
+      await dioManager.dio.post(
         ApiConstants.updateSettingsPath,
         data: request.toJson(),
       );
-      if (response.statusCode != HttpStatus.ok) {
+    }  on DioException catch (error) {
+      if (error.response != null) {
         throw ServerException(
-            errorMessageModel: ErrorMessageModel.fromJson(response.data)
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        // Error due to setting up or sending the request
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
         );
       }
-    } on Exception catch (error) {
-      throw ServerException(
-          errorMessageModel: ErrorMessageModel(status: false, message: error.toString())
-      );
     }
   }
 }

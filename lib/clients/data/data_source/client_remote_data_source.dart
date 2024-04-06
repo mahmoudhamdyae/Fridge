@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:dio/dio.dart';
 import 'package:fridge/clients/data/models/add_client_request.dart';
 import 'package:fridge/clients/data/models/client_model.dart';
 import 'package:fridge/clients/domain/entities/client.dart';
@@ -24,36 +23,39 @@ class ClientRemoteDataSourceImpl extends ClientRemoteDataSource {
   Future<List<Client>> getClients() async {
     try {
       var response = await dioManager.dio.get(ApiConstants.getClientsPath);
-      if (response.statusCode == HttpStatus.ok) {
-        return Clients.fromJson((response.data)).data ?? [];
-      } else {
+      return Clients.fromJson((response.data)).data ?? [];
+    }  on DioException catch (error) {
+      if (error.response != null) {
         throw ServerException(
-            errorMessageModel: ErrorMessageModel.fromJson(response.data)
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        // Error due to setting up or sending the request
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
         );
       }
-    } on Exception catch (error) {
-      throw ServerException(
-          errorMessageModel: ErrorMessageModel(status: false, message: error.toString())
-      );
     }
   }
 
   @override
   Future<void> addClient(AddClientRequest request) async {
     try {
-      var response = await dioManager.dio.post(
+      await dioManager.dio.post(
         ApiConstants.addClientPath,
         data: request.toJson(),
       );
-      if (response.statusCode != HttpStatus.ok) {
+    }  on DioException catch (error) {
+      if (error.response != null) {
         throw ServerException(
-            errorMessageModel: ErrorMessageModel.fromJson(response.data)
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        // Error due to setting up or sending the request
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
         );
       }
-    } on Exception catch (error) {
-      throw ServerException(
-          errorMessageModel: ErrorMessageModel(status: false, message: error.toString())
-      );
     }
   }
 }

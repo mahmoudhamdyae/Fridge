@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:fridge/core/network/dio_manager.dart';
 import 'package:fridge/ward/data/models/ward_model.dart';
 
@@ -24,17 +22,18 @@ class WardsRemoteDataSourceImpl extends WardsRemoteDataSource {
       var response = await dioManager.dio.get(
         ApiConstants.getWardsPath,
       );
-      if (response.statusCode == HttpStatus.ok) {
-        return Wards.fromJson((response.data)).data ?? [];
-      } else {
+      return Wards.fromJson((response.data)).data ?? [];
+    }  on DioException catch (error) {
+      if (error.response != null) {
         throw ServerException(
-            errorMessageModel: ErrorMessageModel.fromJson(response.data)
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        // Error due to setting up or sending the request
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
         );
       }
-    } on Exception catch (error) {
-      throw ServerException(
-          errorMessageModel: ErrorMessageModel(status: false, message: error.toString())
-      );
     }
   }
 }

@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:dio/dio.dart';
 import 'package:fridge/core/network/api_constants.dart';
 import 'package:fridge/home/data/models/requests/store_product_request.dart';
 import 'package:fridge/home/data/models/requests/update_product_request.dart';
@@ -28,19 +27,20 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   Future<List<ProductModel>> getProducts() async {
     try {
       var response = await dioManager.dio.get(ApiConstants.getProductsPath);
-      if (response.statusCode == HttpStatus.ok) {
-        return List<ProductModel>.from((response.data).map(
-              (e) => ProductModel.fromJson(e),
-        ));
-      } else {
+      return List<ProductModel>.from((response.data).map(
+            (e) => ProductModel.fromJson(e),
+      ));
+    }  on DioException catch (error) {
+      if (error.response != null) {
         throw ServerException(
-            errorMessageModel: ErrorMessageModel.fromJson(response.data)
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        // Error due to setting up or sending the request
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
         );
       }
-    } on Exception catch (error) {
-      throw ServerException(
-          errorMessageModel: ErrorMessageModel(status: false, message: error.toString())
-      );
     }
   }
 
@@ -59,10 +59,17 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
             errorMessageModel: ErrorMessageModel.fromJson(response.data)
         );
       }
-    } on Exception catch (error) {
-      throw ServerException(
-          errorMessageModel: ErrorMessageModel(status: false, message: error.toString())
-      );
+    }  on DioException catch (error) {
+      if (error.response != null) {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        // Error due to setting up or sending the request
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
+        );
+      }
     }
   }
 
@@ -82,10 +89,17 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
             errorMessageModel: ErrorMessageModel.fromJson(response.data)
         );
       }
-    } on Exception catch (error) {
-      throw ServerException(
-          errorMessageModel: ErrorMessageModel(status: false, message: error.toString())
-      );
+    }  on DioException catch (error) {
+      if (error.response != null) {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        // Error due to setting up or sending the request
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
+        );
+      }
     }
   }
 
@@ -100,10 +114,17 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
             errorMessageModel: ErrorMessageModel.fromJson(response.data)
         );
       }
-    } on Exception catch (error) {
-      throw ServerException(
-          errorMessageModel: ErrorMessageModel(status: false, message: error.toString())
-      );
+    }  on DioException catch (error) {
+      if (error.response != null) {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        // Error due to setting up or sending the request
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
+        );
+      }
     }
   }
 }
