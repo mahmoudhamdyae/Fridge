@@ -2,7 +2,7 @@ class SettingsRequest {
   List<String>? products;
   List<String>? boxing;
   String? units;
-  int? price;
+  double? price;
   int? partsCount;
 
   SettingsRequest(

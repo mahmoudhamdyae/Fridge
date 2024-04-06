@@ -13,7 +13,7 @@ class UpdateSettingsEvent extends SettingsEvent {
   final List<String> products;
   final List<String> boxing;
   final String units;
-  final int price;
+  final double price;
   final int wardsNumber;
 
   const UpdateSettingsEvent(this.products, this.boxing, this.units, this.price, this.wardsNumber);

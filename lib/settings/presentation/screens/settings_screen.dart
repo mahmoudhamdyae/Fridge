@@ -44,6 +44,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool? get validate => _formKey.currentState?.validate();
   late SettingsBloc bloc;
 
+  bool isFirstTime = true;
+
   @override
   void initState() {
     super.initState();
@@ -94,7 +96,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
             wardsNumberController.text = (state.partsCount).toString();
             unitPriceController.text = (state.price).toString();
-            _unit = (state.units).toString();
+            if (isFirstTime) {
+              _unit = (state.units).toString();
+              isFirstTime = false;
+            }
 
             // Product Type
             productTypeController = [];
@@ -283,7 +288,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             product,
                             boxing,
                             _unit,
-                            int.parse(unitPriceController.text),
+                            double.parse(unitPriceController.text),
                             int.parse(wardsNumberController.text),
                         ));
                       }
