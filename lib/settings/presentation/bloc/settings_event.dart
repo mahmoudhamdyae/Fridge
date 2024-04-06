@@ -51,7 +51,7 @@ class UpdateUnitEvent extends SettingsEvent {
 }
 
 class UpdatePriceEvent extends SettingsEvent {
-  final int price;
+  final double price;
   const UpdatePriceEvent(this.price);
   @override
   List<Object> get props => [price];

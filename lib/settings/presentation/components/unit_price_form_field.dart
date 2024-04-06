@@ -22,7 +22,7 @@ class UnitPriceFormField extends StatelessWidget {
         hint: AppStrings.settingsScreenUnitPriceHint,
       ),
       onChanged: (value) {
-        BlocProvider.of<SettingsBloc>(context).add(UpdatePriceEvent(int.parse(value)));
+        BlocProvider.of<SettingsBloc>(context).add(UpdatePriceEvent(double.parse(value)));
       },
       controller: unitPriceController,
       textInputAction: TextInputAction.done,
