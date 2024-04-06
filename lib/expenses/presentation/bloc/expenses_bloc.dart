@@ -58,6 +58,7 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
   Future<void> _getExpenses(GetExpensesEvent event, Emitter<ExpensesState> emit) async {
     emit(state.copyWith(
       getExpensesState: RequestState.loading,
+        storeExpensesState: RequestState.init
     ));
     var result = await _getExpensesUsecase.call();
     result.fold((l) => {

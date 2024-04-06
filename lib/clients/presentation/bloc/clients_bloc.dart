@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fridge/clients/data/models/add_client_request.dart';
+import 'package:fridge/clients/data/models/client_model.dart';
 import 'package:fridge/clients/domain/entities/client.dart';
 import 'package:fridge/clients/domain/entities/product_to_add.dart';
 import 'package:fridge/settings/domain/usecases/get_settings_usecase.dart';
@@ -53,6 +54,7 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
   }
 
   Future<void> _getClients(GetClientsEvent event, Emitter<ClientsState> emit) async {
+    emit(state.copyWith(addClientState: RequestState.init));
     final result = await _getClientsUsecase.call();
     result.fold((l) {
       emit(state.copyWith(
@@ -144,8 +146,18 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
         addClientErrorMessage: l.message,
       ));
     }, (r) {
+      var clients = state.clients;
+      clients.add(ClientModel(
+          id: -1,
+          name: state.clientName,
+          phone: state.clientPhone,
+          address: state.clientAddress,
+          type: state.clientType,
+          fridgeId: state.ward.id
+      ));
       emit(state.copyWith(
         addClientState: RequestState.loaded,
+        clients: clients,
       ));
     });
   }
