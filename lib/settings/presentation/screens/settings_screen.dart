@@ -68,7 +68,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    instance<SettingsBloc>().add(GetSettingsEvent());
     return SafeArea(
         child: Scaffold(
       body: Container(
@@ -94,10 +93,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               return ErrorScreen(error: state.getSettingsErrorMessage);
             }
 
-            wardsNumberController.text = (state.partsCount).toString();
-            unitPriceController.text = (state.price).toString();
             if (isFirstTime) {
               _unit = (state.units).toString();
+
+              wardsNumberController.text = (state.partsCount).toString();
+              unitPriceController.text = (state.price).toString();
 
               // Product Type
               productTypeController = [];

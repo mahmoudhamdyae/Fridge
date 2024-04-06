@@ -43,6 +43,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   }
 
   Future<void> _getSettings(GetSettingsEvent event, Emitter<SettingsState> emit) async {
+    emit(state.copyWith(updateSettingsState: RequestState.init));
     final result = await getSettingsUsecase.call();
     result.fold((l) {
       emit(state.copyWith(
