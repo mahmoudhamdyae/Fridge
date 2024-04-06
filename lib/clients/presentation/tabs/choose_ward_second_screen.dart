@@ -61,7 +61,7 @@ class _ChooseWardSecondScreenState extends State<ChooseWardSecondScreen> {
               child: DottedBorder(
                 child: Center(
                   child: Text(
-                    selectedIndex == index ? state.productToAdd.productType ?? '' : '',
+                    selectedIndex == index ? 'المنتج' ?? '' : '',
                     style: getSmallStyle(
                         fontSize: 12,
                         fontWeight: FontWeightManager.medium),

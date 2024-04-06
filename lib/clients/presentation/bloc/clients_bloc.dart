@@ -108,9 +108,9 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
   }
 
   Future<void> _chooseWard(ChooseWardEvent event, Emitter<ClientsState> emit) async {
-    state.copyWith(
+    emit(state.copyWith(
       ward: event.ward,
-    );
+    ));
   }
 
   Future<void> _choosePlace(ChoosePlaceEvent event, Emitter<ClientsState> emit) async {

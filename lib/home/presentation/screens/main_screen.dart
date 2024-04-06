@@ -56,7 +56,7 @@ class _MainScreenState extends State<MainScreen> {
 
       // Find the ScaffoldMessenger in the widget tree
       // and use it to show a SnackBar.
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      if (widget.showSnackBar) ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
 
     _widgetOptions = <Widget>[
