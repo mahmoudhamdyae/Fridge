@@ -189,7 +189,7 @@ class AppStrings {
   // Expenses Screen
   static const String expensesScreenTitle = 'المصروفات';
   static const String expensesScreenDateLabel = 'التاريخ';
-  static const String expensesScreenDateHint = 'يوم/شهر/سنة';
+  static const String expensesScreenDateHint = 'يوم-شهر-سنة';
   static const String expensesScreenTypeLabel = 'النوع';
   static const String expensesScreenTypeHint = 'ادخل النوع';
   static const String expensesScreenDetailsLabel = 'تفاصيل';

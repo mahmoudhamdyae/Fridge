@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
-import 'package:fridge/ward/domain/entities/ward.dart';
 
 import '../../../core/components/appbar.dart';
 import '../../../core/resources/app_assets.dart';
@@ -11,7 +10,6 @@ import '../../../core/resources/font_manager.dart';
 import '../../../core/resources/styles_manager.dart';
 import '../bloc/clients_bloc.dart';
 import '../components/cancel_button.dart';
-import '../components/next_button.dart';
 
 class ChooseWardFirstScreen extends StatelessWidget {
 
@@ -43,12 +41,11 @@ class ChooseWardFirstScreen extends StatelessWidget {
               crossAxisSpacing: 15,
               mainAxisSpacing: 20,
               childAspectRatio: 1.1,
-              // todo wards list
-              children: List.generate(/*state.wards.length*/ 3, (index) {
+              children: List.generate(state.wards.length, (index) {
                 return InkWell(
                   onTap: () {
                     BlocProvider.of<ClientsBloc>(context)
-                        .add(ChooseWardEvent(/*state.wards[index]*/Ward(id: 2, name: 'name', width: 2, height: 2, floorNum: 2, fridgeId: 2)));// todo ward
+                        .add(ChooseWardEvent(state.wards[index]));
                     goNext();
                   },
                   child: Container(
@@ -58,8 +55,7 @@ class ChooseWardFirstScreen extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        //state.wards[index].name ?? '', // todo wards list
-                        'state.wards[index].name' ?? '', // todo wards list
+                        state.wards[index].name ?? '',
                         style: getSmallStyle(
                             color: AppColors.white,
                             fontSize: 12,

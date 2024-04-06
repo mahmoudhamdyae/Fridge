@@ -41,6 +41,12 @@ class _AddProductTypeFormFieldState extends State<AddProductTypeFormField> {
         decoration: getFilledTextFieldDecoration(
             hint: AppStrings.addClientScreenProductTypeHint
         ),
+        // onTap: () {
+        //   final state = BlocProvider.of<ClientsBloc>(context).state;
+        //   for (var element in state.remoteProductsTypes) {
+        //     productTypes.add(element);
+        //   }
+        // },
         isExpanded: true,
         value: AppStrings.addClientScreenProductTypeHint,
         onChanged: (newValue) {

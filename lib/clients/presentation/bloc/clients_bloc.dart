@@ -69,18 +69,18 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
     final getSettingsResult = await _getSettingsUsecase.call();
     getSettingsResult.fold((l) {
     }, (settingsResponse) {
-      state.copyWith(
-          remoteProductsTypes: settingsResponse.data?.products as List<String>? ?? [],
-          remotePackagingTypes: settingsResponse.data?.boxing as List<String>? ?? []
-      );
+      emit(state.copyWith(
+          remoteProductsTypes: settingsResponse.data?.products ?? [],
+          remotePackagingTypes: settingsResponse.data?.boxing ?? []
+      ));
     });
     // Get Wards
     final getWardsResult = await _getWardsUsecase.call();
     getWardsResult.fold((l) {
     }, (wards) {
-      state.copyWith(
+      emit(state.copyWith(
           wards: wards
-      );
+      ));
     });
   }
 

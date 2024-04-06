@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-class Expenses extends Equatable {
+class ExpensesRequest extends Equatable {
   final String? title;
   final String? date;
   final String? description;
   final String? amount;
 
-  const Expenses({
+  const ExpensesRequest({
     required this.title,
     required this.date,
     required this.description,

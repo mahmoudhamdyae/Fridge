@@ -21,7 +21,7 @@ class ExpensesRemoteDataSourceImpl extends ExpensesRemoteDataSource {
     try {
       await dioManager.dio.post(
           ApiConstants.storeExpensePath,
-          data: ExpensesModel(
+          data: ExpensesRequestModel(
             title: title,
             date: date,
             description: description,

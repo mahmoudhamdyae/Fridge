@@ -6,8 +6,8 @@ class ClientsState extends Equatable {
   final RequestState getClientsState;
   final String getClientsErrorMessage;
 
-  final List<String> remoteProductsTypes;
-  final List<String> remotePackagingTypes;
+  final List<dynamic> remoteProductsTypes;
+  final List<dynamic> remotePackagingTypes;
 
   final List<Ward> wards;
   final Ward ward;
@@ -48,8 +48,8 @@ class ClientsState extends Equatable {
     List<Client>? clients,
     RequestState? getClientsState,
     String? getClientsErrorMessage,
-    List<String>? remoteProductsTypes,
-    List<String>? remotePackagingTypes,
+    List<dynamic>? remoteProductsTypes,
+    List<dynamic>? remotePackagingTypes,
     List<Ward>? wards,
     Ward? ward,
     String? clientName,

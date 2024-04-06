@@ -1,8 +1,8 @@
-import 'package:fridge/expenses/domain/entities/expenses.dart';
+import 'package:fridge/expenses/domain/entities/expenses_request.dart';
 
-class ExpensesModel extends Expenses {
+class ExpensesRequestModel extends ExpensesRequest {
 
-  const ExpensesModel({
+  const ExpensesRequestModel({
     required super.title,
     required super.date,
     required super.description,

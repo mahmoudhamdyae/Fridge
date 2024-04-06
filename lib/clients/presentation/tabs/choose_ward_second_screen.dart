@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fridge/core/components/dialogs/loading_dialog.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 
 import '../../../core/components/appbar.dart';
@@ -27,10 +28,10 @@ class ChooseWardSecondScreen extends StatelessWidget {
             text: AppStrings.addClientScreenChooseWardProduct,
             image: AppAssets.person),
         // todo fridge name
-        16.ph,
-        ThirdAppBar(
-            text: '${state.ward.name}',
-            image: AppAssets.goods),
+        // 16.ph,
+        // ThirdAppBar(
+        //     text: '${state.ward.name}',
+        //     image: AppAssets.goods),
         16.ph,
         GridView.count(
           shrinkWrap: true,
@@ -40,8 +41,7 @@ class ChooseWardSecondScreen extends StatelessWidget {
           crossAxisSpacing: 15,
           mainAxisSpacing: 20,
           childAspectRatio: 1.1,
-          // todo wards list
-          children: List.generate(/*state.wards.length*/ 3, (index) {
+          children: List.generate(state.wards.length, (index) {
             return InkWell(
               onTap: () {
 
@@ -53,8 +53,7 @@ class ChooseWardSecondScreen extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    //state.wards[index].name ?? '', // todo wards list
-                    'state.wards[index].name' ?? '', // todo wards list
+                    state.wards[index].name ?? '',
                     style: getSmallStyle(
                         color: AppColors.white,
                         fontSize: 12,
@@ -67,6 +66,7 @@ class ChooseWardSecondScreen extends StatelessWidget {
         ),
         16.ph,
         NextButton(onClick: () {
+          showLoading(context);
           BlocProvider.of<ClientsBloc>(context).add(FinishEvent());
         }),
         const CancelButton(),
