@@ -98,19 +98,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
             unitPriceController.text = (state.price).toString();
             if (isFirstTime) {
               _unit = (state.units).toString();
+
+              // Product Type
+              productTypeController = [];
+              for (var element in state.products) {
+                productTypeController.add(TextEditingController(text: element));
+              }
+
+              // Packaging Type
+              packagingTypeController = [];
+              for (var element in state.boxing) {
+                packagingTypeController.add(TextEditingController(text: element));
+              }
               isFirstTime = false;
-            }
-
-            // Product Type
-            productTypeController = [];
-            for (var element in state.products) {
-              productTypeController.add(TextEditingController(text: element));
-            }
-
-            // Packaging Type
-            packagingTypeController = [];
-            for (var element in state.boxing) {
-              packagingTypeController.add(TextEditingController(text: element));
             }
 
             return Form(

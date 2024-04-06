@@ -14,7 +14,6 @@ class UnitPriceFormField extends StatelessWidget {
     required this.unitPriceController,
   });
 
-
   @override
   Widget build(BuildContext context) {
     return TextFormField(
