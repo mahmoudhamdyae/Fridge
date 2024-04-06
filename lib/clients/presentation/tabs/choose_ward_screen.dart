@@ -3,7 +3,9 @@ import 'package:fridge/clients/presentation/tabs/choose_ward_first_screen.dart';
 import 'package:fridge/clients/presentation/tabs/choose_ward_second_screen.dart';
 
 class ChooseWardScreen extends StatefulWidget {
-  const ChooseWardScreen({super.key});
+
+  final String productType;
+  const ChooseWardScreen({super.key, required this.productType});
 
   @override
   State<ChooseWardScreen> createState() => _ChooseWardScreenState();
@@ -19,6 +21,6 @@ class _ChooseWardScreenState extends State<ChooseWardScreen> {
       setState(() {
         currentPage = 1;
       });
-    }) : const ChooseWardSecondScreen();
+    }) : ChooseWardSecondScreen(productType: widget.productType,);
   }
 }

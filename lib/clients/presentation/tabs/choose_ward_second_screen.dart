@@ -14,7 +14,9 @@ import '../components/cancel_button.dart';
 import '../components/next_button.dart';
 
 class ChooseWardSecondScreen extends StatefulWidget {
-  const ChooseWardSecondScreen({super.key});
+
+  final String productType;
+  const ChooseWardSecondScreen({super.key, required this.productType});
 
   @override
   State<ChooseWardSecondScreen> createState() => _ChooseWardSecondScreenState();
@@ -61,7 +63,7 @@ class _ChooseWardSecondScreenState extends State<ChooseWardSecondScreen> {
               child: DottedBorder(
                 child: Center(
                   child: Text(
-                    selectedIndex == index ? 'المنتج' ?? '' : '',
+                    selectedIndex == index ? widget.productType ?? '' : '',
                     style: getSmallStyle(
                         fontSize: 12,
                         fontWeight: FontWeightManager.medium),

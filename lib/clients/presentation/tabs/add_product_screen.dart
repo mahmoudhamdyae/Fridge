@@ -18,7 +18,7 @@ import 'package:fridge/core/resources/styles_manager.dart';
 
 class AddProductScreen extends StatefulWidget {
 
-  final Function moveForward;
+  final Function(String productType) moveForward;
   const AddProductScreen({super.key, required this.moveForward});
 
   @override
@@ -186,7 +186,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 int.parse(totalWeightController.text),
                 double.parse(priceController.text),
               ));
-              widget.moveForward();
+              widget.moveForward(chosenProductType);
             // }
           }),
           const CancelButton(),

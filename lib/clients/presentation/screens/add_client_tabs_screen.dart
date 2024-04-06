@@ -20,6 +20,7 @@ class AddClientTabsScreen extends StatefulWidget {
 class _AddClientTabsScreenState extends State<AddClientTabsScreen> {
 
   int currentTab = 0;
+  String productType = '';
 
   @override
   Widget build(BuildContext context) {
@@ -50,12 +51,13 @@ class _AddClientTabsScreenState extends State<AddClientTabsScreen> {
                 });
               },)
                   :
-                  currentTab == 1 ? AddProductScreen(moveForward: () {
+                  currentTab == 1 ? AddProductScreen(moveForward: (productType) {
                     setState(() {
                       currentTab = 2;
+                      this.productType = productType;
                     });
                   },)
-                      : const ChooseWardScreen()
+                      : ChooseWardScreen(productType: productType,)
             ],
           ),
         ),
