@@ -28,6 +28,7 @@ class WardsBloc extends Bloc<WardsEvent, WardsState> {
   }
 
   Future<void> _getWards(Emitter<WardsState> emit) async {
+    emit(state.copyWith(updateWardSettingsState: RequestState.init));
     final result = await _getWardsUsecase.call();
     result.fold((l) {
       emit(state.copyWith(
