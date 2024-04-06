@@ -44,4 +44,10 @@ class ChoosePlaceEvent extends ClientsEvent {
   List<Object?> get props => [x, y];
 }
 
-class FinishEvent extends ClientsEvent {}
+class FinishEvent extends ClientsEvent {
+  final int x;
+  final int y;
+  FinishEvent(this.x, this.y);
+  @override
+  List<Object?> get props => [x, y];
+}

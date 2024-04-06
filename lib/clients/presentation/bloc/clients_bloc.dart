@@ -95,7 +95,7 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
   }
 
   Future<void> _addProduct(AddProductEvent event, Emitter<ClientsState> emit) async {
-    state.copyWith(
+    emit(state.copyWith(
       productToAdd: ProductToAdd(
         productType: event.productType,
         packagingType: event.packagingType,
@@ -104,7 +104,7 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
         totalWeight: event.totalWeight,
         price: event.price,
       )
-    );
+    ));
   }
 
   Future<void> _chooseWard(ChooseWardEvent event, Emitter<ClientsState> emit) async {
@@ -114,10 +114,10 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
   }
 
   Future<void> _choosePlace(ChoosePlaceEvent event, Emitter<ClientsState> emit) async {
-    state.copyWith(
+    emit(state.copyWith(
       x: event.x,
       y: event.y,
-    );
+    ));
   }
 
   Future<void> _finish(FinishEvent event, Emitter<ClientsState> emit) async {
@@ -135,8 +135,8 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
           unitWeight: state.productToAdd.unitWeight,
           totalWeight: state.productToAdd.totalWeight,
           price: state.productToAdd.price,
-          x: state.x,
-          y: state.y,
+          x: event.x,
+          y: event.y,
       )
     );
     result.fold((l) {

@@ -152,32 +152,31 @@ class _AddProductScreenState extends State<AddProductScreen> {
               Expanded(child: ProductPriceFormField(productPriceController: priceController)),
             ],
           ),
-          32.ph,
-          InkWell(
-            onTap: () {},
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(
-                  Icons.add,
-                  color: Color(0xff193263),
-                  size: 16.0,
-                ),
-                4.pw,
-                Text(
-                  AppStrings.addClientScreenAddProduct,
-                  style: getSmallStyle(
-                    fontWeight: FontWeightManager.medium,
-                    fontSize: 14.0,
-                    color: const Color(0xff193263),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // 32.ph,
+          // InkWell(
+          //   onTap: () {},
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       const Icon(
+          //         Icons.add,
+          //         color: Color(0xff193263),
+          //         size: 16.0,
+          //       ),
+          //       4.pw,
+          //       Text(
+          //         AppStrings.addClientScreenAddProduct,
+          //         style: getSmallStyle(
+          //           fontWeight: FontWeightManager.medium,
+          //           fontSize: 14.0,
+          //           color: const Color(0xff193263),
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           32.ph,
           NextButton(onClick: () {
-            // todo validation here
             // if (validate != null && validate == true) {
               BlocProvider.of<ClientsBloc>(context).add(AddProductEvent(
                 chosenProductType,
