@@ -11,19 +11,5 @@ abstract class WardsRepository {
   WardsRepository(this.remoteDataSource);
 
   Future<Either<Failure, List<Ward>>> getWards();
-}
-
-class WardsRepositoryImpl extends WardsRepository {
-
-  WardsRepositoryImpl(super.remoteDataSource);
-
-  @override
-  Future<Either<Failure, List<Ward>>> getWards() async {
-    try {
-      var result = await remoteDataSource.getWards();
-      return Right(result);
-    } on ServerException catch (failure) {
-      return Left(ServerFailure(failure.errorMessageModel.message));
-    }
-  }
+  Future<Either<Failure, void>> updateWardSettings(int wardId, int wardWidth, int wardHeight);
 }

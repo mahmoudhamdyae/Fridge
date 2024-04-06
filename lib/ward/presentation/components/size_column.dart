@@ -19,7 +19,6 @@ class _SizeColumnState extends State<SizeColumn> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController sizeController = TextEditingController();
-  bool? get validate => _formKey.currentState?.validate();
 
   @override
   Widget build(BuildContext context) {

@@ -11,6 +11,7 @@ abstract class WardsRemoteDataSource {
   WardsRemoteDataSource(this.dioManager);
 
   Future<List<WardModel>> getWards();
+  Future<void> updateWardSettings(int wardId, int wardWidth, int wardHeight);
 }
 
 class WardsRemoteDataSourceImpl extends WardsRemoteDataSource {
@@ -24,6 +25,31 @@ class WardsRemoteDataSourceImpl extends WardsRemoteDataSource {
         ApiConstants.getWardsPath,
       );
       return Wards.fromJson((response.data)).data ?? [];
+    }  on DioException catch (error) {
+      if (error.response != null) {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        // Error due to setting up or sending the request
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
+        );
+      }
+    }
+  }
+
+  @override
+  Future<void> updateWardSettings(int wardId, int wardWidth, int wardHeight) async {
+    try {
+      await dioManager.dio.post(
+        ApiConstants.updateWardSettingsPath,
+        data: {
+          'id': wardId,
+          'width': wardWidth,
+          'height': wardHeight,
+        }
+      );
     }  on DioException catch (error) {
       if (error.response != null) {
         throw ServerException(

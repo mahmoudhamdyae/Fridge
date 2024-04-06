@@ -7,3 +7,12 @@ abstract class WardsEvent extends Equatable {
 }
 
 class GetWardsEvent extends WardsEvent {}
+
+class UpdateWardSettingsEvent extends WardsEvent {
+  final int wardId;
+  final int wardWidth;
+  final int wardHeight;
+  UpdateWardSettingsEvent(this.wardId, this.wardWidth, this.wardHeight);
+  @override
+  List<Object> get props => [wardId, wardWidth, wardHeight];
+}

@@ -35,6 +35,7 @@ import 'package:fridge/settings/presentation/bloc/settings_bloc.dart';
 import 'package:fridge/ward/data/data_source/wards_remote_data_source.dart';
 import 'package:fridge/ward/domain/repository/wards_repository.dart';
 import 'package:fridge/ward/domain/usecases/get_wards_usecase.dart';
+import 'package:fridge/ward/domain/usecases/update_ward_settings_usecase.dart';
 import 'package:fridge/ward/presentation/bloc/wards_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,6 +44,7 @@ import '../../auth/presentation/bloc/auth_bloc.dart';
 import '../../clients/data/repository/client_repository_impl.dart';
 import '../../expenses/presentation/bloc/expenses_bloc.dart';
 import '../../home/data/repository/home_repository_impl.dart';
+import '../../ward/data/repository/ward_repository_impl.dart';
 
 final instance = GetIt.instance;
 
@@ -126,9 +128,11 @@ class ServicesLocator {
     // Bloc
     instance.registerLazySingleton(() => WardsBloc(
       instance<GetWardsUsecase>(),
+      instance<UpdateWardSettingsUsecase>(),
     ));
     // Use Cases
     instance.registerLazySingleton(() => GetWardsUsecase(instance<WardsRepository>()));
+    instance.registerLazySingleton(() => UpdateWardSettingsUsecase(instance<WardsRepository>()));
     // Repository
     instance.registerLazySingleton<WardsRepository>(
             () => WardsRepositoryImpl(instance<WardsRemoteDataSource>()));

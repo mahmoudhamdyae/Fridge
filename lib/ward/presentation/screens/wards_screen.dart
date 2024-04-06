@@ -17,6 +17,7 @@ import 'package:fridge/ward/presentation/components/settings_button.dart';
 import 'package:fridge/ward/presentation/screens/ward_screen.dart';
 
 import '../../../core/components/decorations.dart';
+import '../../../settings/presentation/bloc/settings_bloc.dart';
 import '../../../settings/presentation/screens/settings_screen.dart';
 
 class WardsScreen extends StatefulWidget {
@@ -71,7 +72,10 @@ class _WardsScreenState extends State<WardsScreen> {
                           onTab: () {
                             NavigateUtil()
                                 .navigateToScreen(
-                                context, const SettingsScreen());
+                                context, BlocProvider.value(
+                                value: instance<SettingsBloc>(),
+                                child: const SettingsScreen()
+                            ));
                           },
                         ),
                       ],

@@ -1,7 +1,10 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
+import 'package:fridge/core/services/services_locator.dart';
 import 'package:fridge/ward/domain/entities/ward.dart';
+import 'package:fridge/ward/presentation/bloc/wards_bloc.dart';
 import 'package:fridge/ward/presentation/screens/ward_settings_screen.dart';
 
 import '../../../core/components/appbar.dart';
@@ -38,8 +41,11 @@ class WardScreen extends StatelessWidget {
                       image: AppAssets.goods,
                     ),
                     SettingsButton(onTab: () {
-                      NavigateUtil().navigateToScreen(context, const WardSettingsScreen());
-                    },),
+                      NavigateUtil().navigateToScreen(context,
+                          BlocProvider.value(value: instance<WardsBloc>(),
+                              child: WardSettingsScreen(ward: ward,)));
+                      },
+                    ),
                   ],
                 ),
                 GridView.count(
