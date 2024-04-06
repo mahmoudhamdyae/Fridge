@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/presentation/bloc/clients_bloc.dart';
 import 'package:fridge/clients/presentation/screens/clients_screen.dart';
+import 'package:fridge/core/resources/font_manager.dart';
+import 'package:fridge/core/resources/styles_manager.dart';
 import 'package:fridge/expenses/presentation/bloc/expenses_bloc.dart';
 import 'package:fridge/reports/presentation/screens/reports_screen.dart';
 import 'package:fridge/ward/presentation/screens/wards_screen.dart';
@@ -14,7 +16,9 @@ import '../../../ward/presentation/bloc/wards_bloc.dart';
 import 'home_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  final bool showSnackBar;
+
+  const MainScreen({super.key, this.showSnackBar = false});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -27,12 +31,42 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
+
+    Future<Null>.delayed(Duration.zero, () {
+      var snackBar = SnackBar(
+        content: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          child: Center(child: Text(
+              AppStrings.addClientScreeSuccess,
+            style: getSmallStyle(
+                fontWeight: FontWeightManager.semiBold,
+                color: AppColors.white
+            ),
+          )),
+        ),
+        behavior: SnackBarBehavior.floating,
+        margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height - 200,),
+        backgroundColor: const Color(0xff193263),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
+        ),
+      );
+
+      // Find the ScaffoldMessenger in the widget tree
+      // and use it to show a SnackBar.
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    });
+
     _widgetOptions = <Widget>[
       HomeScreen(onItemClick: (int index) {
         _onItemTapped(index);
       }),
       const ClientsScreen(),
-      WardsScreen(blocContext: context,),
+      WardsScreen(
+        blocContext: context,
+      ),
       const ReportsScreen(),
     ];
   }
@@ -58,7 +92,8 @@ class _MainScreenState extends State<MainScreen> {
         bottomNavigationBar: Container(
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
-                topRight: Radius.circular(30.0), topLeft: Radius.circular(30.0)),
+                topRight: Radius.circular(30.0),
+                topLeft: Radius.circular(30.0)),
             boxShadow: [
               BoxShadow(color: Colors.black26, blurRadius: 8, spreadRadius: 4),
             ],

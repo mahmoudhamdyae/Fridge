@@ -43,7 +43,7 @@ class _ClientsScreenState extends State<ClientsScreen> {
     return BlocListener<ClientsBloc, ClientsState>(
       listener: (context, state) {
         if (state.addClientState == RequestState.loaded) {
-          NavigateUtil().navigateToScreen(context, const MainScreen());
+          NavigateUtil().navigateToScreen(context, const MainScreen(showSnackBar: true,));
         }
       },
       child: SafeArea(

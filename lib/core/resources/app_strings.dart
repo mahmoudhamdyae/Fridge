@@ -122,6 +122,7 @@ class AppStrings {
   static const String addClientScreenChooseWard = 'اختر العنبر';
   static const String addClientScreenChooseWardProduct = 'اضف المنتج';
   static const String addClientScreeFridge = 'ثلاجة ';
+  static const String addClientScreeSuccess = 'تم إضافة عميل جديد إلى قسم عملاء';
 
   // Bill Screen
   static const String billScreenTitle = 'الفاتورة';
