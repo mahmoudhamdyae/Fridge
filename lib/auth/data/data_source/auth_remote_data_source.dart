@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:dio/dio.dart';
 import 'package:fridge/auth/domain/entities/register_request.dart';
 import 'package:fridge/core/error/error_message_model.dart';
 import 'package:fridge/core/error/exceptions.dart';
@@ -36,6 +35,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     required String phone,
     required String password,
   }) async {
+    ApiConstants.isAuth = true;
     try {
       var response = await dioManager.dio.post(
         ApiConstants.loginPath,
@@ -44,17 +44,19 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
           password: password,
         ).toJson(),
       );
-      if (response.statusCode == HttpStatus.ok) {
-        return AuthResponse.fromJson(response.data).token;
+      ApiConstants.isAuth = false;
+      return AuthResponse.fromJson(response.data).token;
+    } on DioException catch (error) {
+      if (error.response != null) {
+        throw ServerException(
+          errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
       } else {
-        return throw ServerException(
-            errorMessageModel: ErrorMessageModel.fromJson(response.data)
+        // Error due to setting up or sending the request
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
         );
       }
-    } on Exception {
-      throw const ServerException(
-          errorMessageModel: ErrorMessageModel(status: false, message: 'بيانات الدخول غير صحيحة')
-      );
     }
   }
 
@@ -66,6 +68,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     required String address,
     required String fridgeName,
   }) async {
+    ApiConstants.isAuth = true;
     try {
       var response = await dioManager.dio.post(
         ApiConstants.registerPath,
@@ -77,19 +80,19 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
           fridgeName: fridgeName
         ).toJson(),
       );
-
-      if (response.statusCode == HttpStatus.ok) {
-        return AuthResponse.fromJson(response.data).token;
+      ApiConstants.isAuth = true;
+      return AuthResponse.fromJson(response.data).token;
+    } on DioException catch (error) {
+      if (error.response != null) {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
       } else {
-        return throw ServerException(
-            errorMessageModel: ErrorMessageModel.fromJson(response.data)
+        // Error due to setting up or sending the request
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
         );
       }
-    } on Exception catch (error) {
-      throw ServerException(
-          errorMessageModel: ErrorMessageModel(
-              status: false, message: error.toString())
-      );
     }
   }
 }

@@ -48,6 +48,7 @@ dependencies:
   flutter_localization: ^0.2.0
   dotted_border: ^2.1.0
   linear_progress_bar: ^1.1.1
+  connectivity_plus: ^6.0.1
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/auth/presentation/screens/splash_screen.dart';
+import 'package:fridge/core/network/connectivity_controller.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fridge/core/resources/theme_manager.dart';
@@ -11,6 +12,7 @@ import 'core/services/services_locator.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ServicesLocator().init();
+  await ConnectivityController().init();
   runApp(
       BlocProvider(
           create: (BuildContext context) => instance<AuthBloc>(),

@@ -1,5 +1,6 @@
 class AppStrings {
   static const String appName = 'ثلاجة';
+  static const String noConnection = 'لا يمكن الاتصال بالإنترنت';
 
   // Onboarding Screen
   static const String getStarted = 'Get Started';
