@@ -22,7 +22,7 @@ class ClientRepositoryImpl extends ClientRepository {
   @override
   Future<Either<Failure, void>> addClient(AddClientRequest request) async {
     try {
-      await remoteDataSource.getClients();
+      await remoteDataSource.addClient(request);
       return const Right(null);
     } on ServerException catch (error) {
       return Left(ServerFailure(error.errorMessageModel.message));
