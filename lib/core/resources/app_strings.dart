@@ -26,6 +26,8 @@ class AppStrings {
   static const retryAgain = 'حاول مرة أخرى';
   static const cancel = 'الغاء';
 
+  static const egp = 'ج.م';
+
 
 
 
@@ -221,6 +223,7 @@ class AppStrings {
   // Details Tab
   static const String detailsTabDate = 'التاريخ';
   static const String detailsTabProduct = 'المنتج';
+  static const String detailsTabProductType = 'النوع';
   static const String detailsTabDetails = 'تفاصيل';
   static const String detailsTabPrice = 'المبلغ المدفوع';
 }

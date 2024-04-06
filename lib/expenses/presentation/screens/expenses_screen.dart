@@ -1,25 +1,23 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/core/components/appbar.dart';
 import 'package:fridge/core/components/dialogs/error_dialog.dart';
-import 'package:fridge/core/components/dialogs/loading_dialog.dart';
+import 'package:fridge/core/components/states/error_screen.dart';
+import 'package:fridge/core/components/states/loading_screen.dart';
 import 'package:fridge/core/enums/request_state.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
-import 'package:fridge/core/resources/app_assets.dart';
+import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/core/resources/app_strings.dart';
-import 'package:fridge/core/resources/font_manager.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
+import 'package:fridge/core/services/services_locator.dart';
 import 'package:fridge/expenses/presentation/bloc/expenses_bloc.dart';
-import 'package:fridge/expenses/presentation/components/back_button.dart';
-import 'package:fridge/expenses/presentation/components/date_form_field.dart';
-import 'package:fridge/expenses/presentation/components/details_form_field.dart';
-import 'package:fridge/expenses/presentation/components/price_form_field.dart';
-import 'package:fridge/expenses/presentation/components/register_button.dart';
+import 'package:fridge/expenses/presentation/screens/add_expense_screen.dart';
 
 import '../../../core/components/decorations.dart';
-import '../components/type_form_field.dart';
+
 
 class ExpensesScreen extends StatefulWidget {
   const ExpensesScreen({super.key});
@@ -29,18 +27,30 @@ class ExpensesScreen extends StatefulWidget {
 }
 
 class _ExpensesScreenState extends State<ExpensesScreen> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController dateController = TextEditingController();
-  TextEditingController typeController = TextEditingController();
-  TextEditingController detailsController = TextEditingController();
-  TextEditingController priceController = TextEditingController();
 
-  bool? get validate => _formKey.currentState?.validate();
+  late final ExpensesBloc bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    bloc = instance<ExpensesBloc>();
+    bloc.add(GetExpensesEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              NavigateUtil().navigateToScreen(context, const AddExpenseScreen());
+            },
+            backgroundColor: AppColors.colorRamps3,
+            child: const Icon(
+              Icons.add,
+              color: AppColors.white,
+            ),
+          ),
       body: BlocListener<ExpensesBloc, ExpensesState>(
         listener: (context, state) {
           if (state.storeExpensesState == RequestState.error) {
@@ -53,117 +63,105 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
         },
         child: Container(
           height: context.height,
-          padding: getMainPadding(context),
           decoration: getMainDecoration(),
-          child: Form(
-            key: _formKey,
-            child: ListView(
-              shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
-              children: [
-                const MainAppBar(
-                  canNavigateUp: true,
-                ),
-                Text(
-                  AppStrings.expensesScreenTitle,
-                  style: getLargeStyle(fontSize: 20),
-                ),
-                32.ph,
-                Row(
-                  children: [
-                    Text(
-                      AppStrings.expensesScreenDateLabel,
-                      style: getSmallStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: 18,
-                      ),
-                    ),
-                    16.pw,
-                    Expanded(
-                        child: DateFormField(
-                      dateController: dateController,
-                    )),
-                  ],
-                ),
-                16.ph,
-                Row(
-                  children: [
-                    Text(
-                      AppStrings.expensesScreenTypeLabel,
-                      style: getSmallStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: 18,
-                      ),
-                    ),
-                    16.pw,
-                    Expanded(
-                        child: TypeFormField(
-                      typeController: typeController,
-                    )),
-                  ],
-                ),
-                16.ph,
-                Stack(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppStrings.expensesScreenDetailsLabel,
-                          style: getSmallStyle(
-                            fontWeight: FontWeightManager.medium,
-                            fontSize: 18,
-                          ),
+          child: ListView(
+            shrinkWrap: true,
+            physics: const ClampingScrollPhysics(),
+            children: [
+              const MainAppBar(canNavigateUp: true,),
+              Row(
+                children: [
+                  Expanded(
+                      child: Text(
+                        AppStrings.detailsTabDate,
+                        textAlign: TextAlign.center,
+                        style: getSmallStyle(
+                          fontSize: 14.0
                         ),
-                        16.pw,
-                        Expanded(
-                            child: DetailsFormField(
-                          detailsController: detailsController,
-                        )),
-                      ],
-                    ),
-                    Positioned(
-                        left: 4,
-                        bottom: 4,
-                        child: Image.asset(
-                          AppAssets.write,
-                          height: 20,
-                          width: 20,
-                        ))
-                  ],
-                ),
-                16.ph,
-                Row(
-                  children: [
-                    Text(
-                      AppStrings.expensesScreenPriceLabel,
-                      style: getSmallStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: 18,
-                      ),
-                    ),
-                    16.pw,
-                    Expanded(
-                        child: PriceFormField(
-                      priceController: priceController,
-                    )),
-                  ],
-                ),
-                32.ph,
-                RegisterButton(onTap: () {
-                  if (validate != null && validate == true) {
-                    showLoading(context);
-                    BlocProvider.of<ExpensesBloc>(context).add(
-                        StoreExpensesEvent(
-                            typeController.text,
-                            dateController.text,
-                            detailsController.text,
-                            priceController.text));
-                  }
-                }),
-                const BackButton2(),
-              ],
-            ),
+                      )
+                  ),
+                  Expanded(
+                      child: Text(
+                        AppStrings.detailsTabProductType,
+                        textAlign: TextAlign.center,
+                        style: getSmallStyle(
+                            fontSize: 14.0
+                        ),
+                      )
+                  ),
+                  Expanded(
+                      child: Text(
+                        AppStrings.detailsTabDetails,
+                        textAlign: TextAlign.center,
+                        style: getSmallStyle(
+                            fontSize: 14.0
+                        ),
+                      )
+                  ),
+                  Expanded(
+                      child: Text(
+                        AppStrings.detailsTabPrice,
+                        textAlign: TextAlign.center,
+                        style: getSmallStyle(
+                            fontSize: 14.0
+                        ),
+                      )
+                  ),
+                ],
+              ),
+              16.ph,
+              BlocBuilder<ExpensesBloc, ExpensesState>(
+                builder: (BuildContext context, state) {
+                if (state.getExpensesState == RequestState.loading) {
+                  return const LoadingScreen();
+                } else if (state.getExpensesState == RequestState.error) {
+                  return ErrorScreen(error: state.getExpensesErrorMessage);
+                }
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+                  itemCount: state.expenses.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      padding: const EdgeInsets.all(16.0),
+                      color: index % 2 == 0 ? const Color(0xffD9D9D9) : const Color(0xffEAEDF4),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                child: Text(
+                                  state.expenses[index].date ?? '',
+                                  textAlign: TextAlign.center,
+                                  style: getSmallStyle(fontSize: 10.0),
+                                )
+                            ),
+                            Expanded(
+                                child: Text(
+                                  state.expenses[index].title ?? '',
+                                  textAlign: TextAlign.center,
+                                  style: getSmallStyle(fontSize: 10.0),
+                                )
+                            ),
+                            Expanded(
+                                child: Text(
+                                  state.expenses[index].description ?? '',
+                                  textAlign: TextAlign.center,
+                                  style: getSmallStyle(fontSize: 10.0),
+                                )
+                            ),
+                            Expanded(
+                                child: Text(
+                                  '${state.expenses[index].amount ?? ''} ${AppStrings.egp}',
+                                  textAlign: TextAlign.center,
+                                  style: getSmallStyle(fontSize: 10.0),
+                                )
+                            ),
+                          ],
+                        )
+                    );
+                  },
+                );
+              },)
+            ],
           ),
         ),
       ),

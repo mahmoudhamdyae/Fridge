@@ -16,6 +16,7 @@ import 'package:fridge/core/network/dio_manager.dart';
 import 'package:fridge/expenses/data/data_source/expenses_remote_data_source.dart';
 import 'package:fridge/expenses/data/repository/expenses_repository_impl.dart';
 import 'package:fridge/expenses/domain/repository/expenses_repository.dart';
+import 'package:fridge/expenses/domain/usecases/get_expenses_usecase.dart';
 import 'package:fridge/expenses/domain/usecases/store_expenses_usecase.dart';
 import 'package:fridge/home/data/datasource/home_remote_data_source.dart';
 import 'package:fridge/home/domain/repository/home_repository.dart';
@@ -158,10 +159,12 @@ class ServicesLocator {
 
     // Bloc
     instance.registerLazySingleton(() => ExpensesBloc(
+      instance<GetExpensesUsecase>(),
       instance<StoreExpensesUsecase>(),
     ));
     // Use Cases
     instance.registerLazySingleton(() => StoreExpensesUsecase(instance<ExpensesRepository>()));
+    instance.registerLazySingleton(() => GetExpensesUsecase(instance<ExpensesRepository>()));
     // Repository
     instance.registerLazySingleton<ExpensesRepository>(
             () => ExpensesRepositoryImpl(instance<ExpensesRemoteDataSource>()));

@@ -6,6 +6,8 @@ abstract class ExpensesEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class GetExpensesEvent extends ExpensesEvent {}
+
 class StoreExpensesEvent extends ExpensesEvent {
   final String title;
   final String date;

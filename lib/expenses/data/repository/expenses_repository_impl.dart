@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:fridge/core/error/failure.dart';
+import 'package:fridge/expenses/domain/entities/expenses_response.dart';
 import 'package:fridge/expenses/domain/repository/expenses_repository.dart';
 
 import '../../../core/error/exceptions.dart';
@@ -12,6 +13,16 @@ class ExpensesRepositoryImpl extends ExpensesRepository {
     try {
       await remoteDataSource.storeExpenses(title, date, description, amount);
       return const Right(null);
+    } on ServerException catch(failure) {
+      return Left(ServerFailure(failure.errorMessageModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<ExpensesResponse>>> getExpenses() async {
+    try {
+      var result = await remoteDataSource.getExpenses();
+      return Right(result);
     } on ServerException catch(failure) {
       return Left(ServerFailure(failure.errorMessageModel.message));
     }

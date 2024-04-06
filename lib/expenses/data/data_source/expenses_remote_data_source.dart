@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:fridge/core/network/api_constants.dart';
 import 'package:fridge/core/network/dio_manager.dart';
+import 'package:fridge/expenses/data/models/expenses_response_model.dart';
 
 import '../../../core/error/error_message_model.dart';
 import '../../../core/error/exceptions.dart';
+import '../../domain/entities/expenses_response.dart';
 import '../models/expenses_request_model.dart';
 
 abstract class ExpensesRemoteDataSource {
@@ -11,6 +13,7 @@ abstract class ExpensesRemoteDataSource {
   ExpensesRemoteDataSource(this.dioManager);
 
   Future<void> storeExpenses(String title, String date, String description, String amount);
+  Future<List<ExpensesResponse>> getExpenses();
 }
 
 class ExpensesRemoteDataSourceImpl extends ExpensesRemoteDataSource {
@@ -28,6 +31,24 @@ class ExpensesRemoteDataSourceImpl extends ExpensesRemoteDataSource {
             amount: amount
         ).toJson()
       );
+    } on DioException catch (error) {
+      if (error.response != null) {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
+        );
+      }
+    }
+  }
+
+  @override
+  Future<List<ExpensesResponse>> getExpenses() async {
+    try {
+      var result = await dioManager.dio.get(ApiConstants.getExpensePath);
+      return EResponse.fromJson(result.data).data ?? [];
     } on DioException catch (error) {
       if (error.response != null) {
         throw ServerException(

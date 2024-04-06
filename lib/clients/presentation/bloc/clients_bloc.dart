@@ -85,13 +85,13 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
   }
 
   Future<void> _addClient(AddClientEvent event, Emitter<ClientsState> emit) async {
-    state.copyWith(
+    emit(state.copyWith(
       addClientState: RequestState.loaded,
       clientName: event.clientName,
       clientPhone: event.clientPhone,
       clientAddress: event.clientAddress,
       clientType: event.isTrader ? 0 : 1,
-    );
+    ));
   }
 
   Future<void> _addProduct(AddProductEvent event, Emitter<ClientsState> emit) async {
