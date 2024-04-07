@@ -34,6 +34,7 @@ import 'package:fridge/settings/domain/usecases/update_settings_usecase.dart';
 import 'package:fridge/settings/presentation/bloc/settings_bloc.dart';
 import 'package:fridge/ward/data/data_source/wards_remote_data_source.dart';
 import 'package:fridge/ward/domain/repository/wards_repository.dart';
+import 'package:fridge/ward/domain/usecases/get_all_stores_usecase.dart';
 import 'package:fridge/ward/domain/usecases/get_wards_usecase.dart';
 import 'package:fridge/ward/domain/usecases/update_ward_settings_usecase.dart';
 import 'package:fridge/ward/presentation/bloc/wards_bloc.dart';
@@ -129,10 +130,12 @@ class ServicesLocator {
     instance.registerLazySingleton(() => WardsBloc(
       instance<GetWardsUsecase>(),
       instance<UpdateWardSettingsUsecase>(),
+      instance<GetAllStoresUsecase>(),
     ));
     // Use Cases
     instance.registerLazySingleton(() => GetWardsUsecase(instance<WardsRepository>()));
     instance.registerLazySingleton(() => UpdateWardSettingsUsecase(instance<WardsRepository>()));
+    instance.registerLazySingleton(() => GetAllStoresUsecase(instance<WardsRepository>()));
     // Repository
     instance.registerLazySingleton<WardsRepository>(
             () => WardsRepositoryImpl(instance<WardsRemoteDataSource>()));

@@ -1,8 +1,13 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fridge/core/components/states/error_screen.dart';
+import 'package:fridge/core/components/states/loading_screen.dart';
+import 'package:fridge/core/enums/request_state.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
+import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/core/services/services_locator.dart';
+import 'package:fridge/ward/data/models/store.dart';
 import 'package:fridge/ward/domain/entities/ward.dart';
 import 'package:fridge/ward/presentation/bloc/wards_bloc.dart';
 import 'package:fridge/ward/presentation/screens/ward_settings_screen.dart';
@@ -15,10 +20,26 @@ import '../../../core/resources/font_manager.dart';
 import '../../../core/resources/styles_manager.dart';
 import '../components/settings_button.dart';
 
-class WardScreen extends StatelessWidget {
+class WardScreen extends StatefulWidget {
 
   final Ward ward;
+
   const WardScreen({super.key, required this.ward});
+
+  @override
+  State<WardScreen> createState() => _WardScreenState();
+}
+
+class _WardScreenState extends State<WardScreen> {
+
+  late WardsBloc bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    bloc = instance<WardsBloc>();
+    bloc.add(GetAllStoresEvent(widget.ward.id ?? -1));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,55 +49,95 @@ class WardScreen extends StatelessWidget {
             height: context.height,
             padding: getMainPadding(context),
             decoration: getMainDecoration(),
-            child: ListView(
-              shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
-              children: [
-                const MainAppBar(canNavigateUp: true,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SecondaryAppBarWithImage(
-                      text: ward.name ?? '',
-                      image: AppAssets.goods,
-                    ),
-                    SettingsButton(onTab: () {
-                      NavigateUtil().navigateToScreen(context,
-                          BlocProvider.value(value: instance<WardsBloc>(),
-                              child: WardSettingsScreen(ward: ward,)));
-                      },
-                    ),
-                  ],
-                ),
-                GridView.count(
+            child: BlocBuilder<WardsBloc, WardsState>(
+              builder: (context, state) {
+                if (state.getAllStoresState == RequestState.loading) {
+                  return const LoadingScreen();
+                } else if (state.getAllStoresState == RequestState.error) {
+                  return ErrorScreen(error: state.getAllStoresMessage);
+                }
+                List<Store> stores = state.stores;
+                List<int> indexes = [];
+                Map<int, String> map = {};
+                debugPrint('=========== stores ${stores.length}');
+                for (var element in stores) {
+                  int x = (element.xAxies ?? 0);
+                  int y = (element.yAxies ?? 0);
+                  int width = widget.ward.width ?? 1;
+                  int height = widget.ward.height ?? 1;
+                  debugPrint('========= x $x y $y width $width height $height');
+                  int newIndex = (x - 1) * width + (y - 1);
+                  indexes.add(newIndex);
+                  map[newIndex] = element.product ?? '';
+                  debugPrint('=========== new $newIndex');
+                }
+                return ListView(
                   shrinkWrap: true,
                   physics: const ClampingScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 28),
-                  crossAxisCount: ward.width ?? 1,
-                  crossAxisSpacing: 15,
-                  mainAxisSpacing: 20,
-                  childAspectRatio: 1.1,
-                  children: List.generate((ward.width ?? 1) * (ward.height ?? 1), (index) {
-                    return InkWell(
-                      onTap: () {
-                      },
-                      child: DottedBorder(
-                        color: const Color(0xff1F3A6F),
-                        strokeWidth: 1,
-                        child: Center(
-                          child: Text(
-                            '',
-                            style: getSmallStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeightManager.medium
-                            ),
-                          ),
+                  children: [
+                    const MainAppBar(canNavigateUp: true,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SecondaryAppBarWithImage(
+                          text: widget.ward.name ?? '',
+                          image: AppAssets.goods,
                         ),
-                      ),
-                    );
-                  })
-                )
-              ],
+                        SettingsButton(onTab: () {
+                          NavigateUtil().navigateToScreen(context,
+                              BlocProvider.value(value: instance<WardsBloc>(),
+                                  child: WardSettingsScreen(
+                                    ward: widget.ward,)));
+                        },
+                        ),
+                      ],
+                    ),
+                    GridView.count(
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 28),
+                        crossAxisCount: widget.ward.width ?? 1,
+                        crossAxisSpacing: 15,
+                        mainAxisSpacing: 20,
+                        childAspectRatio: 1.1,
+                        children: List.generate((widget.ward.width ?? 1) *
+                            (widget.ward.height ?? 1), (index) {
+                          return InkWell(
+                            onTap: () {},
+                            child: indexes.contains(index) ? Container(
+                              decoration: const BoxDecoration(
+                                color: Color(0xffDDB089),
+                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColors.black,
+                                    blurRadius: 4,
+                                    offset: Offset(2, 2),
+                                  )
+                                ]
+                              ),
+                              child: Center(
+                                child: Text(
+                                  indexes.contains(index) ? map[index] ?? '' : '',
+                                  style: getSmallStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeightManager.medium
+                                  ),
+                                ),
+                              ),
+                            )
+                            :
+                            DottedBorder(
+                              strokeWidth: 1,
+                              child: Container(),
+                            ),
+                          );
+                        })
+                    )
+                  ],
+                );
+              },
             ),
           ),
         )

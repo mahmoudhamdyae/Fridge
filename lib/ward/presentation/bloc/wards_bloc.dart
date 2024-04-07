@@ -1,10 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:fridge/ward/data/models/store.dart';
 import 'package:fridge/ward/domain/entities/ward.dart';
 import 'package:fridge/ward/domain/usecases/get_wards_usecase.dart';
 import 'package:meta/meta.dart';
 
 import '../../../core/enums/request_state.dart';
+import '../../domain/usecases/get_all_stores_usecase.dart';
 import '../../domain/usecases/update_ward_settings_usecase.dart';
 
 part 'wards_event.dart';
@@ -14,10 +17,12 @@ class WardsBloc extends Bloc<WardsEvent, WardsState> {
 
   final GetWardsUsecase _getWardsUsecase;
   final UpdateWardSettingsUsecase _updateWardSettingsUsecase;
+  final GetAllStoresUsecase _getAllStoresUsecase;
 
   WardsBloc(
       this._getWardsUsecase,
       this._updateWardSettingsUsecase,
+      this._getAllStoresUsecase,
       ) : super(const WardsState()) {
     on<GetWardsEvent>((event, emit) async {
       await _getWards(emit);
@@ -25,10 +30,12 @@ class WardsBloc extends Bloc<WardsEvent, WardsState> {
     on<UpdateWardSettingsEvent>((event, emit) async {
       await _updateWardSettingsEvent(event, emit);
     });
+    on<GetAllStoresEvent>((event, emit) async {
+      await _getAllStoresEvent(event, emit);
+    });
   }
 
   Future<void> _getWards(Emitter<WardsState> emit) async {
-    emit(state.copyWith(updateWardSettingsState: RequestState.init));
     final result = await _getWardsUsecase.call();
     result.fold((l) {
       emit(state.copyWith(
@@ -58,6 +65,22 @@ class WardsBloc extends Bloc<WardsEvent, WardsState> {
 
       emit(state.copyWith(
         updateWardSettingsState: RequestState.loaded,
+      ));
+    });
+  }
+
+  Future<void> _getAllStoresEvent(GetAllStoresEvent event, Emitter<WardsState> emit) async {
+    emit(state.copyWith(getAllStoresState: RequestState.loading));
+    var result = await _getAllStoresUsecase.call(event.wardId);
+    result.fold((l) {
+      emit(state.copyWith(
+        getAllStoresState: RequestState.error,
+        getAllStoresMessage: l.message,
+      ));
+    }, (stores) async {
+      emit(state.copyWith(
+        getAllStoresState: RequestState.loaded,
+        stores: stores
       ));
     });
   }

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:fridge/ward/data/models/store.dart';
 
 import '../../../core/error/exceptions.dart';
 import '../../../core/error/failure.dart';
@@ -24,6 +25,16 @@ class WardsRepositoryImpl extends WardsRepository {
     try {
       await remoteDataSource.updateWardSettings(wardId, wardWidth, wardHeight);
       return const Right(null);
+    } on ServerException catch (failure) {
+      return Left(ServerFailure(failure.errorMessageModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Store>>> getAllStore(int wardId) async {
+    try {
+      var response = await remoteDataSource.getAllStore(wardId);
+      return Right(response);
     } on ServerException catch (failure) {
       return Left(ServerFailure(failure.errorMessageModel.message));
     }

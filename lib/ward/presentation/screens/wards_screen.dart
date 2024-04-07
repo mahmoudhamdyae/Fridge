@@ -94,7 +94,10 @@ class _WardsScreenState extends State<WardsScreen> {
                           onTap: () {
                             NavigateUtil().navigateToScreen(
                                 context,
-                                WardScreen(ward: state.wards[index]));
+                                BlocProvider.value(
+                                  value: instance<WardsBloc>(),
+                                  child: WardScreen(ward: state.wards[index]),
+                                ));
                           },
                           child: Container(
                             decoration: BoxDecoration(

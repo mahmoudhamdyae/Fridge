@@ -16,3 +16,10 @@ class UpdateWardSettingsEvent extends WardsEvent {
   @override
   List<Object> get props => [wardId, wardWidth, wardHeight];
 }
+
+class GetAllStoresEvent extends WardsEvent {
+  final int wardId;
+  GetAllStoresEvent(this.wardId);
+  @override
+  List<Object> get props => [wardId];
+}

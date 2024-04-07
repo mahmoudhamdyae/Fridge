@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:fridge/core/network/dio_manager.dart';
+import 'package:fridge/ward/data/models/store.dart';
 import 'package:fridge/ward/data/models/ward_model.dart';
 
 import '../../../core/error/error_message_model.dart';
@@ -12,6 +13,7 @@ abstract class WardsRemoteDataSource {
 
   Future<List<WardModel>> getWards();
   Future<void> updateWardSettings(int wardId, int wardWidth, int wardHeight);
+  Future<List<Store>> getAllStore(int wardId);
 }
 
 class WardsRemoteDataSourceImpl extends WardsRemoteDataSource {
@@ -50,13 +52,32 @@ class WardsRemoteDataSourceImpl extends WardsRemoteDataSource {
           'height': wardHeight,
         }
       );
-    }  on DioException catch (error) {
+    } on DioException catch (error) {
       if (error.response != null) {
         throw ServerException(
             errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
         );
       } else {
-        // Error due to setting up or sending the request
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
+        );
+      }
+    }
+  }
+
+  @override
+  Future<List<Store>> getAllStore(int wardId) async {
+    try {
+      var response = await dioManager.dio.get(
+        ApiConstants.getAllStorePath(wardId),
+      );
+      return StoreResponse.fromJson((response.data)).data?? [];
+    } on DioException catch (error) {
+      if (error.response != null) {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
         throw ServerException(
             errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
         );

@@ -10,12 +10,19 @@ class WardsState extends Equatable {
   final RequestState updateWardSettingsState;
   final String updateWardSettingsErrorMessage;
 
+  final List<Store> stores;
+  final RequestState getAllStoresState;
+  final String getAllStoresMessage;
+
   const WardsState({
     this.wards = const [],
     this.getWardsState = RequestState.loading,
     this.getWardsErrorMessage = '',
     this.updateWardSettingsState = RequestState.init,
-    this.updateWardSettingsErrorMessage = ''
+    this.updateWardSettingsErrorMessage = '',
+    this.stores = const [],
+    this.getAllStoresState = RequestState.loading,
+    this.getAllStoresMessage = ''
   });
 
   WardsState copyWith({
@@ -23,20 +30,27 @@ class WardsState extends Equatable {
     RequestState? getWardsState,
     String? getWardsErrorMessage,
     RequestState? updateWardSettingsState,
-    String? updateWardSettingsErrorMessage
+    String? updateWardSettingsErrorMessage,
+    List<Store>? stores,
+    RequestState? getAllStoresState,
+    String? getAllStoresMessage
   }) {
     return WardsState(
-      wards: wards ?? [],
+      wards: wards ?? this.wards,
       getWardsState: getWardsState ?? this.getWardsState,
       getWardsErrorMessage: getWardsErrorMessage ?? this.getWardsErrorMessage,
       updateWardSettingsState: updateWardSettingsState ?? this.updateWardSettingsState,
-      updateWardSettingsErrorMessage: updateWardSettingsErrorMessage ?? this.updateWardSettingsErrorMessage
+      updateWardSettingsErrorMessage: updateWardSettingsErrorMessage ?? this.updateWardSettingsErrorMessage,
+      stores: stores ?? [],
+      getAllStoresState: getAllStoresState ?? this.getAllStoresState,
+      getAllStoresMessage: getAllStoresMessage ?? this.getAllStoresMessage,
     );
 }
 
   @override
   List<Object?> get props => [
     wards, getWardsState, getWardsErrorMessage,
-    updateWardSettingsState, updateWardSettingsErrorMessage
+    updateWardSettingsState, updateWardSettingsErrorMessage,
+    stores, getAllStoresState, getAllStoresMessage,
   ];
 }
