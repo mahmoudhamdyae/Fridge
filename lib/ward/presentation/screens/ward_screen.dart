@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fridge/clients/presentation/components/client_details_button.dart';
 import 'package:fridge/core/components/states/error_screen.dart';
 import 'package:fridge/core/components/states/loading_screen.dart';
 import 'package:fridge/core/enums/request_state.dart';
@@ -13,6 +14,7 @@ import 'package:fridge/ward/data/models/store.dart';
 import 'package:fridge/ward/domain/entities/custom_customer.dart';
 import 'package:fridge/ward/domain/entities/ward.dart';
 import 'package:fridge/ward/presentation/bloc/wards_bloc.dart';
+import 'package:fridge/ward/presentation/components/client_details_button.dart';
 import 'package:fridge/ward/presentation/screens/ward_settings_screen.dart';
 
 import '../../../core/components/appbar.dart';
@@ -201,6 +203,13 @@ class _WardScreenState extends State<WardScreen> {
                                                         ),
                                                         context.dynamicWidth(.2).pw,
                                                       ],
+                                                    ),
+                                                    16.ph,
+                                                    SizedBox(
+                                                      width: context.dynamicWidth(.8),
+                                                      child: SheetClientDetailsButton(onTap: () {
+                                                        // todo navigate to details
+                                                      }),
                                                     ),
                                                     16.ph,
                                                     const Divider(
