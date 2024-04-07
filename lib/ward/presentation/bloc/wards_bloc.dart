@@ -89,7 +89,7 @@ class WardsBloc extends Bloc<WardsEvent, WardsState> {
       for (var element in stores) {
         c.add(CustomCustomer(
                 name: element.customer?.name,
-                type: element.customer?.type == 0 ? AppStrings.addClientScreenTrader : AppStrings.addClientScreenDealer,
+                type: element.customer?.type == 0 ? AppStrings.addClientScreenTraderWithQ : AppStrings.addClientScreenDealerWithQ,
                 product: element.product,
                 quantity: '${element.totalWeight} ${element.unit}',
               ));

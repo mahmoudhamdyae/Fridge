@@ -164,9 +164,9 @@ class AppStrings {
   static const String wardsScreenDetails = 'تفاصيل';
   static const String wardsScreenSettings = 'إعدادات';
   // Product Dialog
-  static const String productDialogClientName = 'اسم العميل';
-  static const String productDialogProduct = 'المنتج';
-  static const String productDialogQuantity = 'الكمية';
+  static const String productDialogClientName = 'اسم العميل : ';
+  static const String productDialogProduct = 'المنتج :';
+  static const String productDialogQuantity = 'الكمية :';
   static const String productDialogDetailsButton = 'تفاصيل';
   static const String productDialogCancelButton = 'الغاء';
 

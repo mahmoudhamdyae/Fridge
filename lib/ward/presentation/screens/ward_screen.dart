@@ -7,6 +7,7 @@ import 'package:fridge/core/enums/request_state.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/resources/app_colors.dart';
+import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/services/services_locator.dart';
 import 'package:fridge/ward/data/models/store.dart';
 import 'package:fridge/ward/domain/entities/custom_customer.dart';
@@ -137,30 +138,81 @@ class _WardScreenState extends State<WardScreen> {
                                           ],
                                         ),
                                         16.ph,
-                                        SizedBox(
-                                          height: context.dynamicHeight(.3),
-                                          child: ListView(
-                                            children: [
-                                              ...List.generate(state.customMap['${widget.ward.width}-${widget.ward.height}']?.length ?? 0, (index) {
-                                                List<CustomCustomer> customer = state.customMap['${widget.ward.width}-${widget.ward.height}'] ?? [];
-                                                debugPrint('hahahahahahaha ${customer.length}');
-                                                return Text(customer[index].name ?? 'jj');
-                                              })
-                                            ],
-                                          ),
-                                        ),
-                                        // ListView.builder(
-                                        //   // shrinkWrap: true,
-                                        //   // physics: const ClampingScrollPhysics(),
-                                        //   itemCount: 3/*state.customMap['${widget.ward.width}-${widget.ward.height}']?.length*/,
-                                        //   itemBuilder: (BuildContext context, int index) {
-                                        //     // List<CustomCustomer> customer = state.customMap['${widget.ward.width}-${widget.ward.height}'] ?? [];
-                                        //     return Text('customer[index].name ?? ''');
-                                        //   },),
-                                        16.ph,
                                         const Divider(
                                           height: 1,
                                           color: AppColors.grey,
+                                        ),
+                                        16.ph,
+                                        SizedBox(
+                                          height: context.dynamicHeight(.4),
+                                          child: ListView(
+                                            children: [
+                                              ...List.generate(state.customMap['${widget.ward.width}-${widget.ward.height}']?.length ?? 0, (index) {
+                                                CustomCustomer customer = (state.customMap['${widget.ward.width}-${widget.ward.height}'] ?? [])[index];
+                                                return Column(
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          AppStrings.productDialogClientName,
+                                                          style: getSmallStyle(
+                                                            fontSize: 18,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          customer.name ?? '',
+                                                          style: getSmallStyle(
+                                                            fontSize: 18,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          ' ${(customer.type ?? AppStrings.addClientScreenTraderWithQ)}',
+                                                          style: getSmallStyle(
+                                                            color: const Color(0xff6B6B6B),
+                                                            fontSize: 18,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    8.ph,
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          AppStrings.productDialogProduct,
+                                                          style: getSmallStyle(),
+                                                        ),
+                                                        Text(
+                                                          customer.product ?? '',
+                                                          style: getSmallStyle(
+                                                            color: const Color(0xff6B6B6B),
+                                                          ),
+                                                        ),
+                                                        context.dynamicWidth(.3).pw,
+                                                        Text(
+                                                          AppStrings.productDialogQuantity,
+                                                          style: getSmallStyle(),
+                                                        ),
+                                                        Text(
+                                                          customer.quantity ?? '',
+                                                          style: getSmallStyle(
+                                                            color: const Color(0xff6B6B6B),
+                                                          ),
+                                                        ),
+                                                        context.dynamicWidth(.2).pw,
+                                                      ],
+                                                    ),
+                                                    16.ph,
+                                                    const Divider(
+                                                      height: 1,
+                                                      color: AppColors.grey,
+                                                    ),
+                                                    16.ph,
+                                                  ],
+                                                );
+                                              })
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     ),
