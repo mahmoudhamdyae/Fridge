@@ -109,8 +109,9 @@ class _WardScreenState extends State<WardScreen> {
                               showModalBottomSheet<void>(
                                 context: context,
                                 builder: (BuildContext context) {
-                                  return SizedBox(
+                                  return Container(
                                     width: context.width,
+                                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
@@ -133,6 +134,11 @@ class _WardScreenState extends State<WardScreen> {
                                             Expanded(child: Container()),
                                             16.pw,
                                           ],
+                                        ),
+                                        16.ph,
+                                        const Divider(
+                                          height: 1,
+                                          color: AppColors.grey,
                                         ),
                                       ],
                                     ),
