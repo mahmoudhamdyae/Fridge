@@ -22,6 +22,7 @@ class Store {
   int? customerId;
   String? product;
   String? boxing;
+  String? unit;
   int? quantity;
   int? totalWeight;
   int? price;
@@ -36,6 +37,7 @@ class Store {
         this.customerId,
         this.product,
         this.boxing,
+        this.unit,
         this.quantity,
         this.totalWeight,
         this.price,
@@ -50,6 +52,7 @@ class Store {
     customerId = json['customer_id'];
     product = json['product'];
     boxing = json['boxing'];
+    unit = json['unit'];
     quantity = json['quantity'];
     totalWeight = json['total_weight'];
     price = json['price'];

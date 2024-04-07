@@ -18,8 +18,8 @@ class UpdateWardSettingsEvent extends WardsEvent {
 }
 
 class GetAllStoresEvent extends WardsEvent {
-  final int wardId;
-  GetAllStoresEvent(this.wardId);
+  final Ward ward;
+  GetAllStoresEvent(this.ward);
   @override
-  List<Object> get props => [wardId];
+  List<Object> get props => [ward];
 }

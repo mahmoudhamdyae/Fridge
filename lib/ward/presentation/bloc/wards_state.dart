@@ -11,6 +11,7 @@ class WardsState extends Equatable {
   final String updateWardSettingsErrorMessage;
 
   final List<Store> stores;
+  final Map<String, List<CustomCustomer>> customMap;
   final RequestState getAllStoresState;
   final String getAllStoresMessage;
 
@@ -21,6 +22,7 @@ class WardsState extends Equatable {
     this.updateWardSettingsState = RequestState.init,
     this.updateWardSettingsErrorMessage = '',
     this.stores = const [],
+    this.customMap = const {},
     this.getAllStoresState = RequestState.loading,
     this.getAllStoresMessage = ''
   });
@@ -32,6 +34,7 @@ class WardsState extends Equatable {
     RequestState? updateWardSettingsState,
     String? updateWardSettingsErrorMessage,
     List<Store>? stores,
+    Map<String, List<CustomCustomer>>? customMap,
     RequestState? getAllStoresState,
     String? getAllStoresMessage
   }) {
@@ -41,7 +44,8 @@ class WardsState extends Equatable {
       getWardsErrorMessage: getWardsErrorMessage ?? this.getWardsErrorMessage,
       updateWardSettingsState: updateWardSettingsState ?? this.updateWardSettingsState,
       updateWardSettingsErrorMessage: updateWardSettingsErrorMessage ?? this.updateWardSettingsErrorMessage,
-      stores: stores ?? [],
+      stores: stores ?? this.stores,
+      customMap: customMap ?? this.customMap,
       getAllStoresState: getAllStoresState ?? this.getAllStoresState,
       getAllStoresMessage: getAllStoresMessage ?? this.getAllStoresMessage,
     );
@@ -51,6 +55,6 @@ class WardsState extends Equatable {
   List<Object?> get props => [
     wards, getWardsState, getWardsErrorMessage,
     updateWardSettingsState, updateWardSettingsErrorMessage,
-    stores, getAllStoresState, getAllStoresMessage,
+    stores, customMap, getAllStoresState, getAllStoresMessage,
   ];
 }

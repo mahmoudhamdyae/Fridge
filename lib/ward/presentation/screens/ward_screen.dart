@@ -9,6 +9,7 @@ import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/core/services/services_locator.dart';
 import 'package:fridge/ward/data/models/store.dart';
+import 'package:fridge/ward/domain/entities/custom_customer.dart';
 import 'package:fridge/ward/domain/entities/ward.dart';
 import 'package:fridge/ward/presentation/bloc/wards_bloc.dart';
 import 'package:fridge/ward/presentation/screens/ward_settings_screen.dart';
@@ -39,7 +40,7 @@ class _WardScreenState extends State<WardScreen> {
   void initState() {
     super.initState();
     bloc = instance<WardsBloc>();
-    bloc.add(GetAllStoresEvent(widget.ward.id ?? -1));
+    bloc.add(GetAllStoresEvent(widget.ward));
   }
 
   @override
@@ -59,7 +60,7 @@ class _WardScreenState extends State<WardScreen> {
                 }
                 List<Store> stores = state.stores;
                 List<int> indexes = [];
-                Map<int, String> map = {};
+                Map<int, Store> map = {};
                 debugPrint('=========== stores ${stores.length}');
                 for (var element in stores) {
                   int x = (element.xAxies ?? 0);
@@ -69,7 +70,7 @@ class _WardScreenState extends State<WardScreen> {
                   debugPrint('========= x $x y $y width $width height $height');
                   int newIndex = (x - 1) * width + (y - 1);
                   indexes.add(newIndex);
-                  map[newIndex] = element.product ?? '';
+                  map[newIndex] = element;
                   debugPrint('=========== new $newIndex');
                 }
                 return ListView(
@@ -111,9 +112,9 @@ class _WardScreenState extends State<WardScreen> {
                                 builder: (BuildContext context) {
                                   return Container(
                                     width: context.width,
+                                    // height: context.dynamicHeight(.5),
                                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         16.ph,
                                         Row(
@@ -135,6 +136,27 @@ class _WardScreenState extends State<WardScreen> {
                                             16.pw,
                                           ],
                                         ),
+                                        16.ph,
+                                        SizedBox(
+                                          height: context.dynamicHeight(.3),
+                                          child: ListView(
+                                            children: [
+                                              ...List.generate(state.customMap['${widget.ward.width}-${widget.ward.height}']?.length ?? 0, (index) {
+                                                List<CustomCustomer> customer = state.customMap['${widget.ward.width}-${widget.ward.height}'] ?? [];
+                                                debugPrint('hahahahahahaha ${customer.length}');
+                                                return Text(customer[index].name ?? 'jj');
+                                              })
+                                            ],
+                                          ),
+                                        ),
+                                        // ListView.builder(
+                                        //   // shrinkWrap: true,
+                                        //   // physics: const ClampingScrollPhysics(),
+                                        //   itemCount: 3/*state.customMap['${widget.ward.width}-${widget.ward.height}']?.length*/,
+                                        //   itemBuilder: (BuildContext context, int index) {
+                                        //     // List<CustomCustomer> customer = state.customMap['${widget.ward.width}-${widget.ward.height}'] ?? [];
+                                        //     return Text('customer[index].name ?? ''');
+                                        //   },),
                                         16.ph,
                                         const Divider(
                                           height: 1,
@@ -160,7 +182,7 @@ class _WardScreenState extends State<WardScreen> {
                               ),
                               child: Center(
                                 child: Text(
-                                  indexes.contains(index) ? map[index] ?? '' : '',
+                                  indexes.contains(index) ? map[index]?.product ?? '' : '',
                                   style: getSmallStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeightManager.medium

@@ -1,12 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/ward/data/models/store.dart';
 import 'package:fridge/ward/domain/entities/ward.dart';
 import 'package:fridge/ward/domain/usecases/get_wards_usecase.dart';
 import 'package:meta/meta.dart';
 
 import '../../../core/enums/request_state.dart';
+import '../../domain/entities/custom_customer.dart';
 import '../../domain/usecases/get_all_stores_usecase.dart';
 import '../../domain/usecases/update_ward_settings_usecase.dart';
 
@@ -71,16 +73,39 @@ class WardsBloc extends Bloc<WardsEvent, WardsState> {
 
   Future<void> _getAllStoresEvent(GetAllStoresEvent event, Emitter<WardsState> emit) async {
     emit(state.copyWith(getAllStoresState: RequestState.loading));
-    var result = await _getAllStoresUsecase.call(event.wardId);
+    var result = await _getAllStoresUsecase.call(event.ward.id ?? -1);
     result.fold((l) {
       emit(state.copyWith(
         getAllStoresState: RequestState.error,
         getAllStoresMessage: l.message,
       ));
     }, (stores) async {
+
+      // Map<String, List<CustomCustomer>> myCustomMap = state.customMap;
+      // for (var element in stores) {
+      //   var c = myCustomMap['${event.ward.width}-${event.ward.height}'];
+      //   if (c == null) {
+      //     myCustomMap['${event.ward.width}-${event.ward.height}'] = [CustomCustomer(
+      //       name: element.customer?.name,
+      //       type: element.customer?.type == 0 ? AppStrings.addClientScreenTrader : AppStrings.addClientScreenDealer,
+      //       product: element.product,
+      //       quantity: '${element.totalWeight} ${element.unit}',
+      //     )];
+      //   } else {
+      //     myCustomMap['${event.ward.width}-${event.ward.height}']!.add(CustomCustomer(
+      //       name: element.customer?.name,
+      //       type: element.customer?.type == 0 ? AppStrings.addClientScreenTrader : AppStrings.addClientScreenDealer,
+      //       product: element.product,
+      //       quantity: '${element.totalWeight} ${element.unit}',
+      //     ));
+      //   }
+      // }
+      // debugPrint('hahahahahahaha my custom ${myCustomMap['${event.ward.width}-${event.ward.height}']?.length}');
+
       emit(state.copyWith(
         getAllStoresState: RequestState.loaded,
-        stores: stores
+        stores: stores,
+        // customMap: myCustomMap,
       ));
     });
   }
