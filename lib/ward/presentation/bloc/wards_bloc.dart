@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fridge/core/resources/app_strings.dart';
+import 'package:fridge/ward/data/models/invoice.dart';
 import 'package:fridge/ward/data/models/store.dart';
 import 'package:fridge/ward/domain/entities/ward.dart';
 import 'package:fridge/ward/domain/usecases/get_wards_usecase.dart';
@@ -11,6 +12,7 @@ import 'package:meta/meta.dart';
 import '../../../core/enums/request_state.dart';
 import '../../domain/entities/custom_customer.dart';
 import '../../domain/usecases/get_all_stores_usecase.dart';
+import '../../domain/usecases/get_invoice_usecase.dart';
 import '../../domain/usecases/update_ward_settings_usecase.dart';
 
 part 'wards_event.dart';
@@ -21,20 +23,25 @@ class WardsBloc extends Bloc<WardsEvent, WardsState> {
   final GetWardsUsecase _getWardsUsecase;
   final UpdateWardSettingsUsecase _updateWardSettingsUsecase;
   final GetAllStoresUsecase _getAllStoresUsecase;
+  final GetInvoiceUsecase _getInvoiceUsecase;
 
   WardsBloc(
       this._getWardsUsecase,
       this._updateWardSettingsUsecase,
       this._getAllStoresUsecase,
+      this._getInvoiceUsecase,
       ) : super(const WardsState()) {
     on<GetWardsEvent>((event, emit) async {
       await _getWards(emit);
     });
     on<UpdateWardSettingsEvent>((event, emit) async {
-      await _updateWardSettingsEvent(event, emit);
+      await _updateWardSettings(event, emit);
     });
     on<GetAllStoresEvent>((event, emit) async {
-      await _getAllStoresEvent(event, emit);
+      await _getAllStores(event, emit);
+    });
+    on<GetInvoiceEvent>((event, emit) async {
+      await _getInvoice(event, emit);
     });
   }
 
@@ -54,7 +61,7 @@ class WardsBloc extends Bloc<WardsEvent, WardsState> {
     });
   }
 
-  Future<void> _updateWardSettingsEvent(UpdateWardSettingsEvent event, Emitter<WardsState> emit) async {
+  Future<void> _updateWardSettings(UpdateWardSettingsEvent event, Emitter<WardsState> emit) async {
     emit(state.copyWith(updateWardSettingsState: RequestState.loading));
     var result = await _updateWardSettingsUsecase.call(event.wardId, event.wardWidth, event.wardHeight);
     result.fold((l) {
@@ -72,7 +79,7 @@ class WardsBloc extends Bloc<WardsEvent, WardsState> {
     });
   }
 
-  Future<void> _getAllStoresEvent(GetAllStoresEvent event, Emitter<WardsState> emit) async {
+  Future<void> _getAllStores(GetAllStoresEvent event, Emitter<WardsState> emit) async {
     emit(state.copyWith(getAllStoresState: RequestState.loading));
     var result = await _getAllStoresUsecase.call(event.ward.id ?? -1);
     result.fold((l) {
@@ -102,6 +109,22 @@ class WardsBloc extends Bloc<WardsEvent, WardsState> {
         customMap: {
           '${event.ward.width}-${event.ward.height}': c
         },
+      ));
+    });
+  }
+
+  Future<void> _getInvoice(GetInvoiceEvent event, Emitter<WardsState> emit) async {
+    emit(state.copyWith(getInvoiceState: RequestState.loading));
+    var result = await _getInvoiceUsecase.call(event.storeId);
+    result.fold((l) {
+      emit(state.copyWith(
+        getInvoiceState: RequestState.error,
+        getInvoiceErrorMessage: l.message,
+      ));
+    }, (invoice) async {
+      emit(state.copyWith(
+        getInvoiceState: RequestState.loaded,
+        invoice: invoice,
       ));
     });
   }

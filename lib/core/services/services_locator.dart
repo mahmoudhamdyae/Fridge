@@ -46,6 +46,7 @@ import '../../clients/data/repository/client_repository_impl.dart';
 import '../../expenses/presentation/bloc/expenses_bloc.dart';
 import '../../home/data/repository/home_repository_impl.dart';
 import '../../ward/data/repository/ward_repository_impl.dart';
+import '../../ward/domain/usecases/get_invoice_usecase.dart';
 
 final instance = GetIt.instance;
 
@@ -131,11 +132,13 @@ class ServicesLocator {
       instance<GetWardsUsecase>(),
       instance<UpdateWardSettingsUsecase>(),
       instance<GetAllStoresUsecase>(),
+      instance<GetInvoiceUsecase>(),
     ));
     // Use Cases
     instance.registerLazySingleton(() => GetWardsUsecase(instance<WardsRepository>()));
     instance.registerLazySingleton(() => UpdateWardSettingsUsecase(instance<WardsRepository>()));
     instance.registerLazySingleton(() => GetAllStoresUsecase(instance<WardsRepository>()));
+    instance.registerLazySingleton(() => GetInvoiceUsecase(instance<WardsRepository>()));
     // Repository
     instance.registerLazySingleton<WardsRepository>(
             () => WardsRepositoryImpl(instance<WardsRemoteDataSource>()));

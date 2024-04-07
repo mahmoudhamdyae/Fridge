@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:fridge/core/network/dio_manager.dart';
+import 'package:fridge/ward/data/models/invoice.dart';
 import 'package:fridge/ward/data/models/store.dart';
 import 'package:fridge/ward/data/models/ward_model.dart';
 
@@ -14,6 +15,7 @@ abstract class WardsRemoteDataSource {
   Future<List<WardModel>> getWards();
   Future<void> updateWardSettings(int wardId, int wardWidth, int wardHeight);
   Future<List<Store>> getAllStore(int wardId);
+  Future<Invoice?> getInvoice(int storeId);
 }
 
 class WardsRemoteDataSourceImpl extends WardsRemoteDataSource {
@@ -72,6 +74,26 @@ class WardsRemoteDataSourceImpl extends WardsRemoteDataSource {
         ApiConstants.getAllStorePath(wardId),
       );
       return StoreResponse.fromJson((response.data)).data?? [];
+    } on DioException catch (error) {
+      if (error.response != null) {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
+        );
+      }
+    }
+  }
+
+  @override
+  Future<Invoice?> getInvoice(int storeId) async {
+    try {
+      var response = await dioManager.dio.get(
+        ApiConstants.getInvoicePath(storeId),
+      );
+      return InvoiceResponse.fromJson((response.data)).data;
     } on DioException catch (error) {
       if (error.response != null) {
         throw ServerException(

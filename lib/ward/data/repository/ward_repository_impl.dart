@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:fridge/ward/data/models/invoice.dart';
 import 'package:fridge/ward/data/models/store.dart';
 
 import '../../../core/error/exceptions.dart';
@@ -35,6 +36,16 @@ class WardsRepositoryImpl extends WardsRepository {
     try {
       var response = await remoteDataSource.getAllStore(wardId);
       return Right(response);
+    } on ServerException catch (failure) {
+      return Left(ServerFailure(failure.errorMessageModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Invoice>> getInvoice(int storeId) async {
+    try {
+      var response = await remoteDataSource.getInvoice(storeId);
+      return Right(response!);
     } on ServerException catch (failure) {
       return Left(ServerFailure(failure.errorMessageModel.message));
     }

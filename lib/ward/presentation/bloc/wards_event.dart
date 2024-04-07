@@ -23,3 +23,10 @@ class GetAllStoresEvent extends WardsEvent {
   @override
   List<Object> get props => [ward];
 }
+
+class GetInvoiceEvent extends WardsEvent {
+  final int storeId;
+  GetInvoiceEvent(this.storeId);
+  @override
+  List<Object> get props => [storeId];
+}

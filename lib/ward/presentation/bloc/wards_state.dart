@@ -15,6 +15,10 @@ class WardsState extends Equatable {
   final RequestState getAllStoresState;
   final String getAllStoresMessage;
 
+  final Invoice invoice;
+  final RequestState getInvoiceState;
+  final String getInvoiceErrorMessage;
+
   const WardsState({
     this.wards = const [],
     this.getWardsState = RequestState.loading,
@@ -24,7 +28,10 @@ class WardsState extends Equatable {
     this.stores = const [],
     this.customMap = const {},
     this.getAllStoresState = RequestState.loading,
-    this.getAllStoresMessage = ''
+    this.getAllStoresMessage = '',
+    this.invoice = const Invoice(),
+    this.getInvoiceState = RequestState.loading,
+    this.getInvoiceErrorMessage = ''
   });
 
   WardsState copyWith({
@@ -36,7 +43,10 @@ class WardsState extends Equatable {
     List<Store>? stores,
     Map<String, List<CustomCustomer>>? customMap,
     RequestState? getAllStoresState,
-    String? getAllStoresMessage
+    String? getAllStoresMessage,
+    Invoice? invoice,
+    RequestState? getInvoiceState,
+    String? getInvoiceErrorMessage
   }) {
     return WardsState(
       wards: wards ?? this.wards,
@@ -48,6 +58,9 @@ class WardsState extends Equatable {
       customMap: customMap ?? this.customMap,
       getAllStoresState: getAllStoresState ?? this.getAllStoresState,
       getAllStoresMessage: getAllStoresMessage ?? this.getAllStoresMessage,
+      invoice: invoice ?? this.invoice,
+      getInvoiceState: getInvoiceState ?? this.getInvoiceState,
+      getInvoiceErrorMessage: getInvoiceErrorMessage ?? this.getInvoiceErrorMessage
     );
 }
 
@@ -56,5 +69,6 @@ class WardsState extends Equatable {
     wards, getWardsState, getWardsErrorMessage,
     updateWardSettingsState, updateWardSettingsErrorMessage,
     stores, customMap, getAllStoresState, getAllStoresMessage,
+    invoice, getInvoiceState, getInvoiceErrorMessage
   ];
 }
