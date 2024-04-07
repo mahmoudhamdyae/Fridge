@@ -43,6 +43,7 @@ class _WardSettingsScreenState extends State<WardSettingsScreen> {
     if (state.updateWardSettingsState == RequestState.loaded) {
       NavigateUtil().navigateUp(context);
       NavigateUtil().navigateUp(context);
+      NavigateUtil().navigateUp(context);
     } else if (state.updateWardSettingsState == RequestState.error) {
       NavigateUtil().navigateUp(context);
       showError(context, state.updateWardSettingsErrorMessage, () {});
