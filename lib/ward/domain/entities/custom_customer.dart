@@ -5,12 +5,14 @@ class CustomCustomer extends Equatable {
   final String? type;
   final String? product;
   final String? quantity;
+  final int storeId;
 
   const CustomCustomer({
     required this.name,
     required this.type,
     required this.product,
-    required this.quantity
+    required this.quantity,
+    required this.storeId,
   });
 
   @override
@@ -18,6 +20,7 @@ class CustomCustomer extends Equatable {
     name,
     type,
     product,
-    quantity
+    quantity,
+    storeId,
   ];
 }

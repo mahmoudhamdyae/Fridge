@@ -88,11 +88,12 @@ class WardsBloc extends Bloc<WardsEvent, WardsState> {
       c = [];
       for (var element in stores) {
         c.add(CustomCustomer(
-                name: element.customer?.name,
-                type: element.customer?.type == 0 ? AppStrings.addClientScreenTraderWithQ : AppStrings.addClientScreenDealerWithQ,
-                product: element.product,
-                quantity: '${element.totalWeight} ${element.unit}',
-              ));
+            name: element.customer?.name,
+            type: element.customer?.type == 0 ? AppStrings.addClientScreenTraderWithQ : AppStrings.addClientScreenDealerWithQ,
+            product: element.product,
+            quantity: '${element.totalWeight} ${element.unit}',
+            storeId: element.id ?? -1,
+        ));
       }
 
       emit(state.copyWith(

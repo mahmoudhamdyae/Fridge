@@ -1,7 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fridge/clients/presentation/components/client_details_button.dart';
 import 'package:fridge/core/components/states/error_screen.dart';
 import 'package:fridge/core/components/states/loading_screen.dart';
 import 'package:fridge/core/enums/request_state.dart';
@@ -15,6 +14,7 @@ import 'package:fridge/ward/domain/entities/custom_customer.dart';
 import 'package:fridge/ward/domain/entities/ward.dart';
 import 'package:fridge/ward/presentation/bloc/wards_bloc.dart';
 import 'package:fridge/ward/presentation/components/client_details_button.dart';
+import 'package:fridge/ward/presentation/screens/invoice_screen.dart';
 import 'package:fridge/ward/presentation/screens/ward_settings_screen.dart';
 
 import '../../../core/components/appbar.dart';
@@ -26,7 +26,6 @@ import '../../../core/resources/styles_manager.dart';
 import '../components/settings_button.dart';
 
 class WardScreen extends StatefulWidget {
-
   final Ward ward;
 
   const WardScreen({super.key, required this.ward});
@@ -36,7 +35,6 @@ class WardScreen extends StatefulWidget {
 }
 
 class _WardScreenState extends State<WardScreen> {
-
   late WardsBloc bloc;
 
   @override
@@ -50,221 +48,271 @@ class _WardScreenState extends State<WardScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          body: Container(
-            height: context.height,
-            padding: getMainPadding(context),
-            decoration: getMainDecoration(),
-            child: BlocBuilder<WardsBloc, WardsState>(
-              builder: (context, state) {
-                if (state.getAllStoresState == RequestState.loading) {
-                  return const LoadingScreen();
-                } else if (state.getAllStoresState == RequestState.error) {
-                  return ErrorScreen(error: state.getAllStoresMessage);
-                }
-                List<Store> stores = state.stores;
-                List<int> indexes = [];
-                Map<int, Store> map = {};
-                debugPrint('=========== stores ${stores.length}');
-                for (var element in stores) {
-                  int x = (element.xAxies ?? 0);
-                  int y = (element.yAxies ?? 0);
-                  int width = widget.ward.width ?? 1;
-                  int height = widget.ward.height ?? 1;
-                  debugPrint('========= x $x y $y width $width height $height');
-                  int newIndex = (x - 1) * width + (y - 1);
-                  indexes.add(newIndex);
-                  map[newIndex] = element;
-                  debugPrint('=========== new $newIndex');
-                }
-                return ListView(
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
+      body: Container(
+        height: context.height,
+        padding: getMainPadding(context),
+        decoration: getMainDecoration(),
+        child: BlocBuilder<WardsBloc, WardsState>(
+          builder: (context, state) {
+            if (state.getAllStoresState == RequestState.loading) {
+              return const LoadingScreen();
+            } else if (state.getAllStoresState == RequestState.error) {
+              return ErrorScreen(error: state.getAllStoresMessage);
+            }
+            List<Store> stores = state.stores;
+            List<int> indexes = [];
+            Map<int, Store> map = {};
+            debugPrint('=========== stores ${stores.length}');
+            for (var element in stores) {
+              int x = (element.xAxies ?? 0);
+              int y = (element.yAxies ?? 0);
+              int width = widget.ward.width ?? 1;
+              int height = widget.ward.height ?? 1;
+              debugPrint('========= x $x y $y width $width height $height');
+              int newIndex = (x - 1) * width + (y - 1);
+              indexes.add(newIndex);
+              map[newIndex] = element;
+              debugPrint('=========== new $newIndex');
+            }
+            return ListView(
+              shrinkWrap: true,
+              physics: const ClampingScrollPhysics(),
+              children: [
+                const MainAppBar(
+                  canNavigateUp: true,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const MainAppBar(canNavigateUp: true,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SecondaryAppBarWithImage(
-                          text: widget.ward.name ?? '',
-                          image: AppAssets.goods,
-                        ),
-                        SettingsButton(onTab: () {
-                          NavigateUtil().navigateToScreen(context,
-                              BlocProvider.value(value: instance<WardsBloc>(),
-                                  child: WardSettingsScreen(
-                                    ward: widget.ward,)));
-                        },
-                        ),
-                      ],
+                    SecondaryAppBarWithImage(
+                      text: widget.ward.name ?? '',
+                      image: AppAssets.goods,
                     ),
-                    GridView.count(
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 28),
-                        crossAxisCount: widget.ward.width ?? 1,
-                        crossAxisSpacing: 15,
-                        mainAxisSpacing: 20,
-                        childAspectRatio: 1.1,
-                        children: List.generate((widget.ward.width ?? 1) *
-                            (widget.ward.height ?? 1), (index) {
-                          return indexes.contains(index) ? InkWell(
-                            onTap: () {
-                              showModalBottomSheet<void>(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Container(
-                                    width: context.width,
-                                    // height: context.dynamicHeight(.5),
-                                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                                    child: Column(
-                                      children: [
-                                        16.ph,
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          children: [
-                                            IconButton(
-                                                onPressed: () {
-                                                  NavigateUtil().navigateUp(context);
-                                                },
-                                                icon: const Icon(Icons.close)
-                                            ),
-                                            Expanded(child: Container()),
-                                            Image.asset(
-                                              AppAssets.package,
-                                              width: 60,
-                                              height: 60,
-                                            ),
-                                            Expanded(child: Container()),
-                                            16.pw,
-                                          ],
-                                        ),
-                                        16.ph,
-                                        const Divider(
-                                          height: 1,
-                                          color: AppColors.grey,
-                                        ),
-                                        16.ph,
-                                        SizedBox(
-                                          height: context.dynamicHeight(.4),
-                                          child: ListView(
+                    SettingsButton(
+                      onTab: () {
+                        NavigateUtil().navigateToScreen(
+                            context,
+                            BlocProvider.value(
+                                value: instance<WardsBloc>(),
+                                child: WardSettingsScreen(
+                                  ward: widget.ward,
+                                )));
+                      },
+                    ),
+                  ],
+                ),
+                GridView.count(
+                    shrinkWrap: true,
+                    physics: const ClampingScrollPhysics(),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 28),
+                    crossAxisCount: widget.ward.width ?? 1,
+                    crossAxisSpacing: 15,
+                    mainAxisSpacing: 20,
+                    childAspectRatio: 1.1,
+                    children: List.generate(
+                        (widget.ward.width ?? 1) * (widget.ward.height ?? 1),
+                        (index) {
+                      return indexes.contains(index)
+                          ? InkWell(
+                              onTap: () {
+                                showModalBottomSheet<void>(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return Container(
+                                      width: context.width,
+                                      // height: context.dynamicHeight(.5),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16.0),
+                                      child: Column(
+                                        children: [
+                                          16.ph,
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
                                             children: [
-                                              ...List.generate(state.customMap['${widget.ward.width}-${widget.ward.height}']?.length ?? 0, (index) {
-                                                CustomCustomer customer = (state.customMap['${widget.ward.width}-${widget.ward.height}'] ?? [])[index];
-                                                return Column(
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Text(
-                                                          AppStrings.productDialogClientName,
-                                                          style: getSmallStyle(
-                                                            fontSize: 18,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          customer.name ?? '',
-                                                          style: getSmallStyle(
-                                                            fontSize: 18,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          ' ${(customer.type ?? AppStrings.addClientScreenTraderWithQ)}',
-                                                          style: getSmallStyle(
-                                                            color: const Color(0xff6B6B6B),
-                                                            fontSize: 18,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    8.ph,
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Text(
-                                                          AppStrings.productDialogProduct,
-                                                          style: getSmallStyle(),
-                                                        ),
-                                                        Text(
-                                                          customer.product ?? '',
-                                                          style: getSmallStyle(
-                                                            color: const Color(0xff6B6B6B),
-                                                          ),
-                                                        ),
-                                                        context.dynamicWidth(.3).pw,
-                                                        Text(
-                                                          AppStrings.productDialogQuantity,
-                                                          style: getSmallStyle(),
-                                                        ),
-                                                        Text(
-                                                          customer.quantity ?? '',
-                                                          style: getSmallStyle(
-                                                            color: const Color(0xff6B6B6B),
-                                                          ),
-                                                        ),
-                                                        context.dynamicWidth(.2).pw,
-                                                      ],
-                                                    ),
-                                                    16.ph,
-                                                    SizedBox(
-                                                      width: context.dynamicWidth(.8),
-                                                      child: SheetClientDetailsButton(onTap: () {
-                                                        // todo navigate to details
-                                                      }),
-                                                    ),
-                                                    16.ph,
-                                                    const Divider(
-                                                      height: 1,
-                                                      color: AppColors.grey,
-                                                    ),
-                                                    16.ph,
-                                                  ],
-                                                );
-                                              })
+                                              IconButton(
+                                                  onPressed: () {
+                                                    NavigateUtil()
+                                                        .navigateUp(context);
+                                                  },
+                                                  icon:
+                                                      const Icon(Icons.close)),
+                                              Expanded(child: Container()),
+                                              Image.asset(
+                                                AppAssets.package,
+                                                width: 60,
+                                                height: 60,
+                                              ),
+                                              Expanded(child: Container()),
+                                              16.pw,
                                             ],
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                color: Color(0xffDDB089),
-                                borderRadius: BorderRadius.all(Radius.circular(5)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AppColors.black,
-                                    blurRadius: 4,
-                                    offset: Offset(2, 2),
-                                  )
-                                ]
-                              ),
-                              child: Center(
-                                child: Text(
-                                  indexes.contains(index) ? map[index]?.product ?? '' : '',
-                                  style: getSmallStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeightManager.medium
+                                          16.ph,
+                                          const Divider(
+                                            height: 1,
+                                            color: AppColors.grey,
+                                          ),
+                                          16.ph,
+                                          SizedBox(
+                                            height: context.dynamicHeight(.4),
+                                            child: ListView(
+                                              children: [
+                                                ...List.generate(
+                                                    state
+                                                            .customMap[
+                                                                '${widget.ward.width}-${widget.ward.height}']
+                                                            ?.length ??
+                                                        0, (index) {
+                                                  CustomCustomer customer = (state
+                                                              .customMap[
+                                                          '${widget.ward.width}-${widget.ward.height}'] ??
+                                                      [])[index];
+                                                  return Column(
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            AppStrings
+                                                                .productDialogClientName,
+                                                            style:
+                                                                getSmallStyle(
+                                                              fontSize: 18,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            customer.name ?? '',
+                                                            style:
+                                                                getSmallStyle(
+                                                              fontSize: 18,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            ' ${(customer.type ?? AppStrings.addClientScreenTraderWithQ)}',
+                                                            style:
+                                                                getSmallStyle(
+                                                              color: const Color(
+                                                                  0xff6B6B6B),
+                                                              fontSize: 18,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      8.ph,
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Text(
+                                                            AppStrings
+                                                                .productDialogProduct,
+                                                            style:
+                                                                getSmallStyle(),
+                                                          ),
+                                                          Text(
+                                                            customer.product ??
+                                                                '',
+                                                            style:
+                                                                getSmallStyle(
+                                                              color: const Color(
+                                                                  0xff6B6B6B),
+                                                            ),
+                                                          ),
+                                                          context
+                                                              .dynamicWidth(.3)
+                                                              .pw,
+                                                          Text(
+                                                            AppStrings
+                                                                .productDialogQuantity,
+                                                            style:
+                                                                getSmallStyle(),
+                                                          ),
+                                                          Text(
+                                                            customer.quantity ??
+                                                                '',
+                                                            style:
+                                                                getSmallStyle(
+                                                              color: const Color(
+                                                                  0xff6B6B6B),
+                                                            ),
+                                                          ),
+                                                          context
+                                                              .dynamicWidth(.2)
+                                                              .pw,
+                                                        ],
+                                                      ),
+                                                      16.ph,
+                                                      SizedBox(
+                                                        width: context
+                                                            .dynamicWidth(.8),
+                                                        child:
+                                                            SheetClientDetailsButton(
+                                                                onTap: () {
+                                                          NavigateUtil()
+                                                              .navigateToScreen(
+                                                            context,
+                                                            BlocProvider.value(
+                                                              value: instance<
+                                                                  WardsBloc>(),
+                                                              child:
+                                                              InvoiceScreen(storeId: customer.storeId,),
+                                                            ),
+                                                          );
+                                                        }),
+                                                      ),
+                                                      16.ph,
+                                                      const Divider(
+                                                        height: 1,
+                                                        color: AppColors.grey,
+                                                      ),
+                                                      16.ph,
+                                                    ],
+                                                  );
+                                                })
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                    color: Color(0xffDDB089),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(5)),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: AppColors.black,
+                                        blurRadius: 4,
+                                        offset: Offset(2, 2),
+                                      )
+                                    ]),
+                                child: Center(
+                                  child: Text(
+                                    indexes.contains(index)
+                                        ? map[index]?.product ?? ''
+                                        : '',
+                                    style: getSmallStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeightManager.medium),
                                   ),
                                 ),
                               ),
-                            ),
-                          )
-                          :
-                          DottedBorder(
-                            strokeWidth: 1,
-                            child: Container(),
-                          );
-                        })
-                    )
-                  ],
-                );
-              },
-            ),
-          ),
-        )
-    );
+                            )
+                          : DottedBorder(
+                              strokeWidth: 1,
+                              child: Container(),
+                            );
+                    }))
+              ],
+            );
+          },
+        ),
+      ),
+    ));
   }
 }

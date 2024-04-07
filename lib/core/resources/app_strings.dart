@@ -129,16 +129,17 @@ class AppStrings {
   // Bill Screen
   static const String billScreenTitle = 'الفاتورة';
   static const String billScreenClientName = 'اسم العميل';
-  static const String billScreenClientDate = 'التاريخ';
+  static const String billScreenClientDate = 'التاريخ : ';
   static const String billClientScreenTrader = 'تاجر';
   static const String billClientScreenDealer = 'أهالى';
-  static const String billScreenProduct = 'المنتج';
-  static const String billScreenQuantity = 'الكمية';
-  static const String billScreenWardsNumber = 'رقم العنبر';
-  static const String billScreenWardArea = 'أبعاد التخزين';
-  static const String billScreenStoreType = 'طريقة التخزين';
-  static const String billScreenPrice = 'سعر الوحدة';
-  static const String billScreenTotalPrice = 'المبلغ المدفوع';
+  static const String billScreenProduct = 'المنتج : ';
+  static const String billScreenQuantity = 'الكمية : ';
+  static const String billScreenWardsNumber = 'عدد العنابر : ';
+  static const String billScreenWardArea = 'مساحة العنبر : ';
+  static const String billScreenStoreType = 'طريقة التخزين : ';
+  static const String billScreenStorePlace = 'مكان التخزين : ';
+  static const String billScreenPrice = 'سعر الوحدة : ';
+  static const String billScreenTotalPrice = 'المبلغ المدفوع : ';
   static const String billScreenPrintButton = 'طباعة';
   static const String billScreenBackButton = 'رجوع';
 
@@ -165,8 +166,8 @@ class AppStrings {
   static const String wardsScreenSettings = 'إعدادات';
   // Product Dialog
   static const String productDialogClientName = 'اسم العميل : ';
-  static const String productDialogProduct = 'المنتج :';
-  static const String productDialogQuantity = 'الكمية :';
+  static const String productDialogProduct = 'المنتج : ';
+  static const String productDialogQuantity = 'الكمية : ';
   static const String productDialogDetailsButton = 'تفاصيل';
   static const String productDialogCancelButton = 'الغاء';
 
