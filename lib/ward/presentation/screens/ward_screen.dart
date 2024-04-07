@@ -5,6 +5,7 @@ import 'package:fridge/core/components/states/error_screen.dart';
 import 'package:fridge/core/components/states/loading_screen.dart';
 import 'package:fridge/core/enums/request_state.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
+import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/core/services/services_locator.dart';
 import 'package:fridge/ward/data/models/store.dart';
@@ -103,9 +104,43 @@ class _WardScreenState extends State<WardScreen> {
                         childAspectRatio: 1.1,
                         children: List.generate((widget.ward.width ?? 1) *
                             (widget.ward.height ?? 1), (index) {
-                          return InkWell(
-                            onTap: () {},
-                            child: indexes.contains(index) ? Container(
+                          return indexes.contains(index) ? InkWell(
+                            onTap: () {
+                              showModalBottomSheet<void>(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return SizedBox(
+                                    width: context.width,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        16.ph,
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            IconButton(
+                                                onPressed: () {
+                                                  NavigateUtil().navigateUp(context);
+                                                },
+                                                icon: const Icon(Icons.close)
+                                            ),
+                                            Expanded(child: Container()),
+                                            Image.asset(
+                                              AppAssets.package,
+                                              width: 60,
+                                              height: 60,
+                                            ),
+                                            Expanded(child: Container()),
+                                            16.pw,
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                            child: Container(
                               decoration: const BoxDecoration(
                                 color: Color(0xffDDB089),
                                 borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -126,12 +161,12 @@ class _WardScreenState extends State<WardScreen> {
                                   ),
                                 ),
                               ),
-                            )
-                            :
-                            DottedBorder(
-                              strokeWidth: 1,
-                              child: Container(),
                             ),
+                          )
+                          :
+                          DottedBorder(
+                            strokeWidth: 1,
+                            child: Container(),
                           );
                         })
                     )
