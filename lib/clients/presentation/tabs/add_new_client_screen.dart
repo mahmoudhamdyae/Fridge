@@ -33,6 +33,16 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
   bool? get validate => _formKey.currentState?.validate();
 
   @override
+  void initState() {
+    super.initState();
+    ClientsState state = BlocProvider.of<ClientsBloc>(context).state;
+    clientNameController.text = state.clientName;
+    clientPhoneController.text = state.clientPhone;
+    clientAddressController.text = state.clientAddress;
+    isTrader = state.clientType == 0;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,

@@ -9,6 +9,7 @@ import 'package:linear_progress_bar/linear_progress_bar.dart';
 
 import '../../../core/components/appbar.dart';
 import '../../../core/components/decorations.dart';
+import '../../../core/navigation/navigate_util.dart';
 
 class AddClientTabsScreen extends StatefulWidget {
   const AddClientTabsScreen({super.key});
@@ -34,8 +35,25 @@ class _AddClientTabsScreenState extends State<AddClientTabsScreen> {
             shrinkWrap: true,
             physics: const ClampingScrollPhysics(),
             children: [
-              const MainAppBar(
-                canNavigateUp: true,
+              Stack(
+                children: [
+                  const MainAppBar(),
+                  IconButton(
+                    onPressed: () {
+                      if (currentTab == 0) {
+                        NavigateUtil().navigateUp(context);
+                      } else {
+                        setState(() {
+                          currentTab--;
+                        });
+                      }
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: Color(0xff2D5AAF),
+                    ),
+                  )
+                ],
               ),
               LinearProgressBar(
                 maxSteps: 3,
