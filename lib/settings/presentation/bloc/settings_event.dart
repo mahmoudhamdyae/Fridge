@@ -1,6 +1,5 @@
 part of 'settings_bloc.dart';
 
-@immutable
 abstract class SettingsEvent extends Equatable {
   const SettingsEvent();
   @override

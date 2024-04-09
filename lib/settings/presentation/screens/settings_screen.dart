@@ -22,7 +22,6 @@ import 'package:fridge/settings/presentation/components/unit_price_form_field.da
 import 'package:fridge/settings/presentation/components/wards_number_form_field.dart';
 
 import '../../../core/components/decorations.dart';
-import '../../../core/enums/request_state.dart';
 import '../../../core/resources/app_assets.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -74,232 +73,248 @@ class _SettingsScreenState extends State<SettingsScreen> {
         height: context.height,
         padding: getMainPadding(context),
         decoration: getMainDecoration(),
-        child: BlocConsumer<SettingsBloc, SettingsState>(
-          listener: (BuildContext context, SettingsState state) {
-            if (state.updateSettingsState == RequestState.loading) {
-              showLoading(context);
-            } else if (state.updateSettingsState == RequestState.error) {
-              NavigateUtil().navigateUp(context);
-              showError(context, state.updateSettingsErrorMessage, () {});
-            } else if (state.updateSettingsState == RequestState.loaded) {
-              NavigateUtil().navigateUp(context);
-              NavigateUtil().navigateUp(context);
-            }
-          },
-          builder: (context, state) {
-            if (state.getSettingsState == RequestState.loading) {
-              return const LoadingScreen();
-            } else if (state.getSettingsState == RequestState.error) {
-              return ErrorScreen(error: state.getSettingsErrorMessage);
-            }
+        child: ListView(
+          shrinkWrap: true,
+          physics: const ClampingScrollPhysics(),
+          children: [
+            const MainAppBar(
+              canNavigateUp: true,
+            ),
+            const SecondaryAppBarWithImage(
+                text: AppStrings.settingsScreenTitle,
+                image: AppAssets.goods),
+            16.ph,
+            BlocConsumer<SettingsBloc, SettingsState>(
+              listenWhen: (previous, current) =>
+              current is UpdateSettingsLoadingState ||
+              current is UpdateSettingsErrorState ||
+              current is UpdateSettingsSuccessState
+              ,
+              listener: (BuildContext context, SettingsState state) {
+                if (state is UpdateSettingsLoadingState) {
+                  showLoading(context);
+                } else if (state is UpdateSettingsErrorState) {
+                  NavigateUtil().navigateUp(context);
+                  showError(context, state.errorMessage, () {});
+                } else if (state is UpdateSettingsSuccessState) {
+                  NavigateUtil().navigateUp(context);
+                  NavigateUtil().navigateUp(context);
+                }
+              },
+              buildWhen: (previous, current) =>
+              current is GetSettingsLoadingState ||
+              current is GetSettingsErrorState ||
+              current is GetSettingsLoadedState,
+              builder: (context, state) {
+                if (state is GetSettingsLoadingState) {
+                  return const LoadingScreen();
+                } else if (state is GetSettingsErrorState) {
+                  return ErrorScreen(error: state.errorMessage);
+                } else if (state is GetSettingsLoadedState) {
+                  if (isFirstTime) {
+                    _unit = (state.units).toString();
 
-            if (isFirstTime) {
-              _unit = (state.units).toString();
+                    wardsNumberController.text = (state.partsCount).toString();
+                    unitPriceController.text = (state.price).toString();
 
-              wardsNumberController.text = (state.partsCount).toString();
-              unitPriceController.text = (state.price).toString();
+                    // Product Type
+                    productTypeController = [];
+                    for (var element in (state.products ?? [])) {
+                      productTypeController.add(TextEditingController(text: element));
+                    }
 
-              // Product Type
-              productTypeController = [];
-              for (var element in state.products) {
-                productTypeController.add(TextEditingController(text: element));
-              }
+                    // Packaging Type
+                    packagingTypeController = [];
+                    for (var element in (state.boxing ?? [])) {
+                      packagingTypeController.add(TextEditingController(text: element));
+                    }
+                    isFirstTime = false;
+                  }
 
-              // Packaging Type
-              packagingTypeController = [];
-              for (var element in state.boxing) {
-                packagingTypeController.add(TextEditingController(text: element));
-              }
-              isFirstTime = false;
-            }
-
-            return Form(
-              key: _formKey,
-              child: ListView(
-                shrinkWrap: true,
-                physics: const ClampingScrollPhysics(),
-                children: [
-                  const MainAppBar(
-                    canNavigateUp: true,
-                  ),
-                  const SecondaryAppBarWithImage(
-                      text: AppStrings.settingsScreenTitle,
-                      image: AppAssets.goods),
-                  16.ph,
-                  Row(
-                    children: [
-                      Text(
-                        AppStrings.settingsScreenWardsNumberLabel,
-                        style: getSmallStyle(
-                          fontWeight: FontWeightManager.medium,
-                          fontSize: 18.0,
-                        ),
-                      ),
-                      16.pw,
-                      Expanded(
-                          child: WardsNumberFormField(
-                        wardsNumberController: wardsNumberController,
-                      )),
-                    ],
-                  ),
-                  32.ph,
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppStrings.settingsScreenProductTypeLabel,
-                        style: getSmallStyle(
-                          fontWeight: FontWeightManager.medium,
-                          fontSize: 18.0,
-                        ),
-                      ),
-                      16.pw,
-                      Expanded(
-                          child: ProductTypeFormField(
-                              productTypeController: productTypeController)),
-                      12.pw,
-                      AddButton(onClick: () {
-                        setState(() {
-                          productTypeController.add(TextEditingController(text: ''));
-                        });
-                      },),
-                    ],
-                  ),
-                  32.ph,
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppStrings.settingsScreenPackagingTypeLabel,
-                        style: getSmallStyle(
-                          fontWeight: FontWeightManager.medium,
-                          fontSize: 18.0,
-                        ),
-                      ),
-                      16.pw,
-                      Expanded(child: PackagingTypeFormField(packagingTypeController: packagingTypeController,)),
-                      12.pw,
-                      AddButton(onClick: () {
-                        setState(() {
-                          packagingTypeController.add(TextEditingController(text: ''));
-                        });
-                      },),
-                    ],
-                  ),
-                  32.ph,
-                  Text(
-                    AppStrings.settingsScreenUsedUnit,
-                    style: getSmallStyle(
-                      fontWeight: FontWeightManager.medium,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  8.ph,
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  return Form(
+                    key: _formKey,
+                    child: ListView(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
                       children: [
                         Row(
                           children: [
-                            Radio(
-                                value: AppStrings.settingsScreenUnitGram,
-                                groupValue: _unit,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _unit = value ?? '';
-                                    BlocProvider.of<SettingsBloc>(context).add(UpdateUnitEvent(_unit));
-                                  });
-                                }),
                             Text(
-                              AppStrings.settingsScreenUnitGram,
+                              AppStrings.settingsScreenWardsNumberLabel,
                               style: getSmallStyle(
-                                  fontWeight: FontWeightManager.medium),
-                            )
+                                fontWeight: FontWeightManager.medium,
+                                fontSize: 18.0,
+                              ),
+                            ),
+                            16.pw,
+                            Expanded(
+                                child: WardsNumberFormField(
+                                  wardsNumberController: wardsNumberController,
+                                )),
                           ],
                         ),
+                        32.ph,
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              AppStrings.settingsScreenProductTypeLabel,
+                              style: getSmallStyle(
+                                fontWeight: FontWeightManager.medium,
+                                fontSize: 18.0,
+                              ),
+                            ),
+                            16.pw,
+                            Expanded(
+                                child: ProductTypeFormField(
+                                    productTypeController: productTypeController)),
+                            12.pw,
+                            AddButton(onClick: () {
+                              setState(() {
+                                productTypeController.add(TextEditingController(text: ''));
+                              });
+                            },),
+                          ],
+                        ),
+                        32.ph,
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              AppStrings.settingsScreenPackagingTypeLabel,
+                              style: getSmallStyle(
+                                fontWeight: FontWeightManager.medium,
+                                fontSize: 18.0,
+                              ),
+                            ),
+                            16.pw,
+                            Expanded(child: PackagingTypeFormField(packagingTypeController: packagingTypeController,)),
+                            12.pw,
+                            AddButton(onClick: () {
+                              setState(() {
+                                packagingTypeController.add(TextEditingController(text: ''));
+                              });
+                            },),
+                          ],
+                        ),
+                        32.ph,
+                        Text(
+                          AppStrings.settingsScreenUsedUnit,
+                          style: getSmallStyle(
+                            fontWeight: FontWeightManager.medium,
+                            fontSize: 18.0,
+                          ),
+                        ),
+                        8.ph,
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Row(
+                                children: [
+                                  Radio(
+                                      value: AppStrings.settingsScreenUnitGram,
+                                      groupValue: _unit,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _unit = value ?? '';
+                                          BlocProvider.of<SettingsBloc>(context).add(UpdateUnitEvent(_unit));
+                                        });
+                                      }),
+                                  Text(
+                                    AppStrings.settingsScreenUnitGram,
+                                    style: getSmallStyle(
+                                        fontWeight: FontWeightManager.medium),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Radio(
+                                      value: AppStrings.settingsScreenUnitKiloGram,
+                                      groupValue: _unit,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _unit = value ?? '';
+                                          BlocProvider.of<SettingsBloc>(context).add(UpdateUnitEvent(_unit));
+                                        });
+                                      }),
+                                  Text(
+                                    AppStrings.settingsScreenUnitKiloGram,
+                                    style: getSmallStyle(
+                                        fontWeight: FontWeightManager.medium),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Radio(
+                                      value: AppStrings.settingsScreenUnitTon,
+                                      groupValue: _unit,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _unit = value ?? '';
+                                          BlocProvider.of<SettingsBloc>(context).add(UpdateUnitEvent(_unit));
+                                        });
+                                      }),
+                                  Text(
+                                    AppStrings.settingsScreenUnitTon,
+                                    style: getSmallStyle(
+                                        fontWeight: FontWeightManager.medium),
+                                  )
+                                ],
+                              ),
+                            ]),
+                        8.ph,
+                        32.ph,
                         Row(
                           children: [
-                            Radio(
-                                value: AppStrings.settingsScreenUnitKiloGram,
-                                groupValue: _unit,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _unit = value ?? '';
-                                    BlocProvider.of<SettingsBloc>(context).add(UpdateUnitEvent(_unit));
-                                  });
-                                }),
                             Text(
-                              AppStrings.settingsScreenUnitKiloGram,
+                              AppStrings.settingsScreenUnitPriceLabel,
                               style: getSmallStyle(
-                                  fontWeight: FontWeightManager.medium),
-                            )
+                                fontWeight: FontWeightManager.medium,
+                                fontSize: 18.0,
+                              ),
+                            ),
+                            16.pw,
+                            Expanded(
+                                child: UnitPriceFormField(
+                                  unitPriceController: unitPriceController,
+                                )),
                           ],
                         ),
-                        Row(
-                          children: [
-                            Radio(
-                                value: AppStrings.settingsScreenUnitTon,
-                                groupValue: _unit,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _unit = value ?? '';
-                                    BlocProvider.of<SettingsBloc>(context).add(UpdateUnitEvent(_unit));
-                                  });
-                                }),
-                            Text(
-                              AppStrings.settingsScreenUnitTon,
-                              style: getSmallStyle(
-                                  fontWeight: FontWeightManager.medium),
-                            )
-                          ],
+                        64.ph,
+                        CompleteButton(
+                          onTap: () {
+                            if (validate != null && validate == true) {
+                              List<String> product = [];
+                              for (var element in productTypeController) {
+                                product.add(element.text);
+                              }
+                              List<String> boxing = [];
+                              for (var element in packagingTypeController) {
+                                boxing.add(element.text);
+                              }
+                              BlocProvider.of<SettingsBloc>(context)
+                                  .add(UpdateSettingsEvent(
+                                product,
+                                boxing,
+                                _unit,
+                                double.parse(unitPriceController.text),
+                                int.parse(wardsNumberController.text),
+                              ));
+                            }
+                          },
                         ),
-                      ]),
-                  8.ph,
-                  32.ph,
-                  Row(
-                    children: [
-                      Text(
-                        AppStrings.settingsScreenUnitPriceLabel,
-                        style: getSmallStyle(
-                          fontWeight: FontWeightManager.medium,
-                          fontSize: 18.0,
-                        ),
-                      ),
-                      16.pw,
-                      Expanded(
-                          child: UnitPriceFormField(
-                        unitPriceController: unitPriceController,
-                      )),
-                    ],
-                  ),
-                  64.ph,
-                  CompleteButton(
-                    onTap: () {
-                      if (validate != null && validate == true) {
-                        List<String> product = [];
-                        for (var element in productTypeController) {
-                          product.add(element.text);
-                        }
-                        List<String> boxing = [];
-                        for (var element in packagingTypeController) {
-                          boxing.add(element.text);
-                        }
-                        BlocProvider.of<SettingsBloc>(context)
-                            .add(UpdateSettingsEvent(
-                            product,
-                            boxing,
-                            _unit,
-                            double.parse(unitPriceController.text),
-                            int.parse(wardsNumberController.text),
-                        ));
-                      }
-                    },
-                  ),
-                  8.ph,
-                  const CancelButton(),
-                ],
-              ),
-            );
-          },
+                        8.ph,
+                        const CancelButton(),
+                      ],
+                    ),
+                  );
+                }
+                return Container();
+              },
+            ),
+          ],
         ),
       ),
     ));

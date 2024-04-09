@@ -1,10 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/settings/data/models/settings_request.dart';
 import 'package:fridge/settings/domain/usecases/update_settings_usecase.dart';
-import 'package:meta/meta.dart';
 
-import '../../../core/enums/request_state.dart';
 import '../../domain/usecases/get_settings_usecase.dart';
 
 part 'settings_event.dart';
@@ -18,7 +17,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc(
       this.getSettingsUsecase,
       this.updateSettingsUsecase,
-      ) : super(const SettingsState()) {
+      ) : super(const GetSettingsLoadingState()) {
     on<GetSettingsEvent>((event, emit) async {
       await _getSettings(event, emit);
     });
@@ -43,27 +42,23 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   }
 
   Future<void> _getSettings(GetSettingsEvent event, Emitter<SettingsState> emit) async {
-    emit(state.copyWith(updateSettingsState: RequestState.init));
     final result = await getSettingsUsecase.call();
     result.fold((l) {
-      emit(state.copyWith(
-        getSettingsState: RequestState.error,
-        getSettingsErrorMessage: l.message,
-      ));
+      emit(GetSettingsErrorState(l.message));
     }, (settingsResponse) {
-      emit(state.copyWith(
-        products: settingsResponse.data?.products,
-        boxing: settingsResponse.data?.boxing,
-        units: settingsResponse.data?.units,
-        price: settingsResponse.data?.price,
-        partsCount: settingsResponse.data?.partsCount,
-        getSettingsState: RequestState.loaded,
-      ));
+      emit(GetSettingsLoadedState(
+          products: settingsResponse.data?.products ?? [],
+          units: settingsResponse.data?.units ?? AppStrings.settingsScreenUnitKiloGram,
+          boxing: settingsResponse.data?.boxing ?? [],
+          price: settingsResponse.data?.price ?? '',
+          partsCount: settingsResponse.data?.partsCount ?? 0
+        )
+      );
     });
   }
 
   Future<void> _updateSettings(UpdateSettingsEvent event, Emitter<SettingsState> emit) async {
-    emit(state.copyWith(updateSettingsState: RequestState.loading));
+    emit(UpdateSettingsLoadingState());
     List<String> products = [];
     for (var element in event.products) {
       products.add(element);
@@ -82,32 +77,29 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         )
     );
     result.fold((l) {
-      emit(state.copyWith(
-        updateSettingsState: RequestState.error,
-        updateSettingsErrorMessage: l.message,
-      ));
+      emit(UpdateSettingsErrorState(l.message));
     }, (r) {
-      emit(state.copyWith(updateSettingsState: RequestState.loaded));
+      emit(const UpdateSettingsSuccessState());
     });
   }
 
   Future<void> _updateWardNumber(UpdateWardNumberEvent event, Emitter<SettingsState> emit) async {
-    emit(state.copyWith(partsCount: event.wardsNumber));
+    emit(SettingsState(partsCount: event.wardsNumber));
   }
 
   Future<void> _updateProductType(UpdateProductTypeEvent event, Emitter<SettingsState> emit) async {
-    emit(state.copyWith(products: event.productTypes));
+    emit(SettingsState(products: event.productTypes));
   }
 
   Future<void> _updatePackagingType(UpdatePackagingTypeEvent event, Emitter<SettingsState> emit) async {
-    emit(state.copyWith(boxing: event.packagingTypes));
+    emit(SettingsState(boxing: event.packagingTypes));
   }
 
   Future<void> _updateUnit(UpdateUnitEvent event, Emitter<SettingsState> emit) async {
-    emit(state.copyWith(units: event.unit));
+    emit(SettingsState(units: event.unit));
   }
 
   Future<void> _updatePrice(UpdatePriceEvent event, Emitter<SettingsState> emit) async {
-    emit(state.copyWith(price: event.price.toString()));
+    emit(SettingsState(price: event.price.toString()));
   }
 }
