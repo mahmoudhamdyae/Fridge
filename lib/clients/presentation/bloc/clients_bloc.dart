@@ -7,7 +7,11 @@ import 'package:fridge/settings/domain/usecases/get_settings_usecase.dart';
 import 'package:fridge/ward/domain/usecases/get_wards_usecase.dart';
 
 import '../../../core/enums/request_state.dart';
+import '../../../core/resources/app_strings.dart';
+import '../../../ward/domain/entities/custom_customer.dart';
+import '../../../ward/domain/entities/store.dart';
 import '../../../ward/domain/entities/ward.dart';
+import '../../../ward/domain/usecases/get_all_stores_usecase.dart';
 import '../../data/models/add_client_request.dart';
 import '../../domain/usecases/add_client_usecase.dart';
 import '../../domain/usecases/get_clients_usecase.dart';
@@ -21,12 +25,14 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
   final GetWardsUsecase _getWardsUsecase;
   final GetClientsUsecase _getClientsUsecase;
   final AddClientUsecase _addClientUsecase;
+  final GetAllStoresUsecase _getAllStoresUsecase;
 
   ClientsBloc(
       this._getSettingsUsecase,
       this._getWardsUsecase,
       this._getClientsUsecase,
-      this._addClientUsecase
+      this._addClientUsecase,
+      this._getAllStoresUsecase
       ) : super(const ClientsState()) {
     on<GetClientsEvent>((event, emit) async {
       await _getClients(event, emit);
@@ -109,9 +115,28 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
   }
 
   Future<void> _chooseWard(ChooseWardEvent event, Emitter<ClientsState> emit) async {
-    emit(state.copyWith(
-      ward: event.ward,
-    ));
+    // Get Stores
+    final getStoresResult = await _getAllStoresUsecase.call(event.ward.id ?? -1);
+    getStoresResult.fold((l) {
+    }, (stores) {
+      // todo refactor this
+      List<CustomCustomer> customCustomers = [];
+      for (var element in stores) {
+        customCustomers.add(CustomCustomer(
+          name: element.customer?.name,
+          type: element.customer?.type == 0 ? AppStrings.addClientScreenTraderWithQ : AppStrings.addClientScreenDealerWithQ,
+          product: element.product,
+          quantity: '${element.totalWeight} ${element.unit}',
+          storeId: element.id ?? -1,
+        ));
+      }
+
+      emit(state.copyWith(
+        stores: stores,
+        ward: event.ward,
+        customMap: { '${event.ward.width}-${event.ward.height}': customCustomers }
+      ));
+    });
   }
 
   Future<void> _choosePlace(ChoosePlaceEvent event, Emitter<ClientsState> emit) async {

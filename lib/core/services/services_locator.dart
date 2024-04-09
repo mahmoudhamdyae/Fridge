@@ -154,6 +154,7 @@ class ServicesLocator {
       instance<GetWardsUsecase>(),
       instance<GetClientsUsecase>(),
       instance<AddClientUsecase>(),
+      instance<GetAllStoresUsecase>(),
     ));
     // Use Cases
     instance.registerLazySingleton(() => GetClientsUsecase(instance<ClientRepository>()));
