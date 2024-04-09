@@ -36,6 +36,13 @@ class _WardSettingsScreenState extends State<WardSettingsScreen> {
   bool? get validate => _formKey.currentState?.validate();
 
   @override
+  void initState() {
+    super.initState();
+    widthController.text = (widget.ward.width ?? 1).toString();
+    heightController.text = (widget.ward.height ?? 1).toString();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocListener<WardsBloc, WardsState>(
   listener: (context, state) {
