@@ -4,7 +4,6 @@ import 'package:fridge/core/components/appbar.dart';
 import 'package:fridge/core/components/dialogs/error_dialog.dart';
 import 'package:fridge/core/components/states/error_screen.dart';
 import 'package:fridge/core/components/states/loading_screen.dart';
-import 'package:fridge/core/enums/request_state.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
@@ -52,12 +51,13 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
           ),
       body: BlocListener<ExpensesBloc, ExpensesState>(
         listener: (context, state) {
-          if (state.storeExpensesState == RequestState.error) {
+          if (state is StoreExpenseErrorState) {
             NavigateUtil().navigateUp(context);
-            showError(context, state.storeExpensesErrorMessage, () {});
-          } else if (state.storeExpensesState == RequestState.loaded) {
+            showError(context, state.errorMessage, () {});
+          } else if (state is StoreExpenseSuccessState) {
             NavigateUtil().navigateUp(context);
             NavigateUtil().navigateUp(context);
+            BlocProvider.of<ExpensesBloc>(context).add(GetExpensesEvent());
           }
         },
         child: Container(
@@ -111,54 +111,57 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
               16.ph,
               BlocBuilder<ExpensesBloc, ExpensesState>(
                 builder: (BuildContext context, state) {
-                if (state.getExpensesState == RequestState.loading) {
+                if (state is GetExpensesLoadingState) {
                   return const LoadingScreen();
-                } else if (state.getExpensesState == RequestState.error) {
-                  return ErrorScreen(error: state.getExpensesErrorMessage);
+                } else if (state is GetExpensesErrorState) {
+                  return ErrorScreen(error: state.errorMessage);
+                } else if (state is GetExpensesLoadedState) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: const ClampingScrollPhysics(),
+                    itemCount: state.expenses.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                          padding: const EdgeInsets.all(16.0),
+                          color: index % 2 == 0 ? const Color(0xffD9D9D9) : const Color(0xffEAEDF4),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child: Text(
+                                    state.expenses[index].date ?? '',
+                                    textAlign: TextAlign.center,
+                                    style: getSmallStyle(fontSize: 10.0),
+                                  )
+                              ),
+                              Expanded(
+                                  child: Text(
+                                    state.expenses[index].title ?? '',
+                                    textAlign: TextAlign.center,
+                                    style: getSmallStyle(fontSize: 10.0),
+                                  )
+                              ),
+                              Expanded(
+                                  child: Text(
+                                    state.expenses[index].description ?? '',
+                                    textAlign: TextAlign.center,
+                                    style: getSmallStyle(fontSize: 10.0),
+                                  )
+                              ),
+                              Expanded(
+                                  child: Text(
+                                    '${state.expenses[index].amount ?? ''} ${AppStrings.egp}',
+                                    textAlign: TextAlign.center,
+                                    style: getSmallStyle(fontSize: 10.0),
+                                  )
+                              ),
+                            ],
+                          )
+                      );
+                    },
+                  );
+                } else {
+                  return Container();
                 }
-                return ListView.builder(
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
-                  itemCount: state.expenses.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      padding: const EdgeInsets.all(16.0),
-                      color: index % 2 == 0 ? const Color(0xffD9D9D9) : const Color(0xffEAEDF4),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: Text(
-                                  state.expenses[index].date ?? '',
-                                  textAlign: TextAlign.center,
-                                  style: getSmallStyle(fontSize: 10.0),
-                                )
-                            ),
-                            Expanded(
-                                child: Text(
-                                  state.expenses[index].title ?? '',
-                                  textAlign: TextAlign.center,
-                                  style: getSmallStyle(fontSize: 10.0),
-                                )
-                            ),
-                            Expanded(
-                                child: Text(
-                                  state.expenses[index].description ?? '',
-                                  textAlign: TextAlign.center,
-                                  style: getSmallStyle(fontSize: 10.0),
-                                )
-                            ),
-                            Expanded(
-                                child: Text(
-                                  '${state.expenses[index].amount ?? ''} ${AppStrings.egp}',
-                                  textAlign: TextAlign.center,
-                                  style: getSmallStyle(fontSize: 10.0),
-                                )
-                            ),
-                          ],
-                        )
-                    );
-                  },
-                );
               },)
             ],
           ),

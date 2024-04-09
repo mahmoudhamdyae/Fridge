@@ -2,42 +2,40 @@ part of 'expenses_bloc.dart';
 
 @immutable
 class ExpensesState extends Equatable {
-  final RequestState getExpensesState;
-  final String getExpensesErrorMessage;
-  final List<ExpensesResponse> expenses;
-  final RequestState storeExpensesState;
-  final String storeExpensesErrorMessage;
-
-  const ExpensesState({
-    this.getExpensesState = RequestState.loading,
-    this.getExpensesErrorMessage = '',
-    this.expenses = const [],
-    this.storeExpensesState = RequestState.init,
-    this.storeExpensesErrorMessage = '',
-  });
-
-  ExpensesState copyWith({
-    RequestState? getExpensesState,
-    String? getExpensesErrorMessage,
-    List<ExpensesResponse>? expenses,
-    RequestState? storeExpensesState,
-    String? storeExpensesErrorMessage,
-  }) {
-    return ExpensesState(
-      getExpensesState: getExpensesState?? this.getExpensesState,
-      getExpensesErrorMessage: getExpensesErrorMessage?? this.getExpensesErrorMessage,
-      expenses: expenses ?? this.expenses,
-      storeExpensesState: storeExpensesState?? this.storeExpensesState,
-      storeExpensesErrorMessage: storeExpensesErrorMessage?? this.storeExpensesErrorMessage,
-    );
-  }
-
+  const ExpensesState();
   @override
-  List<Object?> get props => [
-    getExpensesState,
-    getExpensesErrorMessage,
-    expenses,
-    storeExpensesState,
-    storeExpensesErrorMessage,
-  ];
+  List<Object?> get props => [];
 }
+
+// Get Expenses
+
+class GetExpensesLoadingState extends ExpensesState {
+  const GetExpensesLoadingState();
+}
+
+class GetExpensesErrorState extends ExpensesState {
+  final String errorMessage;
+  const GetExpensesErrorState(this.errorMessage);
+  @override
+  List<Object?> get props => [errorMessage];
+}
+
+class GetExpensesLoadedState extends ExpensesState {
+  final List<ExpensesResponse> expenses;
+  const GetExpensesLoadedState(this.expenses);
+  @override
+  List<Object?> get props => [expenses];
+}
+
+// Add Expense
+
+class StoreExpenseLoadingState extends ExpensesState {}
+
+class StoreExpenseErrorState extends ExpensesState {
+  final String errorMessage;
+  const StoreExpenseErrorState(this.errorMessage);
+  @override
+  List<Object?> get props => [errorMessage];
+}
+
+class StoreExpenseSuccessState extends ExpensesState {}
