@@ -5,6 +5,7 @@ import 'package:fridge/core/components/states/loading_screen.dart';
 import 'package:fridge/core/enums/request_state.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
+import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 import 'package:fridge/core/services/services_locator.dart';
@@ -55,11 +56,22 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                   physics: const ClampingScrollPhysics(),
                   children: [
                     32.ph,
-                    Text(
-                      AppStrings.billScreenTitle,
-                      style: getLargeStyle(
-                          fontSize: 24.0
-                      ),
+                    Row(
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              NavigateUtil().navigateUp(context);
+                              },
+                            icon: const Icon(Icons.arrow_back)
+                        ),
+                        // 16.pw,
+                        Text(
+                          AppStrings.billScreenTitle,
+                          style: getLargeStyle(
+                              fontSize: 24.0
+                          ),
+                        ),
+                      ],
                     ),
                     24.ph,
                     Row(
