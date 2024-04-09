@@ -3,13 +3,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fridge/core/resources/app_strings.dart';
-import 'package:fridge/ward/data/models/invoice_model.dart';
-import 'package:fridge/ward/data/models/store_model.dart';
 import 'package:fridge/ward/domain/entities/ward.dart';
 import 'package:fridge/ward/domain/usecases/get_wards_usecase.dart';
-import 'package:meta/meta.dart';
 
-import '../../../core/enums/request_state.dart';
 import '../../domain/entities/custom_customer.dart';
 import '../../domain/entities/invoice.dart';
 import '../../domain/entities/store.dart';
@@ -32,7 +28,7 @@ class WardsBloc extends Bloc<WardsEvent, WardsState> {
       this._updateWardSettingsUsecase,
       this._getAllStoresUsecase,
       this._getInvoiceUsecase,
-      ) : super(const WardsState()) {
+      ) : super(const GetWardsLoadingState()) {
     on<GetWardsEvent>((event, emit) async {
       await _getWards(emit);
     });
@@ -48,55 +44,40 @@ class WardsBloc extends Bloc<WardsEvent, WardsState> {
   }
 
   Future<void> _getWards(Emitter<WardsState> emit) async {
+    emit(const GetWardsLoadingState());
     final result = await _getWardsUsecase.call();
     result.fold((l) {
-      emit(state.copyWith(
-        getWardsState: RequestState.error,
-        getWardsErrorMessage: l.message,
-      ));
+      emit(GetWardsErrorState(l.message));
     }, (wards) {
-      emit(state.copyWith(
-        wards: wards,
-        getWardsErrorMessage: '',
-        getWardsState: RequestState.loaded,
-      ));
+      emit(GetWardsLoadedState(wards));
     });
   }
 
   Future<void> _updateWardSettings(UpdateWardSettingsEvent event, Emitter<WardsState> emit) async {
-    emit(state.copyWith(updateWardSettingsState: RequestState.loading));
+    emit(UpdateWardSettingsLoadingState());
     var result = await _updateWardSettingsUsecase.call(event.wardId, event.wardWidth, event.wardHeight);
     result.fold((l) {
-      emit(state.copyWith(
-        updateWardSettingsState: RequestState.error,
-        updateWardSettingsErrorMessage: l.message,
-      ));
+      emit(UpdateWardSettingsErrorState(l.message));
     }, (r) async {
 
+      // todo not here
       add(GetWardsEvent());
 
-      emit(state.copyWith(
-        updateWardSettingsState: RequestState.loaded,
-      ));
+      emit(UpdateWardSettingsSuccessState());
     });
   }
 
   Future<void> _getAllStores(GetAllStoresEvent event, Emitter<WardsState> emit) async {
-    emit(state.copyWith(getAllStoresState: RequestState.loading));
+    emit(GetStoreLoadingState());
     var result = await _getAllStoresUsecase.call(event.ward.id ?? -1);
     result.fold((l) {
-      emit(state.copyWith(
-        getAllStoresState: RequestState.error,
-        getAllStoresMessage: l.message,
-      ));
+      emit(GetStoreErrorState(l.message));
     }, (stores) async {
 
       // todo refactor this
-      Map<String, List<CustomCustomer>> myCustomMap = state.customMap;
-      var c = myCustomMap['${event.ward.width}-${event.ward.height}'];
-      c = [];
+      List<CustomCustomer> customCustomers = [];
       for (var element in stores) {
-        c.add(CustomCustomer(
+        customCustomers.add(CustomCustomer(
             name: element.customer?.name,
             type: element.customer?.type == 0 ? AppStrings.addClientScreenTraderWithQ : AppStrings.addClientScreenDealerWithQ,
             product: element.product,
@@ -105,29 +86,18 @@ class WardsBloc extends Bloc<WardsEvent, WardsState> {
         ));
       }
 
-      emit(state.copyWith(
-        getAllStoresState: RequestState.loaded,
-        stores: stores,
-        customMap: {
-          '${event.ward.width}-${event.ward.height}': c
-        },
-      ));
+      emit(GetStoreLoadedState(
+          stores, { '${event.ward.width}-${event.ward.height}': customCustomers }));
     });
   }
 
   Future<void> _getInvoice(GetInvoiceEvent event, Emitter<WardsState> emit) async {
-    emit(state.copyWith(getInvoiceState: RequestState.loading));
+    emit(GetInvoiceLoadingState());
     var result = await _getInvoiceUsecase.call(event.storeId);
     result.fold((l) {
-      emit(state.copyWith(
-        getInvoiceState: RequestState.error,
-        getInvoiceErrorMessage: l.message,
-      ));
+      emit(GetInvoiceErrorState(l.message));
     }, (invoice) async {
-      emit(state.copyWith(
-        getInvoiceState: RequestState.loaded,
-        invoice: invoice,
-      ));
+      emit(GetInvoiceLoadedState(invoice));
     });
   }
 }

@@ -7,7 +7,7 @@ class ExpensesState extends Equatable {
   List<Object?> get props => [];
 }
 
-// Get Expenses
+/// Get Expenses
 
 class GetExpensesLoadingState extends ExpensesState {
   const GetExpensesLoadingState();
@@ -27,7 +27,7 @@ class GetExpensesLoadedState extends ExpensesState {
   List<Object?> get props => [expenses];
 }
 
-// Add Expense
+/// Add Expense
 
 class StoreExpenseLoadingState extends ExpensesState {}
 

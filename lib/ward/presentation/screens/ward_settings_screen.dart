@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/core/components/appbar.dart';
 import 'package:fridge/core/components/dialogs/error_dialog.dart';
 import 'package:fridge/core/components/dialogs/loading_dialog.dart';
-import 'package:fridge/core/enums/request_state.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
@@ -40,13 +39,14 @@ class _WardSettingsScreenState extends State<WardSettingsScreen> {
   Widget build(BuildContext context) {
     return BlocListener<WardsBloc, WardsState>(
   listener: (context, state) {
-    if (state.updateWardSettingsState == RequestState.loaded) {
+    if (state is UpdateWardSettingsSuccessState) {
       NavigateUtil().navigateUp(context);
       NavigateUtil().navigateUp(context);
       NavigateUtil().navigateUp(context);
-    } else if (state.updateWardSettingsState == RequestState.error) {
+      // BlocProvider.of<WardsBloc>(context).add(GetAllStoresEvent(widget.ward));
+    } else if (state is UpdateWardSettingsErrorState) {
       NavigateUtil().navigateUp(context);
-      showError(context, state.updateWardSettingsErrorMessage, () {});
+      showError(context, state.errorMessage, () {});
     }
   },
   child: SafeArea(
