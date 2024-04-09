@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/presentation/components/cancel_button.dart';
@@ -157,44 +158,57 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              AppStrings.settingsScreenProductTypeLabel,
-                              style: getSmallStyle(
-                                fontWeight: FontWeightManager.medium,
-                                fontSize: 18.0,
+                            Padding(
+                              padding: const EdgeInsets.only(top: 16.0),
+                              child: Text(
+                                AppStrings.settingsScreenProductTypeLabel,
+                                style: getSmallStyle(
+                                  fontWeight: FontWeightManager.medium,
+                                  fontSize: 18.0,
+                                ),
                               ),
                             ),
                             16.pw,
                             Expanded(
                                 child: ProductTypeFormField(
-                                    productTypeController: productTypeController)),
+                                    productTypeController: productTypeController)
+                            ),
                             12.pw,
-                            AddButton(onClick: () {
-                              setState(() {
-                                productTypeController.add(TextEditingController(text: ''));
-                              });
-                            },),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 16.0),
+                              child: AddButton(onClick: () {
+                                setState(() {
+                                  productTypeController.add(TextEditingController(text: ''));
+                                });
+                              },),
+                            ),
                           ],
                         ),
                         32.ph,
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              AppStrings.settingsScreenPackagingTypeLabel,
-                              style: getSmallStyle(
-                                fontWeight: FontWeightManager.medium,
-                                fontSize: 18.0,
+                            Padding(
+                              padding: const EdgeInsets.only(top: 16.0),
+                              child: Text(
+                                AppStrings.settingsScreenPackagingTypeLabel,
+                                style: getSmallStyle(
+                                  fontWeight: FontWeightManager.medium,
+                                  fontSize: 18.0,
+                                ),
                               ),
                             ),
                             16.pw,
                             Expanded(child: PackagingTypeFormField(packagingTypeController: packagingTypeController,)),
                             12.pw,
-                            AddButton(onClick: () {
-                              setState(() {
-                                packagingTypeController.add(TextEditingController(text: ''));
-                              });
-                            },),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 16.0),
+                              child: AddButton(onClick: () {
+                                setState(() {
+                                  packagingTypeController.add(TextEditingController(text: ''));
+                                });
+                              },),
+                            ),
                           ],
                         ),
                         32.ph,
