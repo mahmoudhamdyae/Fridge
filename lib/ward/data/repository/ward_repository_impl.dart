@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:fridge/ward/data/models/invoice.dart';
-import 'package:fridge/ward/data/models/store.dart';
 
 import '../../../core/error/exceptions.dart';
 import '../../../core/error/failure.dart';
+import '../../domain/entities/invoice.dart';
+import '../../domain/entities/store.dart';
 import '../../domain/entities/ward.dart';
 import '../../domain/repository/wards_repository.dart';
 

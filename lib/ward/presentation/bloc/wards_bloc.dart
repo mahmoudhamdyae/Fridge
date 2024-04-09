@@ -3,14 +3,16 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fridge/core/resources/app_strings.dart';
-import 'package:fridge/ward/data/models/invoice.dart';
-import 'package:fridge/ward/data/models/store.dart';
+import 'package:fridge/ward/data/models/invoice_model.dart';
+import 'package:fridge/ward/data/models/store_model.dart';
 import 'package:fridge/ward/domain/entities/ward.dart';
 import 'package:fridge/ward/domain/usecases/get_wards_usecase.dart';
 import 'package:meta/meta.dart';
 
 import '../../../core/enums/request_state.dart';
 import '../../domain/entities/custom_customer.dart';
+import '../../domain/entities/invoice.dart';
+import '../../domain/entities/store.dart';
 import '../../domain/usecases/get_all_stores_usecase.dart';
 import '../../domain/usecases/get_invoice_usecase.dart';
 import '../../domain/usecases/update_ward_settings_usecase.dart';

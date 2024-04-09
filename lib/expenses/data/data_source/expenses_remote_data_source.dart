@@ -48,7 +48,7 @@ class ExpensesRemoteDataSourceImpl extends ExpensesRemoteDataSource {
   Future<List<ExpensesResponse>> getExpenses() async {
     try {
       var result = await dioManager.dio.get(ApiConstants.getExpensePath);
-      return EResponse.fromJson(result.data).data ?? [];
+      return ExpensesResponsesFullResponse.fromJson(result.data).data ?? [];
     } on DioException catch (error) {
       if (error.response != null) {
         throw ServerException(

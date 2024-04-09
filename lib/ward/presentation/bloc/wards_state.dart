@@ -29,7 +29,7 @@ class WardsState extends Equatable {
     this.customMap = const {},
     this.getAllStoresState = RequestState.loading,
     this.getAllStoresMessage = '',
-    this.invoice = const Invoice(),
+    this.invoice = const InvoiceModel(),
     this.getInvoiceState = RequestState.loading,
     this.getInvoiceErrorMessage = ''
   });

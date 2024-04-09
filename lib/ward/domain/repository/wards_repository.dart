@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:fridge/core/error/failure.dart';
 import 'package:fridge/ward/data/data_source/wards_remote_data_source.dart';
-import 'package:fridge/ward/data/models/store.dart';
 import 'package:fridge/ward/domain/entities/ward.dart';
 
-import '../../data/models/invoice.dart';
+import '../entities/invoice.dart';
+import '../entities/store.dart';
 
 abstract class WardsRepository {
 

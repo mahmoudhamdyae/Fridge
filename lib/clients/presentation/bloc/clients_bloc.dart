@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:fridge/clients/data/models/add_client_request.dart';
 import 'package:fridge/clients/data/models/client_model.dart';
 import 'package:fridge/clients/domain/entities/client.dart';
 import 'package:fridge/clients/domain/entities/product_to_add.dart';
@@ -9,6 +8,7 @@ import 'package:fridge/ward/domain/usecases/get_wards_usecase.dart';
 
 import '../../../core/enums/request_state.dart';
 import '../../../ward/domain/entities/ward.dart';
+import '../../data/models/add_client_request.dart';
 import '../../domain/usecases/add_client_usecase.dart';
 import '../../domain/usecases/get_clients_usecase.dart';
 

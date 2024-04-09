@@ -9,7 +9,6 @@ import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/services/services_locator.dart';
-import 'package:fridge/ward/data/models/store.dart';
 import 'package:fridge/ward/domain/entities/custom_customer.dart';
 import 'package:fridge/ward/domain/entities/ward.dart';
 import 'package:fridge/ward/presentation/bloc/wards_bloc.dart';
@@ -23,6 +22,7 @@ import '../../../core/navigation/navigate_util.dart';
 import '../../../core/resources/app_assets.dart';
 import '../../../core/resources/font_manager.dart';
 import '../../../core/resources/styles_manager.dart';
+import '../../domain/entities/store.dart';
 import '../components/settings_button.dart';
 
 class WardScreen extends StatefulWidget {
@@ -64,8 +64,8 @@ class _WardScreenState extends State<WardScreen> {
             Map<int, Store> map = {};
             debugPrint('=========== stores ${stores.length}');
             for (var element in stores) {
-              int x = (element.xAxies ?? 0);
-              int y = (element.yAxies ?? 0);
+              int x = (element.x ?? 0);
+              int y = (element.y ?? 0);
               int width = widget.ward.width ?? 1;
               int height = widget.ward.height ?? 1;
               debugPrint('========= x $x y $y width $width height $height');
@@ -116,168 +116,7 @@ class _WardScreenState extends State<WardScreen> {
                       return indexes.contains(index)
                           ? InkWell(
                               onTap: () {
-                                showModalBottomSheet<void>(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return Container(
-                                      width: context.width,
-                                      // height: context.dynamicHeight(.5),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16.0),
-                                      child: Column(
-                                        children: [
-                                          16.ph,
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              IconButton(
-                                                  onPressed: () {
-                                                    NavigateUtil()
-                                                        .navigateUp(context);
-                                                  },
-                                                  icon:
-                                                      const Icon(Icons.close)),
-                                              Expanded(child: Container()),
-                                              Image.asset(
-                                                AppAssets.package,
-                                                width: 60,
-                                                height: 60,
-                                              ),
-                                              Expanded(child: Container()),
-                                              16.pw,
-                                            ],
-                                          ),
-                                          16.ph,
-                                          const Divider(
-                                            height: 1,
-                                            color: AppColors.grey,
-                                          ),
-                                          16.ph,
-                                          SizedBox(
-                                            height: context.dynamicHeight(.4),
-                                            child: ListView(
-                                              children: [
-                                                ...List.generate(
-                                                    state
-                                                            .customMap[
-                                                                '${widget.ward.width}-${widget.ward.height}']
-                                                            ?.length ??
-                                                        0, (index) {
-                                                  CustomCustomer customer = (state
-                                                              .customMap[
-                                                          '${widget.ward.width}-${widget.ward.height}'] ??
-                                                      [])[index];
-                                                  return Column(
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          Text(
-                                                            AppStrings
-                                                                .productDialogClientName,
-                                                            style:
-                                                                getSmallStyle(
-                                                              fontSize: 18,
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            customer.name ?? '',
-                                                            style:
-                                                                getSmallStyle(
-                                                              fontSize: 18,
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            ' ${(customer.type ?? AppStrings.addClientScreenTraderWithQ)}',
-                                                            style:
-                                                                getSmallStyle(
-                                                              color: const Color(
-                                                                  0xff6B6B6B),
-                                                              fontSize: 18,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      8.ph,
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Text(
-                                                            AppStrings
-                                                                .productDialogProduct,
-                                                            style:
-                                                                getSmallStyle(),
-                                                          ),
-                                                          Text(
-                                                            customer.product ??
-                                                                '',
-                                                            style:
-                                                                getSmallStyle(
-                                                              color: const Color(
-                                                                  0xff6B6B6B),
-                                                            ),
-                                                          ),
-                                                          context
-                                                              .dynamicWidth(.3)
-                                                              .pw,
-                                                          Text(
-                                                            AppStrings
-                                                                .productDialogQuantity,
-                                                            style:
-                                                                getSmallStyle(),
-                                                          ),
-                                                          Text(
-                                                            customer.quantity ??
-                                                                '',
-                                                            style:
-                                                                getSmallStyle(
-                                                              color: const Color(
-                                                                  0xff6B6B6B),
-                                                            ),
-                                                          ),
-                                                          context
-                                                              .dynamicWidth(.2)
-                                                              .pw,
-                                                        ],
-                                                      ),
-                                                      16.ph,
-                                                      SizedBox(
-                                                        width: context
-                                                            .dynamicWidth(.8),
-                                                        child:
-                                                            SheetClientDetailsButton(
-                                                                onTap: () {
-                                                          NavigateUtil()
-                                                              .navigateToScreen(
-                                                            context,
-                                                            BlocProvider.value(
-                                                              value: instance<
-                                                                  WardsBloc>(),
-                                                              child:
-                                                              InvoiceScreen(storeId: customer.storeId,),
-                                                            ),
-                                                          );
-                                                        }),
-                                                      ),
-                                                      16.ph,
-                                                      const Divider(
-                                                        height: 1,
-                                                        color: AppColors.grey,
-                                                      ),
-                                                      16.ph,
-                                                    ],
-                                                  );
-                                                })
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                );
+                                buildShowModalBottomSheet(context, state);
                               },
                               child: Container(
                                 decoration: const BoxDecoration(
@@ -314,5 +153,148 @@ class _WardScreenState extends State<WardScreen> {
         ),
       ),
     ));
+  }
+
+  Future<dynamic> buildShowModalBottomSheet(
+      BuildContext context, WardsState state) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          width: context.width,
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            children: [
+              16.ph,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        NavigateUtil().navigateUp(context);
+                      },
+                      icon: const Icon(Icons.close)),
+                  Expanded(child: Container()),
+                  Image.asset(
+                    AppAssets.package,
+                    width: 60,
+                    height: 60,
+                  ),
+                  Expanded(child: Container()),
+                  16.pw,
+                ],
+              ),
+              16.ph,
+              const Divider(
+                height: 1,
+                color: AppColors.grey,
+              ),
+              16.ph,
+              SizedBox(
+                height: context.dynamicHeight(.4),
+                child: ListView(
+                  children: [
+                    ...List.generate(
+                        state
+                                .customMap[
+                                    '${widget.ward.width}-${widget.ward.height}']
+                                ?.length ??
+                            0, (index) {
+                      CustomCustomer customer = (state.customMap[
+                              '${widget.ward.width}-${widget.ward.height}'] ??
+                          [])[index];
+                      return Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                AppStrings.productDialogClientName,
+                                style: getSmallStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                              Text(
+                                customer.name ?? '',
+                                style: getSmallStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                              Text(
+                                ' ${(customer.type ?? AppStrings.addClientScreenTraderWithQ)}',
+                                style: getSmallStyle(
+                                  color: const Color(0xff6B6B6B),
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ],
+                          ),
+                          8.ph,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    AppStrings.productDialogProduct,
+                                    style: getSmallStyle(),
+                                  ),
+                                  Text(
+                                    customer.product ?? '',
+                                    style: getSmallStyle(
+                                      color: const Color(0xff6B6B6B),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              0.pw,
+                              Row(
+                                children: [
+                                  Text(
+                                    AppStrings.productDialogQuantity,
+                                    style: getSmallStyle(),
+                                  ),
+                                  Text(
+                                    customer.quantity ?? '',
+                                    style: getSmallStyle(
+                                      color: const Color(0xff6B6B6B),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              0.pw,
+                            ],
+                          ),
+                          16.ph,
+                          SizedBox(
+                            width: context.dynamicWidth(.8),
+                            child: SheetClientDetailsButton(onTap: () {
+                              NavigateUtil().navigateToScreen(
+                                context,
+                                BlocProvider.value(
+                                  value: instance<WardsBloc>(),
+                                  child: InvoiceScreen(
+                                    storeId: customer.storeId,
+                                  ),
+                                ),
+                              );
+                            }),
+                          ),
+                          16.ph,
+                          const Divider(
+                            height: 1,
+                            color: AppColors.grey,
+                          ),
+                          16.ph,
+                        ],
+                      );
+                    })
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

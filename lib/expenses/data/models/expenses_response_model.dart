@@ -1,12 +1,12 @@
 import '../../domain/entities/expenses_response.dart';
 
-class EResponse {
+class ExpensesResponsesFullResponse {
   bool? status;
   List<ExpensesResponseModel>? data;
 
-  EResponse({this.status, this.data});
+  ExpensesResponsesFullResponse({this.status, this.data});
 
-  EResponse.fromJson(Map<String, dynamic> json) {
+  ExpensesResponsesFullResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     if (json['data'] != null) {
       data = <ExpensesResponseModel>[];

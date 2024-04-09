@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:fridge/core/network/dio_manager.dart';
-import 'package:fridge/ward/data/models/invoice.dart';
-import 'package:fridge/ward/data/models/store.dart';
+import 'package:fridge/ward/data/models/invoice_model.dart';
+import 'package:fridge/ward/data/models/store_model.dart';
 import 'package:fridge/ward/data/models/ward_model.dart';
 
 import '../../../core/error/error_message_model.dart';
@@ -14,8 +14,8 @@ abstract class WardsRemoteDataSource {
 
   Future<List<WardModel>> getWards();
   Future<void> updateWardSettings(int wardId, int wardWidth, int wardHeight);
-  Future<List<Store>> getAllStore(int wardId);
-  Future<Invoice?> getInvoice(int storeId);
+  Future<List<StoreModel>> getAllStore(int wardId);
+  Future<InvoiceModel?> getInvoice(int storeId);
 }
 
 class WardsRemoteDataSourceImpl extends WardsRemoteDataSource {
@@ -68,7 +68,7 @@ class WardsRemoteDataSourceImpl extends WardsRemoteDataSource {
   }
 
   @override
-  Future<List<Store>> getAllStore(int wardId) async {
+  Future<List<StoreModel>> getAllStore(int wardId) async {
     try {
       var response = await dioManager.dio.get(
         ApiConstants.getAllStorePath(wardId),
@@ -88,7 +88,7 @@ class WardsRemoteDataSourceImpl extends WardsRemoteDataSource {
   }
 
   @override
-  Future<Invoice?> getInvoice(int storeId) async {
+  Future<InvoiceModel?> getInvoice(int storeId) async {
     try {
       var response = await dioManager.dio.get(
         ApiConstants.getInvoicePath(storeId),
