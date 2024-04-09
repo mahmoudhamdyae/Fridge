@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/presentation/components/cancel_button.dart';
 import 'package:fridge/core/components/appbar.dart';
@@ -11,7 +9,6 @@ import 'package:fridge/core/components/states/loading_screen.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
-import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/font_manager.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
