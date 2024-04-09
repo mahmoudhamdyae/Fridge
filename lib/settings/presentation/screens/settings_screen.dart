@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/presentation/components/cancel_button.dart';
 import 'package:fridge/core/components/appbar.dart';
@@ -10,6 +11,7 @@ import 'package:fridge/core/components/states/loading_screen.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
+import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/font_manager.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
@@ -17,6 +19,7 @@ import 'package:fridge/core/services/services_locator.dart';
 import 'package:fridge/settings/presentation/bloc/settings_bloc.dart';
 import 'package:fridge/settings/presentation/components/add_button.dart';
 import 'package:fridge/settings/presentation/components/complete_button.dart';
+import 'package:fridge/settings/presentation/components/del_button.dart';
 import 'package:fridge/settings/presentation/components/packaging_type_form_field.dart';
 import 'package:fridge/settings/presentation/components/product_type_form_field.dart';
 import 'package:fridge/settings/presentation/components/unit_price_form_field.dart';
@@ -173,9 +176,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 child: ProductTypeFormField(
                                     productTypeController: productTypeController)
                             ),
+                            16.pw,
+                            SizedBox(
+                                height: 70.0 * productTypeController.length,
+                                width: 32,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: productTypeController.length,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    return SizedBox(
+                                        height: 70,
+                                        child: DelButton(onClick: () {
+                                          setState(() {
+                                            if (productTypeController.length != 1) {
+                                              productTypeController.removeAt(index);
+                                            }
+                                          });
+                                        })
+                                    );
+                                  },
+                                ),
+                            ),
                             12.pw,
-                            Padding(
-                              padding: const EdgeInsets.only(top: 16.0),
+                            SizedBox(
+                              height: 70,
+                              width: 32,
                               child: AddButton(onClick: () {
                                 setState(() {
                                   productTypeController.add(TextEditingController(text: ''));
@@ -200,9 +226,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             ),
                             16.pw,
                             Expanded(child: PackagingTypeFormField(packagingTypeController: packagingTypeController,)),
+                            16.pw,
+                            SizedBox(
+                              height: 70.0 * packagingTypeController.length,
+                              width: 32,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: packagingTypeController.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return SizedBox(
+                                      height: 70,
+                                      child: DelButton(onClick: () {
+                                        setState(() {
+                                          if (packagingTypeController.length != 1) {
+                                            packagingTypeController.removeAt(index);
+                                          }
+                                        });
+                                      })
+                                  );
+                                },
+                              ),
+                            ),
                             12.pw,
-                            Padding(
-                              padding: const EdgeInsets.only(top: 16.0),
+                            SizedBox(
+                              height: 70,
+                              width: 32,
                               child: AddButton(onClick: () {
                                 setState(() {
                                   packagingTypeController.add(TextEditingController(text: ''));

@@ -14,11 +14,11 @@ class DelButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(2),
         decoration: const BoxDecoration(
-            color: AppColors.secondary,
+            color: Color(0xffCFCFCF),
             shape: BoxShape.circle
         ),
         child: const Icon(
-          Icons.add,
+          Icons.delete,
           color: AppColors.white,
         ),
       ),
