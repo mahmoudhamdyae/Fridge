@@ -79,7 +79,7 @@ class _WardScreenState extends State<WardScreen> {
                     int width = widget.ward.width ?? 1;
                     int height = widget.ward.height ?? 1;
                     debugPrint('========= x $x y $y width $width height $height');
-                    int newIndex = (x - 1) * width + (y - 1);
+                    int newIndex = (x) * width + (y);
                     indexes.add(newIndex);
                     map[newIndex] = element;
                     debugPrint('=========== new $newIndex');
