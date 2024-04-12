@@ -13,8 +13,8 @@ import '../components/cancel_button.dart';
 
 class ChooseWardFirstScreen extends StatelessWidget {
 
-  final Function goNext;
-  const ChooseWardFirstScreen({super.key, required this.goNext});
+  final Function moveForward;
+  const ChooseWardFirstScreen({super.key, required this.moveForward});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class ChooseWardFirstScreen extends StatelessWidget {
                   onTap: () {
                     BlocProvider.of<ClientsBloc>(context)
                         .add(ChooseWardEvent(state.wards[index]));
-                    goNext();
+                    moveForward();
                   },
                   child: Container(
                     decoration: BoxDecoration(

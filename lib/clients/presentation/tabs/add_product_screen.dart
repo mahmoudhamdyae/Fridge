@@ -40,11 +40,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
   void initState() {
     super.initState();
     ClientsState state = BlocProvider.of<ClientsBloc>(context).state;
-    numberController.text = (state.productToAdd.number ?? 0).toString();
-    unitWeightController.text = (state.productToAdd.unitWeight ?? 0).toString();
+    numberController.text = (state.productToAdd.number ?? '').toString();
+    unitWeightController.text = (state.productToAdd.unitWeight ?? '').toString();
     totalWeightController.text =
-        (state.productToAdd.totalWeight ?? 0).toString();
-    priceController.text = (state.productToAdd.price ?? 0).toString();
+        (state.productToAdd.totalWeight ?? '').toString();
+    priceController.text = (state.productToAdd.price ?? '').toString();
     chosenProductType = state.productToAdd.productType ??
         AppStrings.addClientScreenProductTypeHint;
     chosenPackagingType = state.productToAdd.packagingType ??
