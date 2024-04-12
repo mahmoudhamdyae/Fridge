@@ -35,12 +35,15 @@ class _MainScreenState extends State<MainScreen> {
     Future<Null>.delayed(Duration.zero, () {
       var snackBar = SnackBar(
         content: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: Center(child: Text(
-              AppStrings.addClientScreeSuccess,
-            style: getSmallStyle(
-                fontWeight: FontWeightManager.semiBold,
-                color: AppColors.white
+          padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).padding.top),
+          child: Center(child: Padding(
+            padding: EdgeInsets.all(MediaQuery.of(context).padding.top + 16.0),
+            child: Text(
+                AppStrings.addClientScreeSuccess,
+              style: getSmallStyle(
+                  fontWeight: FontWeightManager.semiBold,
+                  color: AppColors.white
+              ),
             ),
           )),
         ),
