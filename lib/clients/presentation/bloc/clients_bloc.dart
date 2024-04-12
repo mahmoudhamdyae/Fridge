@@ -115,9 +115,16 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
   }
 
   Future<void> _chooseWard(ChooseWardEvent event, Emitter<ClientsState> emit) async {
+    emit(state.copyWith(
+      getStoresState: RequestState.loading,
+    ));
     // Get Stores
     final getStoresResult = await _getAllStoresUsecase.call(event.ward.id ?? -1);
     getStoresResult.fold((l) {
+      emit(state.copyWith(
+        getStoresState: RequestState.error,
+        getStoresErrorMessage: l.message,
+      ));
     }, (stores) {
       // todo refactor this
       List<CustomCustomer> customCustomers = [];
@@ -132,6 +139,7 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
       }
 
       emit(state.copyWith(
+        getStoresState: RequestState.loaded,
         stores: stores,
         ward: event.ward,
         customMap: { '${event.ward.width}-${event.ward.height}': customCustomers }

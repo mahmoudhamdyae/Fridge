@@ -2,6 +2,9 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/core/components/dialogs/loading_dialog.dart';
+import 'package:fridge/core/components/states/error_screen.dart';
+import 'package:fridge/core/components/states/loading_screen.dart';
+import 'package:fridge/core/enums/request_state.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 
 import '../../../core/components/appbar.dart';
@@ -30,6 +33,11 @@ class _ChooseWardSecondScreenState extends State<ChooseWardSecondScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<ClientsBloc, ClientsState>(
   builder: (context, state) {
+    if (state.getStoresState == RequestState.loading) {
+      return const LoadingScreen();
+    } else if (state.getStoresState == RequestState.error) {
+      return ErrorScreen(error: state.getStoresErrorMessage);
+    }
     return ListView(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),

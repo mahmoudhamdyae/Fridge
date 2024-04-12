@@ -27,6 +27,8 @@ class ClientsState extends Equatable {
 
   final List<Store> stores;
   final Map<String, List<CustomCustomer>> customMap;
+  final RequestState getStoresState;
+  final String getStoresErrorMessage;
 
   const ClientsState({
     this.clients = const [],
@@ -47,6 +49,8 @@ class ClientsState extends Equatable {
     this.addClientErrorMessage = '',
     this.stores = const [],
     this.customMap = const {},
+    this.getStoresState = RequestState.init,
+    this.getStoresErrorMessage = ''
 });
 
   ClientsState copyWith({
@@ -68,6 +72,8 @@ class ClientsState extends Equatable {
     String? addClientErrorMessage,
     List<Store>? stores,
     Map<String, List<CustomCustomer>>? customMap,
+    RequestState? getStoresState,
+    String? getStoresErrorMessage
   }) {
     return ClientsState(
       clients: clients ?? this.clients,
@@ -88,6 +94,8 @@ class ClientsState extends Equatable {
       addClientErrorMessage: addClientErrorMessage ?? this.addClientErrorMessage,
       stores: stores ?? this.stores,
       customMap: customMap ?? this.customMap,
+      getStoresState: getStoresState ?? this.getStoresState,
+      getStoresErrorMessage: getStoresErrorMessage ?? this.getStoresErrorMessage
     );
   }
 
@@ -100,6 +108,6 @@ class ClientsState extends Equatable {
     productToAdd,
     x, y,
     addClientState, addClientErrorMessage,
-    stores, customMap,
+    stores, customMap, getStoresState, getStoresErrorMessage
   ];
 }
