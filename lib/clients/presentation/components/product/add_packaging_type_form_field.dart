@@ -9,9 +9,10 @@ import '../../../../core/utils/validate_operations.dart';
 class AddPackagingTypeFormField extends StatefulWidget {
 
   final Function(String) chosenType;
+  final String value;
   const AddPackagingTypeFormField({
     super.key,
-    required this.chosenType,
+    required this.chosenType, required this.value,
   });
 
   @override
@@ -42,7 +43,7 @@ class _AddProductTypeFormFieldState extends State<AddPackagingTypeFormField> {
             hint: AppStrings.addClientScreenPackagingTypeHint
         ),
         isExpanded: true,
-        value: AppStrings.addClientScreenPackagingTypeHint,
+        value: widget.value,
         onChanged: (newValue) {
           setState(() {
             text = newValue ?? AppStrings.addClientScreenPackagingTypeHint;

@@ -9,9 +9,10 @@ import '../../../../core/utils/validate_operations.dart';
 class AddProductTypeFormField extends StatefulWidget {
 
   final Function(String) chosenType;
+  final String value;
   const AddProductTypeFormField({
     super.key,
-    required this.chosenType,
+    required this.chosenType, required this.value,
   });
 
   @override
@@ -41,14 +42,8 @@ class _AddProductTypeFormFieldState extends State<AddProductTypeFormField> {
         decoration: getFilledTextFieldDecoration(
             hint: AppStrings.addClientScreenProductTypeHint
         ),
-        // onTap: () {
-        //   final state = BlocProvider.of<ClientsBloc>(context).state;
-        //   for (var element in state.remoteProductsTypes) {
-        //     productTypes.add(element);
-        //   }
-        // },
         isExpanded: true,
-        value: AppStrings.addClientScreenProductTypeHint,
+        value: widget.value,
         onChanged: (newValue) {
           setState(() {
             text = newValue ?? AppStrings.addClientScreenProductTypeHint;

@@ -17,8 +17,8 @@ import 'package:fridge/core/resources/font_manager.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 
 class AddProductScreen extends StatefulWidget {
-
   final Function(String productType) moveForward;
+
   const AddProductScreen({super.key, required this.moveForward});
 
   @override
@@ -26,16 +26,30 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController numberController = TextEditingController();
   TextEditingController unitWeightController = TextEditingController();
   TextEditingController totalWeightController = TextEditingController();
   TextEditingController priceController = TextEditingController();
-  String chosenProductType = '';
-  String chosenPackagingType = '';
+  String chosenProductType = AppStrings.addClientScreenProductTypeHint;
+  String chosenPackagingType = AppStrings.addClientScreenPackagingTypeHint;
 
   bool? get validate => _formKey.currentState?.validate();
+
+  @override
+  void initState() {
+    super.initState();
+    ClientsState state = BlocProvider.of<ClientsBloc>(context).state;
+    numberController.text = (state.productToAdd.number ?? 0).toString();
+    unitWeightController.text = (state.productToAdd.unitWeight ?? 0).toString();
+    totalWeightController.text =
+        (state.productToAdd.totalWeight ?? 0).toString();
+    priceController.text = (state.productToAdd.price ?? 0).toString();
+    chosenProductType = state.productToAdd.productType ??
+        AppStrings.addClientScreenProductTypeHint;
+    chosenPackagingType = state.productToAdd.packagingType ??
+        AppStrings.addClientScreenPackagingTypeHint;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,11 +75,16 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ),
               ),
               16.pw,
-              Expanded(child: AddPackagingTypeFormField(chosenType: (chosenType) {
-                setState(() {
-                  chosenPackagingType = chosenType;
-                });
-              },)),
+              Expanded(
+                  child: AddPackagingTypeFormField(
+                    value: chosenPackagingType,
+                    chosenType: (chosenType) {
+                      setState(() {
+                        chosenPackagingType = chosenType;
+                      });
+                      },
+                  )
+              ),
             ],
           ),
           16.ph,
@@ -81,11 +100,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ),
               ),
               16.pw,
-              Expanded(child: AddProductTypeFormField(chosenType: (chosenType) {
-                setState(() {
-                  chosenProductType = chosenType;
-                });
-              },)),
+              Expanded(
+                  child: AddProductTypeFormField(
+                value: chosenProductType,
+                chosenType: (chosenType) {
+                  setState(() {
+                    chosenProductType = chosenType;
+                  });
+                },
+              )),
             ],
           ),
           16.ph,
@@ -101,7 +124,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ),
               ),
               16.pw,
-              Expanded(child: NumberFormField(numberController: numberController)),
+              Expanded(
+                  child: NumberFormField(numberController: numberController)),
             ],
           ),
           16.ph,
@@ -117,7 +141,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ),
               ),
               16.pw,
-              Expanded(child: UnitWeightFormField(unitWeightController: unitWeightController)),
+              Expanded(
+                  child: UnitWeightFormField(
+                      unitWeightController: unitWeightController)),
             ],
           ),
           16.ph,
@@ -133,7 +159,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ),
               ),
               16.pw,
-              Expanded(child: TotalWeightFormField(totalWeightController: totalWeightController)),
+              Expanded(
+                  child: TotalWeightFormField(
+                      totalWeightController: totalWeightController)),
             ],
           ),
           16.ph,
@@ -149,7 +177,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ),
               ),
               16.pw,
-              Expanded(child: ProductPriceFormField(productPriceController: priceController)),
+              Expanded(
+                  child: ProductPriceFormField(
+                      productPriceController: priceController)),
             ],
           ),
           // 32.ph,
@@ -178,15 +208,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
           32.ph,
           NextButton(onClick: () {
             // if (validate != null && validate == true) {
-              BlocProvider.of<ClientsBloc>(context).add(AddProductEvent(
-                chosenProductType,
-                chosenPackagingType,
-                int.parse(numberController.text),
-                int.parse(unitWeightController.text),
-                int.parse(totalWeightController.text),
-                double.parse(priceController.text),
-              ));
-              widget.moveForward(chosenProductType);
+            BlocProvider.of<ClientsBloc>(context).add(AddProductEvent(
+              chosenProductType,
+              chosenPackagingType,
+              int.parse(numberController.text),
+              int.parse(unitWeightController.text),
+              int.parse(totalWeightController.text),
+              double.parse(priceController.text),
+            ));
+            widget.moveForward(chosenProductType);
             // }
           }),
           const CancelButton(),
