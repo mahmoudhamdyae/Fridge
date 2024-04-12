@@ -23,6 +23,23 @@ class NumberFormField extends StatelessWidget {
         hint: '',
       ),
       onChanged: (value) {
+        // if (
+        // unitWeightController.text.isNotEmpty &&
+        //     numberController.text.isNotEmpty
+        // ) {
+        //   totalWeightController.text =
+        //       (int.parse(numberController.text) *
+        //           int.parse(unitWeightController.text)).toString();
+        // }
+
+        // if (
+        // totalWeightController.text.isNotEmpty &&
+        //     numberController.text.isNotEmpty
+        // ) {
+        //   unitWeightController.text =
+        //       (int.parse(totalWeightController.text) /
+        //           int.parse(numberController.text)).toInt().toString();
+        // }
       },
       controller: numberController,
       textInputAction: TextInputAction.next,
