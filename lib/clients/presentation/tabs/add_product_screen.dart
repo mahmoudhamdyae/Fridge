@@ -125,7 +125,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
               ),
               16.pw,
               Expanded(
-                  child: NumberFormField(numberController: numberController)),
+                  child: NumberFormField(
+                    numberController: numberController,
+                    unitWeightController: unitWeightController,
+                    totalWeightController: totalWeightController,
+                  )),
             ],
           ),
           16.ph,
@@ -143,7 +147,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
               16.pw,
               Expanded(
                   child: UnitWeightFormField(
-                      unitWeightController: unitWeightController)),
+                    numberController: numberController,
+                    unitWeightController: unitWeightController,
+                    totalWeightController: totalWeightController,
+                  )),
             ],
           ),
           16.ph,
@@ -161,7 +168,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
               16.pw,
               Expanded(
                   child: TotalWeightFormField(
-                      totalWeightController: totalWeightController)),
+                    numberController: numberController,
+                    unitWeightController: unitWeightController,
+                    totalWeightController: totalWeightController,
+                  )),
             ],
           ),
           16.ph,

@@ -5,10 +5,14 @@ import '../../../../core/utils/validate_operations.dart';
 
 class UnitWeightFormField extends StatelessWidget {
 
+  final TextEditingController numberController;
   final TextEditingController unitWeightController;
+  final TextEditingController totalWeightController;
   const UnitWeightFormField({
     super.key,
+    required this.numberController,
     required this.unitWeightController,
+    required this.totalWeightController,
   });
 
 
@@ -18,6 +22,8 @@ class UnitWeightFormField extends StatelessWidget {
       decoration: getFilledTextFieldDecoration(
         hint: '',
       ),
+      onChanged: (value) {
+      },
       controller: unitWeightController,
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.number,
