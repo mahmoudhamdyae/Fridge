@@ -13,18 +13,24 @@ import '../../data/datasource/mock_home_remote_data_source.dart';
 import '../../data/repository/mock_home_repository.dart';
 
 void main() {
-  HomeRemoteDataSource remoteDataSource = MockHomeRemoteDataSource(DioManager.instance);
-  MockHomeRepository repository = MockHomeRepository(remoteDataSource);
-  HomeBloc bloc = HomeBloc(
-      GetProductsUsecase(repository),
-      StoreProductUsecase(repository),
-      UpdateProductUsecase(repository),
-      DelProductUsecase(repository)
-  );
+  HomeRemoteDataSource remoteDataSource;
+  late MockHomeRepository repository;
+  late HomeBloc bloc;
   group('HomeBloc', () {
     setUp(() {
+      remoteDataSource = MockHomeRemoteDataSource(DioManager.instance);
+      repository = MockHomeRepository(remoteDataSource);
+      bloc = HomeBloc(
+          GetProductsUsecase(repository),
+          StoreProductUsecase(repository),
+          UpdateProductUsecase(repository),
+          DelProductUsecase(repository)
+      );
     });
-    tearDown(() => null);
+    tearDown(() {
+      bloc.close();
+    });
+
     blocTest(
       'emits [] when nothing is added',
       build: () => bloc,
@@ -41,17 +47,18 @@ void main() {
       ],
     );
 
-    repository.returnError(true);
     blocTest(
       'store product test - return failure',
       build: () => bloc,
+      setUp: () {
+        repository.returnError(true);
+      },
       act: (bloc) => bloc.add(StoreProduct('name', 'description')),
       expect: () => [
         const HomeState(storeProductState: RequestState.loading, storeProductErrorMessage: ''),
         const HomeState(storeProductState: RequestState.error, storeProductErrorMessage: 'ERROR'),
       ],
     );
-    repository.returnError(false);
 
     blocTest(
       'update product test - return success',
