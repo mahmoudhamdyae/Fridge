@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
+import 'package:fridge/core/resources/font_manager.dart';
 import 'package:fridge/reports/presentation/tabs/month_tab.dart';
 import 'package:fridge/reports/presentation/tabs/summary_tab.dart';
 import 'package:fridge/reports/presentation/tabs/week_tab.dart';
@@ -40,6 +41,7 @@ class _ReportsTabState extends State<ReportsTab> {
                     AppStrings.reportsTabSummary,
                     style: getSmallStyle(
                       color: selectedTab == 0 ? AppColors.secondary: const Color(0xff000000),
+                      fontWeight: selectedTab == 0 ? FontWeightManager.semiBold: FontWeightManager.regular,
                     ),
                   ),
                 ],
@@ -57,6 +59,7 @@ class _ReportsTabState extends State<ReportsTab> {
                     AppStrings.reportsTabWeek,
                     style: getSmallStyle(
                       color: selectedTab == 1 ? AppColors.secondary: const Color(0xff000000),
+                      fontWeight: selectedTab == 1 ? FontWeightManager.semiBold: FontWeightManager.regular,
                     ),
                   ),
                 ],
@@ -74,6 +77,7 @@ class _ReportsTabState extends State<ReportsTab> {
                     AppStrings.reportsTabMonth,
                     style: getSmallStyle(
                       color: selectedTab == 2 ? AppColors.secondary: const Color(0xff000000),
+                      fontWeight: selectedTab == 2 ? FontWeightManager.semiBold: FontWeightManager.regular,
                     ),
                   ),
                 ],
