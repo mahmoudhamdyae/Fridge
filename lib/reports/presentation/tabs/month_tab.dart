@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/core/resources/app_strings.dart';
@@ -10,6 +11,7 @@ import 'package:fridge/reports/presentation/components/expenses_box.dart';
 import '../../../core/components/states/error_screen.dart';
 import '../../../core/components/states/loading_screen.dart';
 import '../../../core/services/services_locator.dart';
+import '../../domain/entities/month.dart';
 import '../bloc/reports_bloc.dart';
 
 class MonthTab extends StatefulWidget {
@@ -58,7 +60,7 @@ class _MonthTabState extends State<MonthTab> {
                       color: AppColors.grey,
                       spreadRadius: 2,
                       blurRadius: 3,
-                      offset: Offset(0, 0), // changes position of shadow
+                      offset: Offset(0, 0),
                     ),
                   ]
               ),
@@ -81,16 +83,22 @@ class _MonthTabState extends State<MonthTab> {
                   ),
                   16.ph,
                   SizedBox(
-                    height: 200,
-                    child: BarChart(
-                      BarChartData(
-                        barTouchData: barTouchData,
-                        titlesData: titlesData,
-                        borderData: borderData,
-                        barGroups: barGroups(state),
-                        gridData: const FlGridData(show: false),
-                        alignment: BarChartAlignment.spaceAround,
-                        maxY: getMaxCount(state),
+                    height: 250,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: SizedBox(
+                        width: context.width * 2,
+                        child: BarChart(
+                          BarChartData(
+                            barTouchData: barTouchData,
+                            titlesData: titlesData(state),
+                            borderData: borderData,
+                            barGroups: barGroups(state),
+                            gridData: const FlGridData(show: false),
+                            alignment: BarChartAlignment.start,
+                            maxY: getMaxCount(state),
+                          ),
+                        ),
                       ),
                     ),
                   )
@@ -129,68 +137,29 @@ class _MonthTabState extends State<MonthTab> {
         ),
       );
 
-  Widget getTitles(double value, TitleMeta meta) {
+  Widget getTitles(double value, TitleMeta meta, GetMonthLoadedState state) {
     TextStyle style = getSmallStyle(
         color: AppColors.dark2,
         fontSize: 12.0
     );
-    String text;
-    switch (value.toInt()) {
-      case 0:
-        text = AppStrings.reportsTabDec;
-        break;
-      case 1:
-        text = AppStrings.reportsTabNov;
-        break;
-      case 2:
-        text = AppStrings.reportsTabOct;
-        break;
-      case 3:
-        text = AppStrings.reportsTabSep;
-        break;
-      case 4:
-        text = AppStrings.reportsTabAug;
-        break;
-      case 5:
-        text = AppStrings.reportsTabJul;
-        break;
-      case 6:
-        text = AppStrings.reportsTabJun;
-        break;
-      case 7:
-        text = AppStrings.reportsTabMay;
-        break;
-      case 8:
-        text = AppStrings.reportsTabApr;
-        break;
-      case 9:
-        text = AppStrings.reportsTabMar;
-        break;
-      case 10:
-        text = AppStrings.reportsTabFeb;
-        break;
-      case 11:
-        text = AppStrings.reportsTabJan;
-        break;
-      default:
-        text = '';
-        break;
-    }
+    Month month = state.months[value.toInt()];
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      space: 4,
-      child: Text(text, style: style),
+      space: 15,
+      angle: 30,
+      child: Text(month.date ?? '', style: style),
     );
   }
 
-  FlTitlesData get titlesData =>
+  FlTitlesData titlesData(GetMonthLoadedState state) =>
       FlTitlesData(
         show: true,
         bottomTitles: AxisTitles(
           sideTitles: SideTitles(
             showTitles: true,
-            reservedSize: 30,
-            getTitlesWidget: getTitles,
+            reservedSize: 60,
+            getTitlesWidget: (double value, TitleMeta meta) =>
+                getTitles(value, meta ,state ),
           ),
         ),
         leftTitles: const AxisTitles(
