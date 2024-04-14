@@ -8,6 +8,7 @@ class ClientsState extends Equatable {
 
   final List<dynamic> remoteProductsTypes;
   final List<dynamic> remotePackagingTypes;
+  final String remotePrice;
 
   final List<Ward> wards;
   final Ward ward;
@@ -36,6 +37,7 @@ class ClientsState extends Equatable {
     this.getClientsErrorMessage = '',
     this.remoteProductsTypes = const [],
     this.remotePackagingTypes = const [],
+    this.remotePrice = '',
     this.wards = const [],
     this.ward = const Ward(),
     this.clientName = '',
@@ -59,6 +61,7 @@ class ClientsState extends Equatable {
     String? getClientsErrorMessage,
     List<dynamic>? remoteProductsTypes,
     List<dynamic>? remotePackagingTypes,
+    String? remotePrice,
     List<Ward>? wards,
     Ward? ward,
     String? clientName,
@@ -81,6 +84,7 @@ class ClientsState extends Equatable {
       getClientsErrorMessage: getClientsErrorMessage ?? this.getClientsErrorMessage,
       remoteProductsTypes: remoteProductsTypes ?? this.remoteProductsTypes,
       remotePackagingTypes: remotePackagingTypes ?? this.remotePackagingTypes,
+      remotePrice: remotePrice ?? this.remotePrice,
       wards: wards ?? this.wards,
       ward: ward ?? this.ward,
       clientName: clientName ?? this.clientName,
@@ -102,7 +106,7 @@ class ClientsState extends Equatable {
   @override
   List<Object> get props => [
     clients, getClientsState, getClientsErrorMessage,
-    remoteProductsTypes, remotePackagingTypes,
+    remoteProductsTypes, remotePackagingTypes, remotePrice,
     wards, ward,
     clientName, clientPhone, clientAddress, clientType,
     productToAdd,

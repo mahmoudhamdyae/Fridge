@@ -44,7 +44,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     unitWeightController.text = (state.productToAdd.unitWeight ?? '').toString();
     totalWeightController.text =
         (state.productToAdd.totalWeight ?? '').toString();
-    priceController.text = (state.productToAdd.price ?? '').toString();
+    priceController.text = (state.productToAdd.price ?? state.remotePrice).toString();
     chosenProductType = state.productToAdd.productType ??
         AppStrings.addClientScreenProductTypeHint;
     chosenPackagingType = state.productToAdd.packagingType ??

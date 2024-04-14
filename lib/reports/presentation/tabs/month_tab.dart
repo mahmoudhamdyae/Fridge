@@ -1,11 +1,14 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 import 'package:fridge/reports/presentation/components/expenses_box.dart';
 
+import '../../../core/components/states/error_screen.dart';
+import '../../../core/components/states/loading_screen.dart';
 import '../../../core/services/services_locator.dart';
 import '../bloc/reports_bloc.dart';
 
@@ -29,88 +32,102 @@ class _MonthTabState extends State<MonthTab> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
-      children: [
-        16.ph,
-        Container(
-          padding: const EdgeInsets.all(16.0),
-          decoration: const BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.grey,
-                  spreadRadius: 2,
-                  blurRadius: 3,
-                  offset: Offset(0, 0), // changes position of shadow
-                ),
-              ]
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'ssss ${AppStrings.egp}',
-                style: getLargeStyle(
-                    fontSize: 20,
-                    color: const Color(0xff193263)
-                ),
+    return BlocBuilder<ReportsBloc, ReportsState>(
+      buildWhen: (previous, current) =>
+      current is GetMonthLoadingState ||
+      current is GetMonthErrorState ||
+      current is GetMonthLoadedState,
+      builder: (context, state) {
+        if (state is GetMonthLoadingState) {
+          return const LoadingScreen();
+        } else if (state is GetMonthErrorState) {
+          return ErrorScreen(error: state.errorMessage);
+        } else if (state is GetMonthLoadedState) {
+          return ListView(
+          shrinkWrap: true,
+          physics: const ClampingScrollPhysics(),
+          children: [
+            16.ph,
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              decoration: const BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.grey,
+                      spreadRadius: 2,
+                      blurRadius: 3,
+                      offset: Offset(0, 0), // changes position of shadow
+                    ),
+                  ]
               ),
-              Text(
-                AppStrings.reportsTabTotalPrice,
-                style: getSmallStyle(
-                  color: const Color(0xff6B6B6B),
-                  fontSize: 12,
-                ),
-              ),
-              16.ph,
-              SizedBox(
-                height: 200,
-                child: BarChart(
-                  BarChartData(
-                    barTouchData: barTouchData,
-                    titlesData: titlesData,
-                    borderData: borderData,
-                    barGroups: barGroups,
-                    gridData: const FlGridData(show: false),
-                    alignment: BarChartAlignment.spaceAround,
-                    maxY: 20,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'ssss ${AppStrings.egp}',
+                    style: getLargeStyle(
+                        fontSize: 20,
+                        color: const Color(0xff193263)
+                    ),
                   ),
-                ),
-              )
-            ],
-          ),
-        ),
-        16.ph,
-        const ExpensesBox(expenses: 12.000),
-      ],
+                  Text(
+                    AppStrings.reportsTabTotalPrice,
+                    style: getSmallStyle(
+                      color: const Color(0xff6B6B6B),
+                      fontSize: 12,
+                    ),
+                  ),
+                  16.ph,
+                  SizedBox(
+                    height: 200,
+                    child: BarChart(
+                      BarChartData(
+                        barTouchData: barTouchData,
+                        titlesData: titlesData,
+                        borderData: borderData,
+                        barGroups: barGroups(state),
+                        gridData: const FlGridData(show: false),
+                        alignment: BarChartAlignment.spaceAround,
+                        maxY: getMaxCount(state),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            16.ph,
+            const ExpensesBox(expenses: 12.000),
+          ],
+        );
+        }
+        return Container();
+      },
     );
   }
 
-  BarTouchData get barTouchData => BarTouchData(
-    enabled: false,
-    touchTooltipData: BarTouchTooltipData(
-      getTooltipColor: (group) => Colors.transparent,
-      tooltipPadding: EdgeInsets.zero,
-      tooltipMargin: 8,
-      getTooltipItem: (
-          BarChartGroupData group,
-          int groupIndex,
-          BarChartRodData rod,
-          int rodIndex,
-          ) {
-        return BarTooltipItem(
-          rod.toY.round().toString(),
-          const TextStyle(
-            color: AppColors.secondary,
-            fontWeight: FontWeight.bold,
-          ),
-        );
-      },
-    ),
-  );
+  BarTouchData get barTouchData =>
+      BarTouchData(
+        enabled: false,
+        touchTooltipData: BarTouchTooltipData(
+          getTooltipColor: (group) => Colors.transparent,
+          tooltipPadding: EdgeInsets.zero,
+          tooltipMargin: 8,
+          getTooltipItem: (BarChartGroupData group,
+              int groupIndex,
+              BarChartRodData rod,
+              int rodIndex,) {
+            return BarTooltipItem(
+              rod.toY.round().toString(),
+              const TextStyle(
+                color: AppColors.secondary,
+                fontWeight: FontWeight.bold,
+              ),
+            );
+          },
+        ),
+      );
 
   Widget getTitles(double value, TitleMeta meta) {
     TextStyle style = getSmallStyle(
@@ -166,174 +183,55 @@ class _MonthTabState extends State<MonthTab> {
     );
   }
 
-  FlTitlesData get titlesData => FlTitlesData(
-    show: true,
-    bottomTitles: AxisTitles(
-      sideTitles: SideTitles(
-        showTitles: true,
-        reservedSize: 30,
-        getTitlesWidget: getTitles,
-      ),
-    ),
-    leftTitles: const AxisTitles(
-      sideTitles: SideTitles(showTitles: false),
-    ),
-    topTitles: const AxisTitles(
-      sideTitles: SideTitles(showTitles: false),
-    ),
-    rightTitles: const AxisTitles(
-      sideTitles: SideTitles(showTitles: false),
-    ),
-  );
+  FlTitlesData get titlesData =>
+      FlTitlesData(
+        show: true,
+        bottomTitles: AxisTitles(
+          sideTitles: SideTitles(
+            showTitles: true,
+            reservedSize: 30,
+            getTitlesWidget: getTitles,
+          ),
+        ),
+        leftTitles: const AxisTitles(
+          sideTitles: SideTitles(showTitles: false),
+        ),
+        topTitles: const AxisTitles(
+          sideTitles: SideTitles(showTitles: false),
+        ),
+        rightTitles: const AxisTitles(
+          sideTitles: SideTitles(showTitles: false),
+        ),
+      );
 
-  FlBorderData get borderData => FlBorderData(
-    show: false,
-  );
+  FlBorderData get borderData =>
+      FlBorderData(
+        show: false,
+      );
 
-  List<BarChartGroupData> get barGroups => [
-    BarChartGroupData(
-      x: 0,
-      barRods: [
-        BarChartRodData(
-          toY: 8,
-          color: const Color(0xffB7C3DB),
-          borderRadius: BorderRadius.zero,
-          width: 20,
-        )
-      ],
-      showingTooltipIndicators: [0],
-    ),
-    BarChartGroupData(
-      x: 1,
-      barRods: [
-        BarChartRodData(
-          toY: 10,
-          color: const Color(0xff000A4F),
-          borderRadius: BorderRadius.zero,
-          width: 20,
-        )
-      ],
-      showingTooltipIndicators: [0],
-    ),
-    BarChartGroupData(
-      x: 2,
-      barRods: [
-        BarChartRodData(
-          toY: 14,
-          color: const Color(0xffD8E8F8),
-          borderRadius: BorderRadius.zero,
-          width: 20,
-        )
-      ],
-      showingTooltipIndicators: [0],
-    ),
-    BarChartGroupData(
-      x: 3,
-      barRods: [
-        BarChartRodData(
-          toY: 15,
-          color: const Color(0xffEE8626),
-          borderRadius: BorderRadius.zero,
-          width: 20,
-        )
-      ],
-      showingTooltipIndicators: [0],
-    ),
-    BarChartGroupData(
-      x: 4,
-      barRods: [
-        BarChartRodData(
-          toY: 13,
-          color: const Color(0xff000A4F),
-          borderRadius: BorderRadius.zero,
-          width: 20,
-        )
-      ],
-      showingTooltipIndicators: [0],
-    ),
-    BarChartGroupData(
-      x: 5,
-      barRods: [
-        BarChartRodData(
-          toY: 10,
-          color: const Color(0xffFECC5E),
-          borderRadius: BorderRadius.zero,
-          width: 20,
-        )
-      ],
-      showingTooltipIndicators: [0],
-    ),
-    BarChartGroupData(
-      x: 6,
-      barRods: [
-        BarChartRodData(
-          toY: 16,
-          color: const Color(0xffD8E8F8),
-          borderRadius: BorderRadius.zero,
-          width: 20,
-        )
-      ],
-      showingTooltipIndicators: [0],
-    ),
-    BarChartGroupData(
-      x: 7,
-      barRods: [
-        BarChartRodData(
-          toY: 16,
-          color: const Color(0xffB7C3DB),
-          borderRadius: BorderRadius.zero,
-          width: 20,
-        )
-      ],
-      showingTooltipIndicators: [0],
-    ),
-    BarChartGroupData(
-      x: 8,
-      barRods: [
-        BarChartRodData(
-          toY: 16,
-          color: const Color(0xff000A4F),
-          borderRadius: BorderRadius.zero,
-          width: 20,
-        )
-      ],
-      showingTooltipIndicators: [0],
-    ),
-    BarChartGroupData(
-      x: 9,
-      barRods: [
-        BarChartRodData(
-          toY: 16,
-          color: const Color(0xffD8E8F8),
-          borderRadius: BorderRadius.zero,
-          width: 20,
-        )
-      ],
-      showingTooltipIndicators: [0],
-    ),
-    BarChartGroupData(
-      x: 10,
-      barRods: [
-        BarChartRodData(
-          toY: 16,
-          color: const Color(0xffEE8626),
-          borderRadius: BorderRadius.zero,
-          width: 20,
-        )
-      ],
-      showingTooltipIndicators: [0],
-    ),
-    BarChartGroupData(
-      x: 11,
-      barRods: [
-        BarChartRodData(
-          toY: 16,
-          color: const Color(0xff000A4F),
-          borderRadius: BorderRadius.zero,
-          width: 20,
-        )
-      ],
-      showingTooltipIndicators: [0],
-    ),
-  ];
+  List<BarChartGroupData> barGroups(GetMonthLoadedState state) =>
+      List.generate(state.months.length, (index) {
+        return BarChartGroupData(
+          x: index,
+          barRods: [
+            BarChartRodData(
+              toY: state.months[index].count?.toDouble() ?? 0.0,
+              color: AppColors.getRandomColor(),
+              borderRadius: BorderRadius.zero,
+              width: 20,
+            )
+          ],
+          showingTooltipIndicators: [0],
+        );
+      });
+
+  double getMaxCount(GetMonthLoadedState state) {
+    int max = 0;
+    for (var element in state.months) {
+      if ((element.count ?? 0) > max) {
+        max = element.count!;
+      }
+    }
+    return max.toDouble();
+  }
 }

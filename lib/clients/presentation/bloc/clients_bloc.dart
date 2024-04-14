@@ -78,8 +78,9 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
     getSettingsResult.fold((l) {
     }, (settingsResponse) {
       emit(state.copyWith(
-          remoteProductsTypes: settingsResponse.data?.products ?? [],
-          remotePackagingTypes: settingsResponse.data?.boxing ?? []
+        remoteProductsTypes: settingsResponse.data?.products ?? [],
+        remotePackagingTypes: settingsResponse.data?.boxing ?? [],
+        remotePrice: settingsResponse.data?.price,
       ));
     });
     // Get Wards
