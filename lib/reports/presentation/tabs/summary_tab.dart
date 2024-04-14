@@ -211,7 +211,6 @@ class SummaryTab extends StatelessWidget {
   LineChartBarData get lineChartBarData1_1 => LineChartBarData(
     isCurved: true,
     color: AppColors.secondary,
-    barWidth: 2,
     isStrokeCapRound: true,
     dotData: const FlDotData(show: false),
     belowBarData: BarAreaData(show: false),
@@ -229,7 +228,6 @@ class SummaryTab extends StatelessWidget {
   LineChartBarData get lineChartBarData1_2 => LineChartBarData(
     isCurved: true,
     color: const Color(0xff193263),
-    barWidth: 2,
     isStrokeCapRound: true,
     dotData: const FlDotData(show: false),
     belowBarData: BarAreaData(
