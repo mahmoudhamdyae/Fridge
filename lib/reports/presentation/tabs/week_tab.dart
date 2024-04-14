@@ -4,10 +4,27 @@ import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
+import 'package:fridge/core/services/services_locator.dart';
+import 'package:fridge/reports/presentation/bloc/reports_bloc.dart';
 import 'package:fridge/reports/presentation/components/expenses_box.dart';
 
-class WeekTab extends StatelessWidget {
+class WeekTab extends StatefulWidget {
   const WeekTab({super.key});
+
+  @override
+  State<WeekTab> createState() => _WeekTabState();
+}
+
+class _WeekTabState extends State<WeekTab> {
+
+  late final ReportsBloc bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    bloc = instance<ReportsBloc>();
+    bloc.add(GetWeekEvent());
+  }
 
   @override
   Widget build(BuildContext context) {

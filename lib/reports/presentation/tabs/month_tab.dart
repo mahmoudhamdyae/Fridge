@@ -6,8 +6,26 @@ import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 import 'package:fridge/reports/presentation/components/expenses_box.dart';
 
-class MonthTab extends StatelessWidget {
+import '../../../core/services/services_locator.dart';
+import '../bloc/reports_bloc.dart';
+
+class MonthTab extends StatefulWidget {
   const MonthTab({super.key});
+
+  @override
+  State<MonthTab> createState() => _MonthTabState();
+}
+
+class _MonthTabState extends State<MonthTab> {
+
+  late final ReportsBloc bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    bloc = instance<ReportsBloc>();
+    bloc.add(GetMonthEvent());
+  }
 
   @override
   Widget build(BuildContext context) {

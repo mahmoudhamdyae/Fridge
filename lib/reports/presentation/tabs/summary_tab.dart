@@ -7,8 +7,26 @@ import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/font_manager.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 
-class SummaryTab extends StatelessWidget {
+import '../../../core/services/services_locator.dart';
+import '../bloc/reports_bloc.dart';
+
+class SummaryTab extends StatefulWidget {
   const SummaryTab({super.key});
+
+  @override
+  State<SummaryTab> createState() => _SummaryTabState();
+}
+
+class _SummaryTabState extends State<SummaryTab> {
+
+  late final ReportsBloc bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    bloc = instance<ReportsBloc>();
+    bloc.add(GetSummaryEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
