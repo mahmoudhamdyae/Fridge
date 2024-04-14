@@ -221,6 +221,18 @@ class AppStrings {
   static const String reportsTabWed = 'أربعاء';
   static const String reportsTabThu = 'خميس';
   static const String reportsTabFri = 'جمعة';
+  static const String reportsTabDec = 'ديسمبر';
+  static const String reportsTabNov = 'نوفمبر';
+  static const String reportsTabOct = 'أكتوبر';
+  static const String reportsTabSep = 'سبتمبر';
+  static const String reportsTabAug = 'أغسطس';
+  static const String reportsTabJul = 'يوليو';
+  static const String reportsTabJun = 'يونيو';
+  static const String reportsTabMay = 'مايو';
+  static const String reportsTabApr = 'إبريل';
+  static const String reportsTabMar = 'مارس';
+  static const String reportsTabFeb = 'فبراير';
+  static const String reportsTabJan = 'يناير';
   // Details Tab
   static const String detailsTabDate = 'التاريخ';
   static const String detailsTabProduct = 'المنتج';
