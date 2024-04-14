@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 
 @immutable
@@ -23,4 +25,14 @@ class AppColors {
   static const Color colorRamps3 = Color(0xff224383);
   static const Color colorRamps4 = Color(0xff3265C5);
   static const Color colorRamps5 = Color(0xffC1D3F4);
+
+  static Color getRandomColor() => [
+    const Color(0xffB7C3DB),
+    const Color(0xff000A4F),
+    const Color(0xffD8E8F8),
+    const Color(0xffEE8626),
+    const Color(0xff000A4F),
+    const Color(0xffFECC5E),
+    const Color(0xffD8E8F8),
+  ][Random().nextInt(7)];
 }

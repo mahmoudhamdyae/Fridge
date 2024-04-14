@@ -1,6 +1,5 @@
 part of 'reports_bloc.dart';
 
-@immutable
 class ReportsState extends Equatable {
   const ReportsState();
   @override
@@ -58,7 +57,10 @@ final class GetWeekErrorState extends ReportsState {
 }
 
 final class GetWeekLoadedState extends ReportsState {
-  const GetWeekLoadedState();
+  final List<Week> weeks;
+  const GetWeekLoadedState(this.weeks);
+  @override
+  List<Object> get props => [weeks];
 }
 
 /// Month
@@ -75,5 +77,8 @@ final class GetMonthErrorState extends ReportsState {
 }
 
 final class GetMonthLoadedState extends ReportsState {
-  const GetMonthLoadedState();
+  final List<Month> months;
+  const GetMonthLoadedState(this.months);
+  @override
+  List<Object> get props => [months];
 }
