@@ -188,22 +188,15 @@ class WeekTab extends StatelessWidget {
     show: false,
   );
 
-  LinearGradient get _barsGradient => const LinearGradient(
-    colors: [
-      AppColors.primary,
-      AppColors.secondary,
-    ],
-    begin: Alignment.bottomCenter,
-    end: Alignment.topCenter,
-  );
-
   List<BarChartGroupData> get barGroups => [
     BarChartGroupData(
       x: 0,
       barRods: [
         BarChartRodData(
           toY: 8,
-          gradient: _barsGradient,
+          color: const Color(0xffB7C3DB),
+          borderRadius: BorderRadius.zero,
+          width: 20,
         )
       ],
       showingTooltipIndicators: [0],
@@ -213,7 +206,9 @@ class WeekTab extends StatelessWidget {
       barRods: [
         BarChartRodData(
           toY: 10,
-          gradient: _barsGradient,
+          color: const Color(0xff000A4F),
+          borderRadius: BorderRadius.zero,
+          width: 20,
         )
       ],
       showingTooltipIndicators: [0],
@@ -223,7 +218,9 @@ class WeekTab extends StatelessWidget {
       barRods: [
         BarChartRodData(
           toY: 14,
-          gradient: _barsGradient,
+          color: const Color(0xffD8E8F8),
+          borderRadius: BorderRadius.zero,
+          width: 20,
         )
       ],
       showingTooltipIndicators: [0],
@@ -233,7 +230,9 @@ class WeekTab extends StatelessWidget {
       barRods: [
         BarChartRodData(
           toY: 15,
-          gradient: _barsGradient,
+          color: const Color(0xffEE8626),
+          borderRadius: BorderRadius.zero,
+          width: 20,
         )
       ],
       showingTooltipIndicators: [0],
@@ -243,7 +242,9 @@ class WeekTab extends StatelessWidget {
       barRods: [
         BarChartRodData(
           toY: 13,
-          gradient: _barsGradient,
+          color: const Color(0xff000A4F),
+          borderRadius: BorderRadius.zero,
+          width: 20,
         )
       ],
       showingTooltipIndicators: [0],
@@ -253,7 +254,9 @@ class WeekTab extends StatelessWidget {
       barRods: [
         BarChartRodData(
           toY: 10,
-          gradient: _barsGradient,
+          color: const Color(0xffFECC5E),
+          borderRadius: BorderRadius.zero,
+          width: 20,
         )
       ],
       showingTooltipIndicators: [0],
@@ -263,7 +266,9 @@ class WeekTab extends StatelessWidget {
       barRods: [
         BarChartRodData(
           toY: 16,
-          gradient: _barsGradient,
+          color: const Color(0xffD8E8F8),
+          borderRadius: BorderRadius.zero,
+          width: 20,
         )
       ],
       showingTooltipIndicators: [0],
