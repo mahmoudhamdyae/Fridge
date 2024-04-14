@@ -5,6 +5,7 @@ import 'package:fridge/clients/presentation/screens/clients_screen.dart';
 import 'package:fridge/core/resources/font_manager.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 import 'package:fridge/expenses/presentation/bloc/expenses_bloc.dart';
+import 'package:fridge/reports/presentation/bloc/reports_bloc.dart';
 import 'package:fridge/reports/presentation/screens/reports_screen.dart';
 import 'package:fridge/ward/presentation/screens/wards_screen.dart';
 import '../../../core/resources/app_assets.dart';
@@ -88,6 +89,7 @@ class _MainScreenState extends State<MainScreen> {
         BlocProvider(create: (_) => instance<WardsBloc>()),
         BlocProvider(create: (_) => instance<ClientsBloc>()),
         BlocProvider(create: (_) => instance<ExpensesBloc>()),
+        BlocProvider(create: (_) => instance<ReportsBloc>()),
       ],
       child: Scaffold(
         backgroundColor: AppColors.primaryLight,

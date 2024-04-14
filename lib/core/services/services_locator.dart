@@ -26,6 +26,9 @@ import 'package:fridge/home/domain/usecases/store_product_usecase.dart';
 import 'package:fridge/home/domain/usecases/update_product_usecase.dart';
 import 'package:fridge/home/presentation/bloc/home_bloc.dart';
 import 'package:fridge/onboarding/presentation/bloc/onboarding_bloc.dart';
+import 'package:fridge/reports/data/datasource/reports_remote_data_source.dart';
+import 'package:fridge/reports/domain/repository/reports_repository.dart';
+import 'package:fridge/reports/domain/usecases/get_analysis_usecase.dart';
 import 'package:fridge/settings/data/data_source/settings_remote_data_source.dart';
 import 'package:fridge/settings/data/repository/settings_repository_impl.dart';
 import 'package:fridge/settings/domain/repository/settings_repository.dart';
@@ -45,6 +48,8 @@ import '../../auth/presentation/bloc/auth_bloc.dart';
 import '../../clients/data/repository/client_repository_impl.dart';
 import '../../expenses/presentation/bloc/expenses_bloc.dart';
 import '../../home/data/repository/home_repository_impl.dart';
+import '../../reports/data/repository/reports_repository_impl.dart';
+import '../../reports/presentation/bloc/reports_bloc.dart';
 import '../../ward/data/repository/ward_repository_impl.dart';
 import '../../ward/domain/usecases/get_invoice_usecase.dart';
 
@@ -182,5 +187,20 @@ class ServicesLocator {
     // DATA SOURCE
     instance.registerLazySingleton<ExpensesRemoteDataSource>(
             () => ExpensesRemoteDataSourceImpl(DioManager.instance));
+
+    /// Reports
+
+    // Bloc
+    instance.registerLazySingleton(() => ReportsBloc(
+      instance<GetAnalysisUsecase>(),
+    ));
+    // Use Cases
+    instance.registerLazySingleton(() => GetAnalysisUsecase(instance<ReportsRepository>()));
+    // Repository
+    instance.registerLazySingleton<ReportsRepository>(
+            () => ReportsRepositoryImpl(instance<ReportsRemoteDataSource>()));
+    // DATA SOURCE
+    instance.registerLazySingleton<ReportsRemoteDataSource>(
+            () => ReportsRemoteDataSourceImpl(DioManager.instance));
   }
 }
