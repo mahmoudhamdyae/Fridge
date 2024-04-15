@@ -40,7 +40,7 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
       typesResult.fold((l) {
         emit(GetExpensesErrorState(l.message));
       }, (types) {
-        emit(GetExpensesLoadedState(expenses: [], types: types));
+        emit(GetExpensesLoadedState(expenses: expenses, types: types));
       });
     });
   }

@@ -110,6 +110,10 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
               ),
               16.ph,
               BlocBuilder<ExpensesBloc, ExpensesState>(
+                buildWhen: (previous, current) =>
+                current is GetExpensesLoadingState ||
+                current is GetExpensesErrorState ||
+                current is GetExpensesLoadedState,
                 builder: (BuildContext context, state) {
                 if (state is GetExpensesLoadingState) {
                   return const LoadingScreen();
