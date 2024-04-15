@@ -23,6 +23,21 @@ class TotalWeightFormField extends StatelessWidget {
         hint: '',
       ),
       onChanged: (value) {
+        if (
+        numberController.text.isNotEmpty &&
+            unitWeightController.text.isEmpty
+        ) {
+          unitWeightController.text =
+              (int.parse(totalWeightController.text) ~/
+                  int.parse(numberController.text)).toString();
+        } else if (
+        numberController.text.isEmpty &&
+            unitWeightController.text.isNotEmpty
+        ) {
+          numberController.text =
+              (int.parse(totalWeightController.text) ~/
+                  int.parse(unitWeightController.text)).toString();
+        }
       },
       controller: totalWeightController,
       textInputAction: TextInputAction.next,
