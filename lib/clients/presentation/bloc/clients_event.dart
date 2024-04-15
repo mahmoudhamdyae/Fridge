@@ -11,7 +11,7 @@ class AddClientEvent extends ClientsEvent {
   final bool isTrader;
   final String clientName;
   final String clientPhone;
-  final String clientAddress;
+  final String? clientAddress;
   AddClientEvent(this.isTrader, this.clientName, this.clientPhone, this.clientAddress);
   @override
   List<Object?> get props => [isTrader, clientName, clientPhone, clientAddress];

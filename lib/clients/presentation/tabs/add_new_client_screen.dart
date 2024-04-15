@@ -102,7 +102,8 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
                           isTrader ?? true,
                           clientNameController.text,
                           clientPhoneController.text,
-                          clientAddressController.text));
+                          clientAddressController.text.isEmpty ? null : clientAddressController.text,
+                      ));
                       widget.moveForward();
                     }
                   },
