@@ -4,25 +4,55 @@ import 'package:fridge/core/resources/styles_manager.dart';
 import '../../../core/resources/app_strings.dart';
 import '../../../core/utils/validate_operations.dart';
 
-class TypeFormField extends StatelessWidget {
+class TypeFormField extends StatefulWidget {
 
-  final TextEditingController typeController;
+  final List<String> names;
+  final Function(String) chosenType;
+
   const TypeFormField({
     super.key,
-    required this.typeController,
+    required this.names,
+    required this.chosenType,
   });
 
+  @override
+  State<TypeFormField> createState() => _TypeFormFieldState();
+}
+
+class _TypeFormFieldState extends State<TypeFormField> {
+
+  String selectedName = AppStrings.expensesScreenTypeHint;
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: getFilledTextFieldDecoration(
-        hint: AppStrings.expensesScreenTypeHint,
-      ),
-      controller: typeController,
-      textInputAction: TextInputAction.next,
-      keyboardType: TextInputType.text,
-      validator: (value) => ValidateOperations.normalValidation(value),
-    );
+    return DropdownButtonFormField(
+        validator: (value) => ValidateOperations.normalValidation(
+            selectedName == AppStrings.expensesScreenTypeHint ? null : selectedName
+        ),
+        decoration: getFilledTextFieldDecoration(
+            hint: AppStrings.expensesScreenTypeHint
+        ),
+        isExpanded: true,
+        value: selectedName,
+        onChanged: (newValue) {
+          setState(() {
+            selectedName = newValue ?? AppStrings.expensesScreenTypeHint;
+            widget.chosenType(newValue ?? AppStrings.expensesScreenTypeHint);
+          });
+        },
+        style: getSmallStyle(),
+        items: widget.names.map((name) {
+          return DropdownMenuItem(
+            value: name,
+            child: Text(
+              name,
+              style: getSmallStyle(
+                color: const Color(0xff797979),
+                fontSize: 14.0,
+              ),
+            ),
+          );
+        }).toList(),
+      );
   }
 }

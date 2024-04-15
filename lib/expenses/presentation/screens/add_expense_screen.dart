@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
+import 'package:fridge/expenses/domain/entities/expense_type.dart';
 
 import '../../../core/components/appbar.dart';
 import '../../../core/components/decorations.dart';
@@ -29,7 +30,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController dateController = TextEditingController();
-  TextEditingController typeController = TextEditingController();
+  ExpenseType? chosenType;
   TextEditingController detailsController = TextEditingController();
   TextEditingController priceController = TextEditingController();
 
@@ -88,8 +89,21 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     ),
                     16.pw,
                     Expanded(
-                        child: TypeFormField(
-                          typeController: typeController,
+                        child: BlocBuilder<ExpensesBloc, ExpensesState>(
+                          builder: (context, state) {
+                            List<ExpenseType> types = state.types;
+                            List<String> names = [AppStrings.expensesScreenTypeHint];
+                            for (var type in types) {
+                              names.add(type.name ?? '');
+                            }
+                            return TypeFormField(
+                              names: names,
+                              chosenType: (chosenValue) {
+                                chosenType = types.firstWhere((element) =>
+                                element.name == chosenValue);
+                              },
+                            );
+                          },
                         )),
                   ],
                 ),
@@ -152,7 +166,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     showLoading(context);
                     BlocProvider.of<ExpensesBloc>(context).add(
                         StoreExpensesEvent(
-                            typeController.text,
+                            chosenType?.id.toString() ?? '',
                             dateController.text,
                             detailsController.text,
                             priceController.text));
