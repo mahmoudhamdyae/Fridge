@@ -93,19 +93,19 @@ class _LoginScreenState extends State<LoginScreen> {
                           8.ph,
                           PasswordFormField(
                               passwordController: passwordController),
-                          8.ph,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                AppStrings.loginScreenForgotPassword,
-                                style: getSmallStyle(
-                                  fontSize: 12,
-                                  color: AppColors.colorRamps2,
-                                ),
-                              ),
-                            ],
-                          ),
+                          // 8.ph,
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.end,
+                          //   children: [
+                          //     Text(
+                          //       AppStrings.loginScreenForgotPassword,
+                          //       style: getSmallStyle(
+                          //         fontSize: 12,
+                          //         color: AppColors.colorRamps2,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
                           24.ph,
                           AuthButton(
                             onTap: () {

@@ -54,7 +54,7 @@ class AppStrings {
   static const String loginScreenPhoneHint = 'ادخل رقم التليفون';
   static const String loginScreenPasswordLabel = 'كلمة السر';
   static const String loginScreenPasswordHint = 'ادخل كلمة السر';
-  static const String loginScreenForgotPassword = 'هل نسيت كلمة السر؟';
+  // static const String loginScreenForgotPassword = 'هل نسيت كلمة السر؟';
   static const String loginScreenLoginButton = 'تسجيل الدخول';
   static const String loginScreenNoAccount = 'ليس لديك حساب؟';
   static const String loginScreenNewAccount = 'تسجيل مستخدم جديد';
