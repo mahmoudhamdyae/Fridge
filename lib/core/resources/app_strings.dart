@@ -94,6 +94,7 @@ class AppStrings {
   // Clients Screen
   static const String clientsScreenAddClientButton = 'إضافة عميل جديد';
   static const String clientsScreenClientsDetails = 'تفاصيل العملاء';
+  static const String clientsScreenAddMore = 'إضافة المزيد';
 
   // Add Client Screen
   static const String addClientScreenAddClient = 'إضافة عميل جديد';
