@@ -22,12 +22,15 @@ class AddProductTypeFormField extends StatefulWidget {
 class _AddProductTypeFormFieldState extends State<AddProductTypeFormField> {
 
   String text = AppStrings.addClientScreenProductTypeHint;
-  List<String> productTypes = [AppStrings.addClientScreenProductTypeHint];
+  List<String> productTypes = [];
 
   @override
   void initState() {
     super.initState();
     final state = BlocProvider.of<ClientsBloc>(context).state;
+    if (state.remoteProductsTypes.length > 1) {
+      productTypes.add(AppStrings.addClientScreenProductTypeHint);
+    }
     for (var element in state.remoteProductsTypes) {
       productTypes.add(element);
     }
@@ -43,7 +46,7 @@ class _AddProductTypeFormFieldState extends State<AddProductTypeFormField> {
             hint: AppStrings.addClientScreenProductTypeHint
         ),
         isExpanded: true,
-        value: widget.value,
+        value: productTypes.first,
         onChanged: (newValue) {
           setState(() {
             text = newValue ?? AppStrings.addClientScreenProductTypeHint;
