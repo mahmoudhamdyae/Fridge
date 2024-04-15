@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/auth/presentation/components/auth_app_bar.dart';
@@ -57,90 +58,93 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Center(
                   child: Form(
                     key: _formKey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          AppStrings.loginScreenWelcome,
-                          style: getLargeStyle(
-                            fontWeight: FontWeightManager.medium,
+                    child: AutofillGroup(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            AppStrings.loginScreenWelcome,
+                            style: getLargeStyle(
+                              fontWeight: FontWeightManager.medium,
+                            ),
                           ),
-                        ),
-                        4.ph,
-                        Text(
-                          AppStrings.loginScreenWelcomeDesc,
-                          style: getSmallStyle(),
-                        ),
-                        16.ph,
-                        Text(
-                          AppStrings.loginScreenPhoneLabel,
-                          style: getSmallStyle(
-                            fontWeight: FontWeightManager.medium,
+                          4.ph,
+                          Text(
+                            AppStrings.loginScreenWelcomeDesc,
+                            style: getSmallStyle(),
                           ),
-                        ),
-                        8.ph,
-                        PhoneFormField(phoneController: phoneController),
-                        16.ph,
-                        Text(
-                          AppStrings.loginScreenPasswordLabel,
-                          style: getSmallStyle(
-                            fontWeight: FontWeightManager.medium,
+                          16.ph,
+                          Text(
+                            AppStrings.loginScreenPhoneLabel,
+                            style: getSmallStyle(
+                              fontWeight: FontWeightManager.medium,
+                            ),
                           ),
-                        ),
-                        8.ph,
-                        PasswordFormField(
-                            passwordController: passwordController),
-                        8.ph,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              AppStrings.loginScreenForgotPassword,
-                              style: getSmallStyle(
-                                fontSize: 12,
-                                color: AppColors.colorRamps2,
+                          8.ph,
+                          PhoneFormField(phoneController: phoneController),
+                          16.ph,
+                          Text(
+                            AppStrings.loginScreenPasswordLabel,
+                            style: getSmallStyle(
+                              fontWeight: FontWeightManager.medium,
+                            ),
+                          ),
+                          8.ph,
+                          PasswordFormField(
+                              passwordController: passwordController),
+                          8.ph,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                AppStrings.loginScreenForgotPassword,
+                                style: getSmallStyle(
+                                  fontSize: 12,
+                                  color: AppColors.colorRamps2,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        24.ph,
-                        AuthButton(
-                          onTap: () {
-                            if (validate != null && validate == true) {
-                              showLoading(context);
-                              BlocProvider.of<AuthBloc>(context).add(LoginRequested(
-                                phoneController.text.trim(),
-                                passwordController.text.trim(),
-                              ));
-                            }
-                          }, text: AppStrings.loginScreenLoginButton,
-                        ),
-                        context.dynamicHeight(.21).ph,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              AppStrings.loginScreenNoAccount,
-                              style: getSmallStyle(),
-                            ),
-                            4.pw,
-                            TextButton(
-                                onPressed: () {
-                                  NavigateUtil().navigateToScreen(context, const RegisterScreen());
-                                },
-                                child: Text(
-                                  AppStrings.loginScreenNewAccount,
-                                  style: getSmallStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: AppColors.dark1
-                                  ),
-                                )
-                            ),
-                          ],
-                        ),
-                        16.ph
-                      ],
+                            ],
+                          ),
+                          24.ph,
+                          AuthButton(
+                            onTap: () {
+                              if (validate != null && validate == true) {
+                                TextInput.finishAutofillContext();
+                                showLoading(context);
+                                BlocProvider.of<AuthBloc>(context).add(LoginRequested(
+                                  phoneController.text.trim(),
+                                  passwordController.text.trim(),
+                                ));
+                              }
+                            }, text: AppStrings.loginScreenLoginButton,
+                          ),
+                          context.dynamicHeight(.21).ph,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                AppStrings.loginScreenNoAccount,
+                                style: getSmallStyle(),
+                              ),
+                              4.pw,
+                              TextButton(
+                                  onPressed: () {
+                                    NavigateUtil().navigateAndClear(context, const RegisterScreen());
+                                  },
+                                  child: Text(
+                                    AppStrings.loginScreenNewAccount,
+                                    style: getSmallStyle(
+                                        decoration: TextDecoration.underline,
+                                        color: AppColors.dark1
+                                    ),
+                                  )
+                              ),
+                            ],
+                          ),
+                          16.ph
+                        ],
+                      ),
                     ),
                   ),
                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/auth/presentation/components/auth_app_bar.dart';
@@ -63,107 +64,110 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Center(
                   child: Form(
                     key: _formKey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          AppStrings.registerScreenJoinNow,
-                          style: getLargeStyle(
-                            fontWeight: FontWeightManager.medium,
-                          ),
-                        ),
-                        4.ph,
-                        Text(
-                          AppStrings.registerScreenJoinNowDesc,
-                          style: getSmallStyle(),
-                        ),
-                        16.ph,
-                        Text(
-                          AppStrings.registerScreenNameLabel,
-                          style: getSmallStyle(
-                            fontWeight: FontWeightManager.medium,
-                          ),
-                        ),
-                        8.ph,
-                        NameFormField(nameController: nameController),
-                        16.ph,
-                        Text(
-                          AppStrings.registerScreenPhoneLabel,
-                          style: getSmallStyle(
-                            fontWeight: FontWeightManager.medium,
-                          ),
-                        ),
-                        8.ph,
-                        PhoneFormField(phoneController: phoneController),
-                        16.ph,
-                        Text(
-                          AppStrings.registerScreenPasswordLabel,
-                          style: getSmallStyle(
-                            fontWeight: FontWeightManager.medium,
-                          ),
-                        ),
-                        8.ph,
-                        PasswordFormField(
-                            passwordController: passwordController),
-                        16.ph,
-                        Text(
-                          AppStrings.registerScreenFridgeNameLabel,
-                          style: getSmallStyle(
-                            fontWeight: FontWeightManager.medium,
-                          ),
-                        ),
-                        8.ph,
-                        FridgeNameFormField(fridgeNameController: fridgeNameController),
-                        16.ph,
-                        Text(
-                          AppStrings.registerScreenAddressLabel,
-                          style: getSmallStyle(
-                            fontWeight: FontWeightManager.medium,
-                          ),
-                        ),
-                        8.ph,
-                        AddressFormField(addressController: addressController),
-                        24.ph,
-                        AuthButton(
-                          onTap: () {
-                            if (validate != null && validate == true) {
-                              showLoading(context);
-                              BlocProvider.of<AuthBloc>(context).add(RegisterRequested(
-                                nameController.text.trim(),
-                                phoneController.text.trim(),
-                                passwordController.text.trim(),
-                                addressController.text.trim(),
-                                fridgeNameController.text.trim(),
-                              ));
-                            }
-                          }, text: AppStrings.registerScreenRegisterButton,
-                        ),
-                        8.ph,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              AppStrings.registerScreenExistingAccount,
-                              style: getSmallStyle(),
+                    child: AutofillGroup(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            AppStrings.registerScreenJoinNow,
+                            style: getLargeStyle(
+                              fontWeight: FontWeightManager.medium,
                             ),
-                            4.pw,
-                            TextButton(
-                                onPressed: () {
-                                  NavigateUtil().navigateToScreen(context, const LoginScreen());
-                                },
-                                child: Text(
-                                  AppStrings.registerScreenLogin,
-                                  style: getSmallStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: AppColors.dark1
-                                  ),
-                                )
+                          ),
+                          4.ph,
+                          Text(
+                            AppStrings.registerScreenJoinNowDesc,
+                            style: getSmallStyle(),
+                          ),
+                          16.ph,
+                          Text(
+                            AppStrings.registerScreenNameLabel,
+                            style: getSmallStyle(
+                              fontWeight: FontWeightManager.medium,
                             ),
-                          ],
-                        ),
-                        16.ph
-                      ],
+                          ),
+                          8.ph,
+                          NameFormField(nameController: nameController),
+                          16.ph,
+                          Text(
+                            AppStrings.registerScreenPhoneLabel,
+                            style: getSmallStyle(
+                              fontWeight: FontWeightManager.medium,
+                            ),
+                          ),
+                          8.ph,
+                          PhoneFormField(phoneController: phoneController),
+                          16.ph,
+                          Text(
+                            AppStrings.registerScreenPasswordLabel,
+                            style: getSmallStyle(
+                              fontWeight: FontWeightManager.medium,
+                            ),
+                          ),
+                          8.ph,
+                          PasswordFormField(
+                              passwordController: passwordController),
+                          16.ph,
+                          Text(
+                            AppStrings.registerScreenFridgeNameLabel,
+                            style: getSmallStyle(
+                              fontWeight: FontWeightManager.medium,
+                            ),
+                          ),
+                          8.ph,
+                          FridgeNameFormField(fridgeNameController: fridgeNameController),
+                          16.ph,
+                          Text(
+                            AppStrings.registerScreenAddressLabel,
+                            style: getSmallStyle(
+                              fontWeight: FontWeightManager.medium,
+                            ),
+                          ),
+                          8.ph,
+                          AddressFormField(addressController: addressController),
+                          24.ph,
+                          AuthButton(
+                            onTap: () {
+                              if (validate != null && validate == true) {
+                                TextInput.finishAutofillContext();
+                                showLoading(context);
+                                BlocProvider.of<AuthBloc>(context).add(RegisterRequested(
+                                  nameController.text.trim(),
+                                  phoneController.text.trim(),
+                                  passwordController.text.trim(),
+                                  addressController.text.trim(),
+                                  fridgeNameController.text.trim(),
+                                ));
+                              }
+                            }, text: AppStrings.registerScreenRegisterButton,
+                          ),
+                          8.ph,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                AppStrings.registerScreenExistingAccount,
+                                style: getSmallStyle(),
+                              ),
+                              4.pw,
+                              TextButton(
+                                  onPressed: () {
+                                    NavigateUtil().navigateAndClear(context, const LoginScreen());
+                                  },
+                                  child: Text(
+                                    AppStrings.registerScreenLogin,
+                                    style: getSmallStyle(
+                                        decoration: TextDecoration.underline,
+                                        color: AppColors.dark1
+                                    ),
+                                  )
+                              ),
+                            ],
+                          ),
+                          16.ph
+                        ],
+                      ),
                     ),
                   ),
                 ),
