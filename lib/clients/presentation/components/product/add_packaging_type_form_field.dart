@@ -22,7 +22,7 @@ class AddPackagingTypeFormField extends StatefulWidget {
 class _AddProductTypeFormFieldState extends State<AddPackagingTypeFormField> {
 
   String text = AppStrings.addClientScreenPackagingTypeHint;
-  List<String> productTypes = [];
+  List<String> packagingTypes = [];
 
   @override
   void initState() {
@@ -30,10 +30,10 @@ class _AddProductTypeFormFieldState extends State<AddPackagingTypeFormField> {
     final state = BlocProvider.of<ClientsBloc>(context).state;
 
     if (state.remotePackagingTypes.length > 1) {
-      productTypes.add(AppStrings.addClientScreenPackagingTypeHint);
+      packagingTypes.add(AppStrings.addClientScreenPackagingTypeHint);
     }
     for (var element in state.remotePackagingTypes) {
-      productTypes.add(element);
+      packagingTypes.add(element);
     }
   }
 
@@ -47,7 +47,7 @@ class _AddProductTypeFormFieldState extends State<AddPackagingTypeFormField> {
             hint: AppStrings.addClientScreenPackagingTypeHint
         ),
         isExpanded: true,
-        value: productTypes.first,
+        value: packagingTypes.first,
         onChanged: (newValue) {
           setState(() {
             text = newValue ?? AppStrings.addClientScreenPackagingTypeHint;
@@ -55,7 +55,7 @@ class _AddProductTypeFormFieldState extends State<AddPackagingTypeFormField> {
           widget.chosenType(newValue ?? AppStrings.addClientScreenPackagingTypeHint);
         },
         style: getSmallStyle(),
-        items: productTypes.map((unit) {
+        items: packagingTypes.map((unit) {
           return DropdownMenuItem(
             value: unit,
             child: Text(
