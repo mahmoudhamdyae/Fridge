@@ -13,7 +13,7 @@ abstract class ExpensesRemoteDataSource {
   final DioManager dioManager;
   ExpensesRemoteDataSource(this.dioManager);
 
-  Future<void> storeExpenses(String title, String date, String description, String amount);
+  Future<void> storeExpenses(int expenseTypeId, String description, String amount);
   Future<List<ExpensesResponse>> getExpenses();
   Future<List<ExpenseTypeModel>> getExpenseTypes();
 }
@@ -22,16 +22,15 @@ class ExpensesRemoteDataSourceImpl extends ExpensesRemoteDataSource {
   ExpensesRemoteDataSourceImpl(super.dioManager);
 
   @override
-  Future<void> storeExpenses(String title, String date, String description, String amount) async {
+  Future<void> storeExpenses(int expenseTypeId, String description, String amount) async {
     try {
       await dioManager.dio.post(
           ApiConstants.storeExpensePath,
           data: ExpensesRequestModel(
-            title: title,
-            date: date,
-            description: description,
-            amount: amount
-        ).toJson()
+              expenseTypeId: expenseTypeId,
+              description: description,
+              amount: amount
+          ).toJson()
       );
     } on DioException catch (error) {
       if (error.response != null) {

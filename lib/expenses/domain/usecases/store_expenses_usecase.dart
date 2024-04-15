@@ -6,7 +6,7 @@ class StoreExpensesUsecase {
   final ExpensesRepository repository;
   StoreExpensesUsecase(this.repository);
 
-  Future<Either<Failure, void>> call(String title, String date, String description, String amount) async {
-    return await repository.storeExpenses(title, date, description, amount);
+  Future<Either<Failure, void>> call(int expenseTypeId, String description, String amount) async {
+    return await repository.storeExpenses(expenseTypeId, description, amount);
   }
 }

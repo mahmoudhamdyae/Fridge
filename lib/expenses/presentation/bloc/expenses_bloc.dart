@@ -48,8 +48,7 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
   Future<void> _storeExpenses(StoreExpensesEvent event, Emitter<ExpensesState> emit) async {
     emit(StoreExpenseLoadingState());
     final result = await _storeExpensesUsecase.call(
-        event.title,
-        event.date,
+        event.expenseTypeId,
         event.description,
         event.amount
     );

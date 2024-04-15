@@ -9,7 +9,7 @@ abstract class ExpensesRepository {
   final ExpensesRemoteDataSource remoteDataSource;
   ExpensesRepository(this.remoteDataSource);
 
-  Future<Either<Failure, void>> storeExpenses(String title, String date, String description, String amount);
+  Future<Either<Failure, void>> storeExpenses(int expenseTypeId, String description, String amount);
   Future<Either<Failure, List<ExpensesResponse>>> getExpenses();
   Future<Either<Failure, List<ExpenseType>>> getExpenseTypes();
 }

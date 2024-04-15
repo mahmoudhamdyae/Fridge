@@ -10,9 +10,9 @@ class ExpensesRepositoryImpl extends ExpensesRepository {
   ExpensesRepositoryImpl(super.remoteDataSource);
 
   @override
-  Future<Either<Failure, void>> storeExpenses(String title, String date, String description, String amount) async {
+  Future<Either<Failure, void>> storeExpenses(int expenseTypeId, String description, String amount) async {
     try {
-      await remoteDataSource.storeExpenses(title, date, description, amount);
+      await remoteDataSource.storeExpenses(expenseTypeId, description, amount);
       return const Right(null);
     } on ServerException catch(failure) {
       return Left(ServerFailure(failure.errorMessageModel.message));

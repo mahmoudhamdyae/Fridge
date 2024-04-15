@@ -9,13 +9,12 @@ abstract class ExpensesEvent extends Equatable {
 class GetExpensesEvent extends ExpensesEvent {}
 
 class StoreExpensesEvent extends ExpensesEvent {
-  final String title;
-  final String date;
+  final int expenseTypeId;
   final String description;
   final String amount;
 
-  StoreExpensesEvent(this.title, this.date, this.description, this.amount);
+  StoreExpensesEvent(this.expenseTypeId, this.description, this.amount);
 
   @override
-  List<Object> get props => [title, date, description, amount];
+  List<Object> get props => [expenseTypeId, description, amount];
 }

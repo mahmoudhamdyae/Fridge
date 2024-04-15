@@ -29,7 +29,6 @@ class AddExpenseScreen extends StatefulWidget {
 class _AddExpenseScreenState extends State<AddExpenseScreen> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController dateController = TextEditingController();
   ExpenseType? chosenType;
   TextEditingController detailsController = TextEditingController();
   TextEditingController priceController = TextEditingController();
@@ -166,10 +165,10 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     showLoading(context);
                     BlocProvider.of<ExpensesBloc>(context).add(
                         StoreExpensesEvent(
-                            chosenType?.id.toString() ?? '',
-                            dateController.text,
+                            chosenType?.id ?? -1,
                             detailsController.text,
-                            priceController.text));
+                            priceController.text,
+                        ));
                   }
                 }),
                 const BackButton2(),
