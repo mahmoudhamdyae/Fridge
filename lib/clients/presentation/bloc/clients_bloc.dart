@@ -112,9 +112,9 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
       productToAdd: ProductToAdd(
         productType: event.productType,
         packagingType: event.packagingType,
-        number: event.number,
-        unitWeight: event.unitWeight,
-        totalWeight: event.totalWeight,
+        number: int.parse(event.number),
+        unitWeight: int.parse(event.unitWeight),
+        totalWeight: int.parse(event.totalWeight),
         price: event.price,
       )
     ));

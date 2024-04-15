@@ -54,6 +54,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _formKey,
       child: ListView(
         shrinkWrap: true,
         physics: const ClampingScrollPhysics(),
@@ -192,42 +193,19 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       productPriceController: priceController)),
             ],
           ),
-          // 32.ph,
-          // InkWell(
-          //   onTap: () {},
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     children: [
-          //       const Icon(
-          //         Icons.add,
-          //         color: Color(0xff193263),
-          //         size: 16.0,
-          //       ),
-          //       4.pw,
-          //       Text(
-          //         AppStrings.addClientScreenAddProduct,
-          //         style: getSmallStyle(
-          //           fontWeight: FontWeightManager.medium,
-          //           fontSize: 14.0,
-          //           color: const Color(0xff193263),
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
           32.ph,
           NextButton(onClick: () {
-            // if (validate != null && validate == true) {
-            BlocProvider.of<ClientsBloc>(context).add(AddProductEvent(
-              chosenProductType,
-              chosenPackagingType,
-              int.parse(numberController.text),
-              int.parse(unitWeightController.text),
-              int.parse(totalWeightController.text),
-              double.parse(priceController.text),
-            ));
-            widget.moveForward(chosenProductType);
-            // }
+            if (validate != null && validate == true) {
+              BlocProvider.of<ClientsBloc>(context).add(AddProductEvent(
+                chosenProductType,
+                chosenPackagingType,
+                numberController.text,
+                unitWeightController.text,
+                totalWeightController.text,
+                double.parse(priceController.text),
+              ));
+              widget.moveForward(chosenProductType);
+            }
           }),
           const CancelButton(),
         ],
