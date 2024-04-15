@@ -55,10 +55,7 @@ class _ClientPhoneFormFieldState extends State<ClientPhoneFormField> {
 
   @override
   Widget build(BuildContext context) {
-    return
-
-
-      TypeAheadField<CustomContact>(
+    return TypeAheadField<CustomContact>(
         suggestionsCallback: (search) {
           return customContacts.where((contact) {
             return contact.name.toLowerCase().contains(search.toLowerCase()) ||
@@ -83,20 +80,6 @@ class _ClientPhoneFormFieldState extends State<ClientPhoneFormField> {
         onSelected: (contact) {
           widget.clientPhoneController.text = contact.phone;
         },
-      )
-
-
-
-
-
-      /*TextFormField(
-      decoration: getFilledTextFieldDecorationWithLabel(
-        label: AppStrings.addClientScreenClientPhoneLabel,
-      ),
-      controller: widget.clientPhoneController,
-      textInputAction: TextInputAction.next,
-      keyboardType: TextInputType.number,
-      validator: (value) => ValidateOperations.normalValidation(value),
-    )*/;
+      );
   }
 }
