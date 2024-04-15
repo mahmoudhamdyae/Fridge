@@ -12,7 +12,6 @@ import '../../../core/resources/font_manager.dart';
 import '../../../core/resources/styles_manager.dart';
 import '../../../ward/presentation/components/back_button.dart';
 import '../bloc/expenses_bloc.dart';
-import '../components/date_form_field.dart';
 import '../components/details_form_field.dart';
 import '../components/price_form_field.dart';
 import '../components/register_button.dart';
@@ -58,30 +57,33 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                   style: getLargeStyle(fontSize: 20),
                 ),
                 32.ph,
+                // Row(
+                //   children: [
+                //     Text(
+                //       AppStrings.expensesScreenDateLabel,
+                //       style: getSmallStyle(
+                //         fontWeight: FontWeightManager.medium,
+                //         fontSize: 18,
+                //       ),
+                //     ),
+                //     16.pw,
+                //     Expanded(
+                //         child: DateFormField(
+                //           dateController: dateController,
+                //         )),
+                //   ],
+                // ),
+                // 16.ph,
                 Row(
                   children: [
-                    Text(
-                      AppStrings.expensesScreenDateLabel,
-                      style: getSmallStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: 18,
-                      ),
-                    ),
-                    16.pw,
-                    Expanded(
-                        child: DateFormField(
-                          dateController: dateController,
-                        )),
-                  ],
-                ),
-                16.ph,
-                Row(
-                  children: [
-                    Text(
-                      AppStrings.expensesScreenTypeLabel,
-                      style: getSmallStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: 18,
+                    SizedBox(
+                      width: 50,
+                      child: Text(
+                        AppStrings.expensesScreenTypeLabel,
+                        style: getSmallStyle(
+                          fontWeight: FontWeightManager.medium,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                     16.pw,
@@ -97,11 +99,14 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          AppStrings.expensesScreenDetailsLabel,
-                          style: getSmallStyle(
-                            fontWeight: FontWeightManager.medium,
-                            fontSize: 18,
+                        SizedBox(
+                          width: 50,
+                          child: Text(
+                            AppStrings.expensesScreenDetailsLabel,
+                            style: getSmallStyle(
+                              fontWeight: FontWeightManager.medium,
+                              fontSize: 18,
+                            ),
                           ),
                         ),
                         16.pw,
@@ -124,11 +129,14 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                 16.ph,
                 Row(
                   children: [
-                    Text(
-                      AppStrings.expensesScreenPriceLabel,
-                      style: getSmallStyle(
-                        fontWeight: FontWeightManager.medium,
-                        fontSize: 18,
+                    SizedBox(
+                      width: 50,
+                      child: Text(
+                        AppStrings.expensesScreenPriceLabel,
+                        style: getSmallStyle(
+                          fontWeight: FontWeightManager.medium,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                     16.pw,
