@@ -2,9 +2,10 @@ part of 'expenses_bloc.dart';
 
 @immutable
 class ExpensesState extends Equatable {
-  const ExpensesState();
+  final List<ExpenseType> types;
+  const ExpensesState({this.types = const []});
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [types];
 }
 
 /// Get Expenses
@@ -22,7 +23,7 @@ class GetExpensesErrorState extends ExpensesState {
 
 class GetExpensesLoadedState extends ExpensesState {
   final List<ExpensesResponse> expenses;
-  const GetExpensesLoadedState(this.expenses);
+  const GetExpensesLoadedState({required this.expenses, required super.types});
   @override
   List<Object?> get props => [expenses];
 }

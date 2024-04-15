@@ -48,6 +48,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../auth/presentation/bloc/auth_bloc.dart';
 import '../../clients/data/repository/client_repository_impl.dart';
+import '../../expenses/domain/usecases/get_expenses_type_usecase.dart';
 import '../../expenses/presentation/bloc/expenses_bloc.dart';
 import '../../home/data/repository/home_repository_impl.dart';
 import '../../reports/data/repository/reports_repository_impl.dart';
@@ -179,10 +180,12 @@ class ServicesLocator {
     instance.registerLazySingleton(() => ExpensesBloc(
       instance<GetExpensesUsecase>(),
       instance<StoreExpensesUsecase>(),
+      instance<GetExpensesTypeUsecase>(),
     ));
     // Use Cases
     instance.registerLazySingleton(() => StoreExpensesUsecase(instance<ExpensesRepository>()));
     instance.registerLazySingleton(() => GetExpensesUsecase(instance<ExpensesRepository>()));
+    instance.registerLazySingleton(() => GetExpensesTypeUsecase(instance<ExpensesRepository>()));
     // Repository
     instance.registerLazySingleton<ExpensesRepository>(
             () => ExpensesRepositoryImpl(instance<ExpensesRemoteDataSource>()));

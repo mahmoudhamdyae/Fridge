@@ -4,6 +4,7 @@ import 'package:fridge/expenses/domain/entities/expenses_response.dart';
 import 'package:fridge/expenses/domain/repository/expenses_repository.dart';
 
 import '../../../core/error/exceptions.dart';
+import '../../domain/entities/expense_type.dart';
 
 class ExpensesRepositoryImpl extends ExpensesRepository {
   ExpensesRepositoryImpl(super.remoteDataSource);
@@ -22,6 +23,16 @@ class ExpensesRepositoryImpl extends ExpensesRepository {
   Future<Either<Failure, List<ExpensesResponse>>> getExpenses() async {
     try {
       var result = await remoteDataSource.getExpenses();
+      return Right(result);
+    } on ServerException catch(failure) {
+      return Left(ServerFailure(failure.errorMessageModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<ExpenseType>>> getExpenseTypes() async {
+    try {
+      var result = await remoteDataSource.getExpenseTypes();
       return Right(result);
     } on ServerException catch(failure) {
       return Left(ServerFailure(failure.errorMessageModel.message));
