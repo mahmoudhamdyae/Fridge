@@ -49,6 +49,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
         AppStrings.addClientScreenProductTypeHint;
     chosenPackagingType = state.productToAdd.packagingType ??
         AppStrings.addClientScreenPackagingTypeHint;
+
+    if (state.remotePackagingTypes.length == 1) {
+      chosenPackagingType = state.remotePackagingTypes.first;
+    }
+    if (state.remoteProductsTypes.length == 1) {
+      chosenProductType = state.remoteProductsTypes.first;
+    }
   }
 
   @override
@@ -78,7 +85,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
               16.pw,
               Expanded(
                   child: AddPackagingTypeFormField(
-                    value: chosenPackagingType,
                     chosenType: (chosenType) {
                       setState(() {
                         chosenPackagingType = chosenType;
@@ -103,7 +109,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
               16.pw,
               Expanded(
                   child: AddProductTypeFormField(
-                value: chosenProductType,
                 chosenType: (chosenType) {
                   setState(() {
                     chosenProductType = chosenType;

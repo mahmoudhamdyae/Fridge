@@ -9,10 +9,9 @@ import '../../../../core/utils/validate_operations.dart';
 class AddProductTypeFormField extends StatefulWidget {
 
   final Function(String) chosenType;
-  final String value;
   const AddProductTypeFormField({
     super.key,
-    required this.chosenType, required this.value,
+    required this.chosenType,
   });
 
   @override
@@ -30,6 +29,8 @@ class _AddProductTypeFormFieldState extends State<AddProductTypeFormField> {
     final state = BlocProvider.of<ClientsBloc>(context).state;
     if (state.remoteProductsTypes.length > 1) {
       productTypes.add(AppStrings.addClientScreenProductTypeHint);
+    } else {
+      text = state.remoteProductsTypes.firstOrNull ?? AppStrings.addClientScreenProductTypeHint;
     }
     for (var element in state.remoteProductsTypes) {
       productTypes.add(element);
@@ -50,8 +51,8 @@ class _AddProductTypeFormFieldState extends State<AddProductTypeFormField> {
         onChanged: (newValue) {
           setState(() {
             text = newValue ?? AppStrings.addClientScreenProductTypeHint;
+            widget.chosenType(newValue ?? AppStrings.addClientScreenProductTypeHint);
           });
-          widget.chosenType(newValue ?? AppStrings.addClientScreenProductTypeHint);
         },
         style: getSmallStyle(),
         items: productTypes.map((unit) {

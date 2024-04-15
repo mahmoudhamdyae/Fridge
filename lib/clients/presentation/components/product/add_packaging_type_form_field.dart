@@ -9,10 +9,9 @@ import '../../../../core/utils/validate_operations.dart';
 class AddPackagingTypeFormField extends StatefulWidget {
 
   final Function(String) chosenType;
-  final String value;
   const AddPackagingTypeFormField({
     super.key,
-    required this.chosenType, required this.value,
+    required this.chosenType,
   });
 
   @override
@@ -31,6 +30,8 @@ class _AddProductTypeFormFieldState extends State<AddPackagingTypeFormField> {
 
     if (state.remotePackagingTypes.length > 1) {
       packagingTypes.add(AppStrings.addClientScreenPackagingTypeHint);
+    } else {
+      text = state.remotePackagingTypes.firstOrNull ?? AppStrings.addClientScreenPackagingTypeHint;
     }
     for (var element in state.remotePackagingTypes) {
       packagingTypes.add(element);
@@ -51,8 +52,8 @@ class _AddProductTypeFormFieldState extends State<AddPackagingTypeFormField> {
         onChanged: (newValue) {
           setState(() {
             text = newValue ?? AppStrings.addClientScreenPackagingTypeHint;
+            widget.chosenType(newValue ?? AppStrings.addClientScreenPackagingTypeHint);
           });
-          widget.chosenType(newValue ?? AppStrings.addClientScreenPackagingTypeHint);
         },
         style: getSmallStyle(),
         items: packagingTypes.map((unit) {
