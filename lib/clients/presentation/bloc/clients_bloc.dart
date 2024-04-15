@@ -198,6 +198,13 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
         addClientState: RequestState.loaded,
         clients: clients,
         searchedClients: clients,
+        clientName: '',
+        clientPhone: '',
+        clientAddress: '',
+        clientType: 0,
+        productToAdd: const ProductToAdd(),
+        x: 0,
+        y: 0,
       ));
     });
   }
