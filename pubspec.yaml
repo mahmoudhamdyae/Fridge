@@ -51,6 +51,8 @@ dependencies:
   linear_progress_bar: ^1.1.1
   connectivity_plus: ^6.0.1
   fl_chart: ^0.67.0
+  flutter_contacts: ^1.1.7+1
+  flutter_typeahead: ^5.2.0
 
 dev_dependencies:
   flutter_test:
