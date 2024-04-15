@@ -42,17 +42,13 @@ class _ChooseWardSecondScreenState extends State<ChooseWardSecondScreen> {
         List<Store> stores = state.stores;
         List<int> indexes = [];
         Map<int, Store> map = {};
-        debugPrint('=========== stores ${stores.length}');
         for (var element in stores) {
           int x = (element.x ?? 0);
           int y = (element.y ?? 0);
           int width = state.ward.width ?? 1;
-          int height = state.ward.height ?? 1;
-          debugPrint('========= x $x y $y width $width height $height');
           int newIndex = (x) * width + (y);
           indexes.add(newIndex);
           map[newIndex] = element;
-          debugPrint('=========== new $newIndex');
         }
         return ListView(
           shrinkWrap: true,

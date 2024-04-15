@@ -13,7 +13,9 @@ import '../../../core/components/decorations.dart';
 import '../../../core/navigation/navigate_util.dart';
 
 class AddClientTabsScreen extends StatefulWidget {
-  const AddClientTabsScreen({super.key});
+
+  final int currentTab;
+  const AddClientTabsScreen({super.key, this.currentTab = 0});
 
   @override
   State<AddClientTabsScreen> createState() => _AddClientTabsScreenState();
@@ -21,8 +23,14 @@ class AddClientTabsScreen extends StatefulWidget {
 
 class _AddClientTabsScreenState extends State<AddClientTabsScreen> {
 
-  int currentTab = 0;
+  late int currentTab;
   String productType = '';
+
+  @override
+  void initState() {
+    super.initState();
+    currentTab = widget.currentTab;
+  }
 
   @override
   Widget build(BuildContext context) {

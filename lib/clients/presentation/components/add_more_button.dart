@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fridge/clients/domain/entities/client.dart';
+import 'package:fridge/clients/presentation/bloc/clients_bloc.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 
 import '../../../core/resources/app_colors.dart';
 import '../../../core/resources/styles_manager.dart';
 
 class AddMoreButton extends StatelessWidget {
-  const AddMoreButton({super.key});
+
+  final Client client;
+  const AddMoreButton({super.key, required this.client});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => {
+      onTap: () {
+        BlocProvider.of<ClientsBloc>(context).add(AddClientEvent(
+          client.type == 1,
+          client.name ?? '',
+          client.phone ?? '',
+          client.address,
+        ));
       },
       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
       child: Container(

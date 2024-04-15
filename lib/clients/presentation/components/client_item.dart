@@ -95,7 +95,7 @@ class ClientItem extends StatelessWidget {
                 8.ph,
                 SizedBox(
                     width: context.width - 90,
-                    child: const AddMoreButton()
+                    child: AddMoreButton(client: client,)
                 ),
                 8.ph,
               ],
