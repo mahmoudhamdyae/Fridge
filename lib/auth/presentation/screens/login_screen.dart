@@ -119,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               }
                             }, text: AppStrings.loginScreenLoginButton,
                           ),
-                          context.dynamicHeight(.21).ph,
+                          context.dynamicHeight(.1).ph,
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -142,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ],
                           ),
-                          16.ph
+                          context.dynamicHeight(.1).ph
                         ],
                       ),
                     ),
