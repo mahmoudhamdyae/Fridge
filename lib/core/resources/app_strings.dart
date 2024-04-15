@@ -84,7 +84,7 @@ class AppStrings {
   static const String bottomBarReports = 'تقارير';
 
   // Home Screen
-  static const String homeScreenSearchHint = 'ابحث باسم المنتج أو العميل';
+  static const String homeScreenSearchHint = 'ابحث باسم العميل أو رقم الهاتف';
   static const String homeScreenClients = 'العملاء';
   static const String homeScreenSettings = 'الإعدادات';
   static const String homeScreenWards = 'عنبر';

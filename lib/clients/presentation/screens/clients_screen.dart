@@ -69,6 +69,27 @@ class _ClientsScreenState extends State<ClientsScreen> {
                       );
                     },), const ClientDetailsButton()],
                   ),
+                  24.ph,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: TextFormField(
+                      decoration: getFilledTextFieldDecoration(
+                        hint: AppStrings.homeScreenSearchHint,
+                        radius: 20.0,
+                        prefixIcon: Icons.search,
+                        textStyle: getSmallStyle(
+                            fontSize: 12.0,
+                            fontWeight: FontWeightManager.medium,
+                            color: AppColors.dark2
+                        )
+                      ),
+                      textInputAction: TextInputAction.done,
+                      keyboardType: TextInputType.text,
+                      onChanged: (value) {
+                        bloc.add(SearchClientsEvent(value));
+                      },
+                    ),
+                  ),
                   16.ph,
                   BlocBuilder<ClientsBloc, ClientsState>(
                     builder: (context, state) {
@@ -80,9 +101,9 @@ class _ClientsScreenState extends State<ClientsScreen> {
                       return ListView.builder(
                         shrinkWrap: true,
                         physics: const ClampingScrollPhysics(),
-                        itemCount: state.clients.length,
+                        itemCount: state.searchedClients.length,
                         itemBuilder: (BuildContext context, int index) {
-                          Client client = state.clients[index];
+                          Client client = state.searchedClients[index];
                           return Card(
                             margin: const EdgeInsets.all(8.0),
                             elevation: 8,

@@ -3,6 +3,7 @@ part of 'clients_bloc.dart';
 class ClientsState extends Equatable {
 
   final List<Client> clients;
+  final List<Client> searchedClients;
   final RequestState getClientsState;
   final String getClientsErrorMessage;
 
@@ -33,6 +34,7 @@ class ClientsState extends Equatable {
 
   const ClientsState({
     this.clients = const [],
+    this.searchedClients = const [],
     this.getClientsState = RequestState.loading,
     this.getClientsErrorMessage = '',
     this.remoteProductsTypes = const [],
@@ -57,6 +59,7 @@ class ClientsState extends Equatable {
 
   ClientsState copyWith({
     List<Client>? clients,
+    List<Client>? searchedClients,
     RequestState? getClientsState,
     String? getClientsErrorMessage,
     List<dynamic>? remoteProductsTypes,
@@ -80,6 +83,7 @@ class ClientsState extends Equatable {
   }) {
     return ClientsState(
       clients: clients ?? this.clients,
+      searchedClients: searchedClients ?? this.searchedClients,
       getClientsState: getClientsState ?? this.getClientsState,
       getClientsErrorMessage: getClientsErrorMessage ?? this.getClientsErrorMessage,
       remoteProductsTypes: remoteProductsTypes ?? this.remoteProductsTypes,
@@ -105,7 +109,7 @@ class ClientsState extends Equatable {
 
   @override
   List<Object> get props => [
-    clients, getClientsState, getClientsErrorMessage,
+    clients, searchedClients, getClientsState, getClientsErrorMessage,
     remoteProductsTypes, remotePackagingTypes, remotePrice,
     wards, ward,
     clientName, clientPhone, clientAddress, clientType,

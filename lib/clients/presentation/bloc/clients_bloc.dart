@@ -38,6 +38,10 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
       await _getClients(event, emit);
     });
 
+    on<SearchClientsEvent>((event, emit) async {
+      await _searchClients(event, emit);
+    });
+
     on<AddClientEvent>((event, emit) async {
       await _addClient(event, emit);
     });
@@ -70,6 +74,7 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
     }, (clients) {
       emit(state.copyWith(
         clients: clients,
+        searchedClients: clients,
         getClientsState: RequestState.loaded,
       ));
     });
@@ -192,7 +197,20 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
       emit(state.copyWith(
         addClientState: RequestState.loaded,
         clients: clients,
+        searchedClients: clients,
       ));
     });
+  }
+
+  Future<void> _searchClients(SearchClientsEvent event, Emitter<ClientsState> emit) async {
+    String search = event.search;
+    var clients = state.clients.where((element) =>
+        element.name!.contains(search) || element.phone!.contains(search)
+    );
+    emit(
+      state.copyWith(
+        searchedClients: clients.toList()
+      )
+    );
   }
 }

@@ -7,6 +7,13 @@ abstract class ClientsEvent extends Equatable {
 
 class GetClientsEvent extends ClientsEvent {}
 
+class SearchClientsEvent extends ClientsEvent {
+  final String search;
+  SearchClientsEvent(this.search);
+  @override
+  List<Object?> get props => [search];
+}
+
 class AddClientEvent extends ClientsEvent {
   final bool isTrader;
   final String clientName;
