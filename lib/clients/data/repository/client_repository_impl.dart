@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:fridge/clients/data/models/add_client_request.dart';
+import 'package:fridge/clients/data/models/client_invoice.dart';
 import 'package:fridge/core/error/exceptions.dart';
 
 import '../../../core/error/failure.dart';
@@ -24,6 +25,16 @@ class ClientRepositoryImpl extends ClientRepository {
     try {
       await remoteDataSource.addClient(request);
       return const Right(null);
+    } on ServerException catch (error) {
+      return Left(ServerFailure(error.errorMessageModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ClientInvoiceData>> getClientInvoice(int clientId) async {
+    try {
+      var response = await remoteDataSource.getClientInvoice(clientId);
+      return Right(response);
     } on ServerException catch (error) {
       return Left(ServerFailure(error.errorMessageModel.message));
     }

@@ -32,6 +32,10 @@ class ClientsState extends Equatable {
   final RequestState getStoresState;
   final String getStoresErrorMessage;
 
+  final ClientInvoiceData invoice;
+  final RequestState getInvoiceState;
+  final String getClientInvoiceMessage;
+
   const ClientsState({
     this.clients = const [],
     this.searchedClients = const [],
@@ -54,7 +58,10 @@ class ClientsState extends Equatable {
     this.stores = const [],
     this.customMap = const {},
     this.getStoresState = RequestState.init,
-    this.getStoresErrorMessage = ''
+    this.getStoresErrorMessage = '',
+    this.invoice = const ClientInvoiceData(),
+    this.getInvoiceState = RequestState.init,
+    this.getClientInvoiceMessage = ''
 });
 
   ClientsState copyWith({
@@ -79,7 +86,10 @@ class ClientsState extends Equatable {
     List<Store>? stores,
     Map<String, List<CustomCustomer>>? customMap,
     RequestState? getStoresState,
-    String? getStoresErrorMessage
+    String? getStoresErrorMessage,
+    ClientInvoiceData? invoice,
+    RequestState? getInvoiceState,
+    String? getClientInvoiceMessage
   }) {
     return ClientsState(
       clients: clients ?? this.clients,
@@ -103,7 +113,10 @@ class ClientsState extends Equatable {
       stores: stores ?? this.stores,
       customMap: customMap ?? this.customMap,
       getStoresState: getStoresState ?? this.getStoresState,
-      getStoresErrorMessage: getStoresErrorMessage ?? this.getStoresErrorMessage
+      getStoresErrorMessage: getStoresErrorMessage ?? this.getStoresErrorMessage,
+      invoice: invoice ?? this.invoice,
+      getInvoiceState: getInvoiceState ?? this.getInvoiceState,
+      getClientInvoiceMessage: getClientInvoiceMessage ?? this.getClientInvoiceMessage
     );
   }
 
@@ -116,6 +129,7 @@ class ClientsState extends Equatable {
     productToAdd,
     x, y,
     addClientState, addClientErrorMessage,
-    stores, customMap, getStoresState, getStoresErrorMessage
+    stores, customMap, getStoresState, getStoresErrorMessage,
+    invoice, getInvoiceState, getClientInvoiceMessage
   ];
 }

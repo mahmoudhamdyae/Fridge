@@ -7,6 +7,7 @@ import 'package:fridge/core/network/dio_manager.dart';
 import '../../../core/error/error_message_model.dart';
 import '../../../core/error/exceptions.dart';
 import '../../../core/network/api_constants.dart';
+import '../models/client_invoice.dart';
 
 abstract class ClientRemoteDataSource {
   final DioManager dioManager;
@@ -14,6 +15,7 @@ abstract class ClientRemoteDataSource {
 
   Future<List<Client>> getClients();
   Future<void> addClient(AddClientRequest request);
+  Future<ClientInvoiceData> getClientInvoice(int clientId);
 }
 
 class ClientRemoteDataSourceImpl extends ClientRemoteDataSource {
@@ -45,6 +47,25 @@ class ClientRemoteDataSourceImpl extends ClientRemoteDataSource {
         ApiConstants.addClientPath,
         data: request.toJson(),
       );
+    }  on DioException catch (error) {
+      if (error.response != null) {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        // Error due to setting up or sending the request
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
+        );
+      }
+    }
+  }
+
+  @override
+  Future<ClientInvoiceData> getClientInvoice(int clientId) async {
+    try {
+      var result = await dioManager.dio.get(ApiConstants.getClientInvoicePath(clientId));
+      return ClientInvoiceResponse.fromJson(result.data).data!;
     }  on DioException catch (error) {
       if (error.response != null) {
         throw ServerException(

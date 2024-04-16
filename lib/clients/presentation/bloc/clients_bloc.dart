@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:fridge/clients/data/models/client_invoice.dart';
 import 'package:fridge/clients/data/models/client_model.dart';
 import 'package:fridge/clients/domain/entities/client.dart';
 import 'package:fridge/clients/domain/entities/product_to_add.dart';
@@ -14,6 +15,7 @@ import '../../../ward/domain/entities/ward.dart';
 import '../../../ward/domain/usecases/get_all_stores_usecase.dart';
 import '../../data/models/add_client_request.dart';
 import '../../domain/usecases/add_client_usecase.dart';
+import '../../domain/usecases/get_client_invoice_usecase.dart';
 import '../../domain/usecases/get_clients_usecase.dart';
 
 part 'clients_event.dart';
@@ -26,13 +28,15 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
   final GetClientsUsecase _getClientsUsecase;
   final AddClientUsecase _addClientUsecase;
   final GetAllStoresUsecase _getAllStoresUsecase;
+  final GetClientInvoiceUsecase _getClientInvoiceUsecase;
 
   ClientsBloc(
       this._getSettingsUsecase,
       this._getWardsUsecase,
       this._getClientsUsecase,
       this._addClientUsecase,
-      this._getAllStoresUsecase
+      this._getAllStoresUsecase,
+      this._getClientInvoiceUsecase,
       ) : super(const ClientsState()) {
     on<GetClientsEvent>((event, emit) async {
       await _getClients(event, emit);
@@ -60,6 +64,10 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
 
     on<FinishEvent>((event, emit) async {
       await _finish(event, emit);
+    });
+
+    on<GetClientInvoiceEvent>((event, emit) async {
+      await _getClientInvoice(event, emit);
     });
   }
 
@@ -219,5 +227,18 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
         searchedClients: clients.toList()
       )
     );
+  }
+
+  Future<void> _getClientInvoice(GetClientInvoiceEvent event, Emitter<ClientsState> emit) async {
+    emit(state.copyWith(getInvoiceState: RequestState.loading));
+    final result = await _getClientInvoiceUsecase.call(event.clientId);
+    result.fold((l) {
+      emit(state.copyWith(getInvoiceState: RequestState.error));
+    }, (invoice) {
+      emit(state.copyWith(
+        getInvoiceState: RequestState.loaded,
+        invoice: invoice,
+      ));
+    });
   }
 }

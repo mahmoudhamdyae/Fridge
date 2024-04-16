@@ -48,6 +48,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../auth/presentation/bloc/auth_bloc.dart';
 import '../../clients/data/repository/client_repository_impl.dart';
+import '../../clients/domain/usecases/get_client_invoice_usecase.dart';
 import '../../expenses/domain/usecases/del_expenses_type_usecase.dart';
 import '../../expenses/domain/usecases/get_expenses_type_usecase.dart';
 import '../../expenses/domain/usecases/store_expenses_type_usecase.dart';
@@ -165,10 +166,12 @@ class ServicesLocator {
       instance<GetClientsUsecase>(),
       instance<AddClientUsecase>(),
       instance<GetAllStoresUsecase>(),
+      instance<GetClientInvoiceUsecase>(),
     ));
     // Use Cases
     instance.registerLazySingleton(() => GetClientsUsecase(instance<ClientRepository>()));
     instance.registerLazySingleton(() => AddClientUsecase(instance<ClientRepository>()));
+    instance.registerLazySingleton(() => GetClientInvoiceUsecase(instance<ClientRepository>()));
     // Repository
     instance.registerLazySingleton<ClientRepository>(
             () => ClientRepositoryImpl(instance<ClientRemoteDataSource>()));
