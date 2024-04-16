@@ -65,7 +65,7 @@ class _WeekTabState extends State<WeekTab> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'ssss ${AppStrings.egp}',
+                      '${state.weeks.totalIncome} ${AppStrings.egp}',
                       style: getLargeStyle(
                           fontSize: 20,
                           color: const Color(0xff193263)
@@ -97,7 +97,7 @@ class _WeekTabState extends State<WeekTab> {
                 ),
               ),
               16.ph,
-              const ExpensesBox(expenses: 12.000),
+              ExpensesBox(expenses: state.weeks.totalExpense ?? 0),
             ],
           );
         }
@@ -194,12 +194,12 @@ class _WeekTabState extends State<WeekTab> {
       );
 
   List<BarChartGroupData> barGroups(GetWeekLoadedState state) =>
-      List.generate(state.weeks.length, (index) {
+      List.generate(state.weeks.chart?.length ?? 0, (index) {
         return BarChartGroupData(
           x: index,
           barRods: [
             BarChartRodData(
-              toY: state.weeks[index].count?.toDouble() ?? 0.0,
+              toY: state.weeks.chart?[index].count?.toDouble() ?? 0.0,
               color: AppColors.getRandomColor(),
               borderRadius: BorderRadius.zero,
               width: 20,
@@ -211,7 +211,7 @@ class _WeekTabState extends State<WeekTab> {
 
   double getMaxCount(GetWeekLoadedState state) {
     int max = 0;
-    for (var element in state.weeks) {
+    for (var element in state.weeks.chart ?? []) {
       if ((element.count ?? 0) > max) {
         max = element.count!;
       }

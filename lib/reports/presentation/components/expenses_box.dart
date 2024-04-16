@@ -6,7 +6,7 @@ import '../../../core/resources/styles_manager.dart';
 
 class ExpensesBox extends StatelessWidget {
 
-  final double expenses;
+  final int expenses;
   const ExpensesBox({super.key, required this.expenses});
 
   @override
@@ -25,60 +25,21 @@ class ExpensesBox extends StatelessWidget {
             ),
           ]
       ),
-      child: Stack(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Positioned(
-          //   top: 0,
-          //   left: 0,
-          //   child: _buildCircle(),
-          // ),
-          // Positioned(
-          //   top: context.dynamicHeight(.012),
-          //   left: context.dynamicWidth(.031),
-          //   child: _buildCircle(),
-          // ),
-          // Positioned(
-          //   top: context.dynamicHeight(.02),
-          //   left: context.dynamicWidth(.07),
-          //   child: _buildCircle(),
-          // ),
-          // Positioned(
-          //   top: context.dynamicHeight(.027),
-          //   left: context.dynamicWidth(.11),
-          //   child: _buildCircle(),
-          // ),
-          // Positioned(
-          //   top: context.dynamicHeight(.0325),
-          //   left: context.dynamicWidth(.15),
-          //   child: _buildCircle(),
-          // ),
-          // Positioned(
-          //   top: context.dynamicHeight(.035),
-          //   left: context.dynamicWidth(.19),
-          //   child: _buildCircle(),
-          // ),
-          // Positioned(
-          //   top: context.dynamicHeight(.036),
-          //   left: context.dynamicWidth(.23),
-          //   child: _buildCircle(),
-          // ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'ssss ${AppStrings.egp}',
-                style: getLargeStyle(
-                    fontSize: 20,
-                    color: const Color(0xff193263)
-                ),
-              ),
-              Text(
-                AppStrings.reportsTabExpenses,
-                style: getSmallStyle(
-                  fontSize: 16,
-                ),
-              ),
-            ],
+          Text(
+            '$expenses ${AppStrings.egp}',
+            style: getLargeStyle(
+                fontSize: 20,
+                color: const Color(0xff193263)
+            ),
+          ),
+          Text(
+            AppStrings.reportsTabExpenses,
+            style: getSmallStyle(
+              fontSize: 16,
+            ),
           ),
         ],
       ),

@@ -11,7 +11,7 @@ import 'package:fridge/reports/presentation/components/expenses_box.dart';
 import '../../../core/components/states/error_screen.dart';
 import '../../../core/components/states/loading_screen.dart';
 import '../../../core/services/services_locator.dart';
-import '../../domain/entities/month.dart';
+import '../../data/models/month.dart';
 import '../bloc/reports_bloc.dart';
 
 class MonthTab extends StatefulWidget {
@@ -68,7 +68,7 @@ class _MonthTabState extends State<MonthTab> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'ssss ${AppStrings.egp}',
+                    '${state.months.totalIncome ?? 0} ${AppStrings.egp}',
                     style: getLargeStyle(
                         fontSize: 20,
                         color: const Color(0xff193263)
@@ -106,7 +106,7 @@ class _MonthTabState extends State<MonthTab> {
               ),
             ),
             16.ph,
-            const ExpensesBox(expenses: 12.000),
+            ExpensesBox(expenses: state.months.totalExpense ?? 0),
           ],
         );
         }
@@ -142,7 +142,7 @@ class _MonthTabState extends State<MonthTab> {
         color: AppColors.dark2,
         fontSize: 12.0
     );
-    Month month = state.months[value.toInt()];
+    MonthChart month = state.months.chart![value.toInt()];
     return SideTitleWidget(
       axisSide: meta.axisSide,
       space: 15,
@@ -179,12 +179,12 @@ class _MonthTabState extends State<MonthTab> {
       );
 
   List<BarChartGroupData> barGroups(GetMonthLoadedState state) =>
-      List.generate(state.months.length, (index) {
+      List.generate(state.months.chart!.length, (index) {
         return BarChartGroupData(
           x: index,
           barRods: [
             BarChartRodData(
-              toY: state.months[index].count?.toDouble() ?? 0.0,
+              toY: state.months.chart?[index].count?.toDouble() ?? 0.0,
               color: AppColors.getRandomColor(),
               borderRadius: BorderRadius.zero,
               width: 20,
@@ -196,7 +196,7 @@ class _MonthTabState extends State<MonthTab> {
 
   double getMaxCount(GetMonthLoadedState state) {
     int max = 0;
-    for (var element in state.months) {
+    for (var element in state.months.chart ?? []) {
       if ((element.count ?? 0) > max) {
         max = element.count!;
       }

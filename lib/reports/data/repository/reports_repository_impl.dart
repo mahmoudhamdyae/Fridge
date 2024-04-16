@@ -3,11 +3,11 @@ import 'package:dartz/dartz.dart';
 import 'package:fridge/core/error/failure.dart';
 
 import 'package:fridge/reports/domain/entities/analysis.dart';
-import 'package:fridge/reports/domain/entities/month.dart';
-import 'package:fridge/reports/domain/entities/week.dart';
 
 import '../../../core/error/exceptions.dart';
 import '../../domain/repository/reports_repository.dart';
+import '../models/month.dart';
+import '../models/week.dart';
 
 class ReportsRepositoryImpl extends ReportsRepository {
   ReportsRepositoryImpl(super.remoteDataSource);
@@ -23,7 +23,7 @@ class ReportsRepositoryImpl extends ReportsRepository {
   }
 
   @override
-  Future<Either<Failure, List<Week>>> getWeek() async {
+  Future<Either<Failure, Week>> getWeek() async {
     try {
       var result = await remoteDataSource.getWeek();
       return Right(result);
@@ -33,7 +33,7 @@ class ReportsRepositoryImpl extends ReportsRepository {
   }
 
   @override
-  Future<Either<Failure, List<Month>>> getMonth() async {
+  Future<Either<Failure, Month>> getMonth() async {
     try {
       var result = await remoteDataSource.getMonth();
       return Right(result);

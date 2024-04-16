@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:fridge/core/network/dio_manager.dart';
 import 'package:fridge/reports/data/models/analysis_model.dart';
-import 'package:fridge/reports/data/models/month_model.dart';
-import 'package:fridge/reports/data/models/week_model.dart';
+import 'package:fridge/reports/data/models/month.dart';
+import 'package:fridge/reports/data/models/week.dart';
 
 import '../../../core/error/error_message_model.dart';
 import '../../../core/error/exceptions.dart';
@@ -13,8 +13,8 @@ abstract class ReportsRemoteDataSource {
   ReportsRemoteDataSource(this.dioManager);
 
   Future<List<AnalysisModel>> getAnalysis();
-  Future<List<WeekModel>> getWeek();
-  Future<List<MonthModel>> getMonth();
+  Future<Week> getWeek();
+  Future<Month> getMonth();
 }
 
 class ReportsRemoteDataSourceImpl extends ReportsRemoteDataSource {
@@ -39,10 +39,10 @@ class ReportsRemoteDataSourceImpl extends ReportsRemoteDataSource {
   }
 
   @override
-  Future<List<WeekModel>> getWeek() async {
+  Future<Week> getWeek() async {
     try {
       var response = await dioManager.dio.get(ApiConstants.getWeekPath);
-      return WeekResponse.fromJson(response.data).data ?? [];
+      return WeekResponse.fromJson(response.data).data!;
     }  on DioException catch (error) {
       if (error.response != null) {
         throw ServerException(
@@ -57,10 +57,10 @@ class ReportsRemoteDataSourceImpl extends ReportsRemoteDataSource {
   }
 
   @override
-  Future<List<MonthModel>> getMonth() async {
+  Future<Month> getMonth() async {
     try {
       var response = await dioManager.dio.get(ApiConstants.getMonthPath);
-      return MonthResponse.fromJson(response.data).data ?? [];
+      return MonthResponse.fromJson(response.data).data!;
     }  on DioException catch (error) {
       if (error.response != null) {
         throw ServerException(

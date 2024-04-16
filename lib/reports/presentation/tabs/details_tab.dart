@@ -4,7 +4,6 @@ import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/services/services_locator.dart';
 import 'package:fridge/reports/presentation/bloc/reports_bloc.dart';
 
-import '../../../core/components/appbar.dart';
 import '../../../core/components/states/error_screen.dart';
 import '../../../core/components/states/loading_screen.dart';
 import '../../../core/resources/app_strings.dart';

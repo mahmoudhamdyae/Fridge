@@ -57,7 +57,7 @@ final class GetWeekErrorState extends ReportsState {
 }
 
 final class GetWeekLoadedState extends ReportsState {
-  final List<Week> weeks;
+  final Week weeks;
   const GetWeekLoadedState(this.weeks);
   @override
   List<Object> get props => [weeks];
@@ -77,7 +77,7 @@ final class GetMonthErrorState extends ReportsState {
 }
 
 final class GetMonthLoadedState extends ReportsState {
-  final List<Month> months;
+  final Month months;
   const GetMonthLoadedState(this.months);
   @override
   List<Object> get props => [months];
