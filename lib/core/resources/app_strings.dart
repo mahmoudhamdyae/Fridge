@@ -205,6 +205,7 @@ class AppStrings {
   static const String expensesScreenAddTypeButton = 'إضافة';
   static const String expensesScreenAddTypeHint = 'أضف نوع';
   static const String expensesScreenAll = 'الكل';
+  static const String expensesScreenTotal = 'الإجمالى';
 
   // Reports Screen
   static const String reportsScreenTabReports = 'التقارير';

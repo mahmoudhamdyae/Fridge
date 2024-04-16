@@ -13,6 +13,7 @@ import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 import 'package:fridge/core/services/services_locator.dart';
 import 'package:fridge/expenses/domain/entities/expense_type.dart';
+import 'package:fridge/expenses/domain/entities/expenses_response.dart';
 import 'package:fridge/expenses/presentation/bloc/expenses_bloc.dart';
 import 'package:fridge/expenses/presentation/screens/add_expense_screen.dart';
 import 'package:fridge/expenses/presentation/screens/expenses_settings_screen.dart';
@@ -30,6 +31,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
 
   late final ExpensesBloc bloc;
   String selectedChip = AppStrings.expensesScreenAll;
+  double totalPrice = 0;
 
   @override
   void initState() {
@@ -202,48 +204,84 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                 } else if (state is GetExpensesErrorState) {
                   return ErrorScreen(error: state.errorMessage);
                 } else if (state is GetExpensesLoadedState) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    physics: const ClampingScrollPhysics(),
-                    itemCount: state.expenses.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                          padding: const EdgeInsets.all(16.0),
-                          color: index % 2 == 0 ? const Color(0xffD9D9D9) : const Color(0xffEAEDF4),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                  child: Text(
-                                    state.expenses[index].date ?? '',
-                                    textAlign: TextAlign.center,
-                                    style: getSmallStyle(fontSize: 10.0),
-                                  )
-                              ),
-                              Expanded(
-                                  child: Text(
-                                    state.expenses[index].title ?? '',
-                                    textAlign: TextAlign.center,
-                                    style: getSmallStyle(fontSize: 10.0),
-                                  )
-                              ),
-                              Expanded(
-                                  child: Text(
-                                    state.expenses[index].description ?? '',
-                                    textAlign: TextAlign.center,
-                                    style: getSmallStyle(fontSize: 10.0),
-                                  )
-                              ),
-                              Expanded(
-                                  child: Text(
-                                    '${state.expenses[index].amount ?? ''} ${AppStrings.egp}',
-                                    textAlign: TextAlign.center,
-                                    style: getSmallStyle(fontSize: 10.0),
-                                  )
-                              ),
-                            ],
-                          )
-                      );
-                    },
+                  List<ExpensesResponse> allExpenses = state.expenses;
+                  List<ExpensesResponse> expenses =
+                  selectedChip == AppStrings.expensesScreenAll ? allExpenses
+                      :
+                  allExpenses.where((element) =>
+                      element.title == selectedChip
+                  ).toList();
+                  totalPrice = 0;
+                  for (var element in expenses) {
+                    totalPrice += double.parse(element.amount ?? '0');
+                  }
+                  return Column(
+                    children: [
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: expenses.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                              padding: const EdgeInsets.all(16.0),
+                              color: index % 2 == 0 ? const Color(0xffD9D9D9) : const Color(0xffEAEDF4),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                      child: Text(
+                                        expenses[index].date ?? '',
+                                        textAlign: TextAlign.center,
+                                        style: getSmallStyle(fontSize: 10.0),
+                                      )
+                                  ),
+                                  Expanded(
+                                      child: Text(
+                                        expenses[index].title ?? '',
+                                        textAlign: TextAlign.center,
+                                        style: getSmallStyle(fontSize: 10.0),
+                                      )
+                                  ),
+                                  Expanded(
+                                      child: Text(
+                                        expenses[index].description ?? '',
+                                        textAlign: TextAlign.center,
+                                        style: getSmallStyle(fontSize: 10.0),
+                                      )
+                                  ),
+                                  Expanded(
+                                      child: Text(
+                                        '${expenses[index].amount ?? ''} ${AppStrings.egp}',
+                                        textAlign: TextAlign.center,
+                                        style: getSmallStyle(fontSize: 10.0),
+                                      )
+                                  ),
+                                ],
+                              )
+                          );
+                        },
+                      ),
+                      16.ph,
+                      Row(
+                        children: [
+                          Expanded(child: Container()),
+                          Expanded(child: Container()),
+                          Expanded(child: Text(
+                            AppStrings.expensesScreenTotal,
+                            textAlign: TextAlign.center,
+                            style: getSmallStyle(
+                              color: AppColors.colorRamps2
+                            ),
+                          )),
+                          Expanded(child: Text(
+                            '$totalPrice ${AppStrings.egp}',
+                            textAlign: TextAlign.center,
+                            style: getSmallStyle(
+                                color: AppColors.colorRamps3
+                            ),
+                          )),
+                        ],
+                      ),
+                    ],
                   );
                 } else {
                   return Container();
