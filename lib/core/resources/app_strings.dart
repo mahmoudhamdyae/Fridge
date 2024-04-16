@@ -204,6 +204,7 @@ class AppStrings {
   static const String expensesScreenBackButton = 'رجوع';
   static const String expensesScreenAddTypeButton = 'إضافة';
   static const String expensesScreenAddTypeHint = 'أضف نوع';
+  static const String expensesScreenAll = 'الكل';
 
   // Reports Screen
   static const String reportsScreenTabReports = 'التقارير';

@@ -12,6 +12,7 @@ import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 import 'package:fridge/core/services/services_locator.dart';
+import 'package:fridge/expenses/domain/entities/expense_type.dart';
 import 'package:fridge/expenses/presentation/bloc/expenses_bloc.dart';
 import 'package:fridge/expenses/presentation/screens/add_expense_screen.dart';
 import 'package:fridge/expenses/presentation/screens/expenses_settings_screen.dart';
@@ -28,6 +29,7 @@ class ExpensesScreen extends StatefulWidget {
 class _ExpensesScreenState extends State<ExpensesScreen> {
 
   late final ExpensesBloc bloc;
+  String selectedChip = AppStrings.expensesScreenAll;
 
   @override
   void initState() {
@@ -73,6 +75,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
             physics: const ClampingScrollPhysics(),
             children: [
               const MainAppBar(canNavigateUp: true,),
+              // Settings Button
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -91,6 +94,62 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                   ),
                 ],
               ),
+              BlocBuilder<ExpensesBloc, ExpensesState>(
+                buildWhen: (previous, current) =>
+                current is GetExpensesLoadingState ||
+                    current is GetExpensesErrorState ||
+                    current is GetExpensesLoadedState,
+                  builder: (BuildContext context, state) {
+                  List<ExpenseType> types = state.types;
+                  return Row(
+                    children: [
+                      16.pw,
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            selectedChip = AppStrings.expensesScreenAll;
+                          });
+                        },
+                        child: RawChip(
+                          checkmarkColor: AppColors.white,
+                          labelStyle: getSmallStyle(
+                            color: selectedChip == AppStrings.expensesScreenAll ? AppColors.white : AppColors.black,
+                          ),
+                            selectedColor: AppColors.colorRamps3,
+                            label: const Text(
+                              AppStrings.expensesScreenAll,
+                            ), selected: selectedChip == AppStrings.expensesScreenAll,
+                        ),
+                      ),
+                      Wrap(
+                        children: types.map((i) => Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                selectedChip = i.name ?? AppStrings.expensesScreenAll;
+                              });
+                            },
+                            child: RawChip(
+                              checkmarkColor: AppColors.white,
+                              labelStyle: getSmallStyle(
+                                color: i.name == selectedChip ? AppColors.white : AppColors.black,
+                              ),
+                              selectedColor: AppColors.colorRamps3,
+                                label: Text(
+                                  '${i.name}',
+                                  // style: getSmallStyle(),
+                                ), selected: i.name == selectedChip,
+                            ),
+                          ),
+                        )).toList(),
+                      ),
+                    ],
+                  );
+                  }
+              ),
+              16.ph,
+              // First Row of the table
               Row(
                 children: [
                   Expanded(
