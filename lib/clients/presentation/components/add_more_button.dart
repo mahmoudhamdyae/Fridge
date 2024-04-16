@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/domain/entities/client.dart';
 import 'package:fridge/clients/presentation/bloc/clients_bloc.dart';
+import 'package:fridge/clients/presentation/screens/add_client_tabs_screen.dart';
+import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 
 import '../../../core/resources/app_colors.dart';
 import '../../../core/resources/styles_manager.dart';
+import '../../../core/services/services_locator.dart';
 
 class AddMoreButton extends StatelessWidget {
 
@@ -22,6 +25,10 @@ class AddMoreButton extends StatelessWidget {
           client.phone ?? '',
           client.address,
         ));
+        NavigateUtil().navigateToScreen(context, BlocProvider.value(
+          value: instance<ClientsBloc>(),
+          child: const AddClientTabsScreen(currentTab: 1,),
+        ),);
       },
       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
       child: Container(
