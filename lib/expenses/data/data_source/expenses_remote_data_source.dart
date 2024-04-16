@@ -86,7 +86,7 @@ class ExpensesRemoteDataSourceImpl extends ExpensesRemoteDataSource {
   @override
   Future<void> storeExpenseType(String typeName) async {
     try {
-      await dioManager.dio.get(
+      await dioManager.dio.post(
           ApiConstants.storeExpenseTypesPath,
         data: {
             'name': typeName

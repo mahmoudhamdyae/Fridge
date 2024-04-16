@@ -36,6 +36,13 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   bool? get validate => _formKey.currentState?.validate();
 
   @override
+  void dispose() {
+    super.dispose();
+    detailsController.dispose();
+    priceController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(

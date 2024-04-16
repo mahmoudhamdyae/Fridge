@@ -52,6 +52,9 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
             ),
           ),
       body: BlocListener<ExpensesBloc, ExpensesState>(
+        listenWhen: (previous, current) =>
+        current is StoreExpenseErrorState ||
+            current is StoreExpenseSuccessState,
         listener: (context, state) {
           if (state is StoreExpenseErrorState) {
             NavigateUtil().navigateUp(context);

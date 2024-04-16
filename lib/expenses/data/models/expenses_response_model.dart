@@ -28,7 +28,7 @@ class ExpensesResponseModel extends ExpensesResponse {
 
   factory ExpensesResponseModel.fromJson(Map<String, dynamic> json) => ExpensesResponseModel(
     id: json['id'],
-    title: json['title'],
+    title: json['expense_type']['name'],
     date: json['date'],
     description: json['description'],
     amount: json['amount'],
