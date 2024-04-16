@@ -11,7 +11,6 @@ import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 import 'package:fridge/expenses/presentation/components/back_button.dart';
-import 'package:fridge/ward/presentation/bloc/wards_bloc.dart';
 import 'package:fridge/ward/presentation/components/print_button.dart';
 
 import '../../../core/components/decorations.dart';
@@ -81,7 +80,7 @@ class ClientInvoiceScreen extends StatelessWidget {
                                     style: getSmallStyle(),
                                   ),
                                   Text(
-                                    '12/05/2024', // todo
+                                    '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
                                     style: getSmallStyle(
                                       color: const Color(0xff5D5D5D),
                                     ),
@@ -91,134 +90,105 @@ class ClientInvoiceScreen extends StatelessWidget {
                             ],
                           ),
                           8.ph,
-                          Row(
-                            children: [
-                              Text(
-                                state.invoice.name ?? '',
-                                style: getLargeStyle(
-                                  fontSize: 22.0,
-                                ),
-                              ),
-                              4.pw,
-                              Text(
-                                '(${state.invoice.type})',
-                                style: getSmallStyle(
-                                    color: const Color(0xff5A5A5A)
-                                ),
-                              )
-                            ],
+                          Text(
+                            state.invoice.name ?? '',
+                            style: getLargeStyle(
+                              fontSize: 22.0,
+                            ),
                           ),
                           32.ph,
-                          Row(
-                            children: [
-                              Text(
-                                AppStrings.billScreenProduct,
-                                style: getSmallStyle(),
-                              ),
-                              Text(
-                                store.product ?? '',
-                                style: getSmallStyle(
-                                  color: const Color(0xff6B6B6B),
-                                ),
-                              )
-                            ],
-                          ),
-                          24.ph,
-                          Row(
-                            children: [
-                              Text(
-                                AppStrings.billScreenQuantity,
-                                style: getSmallStyle(),
-                              ),
-                              Text(
-                                '${store.totalWeight} ${store.unit}',
-                                style: getSmallStyle(
-                                  color: const Color(0xff6B6B6B),
-                                ),
-                              )
-                            ],
-                          ),
-                          24.ph,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    AppStrings.billScreenWardsNumber,
-                                    style: getSmallStyle(),
-                                  ),
-                                  Text(
-                                    (store.quantity).toString(),
-                                    style: getSmallStyle(
-                                      color: const Color(0xff6B6B6B),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const ClampingScrollPhysics(),
+                            itemCount: state.invoice.stores?.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return ListView(
+                                shrinkWrap: true,
+                                physics: const ClampingScrollPhysics(),
+                                children: [Row(
+                                  children: [
+                                    Text(
+                                      AppStrings.billScreenProduct,
+                                      style: getSmallStyle(),
                                     ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                          24.ph,
-                          Row(
-                            children: [
-                              Text(
-                                AppStrings.billScreenStoreType,
-                                style: getSmallStyle(),
-                              ),
-                              Text(
-                                store.boxing ?? '',
-                                style: getSmallStyle(
-                                  color: const Color(0xff6B6B6B),
+                                    Text(
+                                      store.product ?? '',
+                                      style: getSmallStyle(
+                                        color: const Color(0xff6B6B6B),
+                                      ),
+                                    )
+                                  ],
                                 ),
-                              )
-                            ],
-                          ),
-                          24.ph,
-                          Row(
-                            children: [
-                              Text(
-                                AppStrings.billScreenStorePlace,
-                                style: getSmallStyle(),
-                              ),
-                              Text(
-                                'ثلاجة 5',
-                                style: getSmallStyle(
-                                  color: const Color(0xff6B6B6B),
-                                ),
-                              )
-                            ],
-                          ),
-                          24.ph,
-                          const Divider(
-                            height: 1.0,
-                            color: Color(0xffC3C3C3),
-                          ),
-                          16.ph,
-                          Row(
-                            children: [
-                              Text(
-                                AppStrings.billScreenPrice,
-                                style: getSmallStyle(),
-                              ),
-                              Text(
-                                '${store.unit} ${AppStrings.egp}',
-                                style: getSmallStyle(),
-                              )
-                            ],
-                          ),
-                          16.ph,
-                          Row(
-                            children: [
-                              Text(
-                                AppStrings.billScreenTotalPrice,
-                                style: getSmallStyle(),
-                              ),
-                              Text(
-                                '${store.price} ${AppStrings.egp}',
-                                style: getSmallStyle(),
-                              )
-                            ],
-                          ),
+                                  24.ph,
+                                  Row(
+                                    children: [
+                                      Text(
+                                        AppStrings.billScreenQuantity,
+                                        style: getSmallStyle(),
+                                      ),
+                                      Text(
+                                        '${store.totalWeight} ${store.unit}',
+                                        style: getSmallStyle(
+                                          color: const Color(0xff6B6B6B),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  24.ph,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            AppStrings.billScreenWardsNumber,
+                                            style: getSmallStyle(),
+                                          ),
+                                          Text(
+                                            (store.quantity).toString(),
+                                            style: getSmallStyle(
+                                              color: const Color(0xff6B6B6B),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  24.ph,
+                                  Row(
+                                    children: [
+                                      Text(
+                                        AppStrings.billScreenStoreType,
+                                        style: getSmallStyle(),
+                                      ),
+                                      Text(
+                                        store.boxing ?? '',
+                                        style: getSmallStyle(
+                                          color: const Color(0xff6B6B6B),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  24.ph,
+                                  const Divider(
+                                    height: 1.0,
+                                    color: Color(0xffC3C3C3),
+                                  ),
+                                  16.ph,
+                                  Row(
+                                    children: [
+                                      Text(
+                                        AppStrings.billScreenTotalPrice,
+                                        style: getSmallStyle(),
+                                      ),
+                                      Text(
+                                        '${store.price} ${AppStrings.egp}',
+                                        style: getSmallStyle(),
+                                      )
+                                    ],
+                                  ),],
+                              );
+                            },),
                           24.ph,
                           PrintButton(onTap: () {}),
                           const BackButton2()
