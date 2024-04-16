@@ -22,7 +22,7 @@ import '../../../core/resources/app_assets.dart';
 import '../../../core/resources/font_manager.dart';
 import '../../../core/resources/styles_manager.dart';
 import '../../domain/entities/store.dart';
-import '../components/settings_button.dart';
+import '../../../core/components/settings_button.dart';
 
 class WardScreen extends StatefulWidget {
   final Ward ward;

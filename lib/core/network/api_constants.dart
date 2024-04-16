@@ -33,6 +33,8 @@ class ApiConstants {
   static const String getExpensePath = "app/expense";
   static const String storeExpensePath = "app/expense/store";
   static const String getExpenseTypesPath = "app/expense/type";
+  static const String storeExpenseTypesPath = "app/expense/type/store";
+  static String delExpenseTypesPath(int typeId) => "app/expense/type/delete/$typeId";
 
   /// Reports
   static const String getAnalysisPath = "app/analysis/details";

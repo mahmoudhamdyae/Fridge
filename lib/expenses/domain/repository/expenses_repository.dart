@@ -12,4 +12,6 @@ abstract class ExpensesRepository {
   Future<Either<Failure, void>> storeExpenses(int expenseTypeId, String description, String amount);
   Future<Either<Failure, List<ExpensesResponse>>> getExpenses();
   Future<Either<Failure, List<ExpenseType>>> getExpenseTypes();
+  Future<Either<Failure, void>> storeExpenseType(String typeName);
+  Future<Either<Failure, void>> delExpenseType(int typeId);
 }

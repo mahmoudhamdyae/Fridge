@@ -5,7 +5,9 @@ import 'package:fridge/expenses/domain/entities/expense_type.dart';
 import 'package:fridge/expenses/domain/usecases/get_expenses_usecase.dart';
 
 import '../../domain/entities/expenses_response.dart';
+import '../../domain/usecases/del_expenses_type_usecase.dart';
 import '../../domain/usecases/get_expenses_type_usecase.dart';
+import '../../domain/usecases/store_expenses_type_usecase.dart';
 import '../../domain/usecases/store_expenses_usecase.dart';
 
 part 'expenses_event.dart';
@@ -16,18 +18,31 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
   final GetExpensesUsecase _getExpensesUsecase;
   final StoreExpensesUsecase _storeExpensesUsecase;
   final GetExpensesTypeUsecase _getExpensesTypeUsecase;
+  final StoreExpensesTypeUsecase _storeExpensesTypeUsecase;
+  final DelExpensesTypeUsecase _delExpensesTypeUsecase;
 
   ExpensesBloc(
       this._getExpensesUsecase,
       this._storeExpensesUsecase,
       this._getExpensesTypeUsecase,
+      this._storeExpensesTypeUsecase,
+      this._delExpensesTypeUsecase,
       )
       : super(const GetExpensesLoadingState()) {
     on<GetExpensesEvent>((event, emit) async {
       await _getExpenses(event, emit);
     });
+    on<GetExpensesTypesEvent>((event, emit) async {
+      await _getExpensesTypes(event, emit);
+    });
     on<StoreExpensesEvent>((event, emit) async {
       await _storeExpenses(event, emit);
+    });
+    on<StoreExpenseTypeEvent>((event, emit) async {
+      await _storeExpenseType(event, emit);
+    });
+    on<DelExpenseTypeEvent>((event, emit) async {
+      await _delExpenseType(event, emit);
     });
   }
 
@@ -56,6 +71,35 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
       emit(StoreExpenseErrorState(l.message));
     }, (r) async {
       emit(StoreExpenseSuccessState());
+    });
+  }
+
+  Future<void> _storeExpenseType(StoreExpenseTypeEvent event, Emitter<ExpensesState> emit) async {
+    emit(const StoreExpenseTypeLoadingState());
+    final result = await _storeExpensesTypeUsecase.call(event.typeName);
+    result.fold((l) {
+      emit(StoreExpenseTypeErrorState(l.message));
+    }, (r) async {
+      emit(const StoreExpenseTypeSuccessState());
+    });
+  }
+
+  Future<void> _delExpenseType(DelExpenseTypeEvent event, Emitter<ExpensesState> emit) async {
+    emit(const DelExpenseTypeLoadingState());
+    final result = await _delExpensesTypeUsecase.call(event.typeId);
+    result.fold((l) {
+      emit(DelExpenseTypeErrorState(l.message));
+    }, (r) async {
+      emit(const DelExpenseTypeSuccessState());
+    });
+  }
+
+  Future<void> _getExpensesTypes(GetExpensesTypesEvent event, Emitter<ExpensesState> emit) async {
+    var typesResult = await _getExpensesTypeUsecase.call();
+    typesResult.fold((l) {
+      emit(GetExpensesErrorState(l.message));
+    }, (types) {
+      emit(ExpensesState(types: types));
     });
   }
 }

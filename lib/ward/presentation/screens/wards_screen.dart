@@ -12,7 +12,7 @@ import 'package:fridge/core/resources/font_manager.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 import 'package:fridge/core/services/services_locator.dart';
 import 'package:fridge/ward/presentation/bloc/wards_bloc.dart';
-import 'package:fridge/ward/presentation/components/settings_button.dart';
+import 'package:fridge/core/components/settings_button.dart';
 import 'package:fridge/ward/presentation/screens/ward_screen.dart';
 
 import '../../../core/components/decorations.dart';

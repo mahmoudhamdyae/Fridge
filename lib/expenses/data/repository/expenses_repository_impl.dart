@@ -39,4 +39,24 @@ class ExpensesRepositoryImpl extends ExpensesRepository {
     }
   }
 
+  @override
+  Future<Either<Failure, void>> storeExpenseType(String typeName) async {
+    try {
+      var result = await remoteDataSource.storeExpenseType(typeName);
+      return Right(result);
+    } on ServerException catch(failure) {
+      return Left(ServerFailure(failure.errorMessageModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> delExpenseType(int typeId) async {
+    try {
+      var result = await remoteDataSource.delExpenseType(typeId);
+      return Right(result);
+    } on ServerException catch(failure) {
+      return Left(ServerFailure(failure.errorMessageModel.message));
+    }
+  }
+
 }

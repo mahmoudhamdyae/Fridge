@@ -16,6 +16,8 @@ abstract class ExpensesRemoteDataSource {
   Future<void> storeExpenses(int expenseTypeId, String description, String amount);
   Future<List<ExpensesResponse>> getExpenses();
   Future<List<ExpenseTypeModel>> getExpenseTypes();
+  Future<void> storeExpenseType(String typeName);
+  Future<void> delExpenseType(int typeId);
 }
 
 class ExpensesRemoteDataSourceImpl extends ExpensesRemoteDataSource {
@@ -68,6 +70,45 @@ class ExpensesRemoteDataSourceImpl extends ExpensesRemoteDataSource {
     try {
       var result = await dioManager.dio.get(ApiConstants.getExpenseTypesPath);
       return ExpenseTypeResponse.fromJson(result.data).data ?? [];
+    } on DioException catch (error) {
+      if (error.response != null) {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
+        );
+      }
+    }
+  }
+
+  @override
+  Future<void> storeExpenseType(String typeName) async {
+    try {
+      await dioManager.dio.get(
+          ApiConstants.storeExpenseTypesPath,
+        data: {
+            'name': typeName
+        }
+      );
+    } on DioException catch (error) {
+      if (error.response != null) {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
+        );
+      }
+    }
+  }
+
+  @override
+  Future<void> delExpenseType(int typeId) async {
+    try {
+      await dioManager.dio.get(ApiConstants.delExpenseTypesPath(typeId));
     } on DioException catch (error) {
       if (error.response != null) {
         throw ServerException(

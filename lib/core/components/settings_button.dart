@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/resources/app_colors.dart';
-import 'package:fridge/settings/presentation/screens/settings_screen.dart';
 
 class SettingsButton extends StatelessWidget {
 

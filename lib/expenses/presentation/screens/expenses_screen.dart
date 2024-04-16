@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/core/components/appbar.dart';
 import 'package:fridge/core/components/dialogs/error_dialog.dart';
+import 'package:fridge/core/components/settings_button.dart';
 import 'package:fridge/core/components/states/error_screen.dart';
 import 'package:fridge/core/components/states/loading_screen.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
@@ -13,6 +14,7 @@ import 'package:fridge/core/resources/styles_manager.dart';
 import 'package:fridge/core/services/services_locator.dart';
 import 'package:fridge/expenses/presentation/bloc/expenses_bloc.dart';
 import 'package:fridge/expenses/presentation/screens/add_expense_screen.dart';
+import 'package:fridge/expenses/presentation/screens/expenses_settings_screen.dart';
 
 import '../../../core/components/decorations.dart';
 
@@ -68,6 +70,24 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
             physics: const ClampingScrollPhysics(),
             children: [
               const MainAppBar(canNavigateUp: true,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16.0, bottom: 16.0),
+                    child: SettingsButton(onTab: () {
+                      NavigateUtil().navigateToScreen(
+                          context,
+                          BlocProvider.value(
+                              value: instance<ExpensesBloc>(),
+                              child: const ExpensesSettingsScreen()
+                          )
+                      );
+                    }),
+                  ),
+                ],
+              ),
               Row(
                 children: [
                   Expanded(
