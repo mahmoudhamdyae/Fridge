@@ -13,7 +13,7 @@ class WeekResponse {
 class Week {
   List<WeekChart>? chart;
   int? totalIncome;
-  int? totalExpense;
+  String? totalExpense;
 
   Week({this.chart, this.totalIncome, this.totalExpense});
 

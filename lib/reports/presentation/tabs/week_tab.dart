@@ -97,7 +97,7 @@ class _WeekTabState extends State<WeekTab> {
                 ),
               ),
               16.ph,
-              ExpensesBox(expenses: state.weeks.totalExpense ?? 0),
+              ExpensesBox(expenses: double.parse(state.weeks.totalExpense ?? '0').toInt()),
             ],
           );
         }

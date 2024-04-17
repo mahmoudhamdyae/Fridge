@@ -57,8 +57,6 @@ class ScreenshotWidget extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(
                     vertical: 16.0, horizontal: 24.0),
                 child: Column(
-                  // shrinkWrap: true,
-                  // physics: const ClampingScrollPhysics(),
                   children: [
                     Row(
                       mainAxisAlignment:
@@ -137,24 +135,24 @@ class ScreenshotWidget extends StatelessWidget {
                         ),
                       ],
                     ),
-                    24.ph,
-                    const Divider(
-                      height: 1.0,
-                      color: Color(0xffC3C3C3),
-                    ),
-                    16.ph,
-                    Row(
-                      children: [
-                        Text(
-                          AppStrings.billScreenTotalPrice,
-                          style: getSmallStyle(),
-                        ),
-                        Text(
-                          '${store.price} ${AppStrings.egp}',
-                          style: getSmallStyle(),
-                        )
-                      ],
-                    ),
+                    // 24.ph,
+                    // const Divider(
+                    //   height: 1.0,
+                    //   color: Color(0xffC3C3C3),
+                    // ),
+                    // 16.ph,
+                    // Row(
+                    //   children: [
+                    //     Text(
+                    //       AppStrings.billScreenTotalPrice,
+                    //       style: getSmallStyle(),
+                    //     ),
+                    //     Text(
+                    //       '${store.price} ${AppStrings.egp}',
+                    //       style: getSmallStyle(),
+                    //     )
+                    //   ],
+                    // ),
                   ],
                 ),
               ),
