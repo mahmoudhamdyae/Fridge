@@ -40,29 +40,29 @@ class ClientItem extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Container(
-                width: 7,
-                height: 140,
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(10.0),
-                        bottomRight: Radius.circular(10.0)),
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color(0xff2D5AAF),
-                        Color(0xffEE8626),
-                      ],
-                    )),
-              ),
+              // Container(
+              //   width: 7,
+              //   height: 140,
+              //   decoration: const BoxDecoration(
+              //       borderRadius: BorderRadius.only(
+              //           topRight: Radius.circular(10.0),
+              //           bottomRight: Radius.circular(10.0)),
+              //       gradient: LinearGradient(
+              //         begin: Alignment.topCenter,
+              //         end: Alignment.bottomCenter,
+              //         colors: [
+              //           Color(0xff2D5AAF),
+              //           Color(0xffEE8626),
+              //         ],
+              //       )),
+              // ),
               16.pw,
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   8.ph,
                   SizedBox(
-                    width: context.width - 90,
+                    width: context.dynamicWidth(.8),
                     child: Row(
                       mainAxisAlignment:
                       MainAxisAlignment.spaceBetween,
@@ -106,10 +106,7 @@ class ClientItem extends StatelessWidget {
                     ),
                   ),
                   8.ph,
-                  SizedBox(
-                      width: context.width - 90,
-                      child: AddMoreButton(client: client,)
-                  ),
+                  AddMoreButton(client: client,),
                   8.ph,
                 ],
               ),

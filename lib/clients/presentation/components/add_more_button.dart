@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/domain/entities/client.dart';
 import 'package:fridge/clients/presentation/bloc/clients_bloc.dart';
 import 'package:fridge/clients/presentation/screens/add_client_tabs_screen.dart';
+import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 
@@ -32,7 +33,7 @@ class AddMoreButton extends StatelessWidget {
       },
       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
       child: Container(
-        width: 139,
+        width: context.dynamicWidth(.8),
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             gradient: LinearGradient(
