@@ -84,7 +84,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                 Row(
                   children: [
                     SizedBox(
-                      width: 50,
+                      width: 65,
                       child: Text(
                         AppStrings.expensesScreenTypeLabel,
                         style: getSmallStyle(
@@ -120,7 +120,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: 50,
+                          width: 65,
                           child: Text(
                             AppStrings.expensesScreenDetailsLabel,
                             style: getSmallStyle(
@@ -150,7 +150,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                 Row(
                   children: [
                     SizedBox(
-                      width: 50,
+                      width: 65,
                       child: Text(
                         AppStrings.expensesScreenPriceLabel,
                         style: getSmallStyle(
