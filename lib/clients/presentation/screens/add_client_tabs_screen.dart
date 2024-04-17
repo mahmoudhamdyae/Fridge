@@ -53,7 +53,7 @@ class _AddClientTabsScreenState extends State<AddClientTabsScreen> {
                         NavigateUtil().navigateUp(context);
                       } else {
                         setState(() {
-                          if (widget.currentTab == 1) {
+                          if (widget.currentTab == 1 && currentTab == 1) {
                             NavigateUtil().navigateUp(context);
                           } else {
                             currentTab--;
