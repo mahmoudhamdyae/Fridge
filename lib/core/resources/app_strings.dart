@@ -142,7 +142,7 @@ class AppStrings {
   static const String billScreenPrice = 'سعر الوحدة : ';
   static const String billScreenTotalPrice = 'المبلغ المدفوع : ';
   static const String billScreenPrintButton = 'طباعة';
-  static const String billScreenSendButton = 'إرسال عبر الواتس';
+  static const String billScreenSendButton = 'مشاركة';
   static const String billScreenBackButton = 'رجوع';
 
   // Settings Screen

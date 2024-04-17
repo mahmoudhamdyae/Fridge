@@ -91,7 +91,12 @@ class _ClientInvoiceScreenState extends State<ClientInvoiceScreen> {
                     Material(
                       child: Builder(
                           builder: (context) {
-                            return ScreenshotWidget(stores: stores, name: name);
+                            return Directionality(
+                                textDirection: TextDirection.rtl,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: ScreenshotWidget(stores: stores, name: name),
+                                ));
                           }
                       ),
                     ),

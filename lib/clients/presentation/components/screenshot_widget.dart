@@ -14,8 +14,7 @@ class ScreenshotWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      // shrinkWrap: true,
-      // physics: const ClampingScrollPhysics(),
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,129 +47,120 @@ class ScreenshotWidget extends StatelessWidget {
           ),
         ),
         32.ph,
-        // ListView.separated(
-        //   shrinkWrap: true,
-        //   physics: const ClampingScrollPhysics(),
-        //   itemCount: stores.length,
-        //   itemBuilder: (BuildContext context, int index) {
-        //     ClientInvoiceStores store = stores[index];
-        //     return InkWell(
-        //       onTap: () {
-        //         // todo navigate to ward
-        //       },
-        //       child: Card(
-        //         child: Padding(
-        //           padding: const EdgeInsets.symmetric(
-        //               vertical: 16.0, horizontal: 24.0),
-        //           child: ListView(
-        //             shrinkWrap: true,
-        //             physics: const ClampingScrollPhysics(),
-        //             children: [
-        //               Row(
-        //                 mainAxisAlignment:
-        //                 MainAxisAlignment.spaceBetween,
-        //                 children: [
-        //                   Row(
-        //                     children: [
-        //                       Text(
-        //                         AppStrings.billScreenProduct,
-        //                         style: getSmallStyle(),
-        //                       ),
-        //                       Text(
-        //                         store.product ?? '',
-        //                         style: getSmallStyle(
-        //                           color: const Color(0xff6B6B6B),
-        //                         ),
-        //                       )
-        //                     ],
-        //                   ),
-        //                   Row(
-        //                     children: [
-        //                       Text(
-        //                         AppStrings.billScreenQuantity,
-        //                         style: getSmallStyle(),
-        //                       ),
-        //                       Text(
-        //                         '${store.totalWeight} ${store.unit}',
-        //                         style: getSmallStyle(
-        //                           color: const Color(0xff6B6B6B),
-        //                         ),
-        //                       )
-        //                     ],
-        //                   ),
-        //                 ],
-        //               ),
-        //               24.ph,
-        //               Row(
-        //                 mainAxisAlignment:
-        //                 MainAxisAlignment.spaceBetween,
-        //                 children: [
-        //                   Row(
-        //                     mainAxisAlignment:
-        //                     MainAxisAlignment.spaceBetween,
-        //                     children: [
-        //                       Row(
-        //                         children: [
-        //                           Text(
-        //                             AppStrings
-        //                                 .billScreenWardsNumber,
-        //                             style: getSmallStyle(),
-        //                           ),
-        //                           Text(
-        //                             (store.quantity).toString(),
-        //                             style: getSmallStyle(
-        //                               color:
-        //                               const Color(0xff6B6B6B),
-        //                             ),
-        //                           )
-        //                         ],
-        //                       ),
-        //                     ],
-        //                   ),
-        //                   Row(
-        //                     children: [
-        //                       Text(
-        //                         AppStrings.billScreenStoreType,
-        //                         style: getSmallStyle(),
-        //                       ),
-        //                       Text(
-        //                         store.boxing ?? '',
-        //                         style: getSmallStyle(
-        //                           color: const Color(0xff6B6B6B),
-        //                         ),
-        //                       )
-        //                     ],
-        //                   ),
-        //                 ],
-        //               ),
-        //               24.ph,
-        //               const Divider(
-        //                 height: 1.0,
-        //                 color: Color(0xffC3C3C3),
-        //               ),
-        //               16.ph,
-        //               Row(
-        //                 children: [
-        //                   Text(
-        //                     AppStrings.billScreenTotalPrice,
-        //                     style: getSmallStyle(),
-        //                   ),
-        //                   Text(
-        //                     '${store.price} ${AppStrings.egp}',
-        //                     style: getSmallStyle(),
-        //                   )
-        //                 ],
-        //               ),
-        //             ],
-        //           ),
-        //         ),
-        //       ),
-        //     );
-        //   },
-        //   separatorBuilder: (BuildContext context, int index) {
-        //     return 16.ph;
-        //   },
-        // ),
+        Column(children: stores.map((store) {
+          return InkWell(
+            onTap: () {
+              // todo navigate to ward
+            },
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 16.0, horizontal: 24.0),
+                child: Column(
+                  // shrinkWrap: true,
+                  // physics: const ClampingScrollPhysics(),
+                  children: [
+                    Row(
+                      mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              AppStrings.billScreenProduct,
+                              style: getSmallStyle(),
+                            ),
+                            Text(
+                              store.product ?? '',
+                              style: getSmallStyle(
+                                color: const Color(0xff6B6B6B),
+                              ),
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              AppStrings.billScreenQuantity,
+                              style: getSmallStyle(),
+                            ),
+                            Text(
+                              '${store.totalWeight} ${store.unit}',
+                              style: getSmallStyle(
+                                color: const Color(0xff6B6B6B),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                    24.ph,
+                    Row(
+                      mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  AppStrings
+                                      .billScreenWardsNumber,
+                                  style: getSmallStyle(),
+                                ),
+                                Text(
+                                  (store.quantity).toString(),
+                                  style: getSmallStyle(
+                                    color:
+                                    const Color(0xff6B6B6B),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              AppStrings.billScreenStoreType,
+                              style: getSmallStyle(),
+                            ),
+                            Text(
+                              store.boxing ?? '',
+                              style: getSmallStyle(
+                                color: const Color(0xff6B6B6B),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                    24.ph,
+                    const Divider(
+                      height: 1.0,
+                      color: Color(0xffC3C3C3),
+                    ),
+                    16.ph,
+                    Row(
+                      children: [
+                        Text(
+                          AppStrings.billScreenTotalPrice,
+                          style: getSmallStyle(),
+                        ),
+                        Text(
+                          '${store.price} ${AppStrings.egp}',
+                          style: getSmallStyle(),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }).toList(),),
       ],
     );
   }
