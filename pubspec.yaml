@@ -53,6 +53,8 @@ dependencies:
   fl_chart: ^0.67.0
   flutter_contacts: ^1.1.7+1
   flutter_typeahead: ^5.2.0
+  screenshot: ^2.3.0
+  share_plus: ^8.0.3
 
 dev_dependencies:
   flutter_test:

@@ -1,10 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fridge/clients/data/models/client_invoice.dart';
-import 'package:fridge/clients/presentation/bloc/clients_bloc.dart';
-import 'package:fridge/core/components/states/error_screen.dart';
-import 'package:fridge/core/components/states/loading_screen.dart';
-import 'package:fridge/core/enums/request_state.dart';
+import 'package:fridge/clients/presentation/components/send_button.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
@@ -12,11 +10,30 @@ import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 import 'package:fridge/expenses/presentation/components/back_button.dart';
 import 'package:fridge/ward/presentation/components/print_button.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../core/components/decorations.dart';
+import '../../../core/components/states/error_screen.dart';
+import '../../../core/components/states/loading_screen.dart';
+import '../../../core/enums/request_state.dart';
+import '../../data/models/client_invoice.dart';
+import '../bloc/clients_bloc.dart';
+import '../components/screenshot_widget.dart';
 
-class ClientInvoiceScreen extends StatelessWidget {
+class ClientInvoiceScreen extends StatefulWidget {
+
   const ClientInvoiceScreen({super.key});
+
+  @override
+  State<ClientInvoiceScreen> createState() => _ClientInvoiceScreenState();
+}
+
+class _ClientInvoiceScreenState extends State<ClientInvoiceScreen> {
+  final ScreenshotController screenshotController = ScreenshotController();
+
+  List<ClientInvoiceStores> stores = [];
+  String name = '';
 
   @override
   Widget build(BuildContext context) {
@@ -46,178 +63,59 @@ class ClientInvoiceScreen extends StatelessWidget {
               ],
             ),
             24.ph,
-            BlocBuilder<ClientsBloc, ClientsState>(
-              buildWhen: (previousState, state) =>
-                  state.getInvoiceState == RequestState.loading ||
-                  state.getInvoiceState == RequestState.loaded ||
-                  state.getInvoiceState == RequestState.error,
-              builder: (context, state) {
-                if (state.getInvoiceState == RequestState.loading) {
-                  return const LoadingScreen();
-                } else if (state.getInvoiceState == RequestState.loading) {
-                  return ErrorScreen(error: state.getClientInvoiceMessage);
-                } else if (state.getInvoiceState == RequestState.loaded) {
-                  List<ClientInvoiceStores> stores = state.invoice.stores ?? [];
-                  return ListView(
-                    shrinkWrap: true,
-                    physics: const ClampingScrollPhysics(),
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            AppStrings.billScreenClientName,
-                            style: getSmallStyle(),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                AppStrings.billScreenClientDate,
-                                style: getSmallStyle(),
-                              ),
-                              Text(
-                                '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
-                                style: getSmallStyle(
-                                  color: const Color(0xff5D5D5D),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      8.ph,
-                      Text(
-                        state.invoice.name ?? '',
-                        style: getLargeStyle(
-                          fontSize: 22.0,
-                        ),
-                      ),
-                      32.ph,
-                      ListView.separated(
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        itemCount: stores.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          ClientInvoiceStores store = stores[index];
-                          return InkWell(
-                            onTap: () {
-                              // todo navigate to ward
-                            },
-                            child: Card(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-                                child: ListView(
-                                  shrinkWrap: true,
-                                  physics: const ClampingScrollPhysics(),
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              AppStrings.billScreenProduct,
-                                              style: getSmallStyle(),
-                                            ),
-                                            Text(
-                                              store.product ?? '',
-                                              style: getSmallStyle(
-                                                color: const Color(0xff6B6B6B),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              AppStrings.billScreenQuantity,
-                                              style: getSmallStyle(),
-                                            ),
-                                            Text(
-                                              '${store.totalWeight} ${store.unit}',
-                                              style: getSmallStyle(
-                                                color: const Color(0xff6B6B6B),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    24.ph,
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  AppStrings.billScreenWardsNumber,
-                                                  style: getSmallStyle(),
-                                                ),
-                                                Text(
-                                                  (store.quantity).toString(),
-                                                  style: getSmallStyle(
-                                                    color: const Color(0xff6B6B6B),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              AppStrings.billScreenStoreType,
-                                              style: getSmallStyle(),
-                                            ),
-                                            Text(
-                                              store.boxing ?? '',
-                                              style: getSmallStyle(
-                                                color: const Color(0xff6B6B6B),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    24.ph,
-                                    const Divider(
-                                      height: 1.0,
-                                      color: Color(0xffC3C3C3),
-                                    ),
-                                    16.ph,
-                                    Row(
-                                      children: [
-                                        Text(
-                                          AppStrings.billScreenTotalPrice,
-                                          style: getSmallStyle(),
-                                        ),
-                                        Text(
-                                          '${store.price} ${AppStrings.egp}',
-                                          style: getSmallStyle(),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                        separatorBuilder: (BuildContext context, int index) { return 16.ph; },
-                      ),
-                      24.ph,
-                      PrintButton(onTap: () {}),
-                      const BackButton2()
-                    ],
-                  );
-                }
-                return Container();
-              },
+            Screenshot(
+              controller: screenshotController,
+                child: BlocBuilder<ClientsBloc, ClientsState>(
+                  buildWhen: (previousState, state) =>
+                  state.getInvoiceState != RequestState.init,
+                  builder: (context, state) {
+                    if (state.getInvoiceState == RequestState.loading) {
+                      return const LoadingScreen();
+                    } else if (state.getInvoiceState == RequestState.loading) {
+                      return ErrorScreen(error: state.getClientInvoiceMessage);
+                    } else if (state.getInvoiceState == RequestState.loaded) {
+                      stores = state.invoice.stores ?? [];
+                      name = state.invoice.name ?? '';
+                      return ScreenshotWidget(stores: stores, name: name);
+                    }
+                    return Container();
+                  },
+                )
             ),
+            24.ph,
+            SendButton(onTap: () {
+              screenshotController.captureFromLongWidget(
+
+                  InheritedTheme.captureAll(
+                    context,
+                    Material(
+                      child: Builder(
+                          builder: (context) {
+                            return ScreenshotWidget(stores: stores, name: name);
+                          }
+                      ),
+                    ),
+                  ),
+                  delay: const Duration(milliseconds: 100),
+                  context: context,
+
+
+                  ///
+                  /// Additionally you can define constraint for your image.
+                  ///
+                  /// constraints: BoxConstraints(
+                  ///   maxHeight: 1000,
+                  ///   maxWidth: 1000,
+                //    )
+                //   ,
+                // pixelRatio: 2
+              ).then((Uint8List? image) {
+                Share.shareXFiles([XFile.fromData(image!, mimeType: "png")]);
+              });
+            }),
+            24.ph,
+            PrintButton(onTap: () {}),
+            const BackButton2()
           ],
         ),
       ),
