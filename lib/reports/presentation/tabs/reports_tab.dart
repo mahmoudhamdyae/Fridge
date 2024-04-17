@@ -38,7 +38,7 @@ class _ReportsTabState extends State<ReportsTab> {
               child: Column(
                 children: [
                   Text(
-                    AppStrings.reportsTabSummary,
+                    AppStrings.reportsTabWeek,
                     style: getSmallStyle(
                       color: selectedTab == 0 ? AppColors.secondary: const Color(0xff000000),
                       fontWeight: selectedTab == 0 ? FontWeightManager.semiBold: FontWeightManager.regular,
@@ -56,7 +56,7 @@ class _ReportsTabState extends State<ReportsTab> {
               child: Column(
                 children: [
                   Text(
-                    AppStrings.reportsTabWeek,
+                    AppStrings.reportsTabMonth,
                     style: getSmallStyle(
                       color: selectedTab == 1 ? AppColors.secondary: const Color(0xff000000),
                       fontWeight: selectedTab == 1 ? FontWeightManager.semiBold: FontWeightManager.regular,
@@ -74,7 +74,7 @@ class _ReportsTabState extends State<ReportsTab> {
               child: Column(
                 children: [
                   Text(
-                    AppStrings.reportsTabMonth,
+                    AppStrings.reportsTabYear,
                     style: getSmallStyle(
                       color: selectedTab == 2 ? AppColors.secondary: const Color(0xff000000),
                       fontWeight: selectedTab == 2 ? FontWeightManager.semiBold: FontWeightManager.regular,
@@ -86,11 +86,11 @@ class _ReportsTabState extends State<ReportsTab> {
           ],
         ),
         16.ph,
-        selectedTab == 0 ? const SummaryTab()
+        selectedTab == 0 ? const WeekTab()
             :
-        selectedTab == 1 ? const WeekTab()
+        selectedTab == 1 ? const MonthTab()
             :
-        const MonthTab()
+        const SummaryTab()
       ],
     );
   }

@@ -212,7 +212,7 @@ class AppStrings {
   static const String reportsScreenTabReports = 'التقارير';
   static const String reportsScreenTabDetails = 'التفاصيل';
   // Reports Tab
-  static const String reportsTabSummary = 'ملخص';
+  static const String reportsTabYear = 'هذا العام';
   static const String reportsTabWeek = 'هذا الأسبوع';
   static const String reportsTabMonth = 'هذا الشهر';
   static const String reportsTabIncome = 'الدخل';
