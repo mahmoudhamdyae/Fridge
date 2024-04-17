@@ -47,6 +47,8 @@ class _ClientPhoneFormFieldState extends State<ClientPhoneFormField> {
         contact?.phones.forEach((phone) {
           String customName = '${contact.name.first} ${contact.name.last}';
           String customPhone = phone.number;
+          debugPrint('Contact Name: $customName');
+          debugPrint('Contact Phone: $customPhone');
           customContacts.add(CustomContact(name: customName, phone: customPhone));
         });
       }
