@@ -131,11 +131,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
               ),
               16.pw,
               Expanded(
-                  child: NumberFormField(
-                    numberController: numberController,
-                    unitWeightController: unitWeightController,
-                    totalWeightController: totalWeightController,
-                  )),
+                  child: NumberFormField(numberController: numberController)),
             ],
           ),
           16.ph,

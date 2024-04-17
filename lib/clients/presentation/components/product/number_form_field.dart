@@ -6,13 +6,9 @@ import '../../../../core/utils/validate_operations.dart';
 class NumberFormField extends StatelessWidget {
 
   final TextEditingController numberController;
-  final TextEditingController unitWeightController;
-  final TextEditingController totalWeightController;
   const NumberFormField({
     super.key,
     required this.numberController,
-    required this.unitWeightController,
-    required this.totalWeightController,
   });
 
 
