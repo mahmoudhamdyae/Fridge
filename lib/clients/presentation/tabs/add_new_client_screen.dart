@@ -85,10 +85,15 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
             ],
           ),
           32.ph,
-          ClientNameFormField(clientNameController: clientNameController),
+          ClientNameFormField(
+            clientNameController: clientNameController,
+            clientPhoneController: clientPhoneController,
+          ),
           16.ph,
           ClientPhoneFormField(
-              clientPhoneController: clientPhoneController),
+            clientPhoneController: clientPhoneController,
+            clientNameController: clientNameController,
+          ),
           16.ph,
           ClientAddressFormField(
               clientAddressController: clientAddressController),

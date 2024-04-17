@@ -4,13 +4,17 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 import '../../../../core/resources/app_strings.dart';
 import '../../../../core/resources/styles_manager.dart';
+import '../../../../core/utils/validate_operations.dart';
 import '../../../domain/entities/contact.dart';
 
 class ClientPhoneFormField extends StatefulWidget {
+
+  final TextEditingController clientNameController;
   final TextEditingController clientPhoneController;
 
   const ClientPhoneFormField({
     super.key,
+    required this.clientNameController,
     required this.clientPhoneController,
   });
 
@@ -55,6 +59,7 @@ class _ClientPhoneFormFieldState extends State<ClientPhoneFormField> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return TypeAheadField<CustomContact>(
@@ -66,23 +71,30 @@ class _ClientPhoneFormFieldState extends State<ClientPhoneFormField> {
         }).toList();
       },
       builder: (context, controller, focusNode) {
-        return TextField(
+        return TextFormField(
           controller: controller,
           focusNode: focusNode,
           decoration: getFilledTextFieldDecorationWithLabel(
               label: AppStrings.addClientScreenClientPhoneLabel,
               suffixIcon: Icons.phone),
+          textInputAction: TextInputAction.next,
+          keyboardType: TextInputType.phone,
+          validator: (value) => ValidateOperations.normalValidation(value),
         );
       },
-      itemBuilder: (context, city) {
+      itemBuilder: (context, customContact) {
         return ListTile(
-          title: Text(city.name),
-          subtitle: Text(city.phone),
+          title: Text(customContact.name),
+          subtitle: Text(customContact.phone),
         );
       },
       onSelected: (contact) {
         widget.clientPhoneController.text = contact.phone;
+        if (widget.clientNameController.text.isEmpty) {
+          widget.clientNameController.text = contact.name;
+        }
       },
     );
   }
+
 }
