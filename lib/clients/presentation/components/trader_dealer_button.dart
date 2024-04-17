@@ -22,7 +22,7 @@ class TraderDealerButton extends StatelessWidget {
       },
       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
       child: Container(
-        width: (context.width / 2) - 64,
+        width: (context.width / 2) - context.dynamicWidth(.2),
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(10.0)),
           border: Border.all(color: const Color(0xff2C5494), width: 1),
