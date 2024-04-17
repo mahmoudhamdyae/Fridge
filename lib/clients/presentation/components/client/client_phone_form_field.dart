@@ -7,8 +7,8 @@ import '../../../../core/resources/styles_manager.dart';
 import '../../../domain/entities/contact.dart';
 
 class ClientPhoneFormField extends StatefulWidget {
-
   final TextEditingController clientPhoneController;
+
   const ClientPhoneFormField({
     super.key,
     required this.clientPhoneController,
@@ -19,7 +19,6 @@ class ClientPhoneFormField extends StatefulWidget {
 }
 
 class _ClientPhoneFormFieldState extends State<ClientPhoneFormField> {
-
   List<String> names = [];
   List<String> phones = [];
   List<CustomContact> customContacts = [];
@@ -38,8 +37,8 @@ class _ClientPhoneFormFieldState extends State<ClientPhoneFormField> {
       List<Contact> contacts = await FlutterContacts.getContacts();
 
       // Get all contacts (fully fetched)
-      contacts =
-      await FlutterContacts.getContacts(withProperties: true, withPhoto: true);
+      contacts = await FlutterContacts.getContacts(
+          withProperties: true, withPhoto: true);
 
       for (var element in contacts) {
         // Get contact with specific ID (fully fetched)
@@ -49,7 +48,8 @@ class _ClientPhoneFormFieldState extends State<ClientPhoneFormField> {
           String customPhone = phone.number;
           debugPrint('Contact Name: $customName');
           debugPrint('Contact Phone: $customPhone');
-          customContacts.add(CustomContact(name: customName, phone: customPhone));
+          customContacts
+              .add(CustomContact(name: customName, phone: customPhone));
         });
       }
     }
@@ -58,30 +58,31 @@ class _ClientPhoneFormFieldState extends State<ClientPhoneFormField> {
   @override
   Widget build(BuildContext context) {
     return TypeAheadField<CustomContact>(
-        suggestionsCallback: (search) {
-          return customContacts.where((contact) {
-            return contact.name.toLowerCase().contains(search.toLowerCase()) ||
-                contact.phone.toLowerCase().contains(search.toLowerCase());
-          }).toList();
-        },
-        builder: (context, controller, focusNode) {
-          return TextField(
-            controller: widget.clientPhoneController,
-            focusNode: focusNode,
-            decoration: getFilledTextFieldDecorationWithLabel(
+      controller: widget.clientPhoneController,
+      suggestionsCallback: (search) {
+        return customContacts.where((contact) {
+          return contact.name.toLowerCase().contains(search.toLowerCase()) ||
+              contact.phone.toLowerCase().contains(search.toLowerCase());
+        }).toList();
+      },
+      builder: (context, controller, focusNode) {
+        return TextField(
+          controller: controller,
+          focusNode: focusNode,
+          decoration: getFilledTextFieldDecorationWithLabel(
               label: AppStrings.addClientScreenClientPhoneLabel,
-            ),
-          );
-        },
-        itemBuilder: (context, city) {
-          return ListTile(
-            title: Text(city.name),
-            subtitle: Text(city.phone),
-          );
-        },
-        onSelected: (contact) {
-          widget.clientPhoneController.text = contact.phone;
-        },
-      );
+              suffixIcon: Icons.phone),
+        );
+      },
+      itemBuilder: (context, city) {
+        return ListTile(
+          title: Text(city.name),
+          subtitle: Text(city.phone),
+        );
+      },
+      onSelected: (contact) {
+        widget.clientPhoneController.text = contact.phone;
+      },
+    );
   }
 }

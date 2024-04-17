@@ -18,6 +18,7 @@ class ClientNameFormField extends StatelessWidget {
     return TextFormField(
       decoration: getFilledTextFieldDecorationWithLabel(
         label: AppStrings.addClientScreenClientNameLabel,
+        suffixIcon: Icons.person
       ),
       controller: clientNameController,
       textInputAction: TextInputAction.next,

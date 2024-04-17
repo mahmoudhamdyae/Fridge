@@ -95,6 +95,7 @@ InputDecoration getFilledTextFieldDecorationWithLabel({
   required String label,
   double radius = 15.0,
   IconData? prefixIcon,
+  IconData? suffixIcon,
   TextStyle? textStyle
 }) {
   return InputDecoration(
@@ -107,6 +108,7 @@ InputDecoration getFilledTextFieldDecorationWithLabel({
       minWidth: 32.0,
     ),
     prefixIcon: Icon(prefixIcon, color: const Color(0xff545454), size: 17,),
+    suffixIcon: Icon(suffixIcon, color: const Color(0xff545454)),
     label: Text(
       label,
       style: getSmallStyle(

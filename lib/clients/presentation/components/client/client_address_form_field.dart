@@ -17,6 +17,7 @@ class ClientAddressFormField extends StatelessWidget {
     return TextFormField(
       decoration: getFilledTextFieldDecorationWithLabel(
         label: AppStrings.addClientScreenClientAddressLabel,
+        suffixIcon: Icons.location_on
       ),
       controller: clientAddressController,
       textInputAction: TextInputAction.done,
