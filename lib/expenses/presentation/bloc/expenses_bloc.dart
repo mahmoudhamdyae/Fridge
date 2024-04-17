@@ -27,8 +27,7 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
       this._getExpensesTypeUsecase,
       this._storeExpensesTypeUsecase,
       this._delExpensesTypeUsecase,
-      )
-      : super(const GetExpensesLoadingState()) {
+      ) : super(const GetExpensesLoadingState()) {
     on<GetExpensesEvent>((event, emit) async {
       await _getExpenses(event, emit);
     });

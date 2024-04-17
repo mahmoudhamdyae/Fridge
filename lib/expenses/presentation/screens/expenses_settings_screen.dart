@@ -59,7 +59,7 @@ class _ExpensesSettingsScreenState extends State<ExpensesSettingsScreen> {
                       NavigateUtil().navigateUp(context);
                       showError(context, state.errorMessage, () {});
                     } else if (state is StoreExpenseTypeSuccessState || state is DelExpenseTypeSuccessState) {
-                      BlocProvider.of<ExpensesBloc>(context).add(GetExpensesTypesEvent());
+                      BlocProvider.of<ExpensesBloc>(context).add(GetExpensesEvent());
                       NavigateUtil().navigateUp(context);
                       addTypeController.text = '';
                     }
