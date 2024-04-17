@@ -122,7 +122,8 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                         AppStrings.detailsTabDate,
                         textAlign: TextAlign.center,
                         style: getSmallStyle(
-                          fontSize: 14.0
+                          fontSize: 14.0,
+                            color: AppColors.colorRamps3
                         ),
                       )
                   ),
@@ -131,7 +132,8 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                         AppStrings.detailsTabProductType,
                         textAlign: TextAlign.center,
                         style: getSmallStyle(
-                            fontSize: 14.0
+                            fontSize: 14.0,
+                            color: AppColors.colorRamps3
                         ),
                       )
                   ),
@@ -140,7 +142,8 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                         AppStrings.detailsTabDetails,
                         textAlign: TextAlign.center,
                         style: getSmallStyle(
-                            fontSize: 14.0
+                            fontSize: 14.0,
+                            color: AppColors.colorRamps3
                         ),
                       )
                   ),
@@ -149,7 +152,8 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                         AppStrings.detailsTabPrice,
                         textAlign: TextAlign.center,
                         style: getSmallStyle(
-                            fontSize: 14.0
+                            fontSize: 14.0,
+                          color: AppColors.colorRamps3
                         ),
                       )
                   ),
