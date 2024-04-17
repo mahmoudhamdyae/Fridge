@@ -103,50 +103,13 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                     current is GetExpensesLoadedState,
                   builder: (BuildContext context, state) {
                   List<ExpenseType> types = state.types;
-                  return Row(
-                    children: [
-                      16.pw,
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            selectedChip = AppStrings.expensesScreenAll;
-                          });
-                        },
-                        child: RawChip(
-                          checkmarkColor: AppColors.white,
-                          labelStyle: getSmallStyle(
-                            color: selectedChip == AppStrings.expensesScreenAll ? AppColors.white : AppColors.black,
-                          ),
-                            selectedColor: AppColors.colorRamps3,
-                            label: const Text(
-                              AppStrings.expensesScreenAll,
-                            ), selected: selectedChip == AppStrings.expensesScreenAll,
-                        ),
-                      ),
-                      Wrap(
-                        children: types.map((i) => Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                selectedChip = i.name ?? AppStrings.expensesScreenAll;
-                              });
-                            },
-                            child: RawChip(
-                              checkmarkColor: AppColors.white,
-                              labelStyle: getSmallStyle(
-                                color: i.name == selectedChip ? AppColors.white : AppColors.black,
-                              ),
-                              selectedColor: AppColors.colorRamps3,
-                                label: Text(
-                                  '${i.name}',
-                                  // style: getSmallStyle(),
-                                ), selected: i.name == selectedChip,
-                            ),
-                          ),
-                        )).toList(),
-                      ),
-                    ],
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Wrap(
+                      spacing: 8.0,
+                      runSpacing: 8.0,
+                      children: buildList(types),
+                    ),
                   );
                   }
               ),
@@ -292,5 +255,52 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
         ),
       ),
     ));
+  }
+
+  List<Widget> buildList(List<ExpenseType> types) {
+    Widget widget = InkWell(
+      onTap: () {
+        setState(() {
+          selectedChip = AppStrings.expensesScreenAll;
+        });
+      },
+      child: RawChip(
+        checkmarkColor: AppColors.white,
+        labelStyle: getSmallStyle(
+          color: selectedChip == AppStrings.expensesScreenAll ? AppColors.white : AppColors.black,
+        ),
+        selectedColor: AppColors.colorRamps3,
+        label: const Text(
+          AppStrings.expensesScreenAll,
+        ), selected: selectedChip == AppStrings.expensesScreenAll,
+      ),
+    );
+    List<Widget> x = types.map((i) => Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            selectedChip = i.name ?? AppStrings.expensesScreenAll;
+          });
+        },
+        child: RawChip(
+          checkmarkColor: AppColors.white,
+          labelStyle: getSmallStyle(
+            color: i.name == selectedChip ? AppColors.white : AppColors.black,
+          ),
+          selectedColor: AppColors.colorRamps3,
+          label: Text(
+            '${i.name}',
+            // style: getSmallStyle(),
+          ), selected: i.name == selectedChip,
+        ),
+      ),
+    )).toList();
+    List<Widget> widgets = [];
+    widgets.add(widget);
+    for (var element in x) {
+      widgets.add(element);
+    }
+    return widgets;
   }
 }
