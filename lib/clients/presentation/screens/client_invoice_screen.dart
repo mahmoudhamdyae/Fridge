@@ -85,8 +85,7 @@ class _ClientInvoiceScreenState extends State<ClientInvoiceScreen> {
             24.ph,
             SendButton(onTap: () {
               screenshotController.captureFromLongWidget(
-
-                  InheritedTheme.captureAll(
+                InheritedTheme.captureAll(
                     context,
                     Material(
                       child: Builder(
@@ -103,17 +102,6 @@ class _ClientInvoiceScreenState extends State<ClientInvoiceScreen> {
                   ),
                   delay: const Duration(milliseconds: 100),
                   context: context,
-
-
-                  ///
-                  /// Additionally you can define constraint for your image.
-                  ///
-                  /// constraints: BoxConstraints(
-                  ///   maxHeight: 1000,
-                  ///   maxWidth: 1000,
-                //    )
-                //   ,
-                // pixelRatio: 2
               ).then((Uint8List? image) {
                 Share.shareXFiles([XFile.fromData(image!, mimeType: "png")]);
               });

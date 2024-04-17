@@ -7,6 +7,7 @@ import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/services/services_locator.dart';
+import 'package:fridge/ward/presentation/bloc/wards_bloc.dart';
 
 import '../../../core/resources/app_colors.dart';
 import '../../../core/resources/app_strings.dart';
@@ -26,7 +27,8 @@ class ClientItem extends StatelessWidget {
         BlocProvider.of<ClientsBloc>(context).add(GetClientInvoiceEvent(client.id ?? -1));
         NavigateUtil().navigateToScreen(context, BlocProvider.value(
             value: instance<ClientsBloc>(),
-            child: const ClientInvoiceScreen()
+            child: BlocProvider.value(value: instance<WardsBloc>(),
+            child: const ClientInvoiceScreen())
         ));
       },
       child: Card(

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
+import 'package:fridge/core/navigation/navigate_util.dart';
+import 'package:fridge/core/services/services_locator.dart';
+import 'package:fridge/ward/presentation/bloc/wards_bloc.dart';
 
 import '../../../core/resources/app_strings.dart';
 import '../../../core/resources/styles_manager.dart';
 import '../../data/models/client_invoice.dart';
+import '../screens/client_ward_screen.dart';
 
 class ScreenshotWidget extends StatelessWidget {
 
@@ -50,7 +55,14 @@ class ScreenshotWidget extends StatelessWidget {
         Column(children: stores.map((store) {
           return InkWell(
             onTap: () {
-              // todo navigate to ward
+              NavigateUtil().navigateToScreen(context, BlocProvider.value(
+                value: instance<WardsBloc>(),
+                child: ClientWardScreen(
+                  wardId: store.fridgePartId ?? -1,
+                  x: store.xAxies ?? -1,
+                  y: store.yAxies ?? -1,
+                ),
+              ));
             },
             child: Card(
               child: Padding(
