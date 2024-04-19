@@ -3,7 +3,7 @@
 <plist version="1.0">
 	<dict>
 	    <key>NSContactsUsageDescription</key>
-        <string>Reason we need access to the contact list</string>
+        <string>The App needs the contact list to choose between them to create a client</string>
 		<key>CFBundleDevelopmentRegion</key>
 		<string>ar</string>
 		<key>CFBundleLocalizations</key>

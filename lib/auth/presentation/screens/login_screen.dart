@@ -142,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ],
                           ),
-                          context.dynamicHeight(.1).ph
+                          context.dynamicHeight(.5).ph
                         ],
                       ),
                     ),
