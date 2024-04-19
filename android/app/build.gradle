@@ -32,7 +32,7 @@ android {
         applicationId "com.codingsite.fridge"
         minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 6
+        versionCode 7
         versionName "1.0.02"
     }
 

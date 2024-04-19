@@ -4,10 +4,10 @@ class Analysis extends Equatable {
   final String? date;
   final String? product;
   final String? unit;
-  final int? quantity;
-  final int? totalWeight;
-  final int? priceUnit;
-  final int? totalPrice;
+  final num? quantity;
+  final num? totalWeight;
+  final num? priceUnit;
+  final num? totalPrice;
   final String? boxingType;
 
   const Analysis({
