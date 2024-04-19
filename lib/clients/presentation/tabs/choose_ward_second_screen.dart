@@ -175,7 +175,7 @@ class _ChooseWardSecondScreenState extends State<ChooseWardSecondScreen> {
             //           );
             //         })),
             16.ph,
-            NextButton(onClick: () {
+            NextButton(onClick: selectedIndex == null ? null : () {
               showLoading(context);
               BlocProvider.of<ClientsBloc>(context).add(FinishEvent(
                 ((selectedIndex ?? 0) / (state.ward.width ?? 1)).floor(),

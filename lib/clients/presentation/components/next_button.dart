@@ -9,13 +9,13 @@ import '../../../core/resources/styles_manager.dart';
 
 class NextButton extends StatelessWidget {
 
-  final Function onClick;
+  final Function()? onClick;
   const NextButton({super.key, required this.onClick});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () { onClick(); },
+      onTap: onClick,
       borderRadius: const BorderRadius.all(Radius.circular(15.0)),
       child: Container(
         decoration: const BoxDecoration(
