@@ -24,9 +24,9 @@ class InvoiceStore extends Equatable {
   final String? product;
   final String? unit;
   final int? quantity;
-  final int? totalWeight;
-  final int? priceUnit;
-  final int? totalPrice;
+  final num? totalWeight;
+  final num? priceUnit;
+  final num? totalPrice;
   final String? boxingType;
 
   const InvoiceStore({
