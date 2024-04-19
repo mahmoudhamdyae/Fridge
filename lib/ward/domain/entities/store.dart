@@ -9,8 +9,8 @@ class Store extends Equatable {
   final String? boxing;
   final String? unit;
   final int? quantity;
-  final int? totalWeight;
-  final int? price;
+  final num? totalWeight;
+  final num? price;
   final int? x;
   final int? y;
   final StoreCustomer? customer;
