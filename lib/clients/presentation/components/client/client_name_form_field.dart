@@ -50,7 +50,7 @@ class _ClientNameFormFieldState extends State<ClientNameFormField> {
         Contact? contact = await FlutterContacts.getContact(element.id);
         contact?.phones.forEach((phone) {
           String customName = '${contact.name.first} ${contact.name.last}';
-          String customPhone = phone.number;
+          String customPhone = phone.number.replaceAll(' ', '');
           debugPrint('Contact Name: $customName');
           debugPrint('Contact Phone: $customPhone');
           customContacts
