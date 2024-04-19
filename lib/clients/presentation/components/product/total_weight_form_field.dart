@@ -23,7 +23,7 @@ class TotalWeightFormField extends StatelessWidget {
         hint: '',
       ),
       onChanged: (value) {
-        double num = (double.parse(totalWeightController.text) /
+        double num = ((double.parse(totalWeightController.text) * 1000) /
             double.parse(numberController.text));
         int precision = 0;
         if (num * 10 - num.toInt() * 10 != 0) {
