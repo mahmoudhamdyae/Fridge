@@ -4,7 +4,7 @@ class ProductToAdd extends Equatable {
   final String? productType;
   final String? packagingType;
   final int? number;
-  final int? unitWeight;
+  final double? unitWeight;
   final double? totalWeight;
   final double? price;
 

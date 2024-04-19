@@ -7,7 +7,7 @@ class AddClientRequest {
   String? packagingType;
   int? wardId;
   int? number;
-  int? unitWeight;
+  double? unitWeight;
   double? totalWeight;
   double? price;
   int? x;

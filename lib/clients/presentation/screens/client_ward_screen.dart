@@ -109,7 +109,7 @@ class _ClientWardScreenState extends State<ClientWardScreen> {
                                 return indexes.contains(index)
                                     ? Container(
                                       decoration: BoxDecoration(
-                                          color: ((widget.x) * (ward!.width ?? 0) + (widget.y)) == index ? AppColors.colorRamps3 : const Color(0xffDDB089),
+                                          color: ((widget.x) * (ward?.width ?? 0) + (widget.y)) == index ? AppColors.colorRamps3 : const Color(0xffDDB089),
                                           borderRadius:
                                           const BorderRadius.all(Radius.circular(5)),
                                           boxShadow: const [

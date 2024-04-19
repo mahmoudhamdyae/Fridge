@@ -25,7 +25,7 @@ class UnitWeightFormField extends StatelessWidget {
       onChanged: (value) {
         totalWeightController.text =
             ((int.parse(numberController.text) *
-                int.parse(unitWeightController.text)) / 1000.0).toString();
+                double.parse(unitWeightController.text)) / 1000.0).toString();
       },
       controller: unitWeightController,
       textInputAction: TextInputAction.next,
