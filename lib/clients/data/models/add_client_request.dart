@@ -8,7 +8,7 @@ class AddClientRequest {
   int? wardId;
   int? number;
   int? unitWeight;
-  int? totalWeight;
+  double? totalWeight;
   double? price;
   int? x;
   int? y;

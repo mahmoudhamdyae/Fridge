@@ -122,7 +122,7 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
         packagingType: event.packagingType,
         number: int.parse(event.number),
         unitWeight: int.parse(event.unitWeight),
-        totalWeight: int.parse(event.totalWeight),
+        totalWeight: double.parse(event.totalWeight),
         price: event.price,
       )
     ));

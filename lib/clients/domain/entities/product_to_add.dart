@@ -5,7 +5,7 @@ class ProductToAdd extends Equatable {
   final String? packagingType;
   final int? number;
   final int? unitWeight;
-  final int? totalWeight;
+  final double? totalWeight;
   final double? price;
 
   const ProductToAdd({
