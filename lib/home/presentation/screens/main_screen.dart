@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/presentation/bloc/clients_bloc.dart';
 import 'package:fridge/clients/presentation/screens/clients_screen.dart';
+import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/resources/font_manager.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 import 'package:fridge/expenses/presentation/bloc/expenses_bloc.dart';
@@ -35,32 +36,29 @@ class _MainScreenState extends State<MainScreen> {
 
     Future<Null>.delayed(Duration.zero, () {
       var snackBar = SnackBar(
-        content: Padding(
-          padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).padding.top),
-          child: Center(child: Padding(
-            padding: EdgeInsets.all(MediaQuery.of(context).padding.top + 16.0),
+        content: Center(
             child: Text(
-                AppStrings.addClientScreeSuccess,
-              style: getSmallStyle(
-                  fontWeight: FontWeightManager.semiBold,
-                  color: AppColors.white
-              ),
-            ),
-          )),
-        ),
+          AppStrings.addClientScreeSuccess,
+          style: getSmallStyle(
+              fontWeight: FontWeightManager.semiBold, color: AppColors.white),
+        )),
         behavior: SnackBarBehavior.floating,
         margin: EdgeInsets.only(
-            bottom: MediaQuery.of(context).size.height - 200,),
+          bottom: MediaQuery.of(context).size.height - context.dynamicHeight(.17),
+        ),
         backgroundColor: const Color(0xff193263),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10)),
         ),
       );
 
       // Find the ScaffoldMessenger in the widget tree
       // and use it to show a SnackBar.
-      if (widget.showSnackBar) ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      if (widget.showSnackBar) {
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
     });
 
     _widgetOptions = <Widget>[
