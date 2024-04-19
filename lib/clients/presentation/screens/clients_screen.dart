@@ -4,6 +4,7 @@ import 'package:fridge/clients/domain/entities/client.dart';
 import 'package:fridge/clients/presentation/bloc/clients_bloc.dart';
 import 'package:fridge/clients/presentation/components/client_item.dart';
 import 'package:fridge/clients/presentation/screens/add_client_tabs_screen.dart';
+import 'package:fridge/core/components/dialogs/error_dialog.dart';
 import 'package:fridge/core/components/states/error_screen.dart';
 import 'package:fridge/core/components/states/loading_screen.dart';
 import 'package:fridge/core/enums/request_state.dart';
@@ -43,8 +44,11 @@ class _ClientsScreenState extends State<ClientsScreen> {
   Widget build(BuildContext context) {
     return BlocListener<ClientsBloc, ClientsState>(
       listener: (context, state) {
-        if (state.addClientState == RequestState.loaded) {
-          NavigateUtil().navigateToScreen(context, const MainScreen(showSnackBar: true,));
+        if (state.addClientState == RequestState.error) {
+          NavigateUtil().navigateUp(context);
+          showError(context, state.addClientErrorMessage, () {});
+        } else if (state.addClientState == RequestState.loaded) {
+          NavigateUtil().navigateAndClear(context, const MainScreen(showSnackBar: true,));
         }
       },
       child: SafeArea(
