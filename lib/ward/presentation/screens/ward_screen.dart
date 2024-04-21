@@ -120,14 +120,12 @@ class _WardScreenState extends State<WardScreen> {
                               (widget.ward.width ?? 1) * (widget.ward.height ?? 1),
                                   (index) {
                                 String text = '';
-                                // debugPrint('hahahahahahahaha${map}');
                                 for (var element in indexes) {
                                   if (element == index) {
                                     if (text != '') {
                                       text += ' + ';
                                     }
                                     text += map[element]?.product?? '';
-                                    debugPrint('hahahahahahahaha${map[element]?.product}');
                                   }
                                 }
 
