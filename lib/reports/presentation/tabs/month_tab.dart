@@ -106,7 +106,7 @@ class _MonthTabState extends State<MonthTab> {
               ),
             ),
             16.ph,
-            ExpensesBox(expenses: double.parse(state.months.totalExpense ?? '0').toInt()),
+            ExpensesBox(expenses: state.months.totalExpense.toInt()),
           ],
         );
         }

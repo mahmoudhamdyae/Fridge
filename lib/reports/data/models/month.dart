@@ -13,7 +13,7 @@ class MonthResponse {
 class Month {
   List<MonthChart>? chart;
   int? totalIncome;
-  String? totalExpense;
+  dynamic totalExpense;
 
   Month({this.chart, this.totalIncome, this.totalExpense});
 
