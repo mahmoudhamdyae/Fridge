@@ -6,10 +6,13 @@ import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/font_manager.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 
+import 'dialogs/sign_out_dialog.dart';
+
 class MainAppBar extends StatelessWidget {
 
   final bool canNavigateUp;
-  const MainAppBar({super.key, this.canNavigateUp = false});
+  final bool showSignOutButton;
+  const MainAppBar({super.key, this.canNavigateUp = false, this.showSignOutButton = false});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,19 @@ class MainAppBar extends StatelessWidget {
               Icons.arrow_back,
               color: Color(0xff2D5AAF),
             ),
-        ) : Container()
+        ) : Container(),
+        showSignOutButton ?
+        Positioned(
+          left: 0,
+          child: IconButton(
+              onPressed: () {
+                showSignOutDialog(context);
+              },
+              icon: const Icon(Icons.logout)
+          ),
+        )
+            :
+        Container()
       ],
     );
   }

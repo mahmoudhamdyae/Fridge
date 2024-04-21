@@ -25,6 +25,14 @@ class AppStrings {
   static const errorDialogTitle = 'خطأ!';
   static const retryAgain = 'حاول مرة أخرى';
   static const cancel = 'الغاء';
+  // Logout
+  static const String logoutDialogTitle = 'تسجيل الخروج';
+  static const String logoutDialogText = 'هل أنت متأكد من تسجيل الخروج؟';
+  static const String logoutOk = 'تسجيل الخروج';
+  // Del Account
+  static const String delAccountDialogTitle = 'حذف الحساب';
+  static const String delAccountDialogText = 'هل أنت متأكد من حذف هذا الحساب؟';
+  static const String delAccountOk = 'حذف الحساب';
 
   static const egp = 'ج.م';
 

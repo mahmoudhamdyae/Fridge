@@ -31,22 +31,7 @@ class HomeScreen extends StatelessWidget {
             shrinkWrap: true,
             physics: const ClampingScrollPhysics(),
             children: [
-              const MainAppBar(),
-              // TextFormField(
-              //   decoration: getFilledTextFieldDecoration(
-              //     hint: AppStrings.homeScreenSearchHint,
-              //     radius: 20.0,
-              //     prefixIcon: Icons.search,
-              //     textStyle: getSmallStyle(
-              //         fontSize: 12.0,
-              //         fontWeight: FontWeightManager.medium,
-              //         color: AppColors.dark2
-              //     )
-              //   ),
-              //   textInputAction: TextInputAction.done,
-              //   keyboardType: TextInputType.text,
-              // ),
-              // 12.ph,
+              const MainAppBar(showSignOutButton: true,),
               HomeScreenItem(
                 text: AppStrings.homeScreenClients,
                 onTab: () { onItemClick(1); },
