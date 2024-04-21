@@ -74,20 +74,18 @@ class WardsBloc extends Bloc<WardsEvent, WardsState> {
       emit(GetStoreErrorState(l.message));
     }, (stores) async {
 
-      // todo refactor this
       List<CustomCustomer> customCustomers = [];
       for (var element in stores) {
         customCustomers.add(CustomCustomer(
-            name: element.customer?.name,
-            type: element.customer?.type == 0 ? AppStrings.addClientScreenTraderWithQ : AppStrings.addClientScreenDealerWithQ,
-            product: element.product,
-            quantity: '${element.totalWeight} ${element.unit}',
-            storeId: element.id ?? -1,
+          name: element.customer?.name,
+          type: element.customer?.type == 0 ? AppStrings.addClientScreenTraderWithQ : AppStrings.addClientScreenDealerWithQ,
+          product: element.product,
+          quantity: '${element.totalWeight} ${element.unit}',
+          storeId: element.id ?? -1,
         ));
       }
 
-      emit(GetStoreLoadedState(
-          stores, { '${event.ward.width}-${event.ward.height}': customCustomers }));
+      emit(GetStoreLoadedState(stores));
     });
   }
 

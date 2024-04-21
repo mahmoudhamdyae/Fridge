@@ -8,7 +8,6 @@ import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/services/services_locator.dart';
-import 'package:fridge/ward/domain/entities/custom_customer.dart';
 import 'package:fridge/ward/domain/entities/ward.dart';
 import 'package:fridge/ward/presentation/bloc/wards_bloc.dart';
 import 'package:fridge/ward/presentation/components/client_details_button.dart';
@@ -123,7 +122,7 @@ class _WardScreenState extends State<WardScreen> {
                                 return indexes.contains(index)
                                     ? InkWell(
                                   onTap: () {
-                                    buildShowModalBottomSheet(context, state);
+                                    buildShowModalBottomSheet(context, state, map[index]?.x ?? 0, map[index]?.y ?? 0);
                                   },
                                   child: Container(
                                     decoration: const BoxDecoration(
@@ -167,7 +166,9 @@ class _WardScreenState extends State<WardScreen> {
   }
 
   Future<dynamic> buildShowModalBottomSheet(
-      BuildContext context, GetStoreLoadedState state) {
+      BuildContext context, GetStoreLoadedState state, int x, int y) {
+    List<Store> stores = state.stores.where((element) =>
+    element.x == x && element.y == y).toList();
     return showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -206,14 +207,8 @@ class _WardScreenState extends State<WardScreen> {
                 child: ListView(
                   children: [
                     ...List.generate(
-                        state
-                                .customMap[
-                                    '${widget.ward.width}-${widget.ward.height}']
-                                ?.length ??
-                            0, (index) {
-                      CustomCustomer customer = (state.customMap[
-                              '${widget.ward.width}-${widget.ward.height}'] ??
-                          [])[index];
+                        stores.length, (index) {
+                      StoreCustomer? customer = stores[index].customer;
                       return Column(
                         children: [
                           Row(
@@ -225,13 +220,14 @@ class _WardScreenState extends State<WardScreen> {
                                 ),
                               ),
                               Text(
-                                customer.name ?? '',
+                                customer?.name ?? '',
                                 style: getSmallStyle(
                                   fontSize: 18,
                                 ),
                               ),
+                              8.pw,
                               Text(
-                                ' ${(customer.type ?? AppStrings.addClientScreenTraderWithQ)}',
+                                customer?.type == 0 ? AppStrings.addClientScreenTraderWithQ : AppStrings.addClientScreenDealerWithQ,
                                 style: getSmallStyle(
                                   color: const Color(0xff6B6B6B),
                                   fontSize: 18,
@@ -250,7 +246,7 @@ class _WardScreenState extends State<WardScreen> {
                                     style: getSmallStyle(),
                                   ),
                                   Text(
-                                    customer.product ?? '',
+                                    stores[index].product ?? '',
                                     style: getSmallStyle(
                                       color: const Color(0xff6B6B6B),
                                     ),
@@ -265,7 +261,7 @@ class _WardScreenState extends State<WardScreen> {
                                     style: getSmallStyle(),
                                   ),
                                   Text(
-                                    customer.quantity ?? '',
+                                    '${stores[index].totalWeight} ${stores[index].unit}',
                                     style: getSmallStyle(
                                       color: const Color(0xff6B6B6B),
                                     ),
@@ -285,7 +281,7 @@ class _WardScreenState extends State<WardScreen> {
                                 BlocProvider.value(
                                   value: instance<WardsBloc>(),
                                   child: InvoiceScreen(
-                                    storeId: customer.storeId,
+                                    storeId: stores[index].id ?? -1,
                                   ),
                                 ),
                               );

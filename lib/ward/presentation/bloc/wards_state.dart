@@ -53,10 +53,9 @@ class GetStoreErrorState extends WardsState {
 
 class GetStoreLoadedState extends WardsState {
   final List<Store> stores;
-  final Map<String, List<CustomCustomer>> customMap;
-  const GetStoreLoadedState(this.stores, this.customMap);
+  const GetStoreLoadedState(this.stores);
   @override
-  List<Object> get props => [stores, customMap];
+  List<Object> get props => [stores];
 }
 
 /// Get Invoice
