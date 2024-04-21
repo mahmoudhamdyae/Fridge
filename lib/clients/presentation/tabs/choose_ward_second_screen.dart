@@ -76,16 +76,17 @@ class _ChooseWardSecondScreenState extends State<ChooseWardSecondScreen> {
                   (index) {
                 return InkWell(
                   onTap: () {
-                    if (!indexes.contains(index)) {
-                      setState(() {
-                        selectedIndex = index;
-                        debugPrint(
-                            '======= index x ${((index) / (state.ward.width ?? 1)).floor()}');
-                        debugPrint(
-                            '======= index y ${((index) % (state.ward.width ?? 1))}');
-                      });
+                    setState(() {
+                      selectedIndex = index;
+                      debugPrint(
+                          '======= index x ${((index) / (state.ward.width ?? 1)).floor()}');
+                      debugPrint(
+                          '======= index y ${((index) % (state.ward.width ?? 1))}');
+                    });
+                    if (indexes.contains(index)) {
+                      // Exist product
                     } else {
-                      // todo
+                      // No product here
                     }
                   },
                   child: DottedBorder(
@@ -104,10 +105,12 @@ class _ChooseWardSecondScreenState extends State<ChooseWardSecondScreen> {
                       child: Center(
                         child: Text(
                           indexes.contains(index)
-                              ? map[index]?.product ?? ''
+                              ?
+                          selectedIndex == index ? '${map[index]?.product} + ${widget.productType}'
+                              :
+                          map[index]?.product ?? ''
                               : selectedIndex == index
-                                  ? widget.productType
-                                  : '',
+                                  ? widget.productType : '',
                           style: getSmallStyle(
                               fontSize: 12,
                               fontWeight: FontWeightManager.medium),
@@ -118,62 +121,6 @@ class _ChooseWardSecondScreenState extends State<ChooseWardSecondScreen> {
                 );
               }),
             ),
-            // GridView.count(
-            //     shrinkWrap: true,
-            //     physics: const ClampingScrollPhysics(),
-            //     padding: const EdgeInsets.symmetric(
-            //         horizontal: 12, vertical: 28),
-            //     crossAxisCount: state.ward.width ?? 1,
-            //     crossAxisSpacing: 15,
-            //     mainAxisSpacing: 20,
-            //     childAspectRatio: 1.1,
-            //     children: List.generate(
-            //         (state.ward.width ?? 1) * (state.ward.height ?? 1),
-            //             (index) {
-            //           return indexes.contains(index)
-            //               ? InkWell(
-            //             onTap: () {
-            //               setState(() {
-            //                 selectedIndex = index;
-            //                 debugPrint('======= index x ${((index) / (state.ward.width ?? 1)).floor()}');
-            //                 debugPrint('======= index y ${((index) % (state.ward.width ?? 1))}');
-            //               });
-            //             },
-            //             child: Container(
-            //               decoration: const BoxDecoration(
-            //                   color: Color(0xffDDB089),
-            //                   borderRadius:
-            //                   BorderRadius.all(Radius.circular(5)),
-            //                   boxShadow: [
-            //                     BoxShadow(
-            //                       color: AppColors.black,
-            //                       blurRadius: 4,
-            //                       offset: Offset(2, 2),
-            //                     )
-            //                   ]),
-            //               child: Center(
-            //                 child: Text(
-            //                   indexes.contains(index)
-            //                       ? map[index]?.product ?? ''
-            //                       : '',
-            //                   style: getSmallStyle(
-            //                       fontSize: 10,
-            //                       fontWeight: FontWeightManager.medium),
-            //                 ),
-            //               ),
-            //             ),
-            //           )
-            //               : DottedBorder(
-            //             strokeWidth: 1,
-            //             child: Container(
-            //               child: Center(
-            //                 child: Text(
-            //                     selectedIndex == index ? widget.productType : ''
-            //                 ),
-            //               ),
-            //             ),
-            //           );
-            //         })),
             16.ph,
             NextButton(onClick: selectedIndex == null ? null : () {
               showLoading(context);
