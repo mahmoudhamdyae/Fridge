@@ -156,7 +156,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                           Row(
                             children: [
                               Text(
-                                AppStrings.billScreenWardsNumber,
+                                AppStrings.billScreenNumber,
                                 style: getSmallStyle(),
                               ),
                               Text(
@@ -171,18 +171,17 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                           Row(
                             children: [
                               Text(
-                                AppStrings.billScreenStoreType,
+                                AppStrings.billScreenWardsNumber,
                                 style: getSmallStyle(),
                               ),
                               Text(
-                                state.invoice.store?.boxingType ?? '',
+                                (state.invoice.store?.quantity).toString(), // todo part number
                                 style: getSmallStyle(
                                   color: const Color(0xff6B6B6B),
                                 ),
                               )
                             ],
                           ),
-                          // todo
                           // 24.ph,
                           // Row(
                           //   children: [

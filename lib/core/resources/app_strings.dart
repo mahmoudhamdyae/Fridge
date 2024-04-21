@@ -135,8 +135,8 @@ class AppStrings {
   static const String billClientScreenDealer = 'أهالى';
   static const String billScreenProduct = 'المنتج : ';
   static const String billScreenQuantity = 'الكمية : ';
-  static const String billScreenWardsNumber = 'عدد العنابر : ';
-  static const String billScreenWardArea = 'مساحة العنبر : ';
+  static const String billScreenNumber = 'عدد الشكاير : ';
+  static const String billScreenWardsNumber = 'رقم العنبر : ';
   static const String billScreenStoreType = 'طريقة التخزين : ';
   static const String billScreenStorePlace = 'مكان التخزين : ';
   static const String billScreenPrice = 'سعر الوحدة : ';

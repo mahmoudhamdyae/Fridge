@@ -94,7 +94,7 @@ class _ClientWardScreenState extends State<ClientWardScreen> {
                         map[newIndex] = element;
                         debugPrint('=========== new $newIndex');
                       }
-                      return GridView.count(
+                      return ward?.width == null || ward?.height == null ? const LoadingScreen() : GridView.count(
                           shrinkWrap: true,
                           physics: const ClampingScrollPhysics(),
                           padding: const EdgeInsets.symmetric(
@@ -127,7 +127,7 @@ class _ClientWardScreenState extends State<ClientWardScreen> {
                                           style: getSmallStyle(
                                               fontSize: 10,
                                               fontWeight: FontWeightManager.medium,
-                                              color: ((widget.x) * (ward!.width ?? 0) + (widget.y)) == index ? AppColors.white : AppColors.black,
+                                              color: ((widget.x) * (ward?.width ?? 0) + (widget.y)) == index ? AppColors.white : AppColors.black,
                                           )
                                         ),
                                       ),

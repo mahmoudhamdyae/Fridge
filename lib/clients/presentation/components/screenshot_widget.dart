@@ -30,6 +30,7 @@ class ScreenshotWidget extends StatelessWidget {
             ),
             Row(
               children: [
+                32.pw,
                 Text(
                   AppStrings.billScreenClientDate,
                   style: getSmallStyle(),
@@ -71,37 +72,47 @@ class ScreenshotWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     Row(
-                      mainAxisAlignment:
-                      MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              AppStrings.billScreenProduct,
-                              style: getSmallStyle(),
-                            ),
-                            Text(
-                              store.product ?? '',
-                              style: getSmallStyle(
-                                color: const Color(0xff6B6B6B),
-                              ),
-                            )
-                          ],
+                        Text(
+                          AppStrings.billScreenProduct,
+                          style: getSmallStyle(),
                         ),
-                        Row(
-                          children: [
-                            Text(
-                              AppStrings.billScreenQuantity,
-                              style: getSmallStyle(),
-                            ),
-                            Text(
-                              '${store.totalWeight} ${store.unit}',
-                              style: getSmallStyle(
-                                color: const Color(0xff6B6B6B),
-                              ),
-                            )
-                          ],
+                        Text(
+                          store.product ?? '',
+                          style: getSmallStyle(
+                            color: const Color(0xff6B6B6B),
+                          ),
+                        )
+                      ],
+                    ),
+                    24.ph,
+                    Row(
+                      children: [
+                        Text(
+                          AppStrings.billScreenQuantity,
+                          style: getSmallStyle(),
                         ),
+                        Text(
+                          '${store.totalWeight} ${store.unit}',
+                          style: getSmallStyle(
+                            color: const Color(0xff6B6B6B),
+                          ),
+                        )
+                      ],
+                    ),
+                    24.ph,
+                    Row(
+                      children: [
+                        Text(
+                          AppStrings.billScreenNumber,
+                          style: getSmallStyle(),
+                        ),
+                        Text(
+                          '${store.quantity}',
+                          style: getSmallStyle(
+                            color: const Color(0xff6B6B6B),
+                          ),
+                        )
                       ],
                     ),
                     24.ph,
@@ -110,41 +121,36 @@ class ScreenshotWidget extends StatelessWidget {
                       MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  AppStrings
-                                      .billScreenWardsNumber,
-                                  style: getSmallStyle(),
-                                ),
-                                Text(
-                                  (store.quantity).toString(),
-                                  style: getSmallStyle(
-                                    color:
-                                    const Color(0xff6B6B6B),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                        Row(
                           children: [
                             Text(
-                              AppStrings.billScreenStoreType,
+                              AppStrings
+                                  .billScreenWardsNumber,
                               style: getSmallStyle(),
                             ),
                             Text(
-                              store.boxing ?? '',
+                              (store.quantity).toString(), // todo part number
                               style: getSmallStyle(
-                                color: const Color(0xff6B6B6B),
+                                color:
+                                const Color(0xff6B6B6B),
                               ),
                             )
                           ],
                         ),
+                      ],
+                    ),
+                    24.ph,
+                    Row(
+                      children: [
+                        Text(
+                          AppStrings.billScreenStorePlace,
+                          style: getSmallStyle(),
+                        ),
+                        Text(
+                          '${(store.xAxies ?? 0) + 1} * ${(store.yAxies ?? 0) + 1}',
+                          style: getSmallStyle(
+                            color: const Color(0xff6B6B6B),
+                          ),
+                        )
                       ],
                     ),
                     // 24.ph,

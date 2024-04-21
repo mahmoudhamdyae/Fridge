@@ -32,8 +32,8 @@ android {
         applicationId "com.codingsite.fridge"
         minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 9
-        versionName "1.0.02"
+        versionCode 10
+        versionName "1.0.03"
     }
 
     signingConfigs {
