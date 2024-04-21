@@ -2,8 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
-	    <key>NSContactsUsageDescription</key>
-        <string>The App needs the contact list to choose between them to create a client</string>
+		<key>NSContactsUsageDescription</key>
+		<string>Access to the contacts allows you to create a new client with a number from your contacts</string>
 		<key>CFBundleDevelopmentRegion</key>
 		<string>ar</string>
 		<key>CFBundleLocalizations</key>
