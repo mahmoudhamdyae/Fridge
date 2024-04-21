@@ -33,6 +33,11 @@ class AppStrings {
   static const String delAccountDialogTitle = 'حذف الحساب';
   static const String delAccountDialogText = 'هل أنت متأكد من حذف هذا الحساب؟';
   static const String delAccountOk = 'حذف الحساب';
+  // Update Dialog
+  static const updateDialogTitle = 'تحديث جديد متاح';
+  static const updateDialogMessage = 'يتوفر إصدار أحدث من التطبيق، يرجى تحديثه الآن.';
+  static const updateDialogButtonLabel = 'تحديث الآن';
+  static const updateDialogButtonLabelCancel = 'لاحقًا';
 
   static const egp = 'ج.م';
 

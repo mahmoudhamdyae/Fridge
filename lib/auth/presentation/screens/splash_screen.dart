@@ -6,12 +6,15 @@ import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/navigation/navigate_extension.dart';
 import 'package:fridge/core/resources/app_assets.dart';
 import 'package:fridge/core/resources/app_constants.dart';
+import 'package:rate_my_app/rate_my_app.dart';
 
 import '../../../core/navigation/navigate_util.dart';
 import '../bloc/auth_bloc.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+
+  final RateMyApp? rateMyApp;
+  const SplashScreen({super.key, this.rateMyApp});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -28,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
     authStream = authBloc.stream.listen((state) {
       Future.delayed(AppConstants.splashScreenTime).then((_) =>
-          NavigateUtil().navigateAndClear(context, state.status.firstView));
+          NavigateUtil().navigateAndClear(context, state.status.getFirstView(widget.rateMyApp)));
     });
   }
 

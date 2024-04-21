@@ -9,18 +9,22 @@ import 'package:fridge/expenses/presentation/bloc/expenses_bloc.dart';
 import 'package:fridge/reports/presentation/bloc/reports_bloc.dart';
 import 'package:fridge/reports/presentation/screens/reports_screen.dart';
 import 'package:fridge/ward/presentation/screens/wards_screen.dart';
+import 'package:rate_my_app/rate_my_app.dart';
 import '../../../core/resources/app_assets.dart';
 import '../../../core/resources/app_colors.dart';
 import '../../../core/resources/app_strings.dart';
 import '../../../core/services/services_locator.dart';
+import '../../../core/utils/check_version.dart';
 import '../../../settings/presentation/bloc/settings_bloc.dart';
 import '../../../ward/presentation/bloc/wards_bloc.dart';
 import 'home_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  final bool showSnackBar;
 
-  const MainScreen({super.key, this.showSnackBar = false});
+  final bool showSnackBar;
+  final RateMyApp? rateMyApp;
+
+  const MainScreen({super.key, this.showSnackBar = false, this.rateMyApp});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -33,6 +37,23 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
+
+    try {
+      versionCheck(context, () {
+        if (widget.rateMyApp != null && widget.rateMyApp!.shouldOpenDialog) {
+          widget.rateMyApp?.showRateDialog(
+            context,
+            title: 'قيم هذا التطبيق',
+            message: 'إذا أعجبك هذا التطبيق ، خصص القليل من وقتك لتقييمه',
+            rateButton: 'قيم الآن',
+            noButton: 'لا شكرا',
+            laterButton: 'ذكرنى لاحقا',
+          );
+        }
+      });
+    } catch (e) {
+      debugPrint(e.toString());
+    }
 
     Future<Null>.delayed(Duration.zero, () {
       var snackBar = SnackBar(

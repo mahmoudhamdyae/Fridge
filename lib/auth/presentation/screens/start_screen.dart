@@ -9,14 +9,45 @@ import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 import 'package:fridge/home/presentation/screens/main_screen.dart';
+import 'package:rate_my_app/rate_my_app.dart';
 
 import '../../../core/components/dialogs/error_dialog.dart';
 import '../../../core/enums/auth_enums.dart';
 import '../../../core/services/services_locator.dart';
+import '../../../core/utils/check_version.dart';
 import '../bloc/auth_bloc.dart';
 
-class StartScreen extends StatelessWidget {
-  const StartScreen({super.key});
+class StartScreen extends StatefulWidget {
+
+  final RateMyApp? rateMyApp;
+  const StartScreen({super.key, this.rateMyApp});
+
+  @override
+  State<StartScreen> createState() => _StartScreenState();
+}
+
+class _StartScreenState extends State<StartScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    try {
+      versionCheck(context, () {
+        if (widget.rateMyApp != null && widget.rateMyApp!.shouldOpenDialog) {
+          widget.rateMyApp?.showRateDialog(
+            context,
+            title: 'قيم هذا التطبيق',
+            message: 'إذا أعجبك هذا التطبيق ، خصص القليل من وقتك لتقييمه',
+            rateButton: 'قيم الآن',
+            noButton: 'لا شكرا',
+            laterButton: 'ذكرنى لاحقا',
+          );
+        }
+      });
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
