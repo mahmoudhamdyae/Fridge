@@ -10,6 +10,24 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
 android {
     namespace "com.codingsite.fridge"
     compileSdk flutter.compileSdkVersion
@@ -32,8 +50,10 @@ android {
         applicationId "com.codingsite.fridge"
         minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 12
-        versionName "1.0.05"
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+//        versionCode 8 // 12
+//        versionName "1.0.00" // 1.0.05
     }
 
     signingConfigs {
