@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fridge/core/components/coding_site_widget.dart';
 import 'package:fridge/core/components/decorations.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
@@ -64,6 +65,7 @@ class HomeScreen extends StatelessWidget {
                 onTab: () { onItemClick(3); },
               ),
               16.ph,
+              const CodingSiteWidget(),
             ],
           ),
         ),

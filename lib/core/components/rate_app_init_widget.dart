@@ -24,10 +24,10 @@ class _RateAppInitWidgetState extends State<RateAppInitWidget> {
     rateMyApp: RateMyApp(
       googlePlayIdentifier: playStoreId,
       appStoreIdentifier: appstoreId,
-        minDays: 0,//2,
-        minLaunches: 0,//7,
-        remindDays: 0,//2,
-        remindLaunches: 0,//5
+        minDays: 2,
+        minLaunches: 7,
+        remindDays: 2,
+        remindLaunches: 5
     ),
     onInitialized: (context, rateMyApp) {
       setState(() => this.rateMyApp = rateMyApp);

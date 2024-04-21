@@ -1,5 +1,6 @@
 class AppStrings {
   static const String appName = 'ثلاجة';
+  static const madeBy = 'made by \u00a9 coding-site.com';
   static const String noConnection = 'لا يمكن الاتصال بالإنترنت';
 
   // Onboarding Screen
