@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
             shrinkWrap: true,
             physics: const ClampingScrollPhysics(),
             children: [
-              const MainAppBar(showSignOutButton: true,),
+              const MainAppBar(isInHomeScreen: true,),
               HomeScreenItem(
                 text: AppStrings.homeScreenClients,
                 onTab: () { onItemClick(1); },

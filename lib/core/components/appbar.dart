@@ -6,13 +6,14 @@ import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/font_manager.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 
+import 'dialogs/del_account_dialog.dart';
 import 'dialogs/sign_out_dialog.dart';
 
 class MainAppBar extends StatelessWidget {
 
   final bool canNavigateUp;
-  final bool showSignOutButton;
-  const MainAppBar({super.key, this.canNavigateUp = false, this.showSignOutButton = false});
+  final bool isInHomeScreen;
+  const MainAppBar({super.key, this.canNavigateUp = false, this.isInHomeScreen = false});
 
   @override
   Widget build(BuildContext context) {
@@ -39,20 +40,40 @@ class MainAppBar extends StatelessWidget {
               color: Color(0xff2D5AAF),
             ),
         ) : Container(),
-        showSignOutButton ?
+        isInHomeScreen ?
         Positioned(
           left: 0,
-          child: IconButton(
-              onPressed: () {
-                showSignOutDialog(context);
-              },
-              icon: const Icon(Icons.logout)
+          child: Row(
+            children: [
+              IconButton(
+                  onPressed: () {
+                    showSignOutDialog(context);
+                  },
+                  icon: const Icon(Icons.logout)
+              ),
+              PopupMenuButton<int>(
+                onSelected: (item) => handleClick(item, context),
+                itemBuilder: (context) => [
+                  const PopupMenuItem(value: 0, child: Text(AppStrings.delAccountDialogTitle)),
+                ],
+              ),
+            ],
           ),
         )
             :
         Container()
       ],
     );
+  }
+
+  void handleClick(int item, BuildContext context) {
+    switch (item) {
+      case 0:
+        showDelAccountDialog(context);
+        break;
+      case 1:
+        break;
+    }
   }
 }
 
