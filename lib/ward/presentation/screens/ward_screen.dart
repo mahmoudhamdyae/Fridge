@@ -119,6 +119,18 @@ class _WardScreenState extends State<WardScreen> {
                           children: List.generate(
                               (widget.ward.width ?? 1) * (widget.ward.height ?? 1),
                                   (index) {
+                                String text = '';
+                                // debugPrint('hahahahahahahaha${map}');
+                                for (var element in indexes) {
+                                  if (element == index) {
+                                    if (text != '') {
+                                      text += ' + ';
+                                    }
+                                    text += map[element]?.product?? '';
+                                    debugPrint('hahahahahahahaha${map[element]?.product}');
+                                  }
+                                }
+
                                 return indexes.contains(index)
                                     ? InkWell(
                                   onTap: () {
@@ -138,9 +150,7 @@ class _WardScreenState extends State<WardScreen> {
                                         ]),
                                     child: Center(
                                       child: Text(
-                                        indexes.contains(index)
-                                            ? map[index]?.product ?? ''
-                                            : '',
+                                        text,
                                         style: getSmallStyle(
                                             fontSize: 10,
                                             fontWeight: FontWeightManager.medium),
