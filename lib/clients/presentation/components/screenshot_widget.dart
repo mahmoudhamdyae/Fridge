@@ -128,7 +128,7 @@ class ScreenshotWidget extends StatelessWidget {
                               style: getSmallStyle(),
                             ),
                             Text(
-                              (store.quantity).toString(), // todo part number
+                              store.partName ?? '',
                               style: getSmallStyle(
                                 color:
                                 const Color(0xff6B6B6B),
