@@ -6,7 +6,7 @@ import '../../../core/resources/styles_manager.dart';
 
 class ExpensesBox extends StatelessWidget {
 
-  final int expenses;
+  final dynamic expenses;
   const ExpensesBox({super.key, required this.expenses});
 
   @override
@@ -42,17 +42,6 @@ class ExpensesBox extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Container _buildCircle() {
-    return Container(
-      width: 8,
-      height: 8,
-      decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          color: AppColors.secondary
       ),
     );
   }

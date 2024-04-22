@@ -22,7 +22,6 @@ class MonthTab extends StatefulWidget {
 }
 
 class _MonthTabState extends State<MonthTab> {
-
   late final ReportsBloc bloc;
 
   @override
@@ -36,9 +35,9 @@ class _MonthTabState extends State<MonthTab> {
   Widget build(BuildContext context) {
     return BlocBuilder<ReportsBloc, ReportsState>(
       buildWhen: (previous, current) =>
-      current is GetMonthLoadingState ||
-      current is GetMonthErrorState ||
-      current is GetMonthLoadedState,
+          current is GetMonthLoadingState ||
+          current is GetMonthErrorState ||
+          current is GetMonthLoadedState,
       builder: (context, state) {
         if (state is GetMonthLoadingState) {
           return const LoadingScreen();
@@ -46,86 +45,84 @@ class _MonthTabState extends State<MonthTab> {
           return ErrorScreen(error: state.errorMessage);
         } else if (state is GetMonthLoadedState) {
           return ListView(
-          shrinkWrap: true,
-          physics: const ClampingScrollPhysics(),
-          children: [
-            16.ph,
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              decoration: const BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.grey,
-                      spreadRadius: 2,
-                      blurRadius: 3,
-                      offset: Offset(0, 0),
+            shrinkWrap: true,
+            physics: const ClampingScrollPhysics(),
+            children: [
+              16.ph,
+              Container(
+                padding: const EdgeInsets.all(16.0),
+                decoration: const BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.grey,
+                        spreadRadius: 2,
+                        blurRadius: 3,
+                        offset: Offset(0, 0),
+                      ),
+                    ]),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${state.months.totalIncome ?? 0} ${AppStrings.egp}',
+                      style: getLargeStyle(
+                          fontSize: 20, color: const Color(0xff193263)),
                     ),
-                  ]
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${state.months.totalIncome ?? 0} ${AppStrings.egp}',
-                    style: getLargeStyle(
-                        fontSize: 20,
-                        color: const Color(0xff193263)
+                    Text(
+                      AppStrings.reportsTabTotalPrice,
+                      style: getSmallStyle(
+                        color: const Color(0xff6B6B6B),
+                        fontSize: 12,
+                      ),
                     ),
-                  ),
-                  Text(
-                    AppStrings.reportsTabTotalPrice,
-                    style: getSmallStyle(
-                      color: const Color(0xff6B6B6B),
-                      fontSize: 12,
-                    ),
-                  ),
-                  16.ph,
-                  SizedBox(
-                    height: 250,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: SizedBox(
-                        width: context.width * 2,
-                        child: BarChart(
-                          BarChartData(
-                            barTouchData: barTouchData,
-                            titlesData: titlesData(state),
-                            borderData: borderData,
-                            barGroups: barGroups(state),
-                            gridData: const FlGridData(show: false),
-                            alignment: BarChartAlignment.start,
-                            maxY: getMaxCount(state),
+                    16.ph,
+                    SizedBox(
+                      height: 250,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: SizedBox(
+                          width: context.width * 2,
+                          child: BarChart(
+                            BarChartData(
+                              barTouchData: barTouchData,
+                              titlesData: titlesData(state),
+                              borderData: borderData,
+                              barGroups: barGroups(state),
+                              gridData: const FlGridData(show: false),
+                              alignment: BarChartAlignment.start,
+                              maxY: getMaxCount(state),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
-            ),
-            16.ph,
-            ExpensesBox(expenses: state.months.totalExpense.toInt()),
-          ],
-        );
+              16.ph,
+              ExpensesBox(expenses: state.months.totalExpense),
+            ],
+          );
         }
         return Container();
       },
     );
   }
 
-  BarTouchData get barTouchData =>
-      BarTouchData(
+  BarTouchData get barTouchData => BarTouchData(
         enabled: false,
         touchTooltipData: BarTouchTooltipData(
           getTooltipColor: (group) => Colors.transparent,
           tooltipPadding: EdgeInsets.zero,
           tooltipMargin: 8,
-          getTooltipItem: (BarChartGroupData group,
-              int groupIndex,
-              BarChartRodData rod,
-              int rodIndex,) {
+          getTooltipItem: (
+            BarChartGroupData group,
+            int groupIndex,
+            BarChartRodData rod,
+            int rodIndex,
+          ) {
             return BarTooltipItem(
               rod.toY.round().toString(),
               const TextStyle(
@@ -138,10 +135,7 @@ class _MonthTabState extends State<MonthTab> {
       );
 
   Widget getTitles(double value, TitleMeta meta, GetMonthLoadedState state) {
-    TextStyle style = getSmallStyle(
-        color: AppColors.dark2,
-        fontSize: 12.0
-    );
+    TextStyle style = getSmallStyle(color: AppColors.dark2, fontSize: 12.0);
     MonthChart month = state.months.chart![value.toInt()];
     return SideTitleWidget(
       axisSide: meta.axisSide,
@@ -151,15 +145,14 @@ class _MonthTabState extends State<MonthTab> {
     );
   }
 
-  FlTitlesData titlesData(GetMonthLoadedState state) =>
-      FlTitlesData(
+  FlTitlesData titlesData(GetMonthLoadedState state) => FlTitlesData(
         show: true,
         bottomTitles: AxisTitles(
           sideTitles: SideTitles(
             showTitles: true,
             reservedSize: 60,
             getTitlesWidget: (double value, TitleMeta meta) =>
-                getTitles(value, meta ,state ),
+                getTitles(value, meta, state),
           ),
         ),
         leftTitles: const AxisTitles(
@@ -173,8 +166,7 @@ class _MonthTabState extends State<MonthTab> {
         ),
       );
 
-  FlBorderData get borderData =>
-      FlBorderData(
+  FlBorderData get borderData => FlBorderData(
         show: false,
       );
 
