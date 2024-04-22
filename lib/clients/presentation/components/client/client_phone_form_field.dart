@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -50,10 +52,11 @@ class _ClientPhoneFormFieldState extends State<ClientPhoneFormField> {
         contact?.phones.forEach((phone) {
           String customName = '${contact.name.first} ${contact.name.last}';
           String customPhone = phone.number.replaceAll(' ', '');
+          Uint8List? thumbnail = contact.thumbnail;
           debugPrint('Contact Name: $customName');
           debugPrint('Contact Phone: $customPhone');
           customContacts
-              .add(CustomContact(name: customName, phone: customPhone));
+              .add(CustomContact(name: customName, phone: customPhone, thumbnail: thumbnail));
         });
       }
     }

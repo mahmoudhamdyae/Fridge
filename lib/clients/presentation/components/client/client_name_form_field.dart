@@ -1,9 +1,15 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:fridge/clients/presentation/screens/get_contact_screen.dart';
+import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 
+import '../../../../core/resources/app_colors.dart';
 import '../../../../core/resources/app_strings.dart';
+import '../../../../core/resources/font_manager.dart';
 import '../../../../core/utils/validate_operations.dart';
 import '../../../domain/entities/contact.dart';
 
@@ -28,8 +34,6 @@ class _ClientNameFormFieldState extends State<ClientNameFormField> {
   List<String> phones = [];
   List<CustomContact> customContacts = [];
 
-  String selectedName = AppStrings.addClientScreenClientPhoneLabel;
-
   @override
   void initState() {
     super.initState();
@@ -51,10 +55,11 @@ class _ClientNameFormFieldState extends State<ClientNameFormField> {
         contact?.phones.forEach((phone) {
           String customName = '${contact.name.first} ${contact.name.last}';
           String customPhone = phone.number.replaceAll(' ', '');
+          Uint8List? thumbnail = contact.thumbnail;
           debugPrint('Contact Name: $customName');
           debugPrint('Contact Phone: $customPhone');
           customContacts
-              .add(CustomContact(name: customName, phone: customPhone));
+              .add(CustomContact(name: customName, phone: customPhone, thumbnail: thumbnail));
         });
       }
     }
@@ -74,9 +79,46 @@ class _ClientNameFormFieldState extends State<ClientNameFormField> {
         return TextFormField(
           controller: controller,
           focusNode: focusNode,
-          decoration: getFilledTextFieldDecorationWithLabel(
-              label: AppStrings.addClientScreenClientNameLabel,
-              suffixIcon: Icons.person),
+          decoration: InputDecoration(
+            hintStyle: getSmallStyle(
+              fontSize: 14.0,
+              color: AppColors.dark2,
+            ),
+            prefixIconConstraints: const BoxConstraints(
+              maxWidth: 32.0,
+              minWidth: 32.0,
+            ),
+            suffixIcon: IconButton(
+                onPressed: () {
+                  NavigateUtil().navigateToScreen(
+                      context,
+                      GetContactScreen(
+                        customContacts: customContacts,
+                        onSelect: (String name, String phone) {
+                          setState(() {
+                            widget.clientNameController.text = name;
+                            widget.clientPhoneController.text = phone;
+                          });
+                        },
+                      )
+                  );
+                },
+                icon: const Icon(
+                    Icons.person_add_sharp,
+                    color: Color(0xff545454)
+                ),
+            ),
+            label: Text(
+              AppStrings.addClientScreenClientNameLabel,
+              style: getSmallStyle(
+                  fontWeight: FontWeightManager.medium
+              ),
+            ),
+            border: const OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.grey),
+              borderRadius: BorderRadius.all(Radius.circular(15.0)),
+            ),
+          ),
           textInputAction: TextInputAction.next,
           keyboardType: TextInputType.text,
           validator: (value) => ValidateOperations.normalValidation(value),
