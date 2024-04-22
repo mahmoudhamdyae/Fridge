@@ -34,6 +34,7 @@ class WardScreen extends StatefulWidget {
 
 class _WardScreenState extends State<WardScreen> {
   late WardsBloc bloc;
+  String searchString = '';
 
   @override
   void initState() {
@@ -107,6 +108,30 @@ class _WardScreenState extends State<WardScreen> {
                           ),
                         ],
                       ),
+                      24.ph,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: TextFormField(
+                          decoration: getFilledTextFieldDecoration(
+                              hint: AppStrings.wardsScreenSearchHint,
+                              radius: 20.0,
+                              prefixIcon: Icons.search,
+                              textStyle: getSmallStyle(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeightManager.medium,
+                                  color: AppColors.dark2
+                              )
+                          ),
+                          textInputAction: TextInputAction.done,
+                          keyboardType: TextInputType.text,
+                          onChanged: (value) {
+                            setState(() {
+                              searchString = value;
+                            });
+                          },
+                        ),
+                      ),
+                      16.ph,
                       GridView.count(
                           shrinkWrap: true,
                           physics: const ClampingScrollPhysics(),
@@ -135,11 +160,19 @@ class _WardScreenState extends State<WardScreen> {
                                     buildShowModalBottomSheet(context, state, map[index]?.x ?? 0, map[index]?.y ?? 0);
                                   },
                                   child: Container(
-                                    decoration: const BoxDecoration(
-                                        color: Color(0xffDDB089),
+                                    decoration: BoxDecoration(
+                                        color:
+                                        searchString.isNotEmpty && (
+                                            map[index]!.product!.toLowerCase().contains(searchString.toLowerCase()) ||
+                                                map[index]!.customer!.name!.toLowerCase().contains(searchString.toLowerCase()) ||
+                                                map[index]!.customer!.phone!.contains(searchString.toLowerCase()))
+                                            ?
+                                        AppColors.colorRamps3
+                                            :
+                                        const Color(0xffDDB089),
                                         borderRadius:
-                                        BorderRadius.all(Radius.circular(5)),
-                                        boxShadow: [
+                                        const BorderRadius.all(Radius.circular(5)),
+                                        boxShadow: const [
                                           BoxShadow(
                                             color: AppColors.black,
                                             blurRadius: 4,
@@ -150,8 +183,18 @@ class _WardScreenState extends State<WardScreen> {
                                       child: Text(
                                         text,
                                         style: getSmallStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeightManager.medium),
+                                          fontSize: 10,
+                                          fontWeight: FontWeightManager.medium,
+                                          color:
+                                          searchString.isNotEmpty && (
+                                              map[index]!.product!.toLowerCase().contains(searchString.toLowerCase()) ||
+                                                  map[index]!.customer!.name!.toLowerCase().contains(searchString.toLowerCase()) ||
+                                                  map[index]!.customer!.phone!.contains(searchString.toLowerCase()))
+                                              ?
+                                          AppColors.white
+                                              :
+                                          AppColors.black,
+                                        ),
                                       ),
                                     ),
                                   ),

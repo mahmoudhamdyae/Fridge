@@ -180,6 +180,7 @@ class AppStrings {
   static const String wardsScreenTitle = 'الثلاجة';
   static const String wardsScreenDetails = 'تفاصيل';
   static const String wardsScreenSettings = 'إعدادات';
+  static const String wardsScreenSearchHint = 'ابحث باسم العميل أو اسم المنتج';
   // Product Dialog
   static const String productDialogClientName = 'اسم العميل : ';
   static const String productDialogProduct = 'المنتج : ';
