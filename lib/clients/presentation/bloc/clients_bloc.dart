@@ -218,9 +218,10 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
   }
 
   Future<void> _searchClients(SearchClientsEvent event, Emitter<ClientsState> emit) async {
-    String search = event.search;
+    String search = event.search.toLowerCase();
     var clients = state.clients.where((element) =>
-        element.name!.contains(search) || element.phone!.contains(search)
+        element.name!.toLowerCase().contains(search) ||
+            element.phone!.toLowerCase().contains(search)
     );
     emit(
       state.copyWith(
