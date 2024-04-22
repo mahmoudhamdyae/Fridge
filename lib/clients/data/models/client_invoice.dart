@@ -62,7 +62,7 @@ class ClientInvoiceStores {
   String? boxing;
   String? unit;
   num? quantity;
-  num? totalWeight;
+  String? totalWeight;
   num? price;
   int? xAxies;
   int? yAxies;
