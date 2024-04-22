@@ -123,6 +123,8 @@ class AppStrings {
   static const String addClientScreenNextButton = 'التالى';
   static const String addClientScreenCompleteButton = 'تم';
   static const String addClientScreenCancelButton = 'الغاء';
+  static const String addClientScreenChooseContact = 'تحديد جهة اتصال';
+  static const String addClientScreenSearchHint = 'ابحث بالاسم أو رقم الهاتف';
 
   static const String addClientScreenAddProducts = 'إضافة منتجات العميل';
   static const String addClientScreenProductTypeLabel = 'نوع المنتج';

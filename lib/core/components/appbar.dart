@@ -13,7 +13,14 @@ class MainAppBar extends StatelessWidget {
 
   final bool canNavigateUp;
   final bool isInHomeScreen;
-  const MainAppBar({super.key, this.canNavigateUp = false, this.isInHomeScreen = false});
+  final String title;
+
+  const MainAppBar({
+    super.key,
+    this.canNavigateUp = false,
+    this.isInHomeScreen = false,
+    this.title = AppStrings.wardsScreenTitle
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +30,7 @@ class MainAppBar extends StatelessWidget {
           width: context.width,
           height: context.dynamicHeight(.07),
           child: Text(
-            AppStrings.wardsScreenTitle,
+            title,
             textAlign: TextAlign.center,
             style: getLargeStyle(
               fontSize: 30.0,
