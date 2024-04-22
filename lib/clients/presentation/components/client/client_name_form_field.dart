@@ -58,6 +58,7 @@ class _ClientNameFormFieldState extends State<ClientNameFormField> {
           Uint8List? thumbnail = contact.thumbnail;
           debugPrint('Contact Name: $customName');
           debugPrint('Contact Phone: $customPhone');
+          debugPrint('Contact Image: $thumbnail');
           customContacts
               .add(CustomContact(name: customName, phone: customPhone, thumbnail: thumbnail));
         });
