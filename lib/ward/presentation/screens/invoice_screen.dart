@@ -175,59 +175,13 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                 style: getSmallStyle(),
                               ),
                               Text(
-                                (state.invoice.store?.quantity).toString(), // todo part number
+                                (state.invoice.store?.partName).toString(),
                                 style: getSmallStyle(
                                   color: const Color(0xff6B6B6B),
                                 ),
                               )
                             ],
                           ),
-                          // 24.ph,
-                          // Row(
-                          //   children: [
-                          //     Text(
-                          //       AppStrings.billScreenStorePlace,
-                          //       style: getSmallStyle(),
-                          //     ),
-                          //     Text(
-                          //       'ثلاجة 5',
-                          //       style: getSmallStyle(
-                          //         color: const Color(0xff6B6B6B),
-                          //       ),
-                          //     )
-                          //   ],
-                          // ),
-                          // 24.ph,
-                          // const Divider(
-                          //   height: 1.0,
-                          //   color: Color(0xffC3C3C3),
-                          // ),
-                          // 16.ph,
-                          // Row(
-                          //   children: [
-                          //     Text(
-                          //       AppStrings.billScreenPrice,
-                          //       style: getSmallStyle(),
-                          //     ),
-                          //     Text(
-                          //       '${state.invoice.store?.priceUnit} ${AppStrings.egp}',
-                          //       style: getSmallStyle(),
-                          //     )
-                          //   ],
-                          // ),
-                          // 16.ph,
-                          // Row(
-                          //   children: [
-                          //     Text(
-                          //       AppStrings.billScreenTotalPrice,
-                          //       style: getSmallStyle(),
-                          //     ),
-                          //     Text(
-                          //       '${state.invoice.store?.totalPrice} ${AppStrings.egp}',
-                          //       style: getSmallStyle(),
-                          //     )
-                          //   ],
-                          // ),
                           24.ph,
                           PrintButton(onTap: () {}),
                           const BackButton2()

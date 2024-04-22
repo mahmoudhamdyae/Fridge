@@ -46,7 +46,8 @@ class InvoiceStoreModel extends InvoiceStore {
     super.totalWeight,
     super.priceUnit,
     super.totalPrice,
-    super.boxingType
+    super.boxingType,
+    super.partName,
   });
 
   factory InvoiceStoreModel.fromJson(Map<String, dynamic> json) => InvoiceStoreModel(
@@ -57,5 +58,6 @@ class InvoiceStoreModel extends InvoiceStore {
     priceUnit: json['price_unit'],
     totalPrice: json['total_price'],
     boxingType: json['boxing_type'],
+    partName: json['part_name'],
   );
 }

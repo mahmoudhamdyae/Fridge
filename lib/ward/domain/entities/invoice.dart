@@ -24,10 +24,11 @@ class InvoiceStore extends Equatable {
   final String? product;
   final String? unit;
   final int? quantity;
-  final num? totalWeight;
+  final String? totalWeight;
   final num? priceUnit;
   final num? totalPrice;
   final String? boxingType;
+  final String? partName;
 
   const InvoiceStore({
     required this.product,
@@ -36,7 +37,8 @@ class InvoiceStore extends Equatable {
     required this.totalWeight,
     required this.priceUnit,
     required this.totalPrice,
-    required this.boxingType
+    required this.boxingType,
+    required this.partName,
   });
 
   @override
@@ -47,6 +49,7 @@ class InvoiceStore extends Equatable {
     totalWeight,
     priceUnit,
     totalPrice,
-    boxingType
+    boxingType,
+    partName
   ];
 }
