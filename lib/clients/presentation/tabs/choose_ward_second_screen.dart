@@ -74,6 +74,19 @@ class _ChooseWardSecondScreenState extends State<ChooseWardSecondScreen> {
               children: List.generate(
                   ((state.ward.width ?? 1) * (state.ward.height ?? 1)),
                   (index) {
+
+                    String text = '';
+                    int x = map[index]?.x ?? 0;
+                    int y = map[index]?.y ?? 0;
+                    List<Store> stores = state.stores.where((element) =>
+                    element.x == x && element.y == y).toList();
+                    for (var element in stores) {
+                      if (text != '') {
+                        text += ' + ';
+                      }
+                      text += element.product?? '';
+                    }
+
                 return InkWell(
                   onTap: () {
                     setState(() {
@@ -108,9 +121,10 @@ class _ChooseWardSecondScreenState extends State<ChooseWardSecondScreen> {
                               ?
                           selectedIndex == index ? '${map[index]?.product} + ${widget.productType}'
                               :
-                          map[index]?.product ?? ''
+                          text
                               : selectedIndex == index
                                   ? widget.productType : '',
+                          textAlign: TextAlign.center,
                           style: getSmallStyle(
                               fontSize: 12,
                               fontWeight: FontWeightManager.medium),

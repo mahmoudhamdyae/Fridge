@@ -154,8 +154,6 @@ class _WardScreenState extends State<WardScreen> {
                                   }
                                   text += element.product?? '';
                                 }
-                                debugPrint('========== ${map[index]}');
-                                debugPrint('==========sss ${stores}');
 
                                 return indexes.contains(index)
                                     ? InkWell(
@@ -164,8 +162,6 @@ class _WardScreenState extends State<WardScreen> {
                                     int y = map[index]?.y ?? 0;
                                     List<Store> stores = state.stores.where((element) =>
                                     element.x == x && element.y == y).toList();
-                                    // debugPrint('========== ${map[index]}');
-                                    // debugPrint('==========sss ${stores}');
                                     buildShowModalBottomSheet(context, stores);
                                   },
                                   child: Container(
