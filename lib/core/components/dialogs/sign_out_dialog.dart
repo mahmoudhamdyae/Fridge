@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:fridge/auth/presentation/bloc/auth_bloc.dart';
 import 'package:fridge/auth/presentation/screens/start_screen.dart';
 import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/core/services/services_locator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../navigation/navigate_util.dart';
+import '../../network/api_constants.dart';
 import '../../resources/app_strings.dart';
 import '../../resources/styles_manager.dart';
 
@@ -46,6 +47,9 @@ showSignOutDialog(BuildContext context) {
 }
 
 _signOut(BuildContext context) async {
-  instance<AuthBloc>().add(SignOutRequested());
+  var sharedPref = instance<SharedPreferences>();
+  await sharedPref.setString('TOKEN', '');
+  await sharedPref.setBool('AUTH_STATE', false);
+  ApiConstants.token = '';
   NavigateUtil().navigateAndClear(context, const StartScreen());
 }
