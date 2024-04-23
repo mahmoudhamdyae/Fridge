@@ -12,7 +12,7 @@ class WeekResponse {
 
 class Week {
   List<WeekChart>? chart;
-  int? totalIncome;
+  dynamic totalIncome;
   dynamic totalExpense;
 
   Week({this.chart, this.totalIncome, this.totalExpense});

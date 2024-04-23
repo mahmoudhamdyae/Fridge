@@ -12,7 +12,7 @@ class MonthResponse {
 
 class Month {
   List<MonthChart>? chart;
-  int? totalIncome;
+  dynamic totalIncome;
   dynamic totalExpense;
 
   Month({this.chart, this.totalIncome, this.totalExpense});
