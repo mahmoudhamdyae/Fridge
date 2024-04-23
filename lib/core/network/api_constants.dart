@@ -4,7 +4,6 @@ class ApiConstants {
   static bool isAuth = false;
 
   static const String baseUrl = "https://talaga.coding-site.com/api/";
-  // static const String baseUrl = "http://talaga.plan-a.eu.org/api/";
 
   /// Authentication
   static const String loginPath = "auth/login";
