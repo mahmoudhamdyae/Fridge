@@ -86,11 +86,20 @@ class _MainScreenState extends State<MainScreen> {
       HomeScreen(onItemClick: (int index) {
         _onItemTapped(index);
       }),
-      const ClientsScreen(),
-      WardsScreen(
-        blocContext: context,
+      BlocProvider.value(
+          value: instance<ClientsBloc>(),
+          child: const ClientsScreen(),
       ),
-      const ReportsScreen(),
+      BlocProvider.value(
+        value: instance<WardsBloc>(),
+        child: WardsScreen(
+          blocContext: context,
+        ),
+      ),
+      BlocProvider.value(
+        value: instance<ReportsBloc>(),
+        child: const ReportsScreen(),
+      ),
     ];
   }
 

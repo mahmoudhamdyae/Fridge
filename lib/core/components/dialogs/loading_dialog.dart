@@ -5,6 +5,7 @@ import '../../resources/app_strings.dart';
 showLoading(BuildContext context) {
   return showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return const AlertDialog(
           // The shape of the dialog
