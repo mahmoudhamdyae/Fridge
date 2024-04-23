@@ -10,8 +10,6 @@ import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/services/services_locator.dart';
 import 'package:fridge/ward/domain/entities/ward.dart';
 import 'package:fridge/ward/presentation/bloc/wards_bloc.dart';
-import 'package:fridge/ward/presentation/components/client_details_button.dart';
-import 'package:fridge/ward/presentation/screens/invoice_screen.dart';
 import 'package:fridge/ward/presentation/screens/ward_settings_screen.dart';
 
 import '../../../core/components/appbar.dart';
@@ -22,6 +20,7 @@ import '../../../core/resources/font_manager.dart';
 import '../../../core/resources/styles_manager.dart';
 import '../../domain/entities/store.dart';
 import '../../../core/components/settings_button.dart';
+import '../components/build_bottom_sheet.dart';
 
 class WardScreen extends StatefulWidget {
   final Ward ward;
@@ -145,19 +144,29 @@ class _WardScreenState extends State<WardScreen> {
                               (widget.ward.width ?? 1) * (widget.ward.height ?? 1),
                                   (index) {
                                 String text = '';
-                                for (var element in indexes) {
-                                  if (element == index) {
-                                    if (text != '') {
-                                      text += ' + ';
-                                    }
-                                    text += map[element]?.product?? '';
+                                int x = map[index]?.x ?? 0;
+                                int y = map[index]?.y ?? 0;
+                                List<Store> stores = state.stores.where((element) =>
+                                element.x == x && element.y == y).toList();
+                                for (var element in stores) {
+                                  if (text != '') {
+                                    text += ' + ';
                                   }
+                                  text += element.product?? '';
                                 }
+                                debugPrint('========== ${map[index]}');
+                                debugPrint('==========sss ${stores}');
 
                                 return indexes.contains(index)
                                     ? InkWell(
                                   onTap: () {
-                                    buildShowModalBottomSheet(context, state, map[index]?.x ?? 0, map[index]?.y ?? 0);
+                                    int x = map[index]?.x ?? 0;
+                                    int y = map[index]?.y ?? 0;
+                                    List<Store> stores = state.stores.where((element) =>
+                                    element.x == x && element.y == y).toList();
+                                    // debugPrint('========== ${map[index]}');
+                                    // debugPrint('==========sss ${stores}');
+                                    buildShowModalBottomSheet(context, stores);
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -182,6 +191,7 @@ class _WardScreenState extends State<WardScreen> {
                                     child: Center(
                                       child: Text(
                                         text,
+                                        textAlign: TextAlign.center,
                                         style: getSmallStyle(
                                           fontSize: 10,
                                           fontWeight: FontWeightManager.medium,
@@ -214,146 +224,5 @@ class _WardScreenState extends State<WardScreen> {
         ),
       ),
     ));
-  }
-
-  Future<dynamic> buildShowModalBottomSheet(
-      BuildContext context, GetStoreLoadedState state, int x, int y) {
-    List<Store> stores = state.stores.where((element) =>
-    element.x == x && element.y == y).toList();
-    return showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          width: context.width,
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            children: [
-              16.ph,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                      onPressed: () {
-                        NavigateUtil().navigateUp(context);
-                      },
-                      icon: const Icon(Icons.close)),
-                  Expanded(child: Container()),
-                  Image.asset(
-                    AppAssets.package,
-                    width: 60,
-                    height: 60,
-                  ),
-                  Expanded(child: Container()),
-                  16.pw,
-                ],
-              ),
-              16.ph,
-              const Divider(
-                height: 1,
-                color: AppColors.grey,
-              ),
-              16.ph,
-              SizedBox(
-                height: context.dynamicHeight(.4),
-                child: ListView(
-                  children: [
-                    ...List.generate(
-                        stores.length, (index) {
-                      StoreCustomer? customer = stores[index].customer;
-                      return Column(
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                AppStrings.productDialogClientName,
-                                style: getSmallStyle(
-                                  fontSize: 18,
-                                ),
-                              ),
-                              Text(
-                                customer?.name ?? '',
-                                style: getSmallStyle(
-                                  fontSize: 18,
-                                ),
-                              ),
-                              8.pw,
-                              Text(
-                                customer?.type == 0 ? AppStrings.addClientScreenTraderWithQ : AppStrings.addClientScreenDealerWithQ,
-                                style: getSmallStyle(
-                                  color: const Color(0xff6B6B6B),
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ],
-                          ),
-                          8.ph,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    AppStrings.productDialogProduct,
-                                    style: getSmallStyle(),
-                                  ),
-                                  Text(
-                                    stores[index].product ?? '',
-                                    style: getSmallStyle(
-                                      color: const Color(0xff6B6B6B),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              0.pw,
-                              Row(
-                                children: [
-                                  Text(
-                                    AppStrings.productDialogQuantity,
-                                    style: getSmallStyle(),
-                                  ),
-                                  Text(
-                                    '${stores[index].totalWeight} ${stores[index].unit}',
-                                    style: getSmallStyle(
-                                      color: const Color(0xff6B6B6B),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              0.pw,
-                            ],
-                          ),
-                          16.ph,
-                          SizedBox(
-                            width: context.dynamicWidth(.8),
-                            child: SheetClientDetailsButton(onTap: () {
-                              NavigateUtil().navigateUp(context);
-                              NavigateUtil().navigateToScreen(
-                                context,
-                                BlocProvider.value(
-                                  value: instance<WardsBloc>(),
-                                  child: InvoiceScreen(
-                                    storeId: stores[index].id ?? -1,
-                                  ),
-                                ),
-                              );
-                            }),
-                          ),
-                          16.ph,
-                          const Divider(
-                            height: 1,
-                            color: AppColors.grey,
-                          ),
-                          16.ph,
-                        ],
-                      );
-                    })
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
   }
 }
