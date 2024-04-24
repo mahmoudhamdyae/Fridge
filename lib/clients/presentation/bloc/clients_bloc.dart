@@ -194,14 +194,24 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
       ));
     }, (r) {
       var clients = state.clients;
-      clients.add(ClientModel(
-          id: -1,
-          name: state.clientName,
-          phone: state.clientPhone,
-          address: state.clientAddress,
-          type: state.clientType,
-          fridgeId: state.ward.id
-      ));
+      bool isInClients = false;
+      for (var client in clients) {
+        if (client.phone == state.clientPhone) {
+          isInClients = true;
+          break;
+        }
+      }
+      if (!isInClients) {
+        clients.add(ClientModel(
+            id: -1,
+            name: state.clientName,
+            phone: state.clientPhone,
+            address: state.clientAddress,
+            type: state.clientType,
+            fridgeId: state.ward.id
+        ));
+      }
+
       emit(state.copyWith(
         addClientState: RequestState.loaded,
         clients: clients,
