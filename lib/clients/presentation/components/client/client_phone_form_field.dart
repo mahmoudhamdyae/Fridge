@@ -1,7 +1,4 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 import '../../../../core/resources/app_strings.dart';
@@ -13,11 +10,13 @@ class ClientPhoneFormField extends StatefulWidget {
 
   final TextEditingController clientNameController;
   final TextEditingController clientPhoneController;
+  final List<CustomContact> customContacts;
 
   const ClientPhoneFormField({
     super.key,
     required this.clientNameController,
     required this.clientPhoneController,
+    required this.customContacts,
   });
 
   @override
@@ -27,39 +26,14 @@ class ClientPhoneFormField extends StatefulWidget {
 class _ClientPhoneFormFieldState extends State<ClientPhoneFormField> {
   List<String> names = [];
   List<String> phones = [];
-  List<CustomContact> customContacts = [];
+  late final List<CustomContact> customContacts;
 
   String selectedName = AppStrings.addClientScreenClientPhoneLabel;
 
   @override
   void initState() {
     super.initState();
-    getContacts();
-  }
-
-  Future<void> getContacts() async {
-    if (await FlutterContacts.requestPermission()) {
-      // Get all contacts (lightly fetched)
-      List<Contact> contacts = await FlutterContacts.getContacts();
-
-      // Get all contacts (fully fetched)
-      contacts = await FlutterContacts.getContacts(
-          withProperties: true, withPhoto: true);
-
-      for (var element in contacts) {
-        // Get contact with specific ID (fully fetched)
-        Contact? contact = await FlutterContacts.getContact(element.id);
-        contact?.phones.forEach((phone) {
-          String customName = '${contact.name.first} ${contact.name.last}';
-          String customPhone = phone.number.replaceAll(' ', '');
-          Uint8List? thumbnail = contact.thumbnail;
-          debugPrint('Contact Name: $customName');
-          debugPrint('Contact Phone: $customPhone');
-          customContacts
-              .add(CustomContact(name: customName, phone: customPhone, thumbnail: thumbnail));
-        });
-      }
-    }
+    customContacts = widget.customContacts;
   }
 
 
@@ -79,7 +53,8 @@ class _ClientPhoneFormFieldState extends State<ClientPhoneFormField> {
           focusNode: focusNode,
           decoration: getFilledTextFieldDecorationWithLabel(
               label: AppStrings.addClientScreenClientPhoneLabel,
-              suffixIcon: Icons.phone),
+              // suffixIcon: Icons.phone,
+          ),
           textInputAction: TextInputAction.next,
           keyboardType: TextInputType.phone,
           validator: (value) => ValidateOperations.normalValidation(value),

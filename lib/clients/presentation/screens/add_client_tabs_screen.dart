@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:fridge/clients/presentation/tabs/add_new_client_screen.dart';
 import 'package:fridge/clients/presentation/tabs/add_product_screen.dart';
 import 'package:fridge/clients/presentation/tabs/choose_ward_first_screen.dart';
@@ -11,11 +14,16 @@ import 'package:linear_progress_bar/linear_progress_bar.dart';
 import '../../../core/components/appbar.dart';
 import '../../../core/components/decorations.dart';
 import '../../../core/navigation/navigate_util.dart';
+import '../../domain/entities/contact.dart';
 
 class AddClientTabsScreen extends StatefulWidget {
 
   final int currentTab;
-  const AddClientTabsScreen({super.key, this.currentTab = 0});
+
+  const AddClientTabsScreen({
+    super.key,
+    this.currentTab = 0,
+  });
 
   @override
   State<AddClientTabsScreen> createState() => _AddClientTabsScreenState();
@@ -26,10 +34,39 @@ class _AddClientTabsScreenState extends State<AddClientTabsScreen> {
   late int currentTab;
   String productType = '';
 
+  List<CustomContact> customContacts = [];
+
   @override
   void initState() {
     super.initState();
     currentTab = widget.currentTab;
+    getContacts();
+  }
+
+  Future<void> getContacts() async {
+    if (await FlutterContacts.requestPermission()) {
+      // Get all contacts (lightly fetched)
+      List<Contact> contacts = await FlutterContacts.getContacts();
+
+      // Get all contacts (fully fetched)
+      contacts = await FlutterContacts.getContacts(
+          withProperties: true, withPhoto: true);
+
+      for (var element in contacts) {
+        // Get contact with specific ID (fully fetched)
+        Contact? contact = await FlutterContacts.getContact(element.id);
+        contact?.phones.forEach((phone) {
+          String customName = '${contact.name.first} ${contact.name.last}';
+          String customPhone = phone.number.replaceAll(' ', '');
+          Uint8List? thumbnail = contact.thumbnail;
+          debugPrint('Contact Name: $customName');
+          debugPrint('Contact Phone: $customPhone');
+          debugPrint('Contact Image: $thumbnail');
+          customContacts
+              .add(CustomContact(name: customName, phone: customPhone, thumbnail: thumbnail));
+        });
+      }
+    }
   }
 
   @override
@@ -80,7 +117,7 @@ class _AddClientTabsScreenState extends State<AddClientTabsScreen> {
                 setState(() {
                   currentTab = 1;
                 });
-              },)
+              }, customContacts: customContacts,)
                   :
                   currentTab == 1 ? AddProductScreen(moveForward: (productType) {
                     setState(() {
