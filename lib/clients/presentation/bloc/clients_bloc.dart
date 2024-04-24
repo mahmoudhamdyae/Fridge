@@ -140,7 +140,6 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
         getStoresErrorMessage: l.message,
       ));
     }, (stores) {
-      // todo refactor this
       List<CustomCustomer> customCustomers = [];
       for (var element in stores) {
         customCustomers.add(CustomCustomer(
