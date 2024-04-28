@@ -168,7 +168,7 @@ class _WardScreenState extends State<WardScreen> {
                                     decoration: BoxDecoration(
                                         color:
                                         searchString.isNotEmpty && (
-                                            map[index]!.product!.toLowerCase().contains(searchString.toLowerCase()) ||
+                                            text.toLowerCase().contains(searchString.toLowerCase()) ||
                                                 map[index]!.customer!.name!.toLowerCase().contains(searchString.toLowerCase()) ||
                                                 map[index]!.customer!.phone!.contains(searchString.toLowerCase()))
                                             ?
@@ -193,7 +193,7 @@ class _WardScreenState extends State<WardScreen> {
                                           fontWeight: FontWeightManager.medium,
                                           color:
                                           searchString.isNotEmpty && (
-                                              map[index]!.product!.toLowerCase().contains(searchString.toLowerCase()) ||
+                                              text.toLowerCase().contains(searchString.toLowerCase()) ||
                                                   map[index]!.customer!.name!.toLowerCase().contains(searchString.toLowerCase()) ||
                                                   map[index]!.customer!.phone!.contains(searchString.toLowerCase()))
                                               ?
