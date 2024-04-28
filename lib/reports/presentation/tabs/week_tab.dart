@@ -97,7 +97,10 @@ class _WeekTabState extends State<WeekTab> {
                 ),
               ),
               16.ph,
-              ExpensesBox(expenses: state.weeks.totalExpense),
+              ExpensesBox(
+                expenses: state.weeks.totalExpense,
+                totalIncome: state.weeks.totalIncome,
+              ),
             ],
           );
         }

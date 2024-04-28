@@ -234,9 +234,10 @@ class AppStrings {
   static const String reportsTabMonth = 'هذا الشهر';
   static const String reportsTabIncome = 'الدخل';
   static const String reportsTabProfit = 'الربح';
-  static const String reportsTabTotalPrice = 'المبلغ الإجمالى';
+  static const String reportsTabTotalPrice = 'إيرادات';
   static const String reportsTabEGP = 'ج.م';
   static const String reportsTabExpenses = 'المصاريف';
+  static const String reportsTabProfits = 'الأرباح';
   static const String reportsTabSat = 'سبت';
   static const String reportsTabSun = 'آحد';
   static const String reportsTabMon = 'إثنين';
