@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/core/components/appbar.dart';
 import 'package:fridge/core/components/dialogs/error_dialog.dart';
+import 'package:fridge/core/components/dialogs/loading_dialog.dart';
 import 'package:fridge/core/components/settings_button.dart';
 import 'package:fridge/core/components/states/error_screen.dart';
 import 'package:fridge/core/components/states/loading_screen.dart';
@@ -58,13 +59,21 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
       body: BlocListener<ExpensesBloc, ExpensesState>(
         listenWhen: (previous, current) =>
         current is StoreExpenseErrorState ||
-            current is StoreExpenseSuccessState,
+            current is StoreExpenseSuccessState ||
+            current is DelExpenseErrorState ||
+            current is DelExpenseSuccessState,
         listener: (context, state) {
           if (state is StoreExpenseErrorState) {
             NavigateUtil().navigateUp(context);
             showError(context, state.errorMessage, () {});
           } else if (state is StoreExpenseSuccessState) {
             NavigateUtil().navigateUp(context);
+            NavigateUtil().navigateUp(context);
+            BlocProvider.of<ExpensesBloc>(context).add(GetExpensesEvent());
+          } else if (state is DelExpenseErrorState) {
+            NavigateUtil().navigateUp(context);
+            showError(context, state.errorMessage, () {});
+          } else if (state is DelExpenseSuccessState) {
             NavigateUtil().navigateUp(context);
             BlocProvider.of<ExpensesBloc>(context).add(GetExpensesEvent());
           }
@@ -117,6 +126,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
               // First Row of the table
               Row(
                 children: [
+                  const SizedBox(width: 32,),
                   Expanded(
                       child: Text(
                         AppStrings.detailsTabDate,
@@ -194,6 +204,16 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                               color: index % 2 == 0 ? const Color(0xffD9D9D9) : const Color(0xffEAEDF4),
                               child: Row(
                                 children: [
+                                  SizedBox(
+                                    width: 24,
+                                    child: IconButton(
+                                        onPressed: () {
+                                          showLoading(context);
+                                          BlocProvider.of<ExpensesBloc>(context).add(DelExpenseEvent(expenses[index].id ?? -1));
+                                        },
+                                        icon: const Icon(Icons.delete, size: 24,)
+                                    ),
+                                  ),
                                   Expanded(
                                       child: Text(
                                         expenses[index].date ?? '',
