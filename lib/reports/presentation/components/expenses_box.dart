@@ -46,7 +46,7 @@ class ExpensesBox extends StatelessWidget {
           ),
           32.ph,
           Text(
-            '${double.parse(totalIncome.toString()) - double.parse(expenses)} ${AppStrings.egp}',
+            '${double.parse(totalIncome.toString()) - double.parse(expenses.toString())} ${AppStrings.egp}',
             style: getLargeStyle(
                 fontSize: 20,
                 color: const Color(0xff193263)
