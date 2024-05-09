@@ -41,6 +41,32 @@ class StoreExpenseErrorState extends ExpensesState {
 
 class StoreExpenseSuccessState extends ExpensesState {}
 
+/// Del Expense
+
+class DelExpenseLoadingState extends ExpensesState {}
+
+class DelExpenseErrorState extends ExpensesState {
+  final String errorMessage;
+  const DelExpenseErrorState(this.errorMessage);
+  @override
+  List<Object?> get props => [errorMessage];
+}
+
+class DelExpenseSuccessState extends ExpensesState {}
+
+/// Del Expense
+
+class EditExpenseLoadingState extends ExpensesState {}
+
+class EditExpenseErrorState extends ExpensesState {
+  final String errorMessage;
+  const EditExpenseErrorState(this.errorMessage);
+  @override
+  List<Object?> get props => [errorMessage];
+}
+
+class EditExpenseSuccessState extends ExpensesState {}
+
 /// Store Expense Type
 
 class StoreExpenseTypeLoadingState extends ExpensesState {

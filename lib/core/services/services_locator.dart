@@ -51,6 +51,8 @@ import '../../auth/presentation/bloc/auth_bloc.dart';
 import '../../clients/data/repository/client_repository_impl.dart';
 import '../../clients/domain/usecases/get_client_invoice_usecase.dart';
 import '../../expenses/domain/usecases/del_expenses_type_usecase.dart';
+import '../../expenses/domain/usecases/del_expenses_usecase.dart';
+import '../../expenses/domain/usecases/edit_expenses_usecase.dart';
 import '../../expenses/domain/usecases/get_expenses_type_usecase.dart';
 import '../../expenses/domain/usecases/store_expenses_type_usecase.dart';
 import '../../expenses/presentation/bloc/expenses_bloc.dart';
@@ -186,6 +188,8 @@ class ServicesLocator {
     instance.registerLazySingleton(() => ExpensesBloc(
       instance<GetExpensesUsecase>(),
       instance<StoreExpensesUsecase>(),
+      instance<DelExpenseUsecase>(),
+      instance<EditExpensesUsecase>(),
       instance<GetExpensesTypeUsecase>(),
       instance<StoreExpensesTypeUsecase>(),
       instance<DelExpensesTypeUsecase>(),
@@ -193,6 +197,8 @@ class ServicesLocator {
     // Use Cases
     instance.registerLazySingleton(() => StoreExpensesUsecase(instance<ExpensesRepository>()));
     instance.registerLazySingleton(() => GetExpensesUsecase(instance<ExpensesRepository>()));
+    instance.registerLazySingleton(() => DelExpenseUsecase(instance<ExpensesRepository>()));
+    instance.registerLazySingleton(() => EditExpensesUsecase(instance<ExpensesRepository>()));
     instance.registerLazySingleton(() => GetExpensesTypeUsecase(instance<ExpensesRepository>()));
     instance.registerLazySingleton(() => StoreExpensesTypeUsecase(instance<ExpensesRepository>()));
     instance.registerLazySingleton(() => DelExpensesTypeUsecase(instance<ExpensesRepository>()));

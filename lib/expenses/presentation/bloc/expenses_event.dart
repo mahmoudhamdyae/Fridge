@@ -21,6 +21,28 @@ class StoreExpensesEvent extends ExpensesEvent {
   List<Object> get props => [expenseTypeId, description, amount];
 }
 
+/// Del Expense
+
+class DelExpenseEvent extends ExpensesEvent {
+  final int expenseId;
+  const DelExpenseEvent(this.expenseId);
+  @override
+  List<Object> get props => [expenseId];
+}
+
+/// Del Expense
+
+class EditExpenseEvent extends ExpensesEvent {
+  final String expenseId;
+  final String title;
+  final String date;
+  final String description;
+  final String amount;
+  const EditExpenseEvent(this.expenseId, this.title, this.date, this.description, this.amount);
+  @override
+  List<Object> get props => [expenseId, title, date, description, amount];
+}
+
 /// Store Expense Type
 
 class StoreExpenseTypeEvent extends ExpensesEvent {

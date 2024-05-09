@@ -30,6 +30,26 @@ class ExpensesRepositoryImpl extends ExpensesRepository {
   }
 
   @override
+  Future<Either<Failure, void>> delExpense(int expenseId) async {
+    try {
+      var result = await remoteDataSource.delExpense(expenseId);
+      return Right(result);
+    } on ServerException catch(failure) {
+      return Left(ServerFailure(failure.errorMessageModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> editExpense(String expenseId, String title, String date, String description, String amount) async {
+    try {
+      var result = await remoteDataSource.editExpense(expenseId, title, date, description, amount);
+      return Right(result);
+    } on ServerException catch(failure) {
+      return Left(ServerFailure(failure.errorMessageModel.message));
+    }
+  }
+
+  @override
   Future<Either<Failure, List<ExpenseType>>> getExpenseTypes() async {
     try {
       var result = await remoteDataSource.getExpenseTypes();
@@ -58,5 +78,4 @@ class ExpensesRepositoryImpl extends ExpensesRepository {
       return Left(ServerFailure(failure.errorMessageModel.message));
     }
   }
-
 }

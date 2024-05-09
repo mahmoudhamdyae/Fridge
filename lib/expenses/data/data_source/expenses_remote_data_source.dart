@@ -15,6 +15,8 @@ abstract class ExpensesRemoteDataSource {
 
   Future<void> storeExpenses(int expenseTypeId, String description, String amount);
   Future<List<ExpensesResponse>> getExpenses();
+  Future<void> delExpense(int expenseId);
+  Future<void> editExpense(String expenseId, String title, String date, String description, String amount);
   Future<List<ExpenseTypeModel>> getExpenseTypes();
   Future<void> storeExpenseType(String typeName);
   Future<void> delExpenseType(int typeId);
@@ -52,6 +54,46 @@ class ExpensesRemoteDataSourceImpl extends ExpensesRemoteDataSource {
     try {
       var result = await dioManager.dio.get(ApiConstants.getExpensePath);
       return ExpensesResponsesFullResponse.fromJson(result.data).data ?? [];
+    } on DioException catch (error) {
+      if (error.response != null) {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
+        );
+      }
+    }
+  }
+
+  @override
+  Future<void> delExpense(int expenseId) async {
+    try {
+      await dioManager.dio.get(ApiConstants.delExpensePath(expenseId));
+    } on DioException catch (error) {
+      if (error.response != null) {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
+        );
+      }
+    }
+  }
+
+  @override
+  Future<void> editExpense(String expenseId, String title, String date, String description, String amount) async {
+    try {
+      await dioManager.dio.get(ApiConstants.editExpensePath, data: {
+        "id":expenseId,
+        "title":title,
+        "date":date,
+        "description":description,
+        "amount":amount
+      });
     } on DioException catch (error) {
       if (error.response != null) {
         throw ServerException(

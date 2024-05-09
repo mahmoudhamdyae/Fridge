@@ -176,7 +176,6 @@ class _YearTabState extends State<YearTab> {
 
   List<BarChartGroupData> barGroups(GetYearLoadedState state) =>
       List.generate(state.years.chart!.length, (index) {
-        debugPrint('hahahahahaha $index');
         return BarChartGroupData(
           x: index,
           barRods: [

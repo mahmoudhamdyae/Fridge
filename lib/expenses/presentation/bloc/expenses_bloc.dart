@@ -6,6 +6,8 @@ import 'package:fridge/expenses/domain/usecases/get_expenses_usecase.dart';
 
 import '../../domain/entities/expenses_response.dart';
 import '../../domain/usecases/del_expenses_type_usecase.dart';
+import '../../domain/usecases/del_expenses_usecase.dart';
+import '../../domain/usecases/edit_expenses_usecase.dart';
 import '../../domain/usecases/get_expenses_type_usecase.dart';
 import '../../domain/usecases/store_expenses_type_usecase.dart';
 import '../../domain/usecases/store_expenses_usecase.dart';
@@ -17,6 +19,8 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
 
   final GetExpensesUsecase _getExpensesUsecase;
   final StoreExpensesUsecase _storeExpensesUsecase;
+  final DelExpenseUsecase _delExpenseUsecase;
+  final EditExpensesUsecase _editExpensesUsecase;
   final GetExpensesTypeUsecase _getExpensesTypeUsecase;
   final StoreExpensesTypeUsecase _storeExpensesTypeUsecase;
   final DelExpensesTypeUsecase _delExpensesTypeUsecase;
@@ -24,6 +28,8 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
   ExpensesBloc(
       this._getExpensesUsecase,
       this._storeExpensesUsecase,
+      this._delExpenseUsecase,
+      this._editExpensesUsecase,
       this._getExpensesTypeUsecase,
       this._storeExpensesTypeUsecase,
       this._delExpensesTypeUsecase,
@@ -33,6 +39,12 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
     });
     on<GetExpensesTypesEvent>((event, emit) async {
       await _getExpensesTypes(event, emit);
+    });
+    on<DelExpenseEvent>((event, emit) async {
+      await _delExpense(event, emit);
+    });
+    on<EditExpenseEvent>((event, emit) async {
+      await _editExpense(event, emit);
     });
     on<StoreExpensesEvent>((event, emit) async {
       await _storeExpenses(event, emit);
@@ -56,6 +68,32 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
       }, (types) {
         emit(GetExpensesLoadedState(expenses: expenses, types: types));
       });
+    });
+  }
+
+  Future<void> _delExpense(DelExpenseEvent event, Emitter<ExpensesState> emit) async {
+    emit(DelExpenseLoadingState());
+    var result = await _delExpenseUsecase.call(event.expenseId);
+    result.fold((l) {
+      emit(DelExpenseErrorState(l.message));
+    }, (_) async {
+      emit(DelExpenseSuccessState());
+    });
+  }
+
+  Future<void> _editExpense(EditExpenseEvent event, Emitter<ExpensesState> emit) async {
+    emit(EditExpenseLoadingState());
+    var result = await _editExpensesUsecase.call(
+        event.expenseId,
+        event.title,
+        event.date,
+        event.description,
+        event.amount
+    );
+    result.fold((l) {
+      emit(EditExpenseErrorState(l.message));
+    }, (_) async {
+      emit(EditExpenseSuccessState());
     });
   }
 
