@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/resources/font_manager.dart';
 import 'package:fridge/reports/presentation/tabs/month_tab.dart';
-import 'package:fridge/reports/presentation/tabs/summary_tab.dart';
+import 'package:fridge/reports/presentation/tabs/year_tab.dart';
 import 'package:fridge/reports/presentation/tabs/week_tab.dart';
 
 import '../../../core/resources/app_colors.dart';
@@ -90,7 +90,7 @@ class _ReportsTabState extends State<ReportsTab> {
             :
         selectedTab == 1 ? const MonthTab()
             :
-        const SummaryTab()
+        const YearTab()
       ],
     );
   }

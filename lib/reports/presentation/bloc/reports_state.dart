@@ -82,3 +82,23 @@ final class GetMonthLoadedState extends ReportsState {
   @override
   List<Object> get props => [months];
 }
+
+/// Year
+
+final class GetYearLoadingState extends ReportsState {
+  const GetYearLoadingState();
+}
+
+final class GetYearErrorState extends ReportsState {
+  final String errorMessage;
+  const GetYearErrorState(this.errorMessage);
+  @override
+  List<Object> get props => [errorMessage];
+}
+
+final class GetYearLoadedState extends ReportsState {
+  final Year years;
+  const GetYearLoadedState(this.years);
+  @override
+  List<Object> get props => [years];
+}

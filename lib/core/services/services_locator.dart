@@ -31,6 +31,7 @@ import 'package:fridge/reports/domain/repository/reports_repository.dart';
 import 'package:fridge/reports/domain/usecases/get_analysis_usecase.dart';
 import 'package:fridge/reports/domain/usecases/get_month_usecase.dart';
 import 'package:fridge/reports/domain/usecases/get_week_usecase.dart';
+import 'package:fridge/reports/domain/usecases/get_year_usecase.dart';
 import 'package:fridge/settings/data/data_source/settings_remote_data_source.dart';
 import 'package:fridge/settings/data/repository/settings_repository_impl.dart';
 import 'package:fridge/settings/domain/repository/settings_repository.dart';
@@ -209,11 +210,13 @@ class ServicesLocator {
       instance<GetAnalysisUsecase>(),
       instance<GetWeekUsecase>(),
       instance<GetMonthUsecase>(),
+      instance<GetYearUsecase>(),
     ));
     // Use Cases
     instance.registerLazySingleton(() => GetAnalysisUsecase(instance<ReportsRepository>()));
     instance.registerLazySingleton(() => GetWeekUsecase(instance<ReportsRepository>()));
     instance.registerLazySingleton(() => GetMonthUsecase(instance<ReportsRepository>()));
+    instance.registerLazySingleton(() => GetYearUsecase(instance<ReportsRepository>()));
     // Repository
     instance.registerLazySingleton<ReportsRepository>(
             () => ReportsRepositoryImpl(instance<ReportsRemoteDataSource>()));

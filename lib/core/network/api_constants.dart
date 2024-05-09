@@ -41,4 +41,5 @@ class ApiConstants {
   static const String getAnalysisPath = "app/analysis/details";
   static const String getWeekPath = "app/analysis/week";
   static const String getMonthPath = "app/analysis/month";
+  static const String getYearPath = "app/analysis/year";
 }

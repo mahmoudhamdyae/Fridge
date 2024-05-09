@@ -3,6 +3,7 @@ import 'package:fridge/core/network/dio_manager.dart';
 import 'package:fridge/reports/data/models/analysis_model.dart';
 import 'package:fridge/reports/data/models/month.dart';
 import 'package:fridge/reports/data/models/week.dart';
+import 'package:fridge/reports/data/models/year.dart';
 
 import '../../../core/error/error_message_model.dart';
 import '../../../core/error/exceptions.dart';
@@ -15,6 +16,7 @@ abstract class ReportsRemoteDataSource {
   Future<List<AnalysisModel>> getAnalysis();
   Future<Week> getWeek();
   Future<Month> getMonth();
+  Future<Year> getYear();
 }
 
 class ReportsRemoteDataSourceImpl extends ReportsRemoteDataSource {
@@ -61,6 +63,24 @@ class ReportsRemoteDataSourceImpl extends ReportsRemoteDataSource {
     try {
       var response = await dioManager.dio.get(ApiConstants.getMonthPath);
       return MonthResponse.fromJson(response.data).data!;
+    }  on DioException catch (error) {
+      if (error.response != null) {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
+        );
+      }
+    }
+  }
+
+  @override
+  Future<Year> getYear() async {
+    try {
+      var response = await dioManager.dio.get(ApiConstants.getYearPath);
+      return YearResponse.fromJson(response.data).data!;
     }  on DioException catch (error) {
       if (error.response != null) {
         throw ServerException(

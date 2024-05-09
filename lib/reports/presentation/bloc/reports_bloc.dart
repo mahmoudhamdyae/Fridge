@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:fridge/reports/data/models/year.dart';
 import 'package:fridge/reports/domain/entities/analysis.dart';
 import 'package:fridge/reports/domain/usecases/get_month_usecase.dart';
 import 'package:fridge/reports/domain/usecases/get_week_usecase.dart';
@@ -7,6 +8,7 @@ import 'package:fridge/reports/domain/usecases/get_week_usecase.dart';
 import '../../data/models/month.dart';
 import '../../data/models/week.dart';
 import '../../domain/usecases/get_analysis_usecase.dart';
+import '../../domain/usecases/get_year_usecase.dart';
 
 part 'reports_event.dart';
 part 'reports_state.dart';
@@ -16,11 +18,13 @@ class ReportsBloc extends Bloc<ReportsEvent, ReportsState> {
   final GetAnalysisUsecase _getAnalysisUsecase;
   final GetWeekUsecase _getWeekUsecase;
   final GetMonthUsecase _getMonthUsecase;
+  final GetYearUsecase _getYearUsecase;
 
   ReportsBloc(
       this._getAnalysisUsecase,
       this._getWeekUsecase,
-      this._getMonthUsecase
+      this._getMonthUsecase,
+      this._getYearUsecase
       ) : super(const ReportsState()) {
     on<GetAnalysisEvent>((event, emit) async {
       await _getAnalysis(event, emit);
@@ -33,6 +37,9 @@ class ReportsBloc extends Bloc<ReportsEvent, ReportsState> {
     });
     on<GetMonthEvent>((event, emit) async {
       await _geMonth(emit);
+    });
+    on<GetYearEvent>((event, emit) async {
+      await _getYear(emit);
     });
   }
 
@@ -72,6 +79,16 @@ class ReportsBloc extends Bloc<ReportsEvent, ReportsState> {
       emit(GetMonthErrorState(l.message));
     }, (month) {
       emit(GetMonthLoadedState(month));
+    });
+  }
+
+  Future<void> _getYear(Emitter<ReportsState> emit) async {
+    emit(const GetYearLoadingState());
+    var result = await _getYearUsecase.call();
+    result.fold((l) {
+      emit(GetYearErrorState(l.message));
+    }, (years) {
+      emit(GetYearLoadedState(years));
     });
   }
 }
