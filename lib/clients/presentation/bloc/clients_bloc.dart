@@ -269,15 +269,28 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
   Future<void> _delClient(DelClientEvent event, Emitter<ClientsState> emit) async {
     emit(state.copyWith(delClientState: RequestState.loading));
     final result = await _delClientUsecase.call(event.clientId);
+    final clientsResult = await _getClientsUsecase.call();
     result.fold((l) {
       emit(state.copyWith(
         delClientState: RequestState.error,
         delClientErrorMessage: l.message,
       ));
-    }, (_) {
-      emit(state.copyWith(
-        delClientState: RequestState.loaded,
-      ));
+    }, (_) async {
+      clientsResult.fold((l) {
+        emit(state.copyWith(
+          getClientsState: RequestState.error,
+          getClientsErrorMessage: l.message,
+          delClientState: RequestState.error,
+          delClientErrorMessage: l.message,
+        ));
+      }, (clients) {
+        emit(state.copyWith(
+          clients: clients,
+          searchedClients: clients,
+          getClientsState: RequestState.loaded,
+          delClientState: RequestState.loaded,
+        ));
+      });
     });
   }
 

@@ -102,7 +102,6 @@ class ClientItem extends StatelessWidget {
                                   showError(context, state.delClientErrorMessage, () {});
                                 } else if (state.delClientState == RequestState.loaded) {
                                   NavigateUtil().navigateUp(context);
-                                  BlocProvider.of<ClientsBloc>(context).add(GetClientsEvent());
                                 }
                               },
                               child: IconButton(

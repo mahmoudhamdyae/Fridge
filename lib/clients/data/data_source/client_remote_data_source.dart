@@ -82,7 +82,7 @@ class ClientRemoteDataSourceImpl extends ClientRemoteDataSource {
   @override
   Future<void> delClient(int clientId) async {
     try {
-      await dioManager.dio.get(ApiConstants.delClientPath(clientId));
+      await dioManager.dio.delete(ApiConstants.delClientPath(clientId));
     }  on DioException catch (error) {
       if (error.response != null) {
         throw ServerException(
