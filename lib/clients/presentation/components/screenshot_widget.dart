@@ -15,17 +15,15 @@ import '../../data/models/client_invoice.dart';
 import '../screens/client_ward_screen.dart';
 
 class ScreenshotWidget extends StatelessWidget {
-
   final List<ClientInvoiceStores> stores;
   final String name;
   final bool isScreenshot;
 
-  const ScreenshotWidget({
-    super.key,
-    required this.stores,
-    required this.name,
-    this.isScreenshot = true
-  });
+  const ScreenshotWidget(
+      {super.key,
+      required this.stores,
+      required this.name,
+      this.isScreenshot = true});
 
   @override
   Widget build(BuildContext context) {
@@ -64,143 +62,147 @@ class ScreenshotWidget extends StatelessWidget {
           ),
         ),
         32.ph,
-        Column(children: stores.map((store) {
-          return InkWell(
-            onTap: () {
-              NavigateUtil().navigateToScreen(context, BlocProvider.value(
-                value: instance<WardsBloc>(),
-                child: ClientWardScreen(
-                  wardId: store.fridgePartId ?? -1,
-                  x: store.xAxies ?? -1,
-                  y: store.yAxies ?? -1,
-                ),
-              ));
-            },
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 16.0, horizontal: 24.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              AppStrings.billScreenProduct,
-                              style: getSmallStyle(),
-                            ),
-                            Text(
-                              store.product ?? '',
-                              style: getSmallStyle(
-                                color: const Color(0xff6B6B6B),
+        Column(
+          children: stores.map((store) {
+            return InkWell(
+              onTap: () {
+                NavigateUtil().navigateToScreen(
+                    context,
+                    BlocProvider.value(
+                      value: instance<WardsBloc>(),
+                      child: ClientWardScreen(
+                        wardId: store.fridgePartId ?? -1,
+                        x: store.xAxies ?? -1,
+                        y: store.yAxies ?? -1,
+                      ),
+                    ));
+              },
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 16.0, horizontal: 24.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                AppStrings.billScreenProduct,
+                                style: getSmallStyle(),
                               ),
-                            )
-                          ],
-                        ),
-                        24.ph,
-                        Row(
-                          children: [
-                            Text(
-                              AppStrings.billScreenQuantity,
-                              style: getSmallStyle(),
-                            ),
-                            Text(
-                              '${store.totalWeight} ${store.unit}',
-                              style: getSmallStyle(
-                                color: const Color(0xff6B6B6B),
-                              ),
-                            )
-                          ],
-                        ),
-                        24.ph,
-                        Row(
-                          children: [
-                            Text(
-                              AppStrings.billScreenNumber,
-                              style: getSmallStyle(),
-                            ),
-                            Text(
-                              '${store.quantity}',
-                              style: getSmallStyle(
-                                color: const Color(0xff6B6B6B),
-                              ),
-                            )
-                          ],
-                        ),
-                        24.ph,
-                        Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  AppStrings
-                                      .billScreenWardsNumber,
-                                  style: getSmallStyle(),
+                              Text(
+                                store.product ?? '',
+                                style: getSmallStyle(
+                                  color: const Color(0xff6B6B6B),
                                 ),
-                                Text(
-                                  store.partName ?? '',
-                                  style: getSmallStyle(
-                                    color:
-                                    const Color(0xff6B6B6B),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                        24.ph,
-                        Row(
-                          children: [
-                            Text(
-                              AppStrings.billScreenStorePlace,
-                              style: getSmallStyle(),
-                            ),
-                            Text(
-                              '${(store.xAxies ?? 0) + 1} * ${(store.yAxies ?? 0) + 1}',
-                              style: getSmallStyle(
-                                color: const Color(0xff6B6B6B),
+                              )
+                            ],
+                          ),
+                          24.ph,
+                          Row(
+                            children: [
+                              Text(
+                                AppStrings.billScreenQuantity,
+                                style: getSmallStyle(),
                               ),
+                              Text(
+                                '${store.totalWeight} ${store.unit}',
+                                style: getSmallStyle(
+                                  color: const Color(0xff6B6B6B),
+                                ),
+                              )
+                            ],
+                          ),
+                          24.ph,
+                          Row(
+                            children: [
+                              Text(
+                                AppStrings.billScreenNumber,
+                                style: getSmallStyle(),
+                              ),
+                              Text(
+                                '${store.quantity}',
+                                style: getSmallStyle(
+                                  color: const Color(0xff6B6B6B),
+                                ),
+                              )
+                            ],
+                          ),
+                          24.ph,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    AppStrings.billScreenWardsNumber,
+                                    style: getSmallStyle(),
+                                  ),
+                                  Text(
+                                    store.partName ?? '',
+                                    style: getSmallStyle(
+                                      color: const Color(0xff6B6B6B),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                          24.ph,
+                          Row(
+                            children: [
+                              Text(
+                                AppStrings.billScreenStorePlace,
+                                style: getSmallStyle(),
+                              ),
+                              Text(
+                                '${(store.xAxies ?? 0) + 1} * ${(store.yAxies ?? 0) + 1}',
+                                style: getSmallStyle(
+                                  color: const Color(0xff6B6B6B),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      isScreenshot
+                          ? Container()
+                          : BlocListener<ClientsBloc, ClientsState>(
+                              listenWhen: (previous, current) =>
+                                  current.delStoreState == RequestState.error ||
+                                  current.delStoreState == RequestState.loaded,
+                              listener: (context, state) {
+                                if (state.delStoreState == RequestState.error) {
+                                  NavigateUtil().navigateUp(context);
+                                  showError(context, state.delStoreErrorMessage,
+                                      () {});
+                                } else if (state.delStoreState ==
+                                    RequestState.loaded) {
+                                  NavigateUtil().navigateUp(context);
+                                  BlocProvider.of<ClientsBloc>(context).add(
+                                      GetClientInvoiceEvent(
+                                          store.customerId ?? -1));
+                                }
+                              },
+                              child: IconButton(
+                                  onPressed: () {
+                                    showLoading(context);
+                                    BlocProvider.of<ClientsBloc>(context)
+                                        .add(DelStoreEvent(store.id ?? -1));
+                                  },
+                                  icon: const Icon(Icons.delete)),
                             )
-                          ],
-                        ),
-                      ],
-                    ),
-                    isScreenshot ? Container() : BlocListener<ClientsBloc, ClientsState>(
-                      listenWhen: (previous, current) =>
-                          current.delStoreState == RequestState.error ||
-                          current.delStoreState == RequestState.loaded
-                      ,
-  listener: (context, state) {
-    if (state.delStoreState == RequestState.error) {
-      NavigateUtil().navigateUp(context);
-      showError(context, state.delStoreErrorMessage, () {});
-    } else if (state.delStoreState == RequestState.loaded) {
-      NavigateUtil().navigateUp(context);
-      BlocProvider.of<ClientsBloc>(context)
-          .add(GetClientInvoiceEvent(store.customerId ?? -1));
-    }
-  },
-  child: IconButton(
-                        onPressed: () {
-                          showLoading(context);
-                          BlocProvider.of<ClientsBloc>(context)
-                              .add(DelStoreEvent(store.id ?? -1));
-                        },
-                        icon: const Icon(Icons.delete)
-                    ),
-)
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        }).toList(),),
+            );
+          }).toList(),
+        ),
       ],
     );
   }
