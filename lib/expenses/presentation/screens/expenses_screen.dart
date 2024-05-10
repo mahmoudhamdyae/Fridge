@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/core/components/appbar.dart';
+import 'package:fridge/core/components/dialogs/del_dialog.dart';
 import 'package:fridge/core/components/dialogs/error_dialog.dart';
 import 'package:fridge/core/components/dialogs/loading_dialog.dart';
 import 'package:fridge/core/components/settings_button.dart';
@@ -223,8 +224,15 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                                       width: 24,
                                       child: IconButton(
                                           onPressed: () {
-                                            showLoading(context);
-                                            BlocProvider.of<ExpensesBloc>(context).add(DelExpenseEvent(expenses[index].id ?? -1));
+                                            showDelDialog(
+                                                context: context,
+                                                action: () {
+                                                  NavigateUtil().navigateUp(context);
+                                                  showLoading(context);
+                                                  BlocProvider.of<ExpensesBloc>(context)
+                                                      .add(DelExpenseEvent(expenses[index].id ?? -1));
+                                                }
+                                            );
                                           },
                                           icon: const Icon(Icons.delete, size: 24,)
                                       ),

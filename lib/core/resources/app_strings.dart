@@ -34,6 +34,12 @@ class AppStrings {
   static const String delAccountDialogTitle = 'حذف الحساب';
   static const String delAccountDialogText = 'هل أنت متأكد من حذف هذا الحساب؟';
   static const String delAccountOk = 'حذف الحساب';
+  // Del Dialog
+  static const String delDialogTitle = 'حذف';
+  static const String delDialogText = 'هل أنت متأكد من حذف هذا العنصر؟';
+  static const String delDialogClientText = 'هل أنت متأكد من حذف هذا العميل؟';
+  static const String delDialogStoreText = 'هل أنت متأكد من حذف هذا المخزون؟';
+  static const String delDialogOk = 'حذف';
   // Update Dialog
   static const updateDialogTitle = 'تحديث جديد متاح';
   static const updateDialogMessage = 'يتوفر إصدار أحدث من التطبيق، يرجى تحديثه الآن.';

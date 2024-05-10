@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/presentation/bloc/clients_bloc.dart';
 import 'package:fridge/clients/presentation/components/add_more_button.dart';
 import 'package:fridge/clients/presentation/screens/client_invoice_screen.dart';
+import 'package:fridge/core/components/dialogs/del_dialog.dart';
+import 'package:fridge/core/components/dialogs/error_dialog.dart';
+import 'package:fridge/core/enums/request_state.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
@@ -18,17 +21,19 @@ import '../../domain/entities/client.dart';
 class ClientItem extends StatelessWidget {
 
   final Client client;
+
   const ClientItem({super.key, required this.client});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        BlocProvider.of<ClientsBloc>(context).add(GetClientInvoiceEvent(client.id ?? -1));
+        BlocProvider.of<ClientsBloc>(context).add(
+            GetClientInvoiceEvent(client.id ?? -1));
         NavigateUtil().navigateToScreen(context, BlocProvider.value(
             value: instance<ClientsBloc>(),
             child: BlocProvider.value(value: instance<WardsBloc>(),
-            child: const ClientInvoiceScreen())
+                child: const ClientInvoiceScreen())
         ));
       },
       child: Card(
@@ -76,14 +81,44 @@ class ClientItem extends StatelessWidget {
                             FontWeightManager.medium,
                           ),
                         ),
-                        Text(
-                          client.phone ?? '',
-                          style: getSmallStyle(
-                            fontWeight:
-                            FontWeightManager.medium,
-                            fontSize: 14,
-                            color: const Color(0xff6B6B6B),
-                          ),
+                        Row(
+                          children: [
+                            Text(
+                              client.phone ?? '',
+                              style: getSmallStyle(
+                                fontWeight:
+                                FontWeightManager.medium,
+                                fontSize: 14,
+                                color: const Color(0xff6B6B6B),
+                              ),
+                            ),
+                            BlocListener<ClientsBloc, ClientsState>(
+                              listenWhen: (previous, current) =>
+                                  current.delClientState == RequestState.error ||
+                                  current.delClientState == RequestState.loaded,
+                              listener: (context, state) {
+                                if (state.delClientState == RequestState.error) {
+                                  NavigateUtil().navigateUp(context);
+                                  showError(context, state.delClientErrorMessage, () {});
+                                } else if (state.delClientState == RequestState.loaded) {
+                                  NavigateUtil().navigateUp(context);
+                                  BlocProvider.of<ClientsBloc>(context).add(GetClientsEvent());
+                                }
+                              },
+                              child: IconButton(
+                                  onPressed: () {
+                                    showDelDialog(
+                                        context: context,
+                                        text: AppStrings.delDialogClientText,
+                                        action: () {
+                                          BlocProvider.of<ClientsBloc>(context)
+                                              .add(DelClientEvent(client.id ?? -1));
+                                        });
+                                  },
+                                  icon: const Icon(Icons.delete)
+                              ),
+                            )
+                          ],
                         ),
                       ],
                     ),

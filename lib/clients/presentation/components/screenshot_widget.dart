@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/presentation/bloc/clients_bloc.dart';
+import 'package:fridge/core/components/dialogs/del_dialog.dart';
 import 'package:fridge/core/components/dialogs/error_dialog.dart';
 import 'package:fridge/core/components/dialogs/loading_dialog.dart';
 import 'package:fridge/core/enums/request_state.dart';
@@ -190,9 +191,15 @@ class ScreenshotWidget extends StatelessWidget {
                               },
                               child: IconButton(
                                   onPressed: () {
-                                    showLoading(context);
-                                    BlocProvider.of<ClientsBloc>(context)
-                                        .add(DelStoreEvent(store.id ?? -1));
+                                    showDelDialog(
+                                        context: context,
+                                        text: AppStrings.delDialogStoreText,
+                                        action: () {
+                                          showLoading(context);
+                                          BlocProvider.of<ClientsBloc>(context)
+                                              .add(DelStoreEvent(store.id ?? -1));
+                                        }
+                                    );
                                   },
                                   icon: const Icon(Icons.delete)),
                             )
