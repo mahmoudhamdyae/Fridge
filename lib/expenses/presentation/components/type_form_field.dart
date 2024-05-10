@@ -8,11 +8,13 @@ class TypeFormField extends StatefulWidget {
 
   final List<String> names;
   final Function(String) chosenType;
+  final String selectedName;
 
   const TypeFormField({
     super.key,
     required this.names,
     required this.chosenType,
+    this.selectedName = AppStrings.expensesScreenTypeHint
   });
 
   @override
@@ -21,7 +23,13 @@ class TypeFormField extends StatefulWidget {
 
 class _TypeFormFieldState extends State<TypeFormField> {
 
-  String selectedName = AppStrings.expensesScreenTypeHint;
+  late String selectedName;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedName = widget.selectedName;
+  }
 
   @override
   Widget build(BuildContext context) {

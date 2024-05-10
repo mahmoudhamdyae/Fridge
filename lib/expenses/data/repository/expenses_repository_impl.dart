@@ -40,9 +40,9 @@ class ExpensesRepositoryImpl extends ExpensesRepository {
   }
 
   @override
-  Future<Either<Failure, void>> editExpense(String expenseId, String title, String date, String description, String amount) async {
+  Future<Either<Failure, void>> editExpense(String expenseId, int expenseTypeId, String description, String amount) async {
     try {
-      var result = await remoteDataSource.editExpense(expenseId, title, date, description, amount);
+      var result = await remoteDataSource.editExpense(expenseId, expenseTypeId, description, amount);
       return Right(result);
     } on ServerException catch(failure) {
       return Left(ServerFailure(failure.errorMessageModel.message));

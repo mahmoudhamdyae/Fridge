@@ -21,6 +21,7 @@ class ExpensesResponseModel extends ExpensesResponse {
   const ExpensesResponseModel({
     super.id,
     super.title,
+    super.expenseTypeId,
     super.date,
     super.description,
     super.amount
@@ -29,6 +30,7 @@ class ExpensesResponseModel extends ExpensesResponse {
   factory ExpensesResponseModel.fromJson(Map<String, dynamic> json) => ExpensesResponseModel(
     id: json['id'],
     title: json['expense_type']['name'],
+    expenseTypeId: json['expense_type']['id'],
     date: json['date'],
     description: json['description'],
     amount: json['amount'],

@@ -16,7 +16,7 @@ abstract class ExpensesRemoteDataSource {
   Future<void> storeExpenses(int expenseTypeId, String description, String amount);
   Future<List<ExpensesResponse>> getExpenses();
   Future<void> delExpense(int expenseId);
-  Future<void> editExpense(String expenseId, String title, String date, String description, String amount);
+  Future<void> editExpense(String expenseId, int expenseTypeId, String description, String amount);
   Future<List<ExpenseTypeModel>> getExpenseTypes();
   Future<void> storeExpenseType(String typeName);
   Future<void> delExpenseType(int typeId);
@@ -85,12 +85,11 @@ class ExpensesRemoteDataSourceImpl extends ExpensesRemoteDataSource {
   }
 
   @override
-  Future<void> editExpense(String expenseId, String title, String date, String description, String amount) async {
+  Future<void> editExpense(String expenseId, int expenseTypeId, String description, String amount) async {
     try {
-      await dioManager.dio.get(ApiConstants.editExpensePath, data: {
+      await dioManager.dio.post(ApiConstants.editExpensePath, data: {
         "id":expenseId,
-        "title":title,
-        "date":date,
+        "expense_type_id":expenseTypeId,
         "description":description,
         "amount":amount
       });

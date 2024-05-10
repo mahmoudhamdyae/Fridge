@@ -20,6 +20,7 @@ import 'package:fridge/expenses/presentation/screens/add_expense_screen.dart';
 import 'package:fridge/expenses/presentation/screens/expenses_settings_screen.dart';
 
 import '../../../core/components/decorations.dart';
+import 'edit_expense_screen.dart';
 
 class ExpensesScreen extends StatefulWidget {
   const ExpensesScreen({super.key});
@@ -61,7 +62,9 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
         current is StoreExpenseErrorState ||
             current is StoreExpenseSuccessState ||
             current is DelExpenseErrorState ||
-            current is DelExpenseSuccessState,
+            current is DelExpenseSuccessState ||
+            current is EditExpenseErrorState ||
+            current is EditExpenseSuccessState,
         listener: (context, state) {
           if (state is StoreExpenseErrorState) {
             NavigateUtil().navigateUp(context);
@@ -74,6 +77,13 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
             NavigateUtil().navigateUp(context);
             showError(context, state.errorMessage, () {});
           } else if (state is DelExpenseSuccessState) {
+            NavigateUtil().navigateUp(context);
+            BlocProvider.of<ExpensesBloc>(context).add(GetExpensesEvent());
+          } else if (state is EditExpenseErrorState) {
+            NavigateUtil().navigateUp(context);
+            showError(context, state.errorMessage, () {});
+          } else if (state is EditExpenseSuccessState) {
+            NavigateUtil().navigateUp(context);
             NavigateUtil().navigateUp(context);
             BlocProvider.of<ExpensesBloc>(context).add(GetExpensesEvent());
           }
@@ -199,51 +209,57 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                         physics: const ClampingScrollPhysics(),
                         itemCount: expenses.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                              padding: const EdgeInsets.all(16.0),
-                              color: index % 2 == 0 ? const Color(0xffD9D9D9) : const Color(0xffEAEDF4),
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: 24,
-                                    child: IconButton(
-                                        onPressed: () {
-                                          showLoading(context);
-                                          BlocProvider.of<ExpensesBloc>(context).add(DelExpenseEvent(expenses[index].id ?? -1));
-                                        },
-                                        icon: const Icon(Icons.delete, size: 24,)
+                          return InkWell(
+                            onTap: () {
+                              NavigateUtil().navigateToScreen(context, BlocProvider.value(value: instance<ExpensesBloc>(),
+                                  child: EditExpenseScreen(expense: expenses[index])));
+                            },
+                            child: Container(
+                                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                                color: index % 2 == 0 ? const Color(0xffD9D9D9) : const Color(0xffEAEDF4),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 24,
+                                      child: IconButton(
+                                          onPressed: () {
+                                            showLoading(context);
+                                            BlocProvider.of<ExpensesBloc>(context).add(DelExpenseEvent(expenses[index].id ?? -1));
+                                          },
+                                          icon: const Icon(Icons.delete, size: 24,)
+                                      ),
                                     ),
-                                  ),
-                                  Expanded(
-                                      child: Text(
-                                        expenses[index].date ?? '',
-                                        textAlign: TextAlign.center,
-                                        style: getSmallStyle(fontSize: 10.0),
-                                      )
-                                  ),
-                                  Expanded(
-                                      child: Text(
-                                        expenses[index].title ?? '',
-                                        textAlign: TextAlign.center,
-                                        style: getSmallStyle(fontSize: 10.0),
-                                      )
-                                  ),
-                                  Expanded(
-                                      child: Text(
-                                        expenses[index].description ?? '',
-                                        textAlign: TextAlign.center,
-                                        style: getSmallStyle(fontSize: 10.0),
-                                      )
-                                  ),
-                                  Expanded(
-                                      child: Text(
-                                        '${expenses[index].amount ?? ''} ${AppStrings.egp}',
-                                        textAlign: TextAlign.center,
-                                        style: getSmallStyle(fontSize: 10.0),
-                                      )
-                                  ),
-                                ],
-                              )
+                                    Expanded(
+                                        child: Text(
+                                          expenses[index].date ?? '',
+                                          textAlign: TextAlign.center,
+                                          style: getSmallStyle(fontSize: 10.0),
+                                        )
+                                    ),
+                                    Expanded(
+                                        child: Text(
+                                          expenses[index].title ?? '',
+                                          textAlign: TextAlign.center,
+                                          style: getSmallStyle(fontSize: 10.0),
+                                        )
+                                    ),
+                                    Expanded(
+                                        child: Text(
+                                          expenses[index].description ?? '',
+                                          textAlign: TextAlign.center,
+                                          style: getSmallStyle(fontSize: 10.0),
+                                        )
+                                    ),
+                                    Expanded(
+                                        child: Text(
+                                          '${expenses[index].amount ?? ''} ${AppStrings.egp}',
+                                          textAlign: TextAlign.center,
+                                          style: getSmallStyle(fontSize: 10.0),
+                                        )
+                                    ),
+                                  ],
+                                )
+                            ),
                           );
                         },
                       ),

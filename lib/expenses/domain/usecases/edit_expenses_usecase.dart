@@ -6,7 +6,7 @@ class EditExpensesUsecase {
   final ExpensesRepository repository;
   EditExpensesUsecase(this.repository);
 
-  Future<Either<Failure, void>> call(String expenseId, String title, String date, String description, String amount) async {
-    return await repository.editExpense(expenseId, title, date, description, amount);
+  Future<Either<Failure, void>> call(String expenseId, int expenseTypeId, String description, String amount) async {
+    return await repository.editExpense(expenseId, expenseTypeId, description, amount);
   }
 }

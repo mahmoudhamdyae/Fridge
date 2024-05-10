@@ -85,8 +85,7 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
     emit(EditExpenseLoadingState());
     var result = await _editExpensesUsecase.call(
         event.expenseId,
-        event.title,
-        event.date,
+        event.expenseTypeId,
         event.description,
         event.amount
     );
