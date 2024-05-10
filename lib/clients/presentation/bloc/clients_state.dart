@@ -34,7 +34,13 @@ class ClientsState extends Equatable {
 
   final ClientInvoiceData invoice;
   final RequestState getInvoiceState;
-  final String getClientInvoiceMessage;
+  final String getClientInvoiceErrorMessage;
+
+  final RequestState delClientState;
+  final String delClientErrorMessage;
+
+  final RequestState delStoreState;
+  final String delStoreErrorMessage;
 
   const ClientsState({
     this.clients = const [],
@@ -61,7 +67,11 @@ class ClientsState extends Equatable {
     this.getStoresErrorMessage = '',
     this.invoice = const ClientInvoiceData(),
     this.getInvoiceState = RequestState.init,
-    this.getClientInvoiceMessage = ''
+    this.getClientInvoiceErrorMessage = '',
+    this.delClientState = RequestState.init,
+    this.delClientErrorMessage = '',
+    this.delStoreState = RequestState.init,
+    this.delStoreErrorMessage = ''
 });
 
   ClientsState copyWith({
@@ -89,7 +99,11 @@ class ClientsState extends Equatable {
     String? getStoresErrorMessage,
     ClientInvoiceData? invoice,
     RequestState? getInvoiceState,
-    String? getClientInvoiceMessage
+    String? getClientInvoiceErrorMessage,
+    RequestState? delClientState,
+    String? delClientErrorMessage,
+    RequestState? delStoreState,
+    String? delStoreErrorMessage
   }) {
     return ClientsState(
       clients: clients ?? this.clients,
@@ -116,7 +130,11 @@ class ClientsState extends Equatable {
       getStoresErrorMessage: getStoresErrorMessage ?? this.getStoresErrorMessage,
       invoice: invoice ?? this.invoice,
       getInvoiceState: getInvoiceState ?? this.getInvoiceState,
-      getClientInvoiceMessage: getClientInvoiceMessage ?? this.getClientInvoiceMessage
+      getClientInvoiceErrorMessage: getClientInvoiceErrorMessage ?? this.getClientInvoiceErrorMessage,
+      delClientState: delClientState ?? this.delClientState,
+      delClientErrorMessage: delClientErrorMessage ?? this.delClientErrorMessage,
+      delStoreState: delStoreState ?? this.delStoreState,
+      delStoreErrorMessage: delStoreErrorMessage ?? this.delStoreErrorMessage
     );
   }
 
@@ -130,6 +148,8 @@ class ClientsState extends Equatable {
     x, y,
     addClientState, addClientErrorMessage,
     stores, customMap, getStoresState, getStoresErrorMessage,
-    invoice, getInvoiceState, getClientInvoiceMessage
+    invoice, getInvoiceState, getClientInvoiceErrorMessage,
+    delClientState, delClientErrorMessage,
+    delStoreState, delStoreErrorMessage
   ];
 }

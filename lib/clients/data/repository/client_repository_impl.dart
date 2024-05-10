@@ -39,4 +39,24 @@ class ClientRepositoryImpl extends ClientRepository {
       return Left(ServerFailure(error.errorMessageModel.message));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> delClient(int clientId) async {
+    try {
+      var response = await remoteDataSource.delClient(clientId);
+      return Right(response);
+    } on ServerException catch (error) {
+      return Left(ServerFailure(error.errorMessageModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> delStore(int storeId) async {
+    try {
+      var response = await remoteDataSource.delStore(storeId);
+      return Right(response);
+    } on ServerException catch (error) {
+      return Left(ServerFailure(error.errorMessageModel.message));
+    }
+  }
 }

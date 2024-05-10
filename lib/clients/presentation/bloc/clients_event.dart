@@ -66,3 +66,17 @@ class GetClientInvoiceEvent extends ClientsEvent {
   @override
   List<Object?> get props => [clientId];
 }
+
+class DelClientEvent extends ClientsEvent {
+  final int clientId;
+  const DelClientEvent(this.clientId);
+  @override
+  List<Object?> get props => [clientId];
+}
+
+class DelStoreEvent extends ClientsEvent {
+  final int storeId;
+  const DelStoreEvent(this.storeId);
+  @override
+  List<Object?> get props => [storeId];
+}

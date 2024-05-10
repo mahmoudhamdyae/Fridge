@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/presentation/components/send_button.dart';
@@ -72,11 +73,15 @@ class _ClientInvoiceScreenState extends State<ClientInvoiceScreen> {
                     if (state.getInvoiceState == RequestState.loading) {
                       return const LoadingScreen();
                     } else if (state.getInvoiceState == RequestState.loading) {
-                      return ErrorScreen(error: state.getClientInvoiceMessage);
+                      return ErrorScreen(error: state.getClientInvoiceErrorMessage);
                     } else if (state.getInvoiceState == RequestState.loaded) {
                       stores = state.invoice.stores ?? [];
                       name = state.invoice.name ?? '';
-                      return ScreenshotWidget(stores: stores, name: name);
+                      return ScreenshotWidget(
+                        stores: stores,
+                        name: name,
+                        isScreenshot: false,
+                      );
                     }
                     return Container();
                   },

@@ -16,6 +16,8 @@ abstract class ClientRemoteDataSource {
   Future<List<Client>> getClients();
   Future<void> addClient(AddClientRequest request);
   Future<ClientInvoiceData> getClientInvoice(int clientId);
+  Future<void> delStore(int storeId);
+  Future<void> delClient(int clientId);
 }
 
 class ClientRemoteDataSourceImpl extends ClientRemoteDataSource {
@@ -32,7 +34,6 @@ class ClientRemoteDataSourceImpl extends ClientRemoteDataSource {
             errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
         );
       } else {
-        // Error due to setting up or sending the request
         throw ServerException(
             errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
         );
@@ -53,7 +54,6 @@ class ClientRemoteDataSourceImpl extends ClientRemoteDataSource {
             errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
         );
       } else {
-        // Error due to setting up or sending the request
         throw ServerException(
             errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
         );
@@ -72,7 +72,40 @@ class ClientRemoteDataSourceImpl extends ClientRemoteDataSource {
             errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
         );
       } else {
-        // Error due to setting up or sending the request
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
+        );
+      }
+    }
+  }
+
+  @override
+  Future<void> delClient(int clientId) async {
+    try {
+      await dioManager.dio.get(ApiConstants.delClientPath(clientId));
+    }  on DioException catch (error) {
+      if (error.response != null) {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
+        );
+      }
+    }
+  }
+
+  @override
+  Future<void> delStore(int storeId) async {
+    try {
+      await dioManager.dio.get(ApiConstants.delStorePath(storeId));
+    }  on DioException catch (error) {
+      if (error.response != null) {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
         throw ServerException(
             errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
         );

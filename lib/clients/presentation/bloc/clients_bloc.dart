@@ -15,6 +15,8 @@ import '../../../ward/domain/entities/ward.dart';
 import '../../../ward/domain/usecases/get_all_stores_usecase.dart';
 import '../../data/models/add_client_request.dart';
 import '../../domain/usecases/add_client_usecase.dart';
+import '../../domain/usecases/del_client_usecase.dart';
+import '../../domain/usecases/del_store_usecase.dart';
 import '../../domain/usecases/get_client_invoice_usecase.dart';
 import '../../domain/usecases/get_clients_usecase.dart';
 
@@ -29,6 +31,8 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
   final AddClientUsecase _addClientUsecase;
   final GetAllStoresUsecase _getAllStoresUsecase;
   final GetClientInvoiceUsecase _getClientInvoiceUsecase;
+  final DelClientUsecase _delClientUsecase;
+  final DelStoreUsecase _delStoresUsecase;
 
   ClientsBloc(
       this._getSettingsUsecase,
@@ -37,6 +41,8 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
       this._addClientUsecase,
       this._getAllStoresUsecase,
       this._getClientInvoiceUsecase,
+      this._delClientUsecase,
+      this._delStoresUsecase
       ) : super(const ClientsState()) {
     on<GetClientsEvent>((event, emit) async {
       await _getClients(event, emit);
@@ -68,6 +74,14 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
 
     on<GetClientInvoiceEvent>((event, emit) async {
       await _getClientInvoice(event, emit);
+    });
+
+    on<DelClientEvent>((event, emit) async {
+      await _delClient(event, emit);
+    });
+
+    on<DelStoreEvent>((event, emit) async {
+      await _delStore(event, emit);
     });
   }
 
@@ -248,6 +262,36 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
       emit(state.copyWith(
         getInvoiceState: RequestState.loaded,
         invoice: invoice,
+      ));
+    });
+  }
+
+  Future<void> _delClient(DelClientEvent event, Emitter<ClientsState> emit) async {
+    emit(state.copyWith(delClientState: RequestState.loading));
+    final result = await _delClientUsecase.call(event.clientId);
+    result.fold((l) {
+      emit(state.copyWith(
+        delClientState: RequestState.error,
+        delClientErrorMessage: l.message,
+      ));
+    }, (_) {
+      emit(state.copyWith(
+        delClientState: RequestState.loaded,
+      ));
+    });
+  }
+
+  Future<void> _delStore(DelStoreEvent event, Emitter<ClientsState> emit) async {
+    emit(state.copyWith(delStoreState: RequestState.loading));
+    final result = await _delStoresUsecase.call(event.storeId);
+    result.fold((l) {
+      emit(state.copyWith(
+        delStoreState: RequestState.error,
+        delClientErrorMessage: l.message,
+      ));
+    }, (_) {
+      emit(state.copyWith(
+        delStoreState: RequestState.loaded,
       ));
     });
   }

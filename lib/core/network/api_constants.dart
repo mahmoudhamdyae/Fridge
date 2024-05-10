@@ -29,6 +29,8 @@ class ApiConstants {
   static const String getClientsPath = "app/customer/";
   static const String addClientPath = "app/customer/store";
   static String getClientInvoicePath(int clientId) => "app/customer/report/$clientId";
+  static String delStorePath(int storeId) => "app/store/delete/$storeId";
+  static String delClientPath(int clientId) => "app/store/delete/$clientId"; // todo change this
 
   /// Expenses
   static const String getExpensePath = "app/expense";
