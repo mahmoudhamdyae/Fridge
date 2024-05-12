@@ -162,6 +162,8 @@ class AppStrings {
   static const String billScreenWardsNumber = 'رقم العنبر : ';
   static const String billScreenStoreType = 'طريقة التخزين : ';
   static const String billScreenStorePlace = 'مكان التخزين : ';
+  static const String billScreenPaid = 'المبلغ المدفوع : ';
+  static const String billScreenTotal = 'المبلغ المتبقى : ';
   static const String billScreenPrice = 'سعر الوحدة : ';
   static const String billScreenTotalPrice = 'المبلغ المدفوع : ';
   static const String billScreenPrintButton = 'طباعة';

@@ -168,6 +168,36 @@ class ScreenshotWidget extends StatelessWidget {
                               )
                             ],
                           ),
+                          24.ph,
+                          Row(
+                            children: [
+                              Text(
+                                AppStrings.billScreenPaid,
+                                style: getSmallStyle(),
+                              ),
+                              Text(
+                                '${(store.paid ?? 0)} ${AppStrings.egp}',
+                                style: getSmallStyle(
+                                  color: const Color(0xff6B6B6B),
+                                ),
+                              )
+                            ],
+                          ),
+                          24.ph,
+                          Row(
+                            children: [
+                              Text(
+                                AppStrings.billScreenTotal,
+                                style: getSmallStyle(),
+                              ),
+                              Text(
+                                '${(store.price ?? 0) - (store.paid ?? 0)} ${AppStrings.egp}',
+                                style: getSmallStyle(
+                                  color: const Color(0xff6B6B6B),
+                                ),
+                              )
+                            ],
+                          ),
                         ],
                       ),
                       isScreenshot

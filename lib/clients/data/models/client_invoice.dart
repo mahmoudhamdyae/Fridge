@@ -67,6 +67,7 @@ class ClientInvoiceStores {
   int? xAxies;
   int? yAxies;
   String? partName;
+  num? paid;
 
   ClientInvoiceStores(
       {this.id,
@@ -81,7 +82,8 @@ class ClientInvoiceStores {
         this.price,
         this.xAxies,
         this.yAxies,
-        this.partName,});
+        this.partName,
+        this.paid});
 
   ClientInvoiceStores.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -97,5 +99,6 @@ class ClientInvoiceStores {
     xAxies = json['x_axies'];
     yAxies = json['y_axies'];
     partName = json['part_name'];
+    paid = json['amount_paid'];
   }
 }
