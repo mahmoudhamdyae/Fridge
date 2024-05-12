@@ -141,6 +141,7 @@ class AppStrings {
   static const String addClientScreenUnitWeightLabel = 'الوزن للوحدة';
   static const String addClientScreenTotalWeightLabel = 'الوزن الكلى';
   static const String addClientScreenStorePriceLabel = 'سعر التخزين';
+  static const String addClientScreenStorePaidLabel = 'المبلغ المدفوع';
   static const String addClientScreenAddProduct = 'إضافة منتج آخر';
 
 

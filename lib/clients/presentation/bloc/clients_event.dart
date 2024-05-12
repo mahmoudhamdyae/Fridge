@@ -32,9 +32,18 @@ class AddProductEvent extends ClientsEvent {
   final String unitWeight;
   final String totalWeight;
   final double price;
-  const AddProductEvent(this.productType, this.packagingType, this.number, this.unitWeight, this.totalWeight, this.price);
+  final double paid;
+  const AddProductEvent(
+      this.productType,
+      this.packagingType,
+      this.number,
+      this.unitWeight,
+      this.totalWeight,
+      this.price,
+      this.paid,
+      );
   @override
-  List<Object?> get props => [productType, packagingType, number, unitWeight, totalWeight, price];
+  List<Object?> get props => [productType, packagingType, number, unitWeight, totalWeight, price, paid];
 }
 
 class ChooseWardEvent extends ClientsEvent {

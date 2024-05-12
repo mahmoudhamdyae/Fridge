@@ -16,6 +16,8 @@ import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/font_manager.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 
+import '../components/product/product_paid_form_field.dart';
+
 class AddProductScreen extends StatefulWidget {
   final Function(String productType) moveForward;
 
@@ -31,6 +33,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   TextEditingController unitWeightController = TextEditingController();
   TextEditingController totalWeightController = TextEditingController();
   TextEditingController priceController = TextEditingController();
+  TextEditingController paidController = TextEditingController();
   String chosenProductType = AppStrings.addClientScreenProductTypeHint;
   String chosenPackagingType = AppStrings.addClientScreenPackagingTypeHint;
 
@@ -45,6 +48,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     totalWeightController.text =
         (state.productToAdd.totalWeight ?? '').toString();
     priceController.text = (state.productToAdd.price?.toInt() ?? state.remotePrice).toString();
+    paidController.text = (state.productToAdd.paid?.toInt() ?? 0.0).toString();
     chosenProductType = state.productToAdd.productType ??
         AppStrings.addClientScreenProductTypeHint;
     chosenPackagingType = state.productToAdd.packagingType ??
@@ -194,6 +198,24 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       productPriceController: priceController)),
             ],
           ),
+          16.ph,
+          Row(
+            children: [
+              SizedBox(
+                width: 80,
+                child: Text(
+                  AppStrings.addClientScreenStorePaidLabel,
+                  style: getSmallStyle(
+                    fontWeight: FontWeightManager.medium,
+                  ),
+                ),
+              ),
+              16.pw,
+              Expanded(
+                  child: ProductPaidFormField(
+                      productPaidController: paidController)),
+            ],
+          ),
           32.ph,
           NextButton(onClick: () {
             if (validate != null && validate == true) {
@@ -204,6 +226,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 unitWeightController.text,
                 totalWeightController.text,
                 double.parse(priceController.text),
+                double.parse(paidController.text),
               ));
               widget.moveForward(chosenProductType);
             }

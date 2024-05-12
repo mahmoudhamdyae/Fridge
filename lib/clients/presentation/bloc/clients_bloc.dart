@@ -138,6 +138,7 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
         unitWeight: double.parse(event.unitWeight),
         totalWeight: double.parse(event.totalWeight),
         price: event.price,
+        paid: event.paid,
       )
     ));
   }
@@ -196,6 +197,7 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
           unitWeight: state.productToAdd.unitWeight,
           totalWeight: state.productToAdd.totalWeight,
           price: state.productToAdd.price,
+          paid: state.productToAdd.paid,
           x: event.x,
           y: event.y,
       )

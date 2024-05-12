@@ -7,6 +7,7 @@ class ProductToAdd extends Equatable {
   final double? unitWeight;
   final double? totalWeight;
   final double? price;
+  final double? paid;
 
   const ProductToAdd({
     this.productType,
@@ -15,6 +16,7 @@ class ProductToAdd extends Equatable {
     this.unitWeight,
     this.totalWeight,
     this.price,
+    this.paid,
   });
 
   @override
@@ -24,6 +26,7 @@ class ProductToAdd extends Equatable {
     number,
     unitWeight,
     totalWeight,
-    price
+    price,
+    paid
   ];
 }

@@ -10,6 +10,7 @@ class AddClientRequest {
   double? unitWeight;
   double? totalWeight;
   double? price;
+  double? paid;
   int? x;
   int? y;
 
@@ -26,6 +27,7 @@ class AddClientRequest {
     required this.unitWeight,
     required this.totalWeight,
     required this.price,
+    required this.paid,
     required this.x,
     required this.y,
   });
@@ -43,6 +45,7 @@ class AddClientRequest {
       'unit_weight': unitWeight,
       'total_weight': totalWeight,
       'price': price,
+      'amount_paid': paid,
       'x_axies': x,
       'y_axies': y,
     };

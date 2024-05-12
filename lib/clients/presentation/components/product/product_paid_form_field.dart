@@ -3,12 +3,12 @@ import 'package:fridge/core/resources/styles_manager.dart';
 
 import '../../../../core/utils/validate_operations.dart';
 
-class ProductPriceFormField extends StatelessWidget {
+class ProductPaidFormField extends StatelessWidget {
 
-  final TextEditingController productPriceController;
-  const ProductPriceFormField({
+  final TextEditingController productPaidController;
+  const ProductPaidFormField({
     super.key,
-    required this.productPriceController,
+    required this.productPaidController,
   });
 
 
@@ -18,8 +18,8 @@ class ProductPriceFormField extends StatelessWidget {
       decoration: getFilledTextFieldDecoration(
         hint: '',
       ),
-      controller: productPriceController,
-      textInputAction: TextInputAction.next,
+      controller: productPaidController,
+      textInputAction: TextInputAction.done,
       keyboardType: TextInputType.number,
       validator: (value) => ValidateOperations.normalValidation(value),
     );
