@@ -142,12 +142,16 @@ class AppStrings {
   static const String addClientScreenPackagingTypeLabel = 'نوع التغليف';
   static const String addClientScreenPackagingTypeHint = 'اختر نوع التغليف';
   static const String addClientScreenNumberLabel = 'العدد';
+  static const String addClientScreenBagsNumberLabel = 'عدد الشكاير';
   static const String addClientScreenUnitWeightLabel = 'الوزن للوحدة';
   static const String addClientScreenTotalWeightLabel = 'الوزن الكلى';
   static const String addClientScreenStorePriceLabel = 'سعر التخزين';
+  static const String addClientScreenStoreBagPriceLabel = 'سعر الشكارة الواحدة';
   static const String addClientScreenStorePaidLabel = 'المبلغ المدفوع';
   static const String addClientScreenAddProduct = 'إضافة منتج آخر';
-
+  static const String addClientScreenBagTypeLabel = 'نوع الشكاير';
+  static const String addClientScreenBagTypeSmall = 'شكارة صغيرة';
+  static const String addClientScreenBagTypeBig = 'شكارة كبيرة';
 
   static const String addClientScreenChooseWard = 'اختر العنبر';
   static const String addClientScreenChooseWardProduct = 'اضف المنتج';

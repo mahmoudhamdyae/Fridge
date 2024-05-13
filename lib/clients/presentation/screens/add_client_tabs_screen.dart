@@ -33,6 +33,7 @@ class _AddClientTabsScreenState extends State<AddClientTabsScreen> {
 
   late int currentTab;
   String productType = '';
+  bool isTrader = true;
 
   List<CustomContact> customContacts = [];
 
@@ -113,19 +114,22 @@ class _AddClientTabsScreenState extends State<AddClientTabsScreen> {
                 backgroundColor: AppColors.grey,
               ),
               16.ph,
-              currentTab == 0 ? AddNewClientScreen(moveForward: () {
+              currentTab == 0 ? AddNewClientScreen(moveForward: (isTrader) {
                 setState(() {
                   currentTab = 1;
+                  this.isTrader = isTrader;
                 });
               }, customContacts: customContacts,)
                   :
-                  currentTab == 1 ? AddProductScreen(moveForward: (productType) {
-                    setState(() {
-                      currentTab = 2;
-                      this.productType = productType;
-                    });
-                  },) :
-                      currentTab == 2 ? ChooseWardFirstScreen(moveForward: () {
+                  currentTab == 1 ? AddProductScreen(
+                    isTrader: isTrader,
+                    moveForward: (productType) {
+                      setState(() {
+                        currentTab = 2;
+                        this.productType = productType;
+                      });
+                      },
+                  ) : currentTab == 2 ? ChooseWardFirstScreen(moveForward: () {
                         setState(() {
                           currentTab = 3;
                         });

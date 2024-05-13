@@ -19,7 +19,7 @@ import '../components/trader_dealer_button.dart';
 
 class AddNewClientScreen extends StatefulWidget {
 
-  final Function moveForward;
+  final Function(bool) moveForward;
   final List<CustomContact> customContacts;
 
   const AddNewClientScreen({
@@ -152,7 +152,7 @@ class _AddNewClientScreenState extends State<AddNewClientScreen> {
                           clientPhoneController.text,
                           clientAddressController.text.isEmpty ? null : clientAddressController.text,
                       ));
-                      widget.moveForward();
+                      widget.moveForward(isTrader ?? true);
                     }
                   },
                 );

@@ -19,9 +19,11 @@ import 'package:fridge/core/resources/styles_manager.dart';
 import '../components/product/product_paid_form_field.dart';
 
 class AddProductScreen extends StatefulWidget {
+
+  final bool isTrader;
   final Function(String productType) moveForward;
 
-  const AddProductScreen({super.key, required this.moveForward});
+  const AddProductScreen({super.key, required this.moveForward, required this.isTrader});
 
   @override
   State<AddProductScreen> createState() => _AddProductScreenState();
@@ -36,6 +38,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   TextEditingController paidController = TextEditingController();
   String chosenProductType = AppStrings.addClientScreenProductTypeHint;
   String chosenPackagingType = AppStrings.addClientScreenPackagingTypeHint;
+  String _bagType = AppStrings.addClientScreenBagTypeSmall;
 
   bool? get validate => _formKey.currentState?.validate();
 
@@ -47,7 +50,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
     unitWeightController.text = (state.productToAdd.unitWeight ?? '').toString();
     totalWeightController.text =
         (state.productToAdd.totalWeight ?? '').toString();
-    priceController.text = (state.productToAdd.price?.toInt() ?? state.remotePrice).toString();
+    if (widget.isTrader) {
+      priceController.text = (state.productToAdd.price?.toInt() ?? state.remotePrice).toString();
+    } else {
+      priceController.text = (state.productToAdd.price?.toInt() ??
+          (_bagType == AppStrings.addClientScreenBagTypeSmall ? state.remoteSmallBagPrice : state.remoteLargeBagPrice)
+      ).toString();
+    }
     paidController.text = (state.productToAdd.paid?.toInt() ?? 0.0).toString();
     chosenProductType = state.productToAdd.productType ??
         AppStrings.addClientScreenProductTypeHint;
@@ -75,6 +84,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
             image: AppAssets.person,
           ),
           32.ph,
+          // نوع التغليف
           Row(
             children: [
               SizedBox(
@@ -99,6 +109,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
             ],
           ),
           16.ph,
+          // نوع المنتج
           Row(
             children: [
               SizedBox(
@@ -121,13 +132,63 @@ class _AddProductScreenState extends State<AddProductScreen> {
               )),
             ],
           ),
+          !widget.isTrader ? 16.ph : 0.ph,
+          // نوع الشكاير
+          !widget.isTrader ? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(
+                  width: 80,
+                  child: Text(
+                    AppStrings.addClientScreenBagTypeLabel,
+                    style: getSmallStyle(
+                      fontWeight: FontWeightManager.medium,
+                    ),
+                  ),
+                ),
+                Row(
+                  children: [
+                    Radio(
+                        value: AppStrings.addClientScreenBagTypeSmall,
+                        groupValue: _bagType,
+                        onChanged: (value) {
+                          setState(() {
+                            _bagType = value ?? '';
+                          });
+                        }),
+                    Text(
+                      AppStrings.addClientScreenBagTypeSmall,
+                      style: getSmallStyle(
+                          fontWeight: FontWeightManager.medium),
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    Radio(
+                        value: AppStrings.addClientScreenBagTypeBig,
+                        groupValue: _bagType,
+                        onChanged: (value) {
+                          setState(() {
+                            _bagType = value ?? '';
+                          });
+                        }),
+                    Text(
+                      AppStrings.addClientScreenBagTypeBig,
+                      style: getSmallStyle(
+                          fontWeight: FontWeightManager.medium),
+                    )
+                  ],
+                ),
+              ]) : Container(),
           16.ph,
+          // العدد // عدد الشكاير
           Row(
             children: [
               SizedBox(
                 width: 80,
                 child: Text(
-                  AppStrings.addClientScreenNumberLabel,
+                  widget.isTrader ? AppStrings.addClientScreenNumberLabel : AppStrings.addClientScreenBagsNumberLabel,
                   style: getSmallStyle(
                     fontWeight: FontWeightManager.medium,
                   ),
@@ -138,8 +199,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   child: NumberFormField(numberController: numberController)),
             ],
           ),
-          16.ph,
-          Row(
+          widget.isTrader ? 16.ph : 0.ph,
+          // الوزن للوحدة
+          widget.isTrader ? Row(
             children: [
               SizedBox(
                 width: 80,
@@ -158,9 +220,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     totalWeightController: totalWeightController,
                   )),
             ],
-          ),
-          16.ph,
-          Row(
+          ) : Container(),
+          widget.isTrader ? 16.ph : 0.ph,
+          // الوزن الكلى
+          widget.isTrader ? Row(
             children: [
               SizedBox(
                 width: 80,
@@ -179,14 +242,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     totalWeightController: totalWeightController,
                   )),
             ],
-          ),
+          ) : Container(),
           16.ph,
+          // سعر التخزين // سعر الشكارة الواحدة
           Row(
             children: [
               SizedBox(
                 width: 80,
                 child: Text(
-                  AppStrings.addClientScreenStorePriceLabel,
+                  widget.isTrader ? AppStrings.addClientScreenStorePriceLabel : AppStrings.addClientScreenStoreBagPriceLabel,
                   style: getSmallStyle(
                     fontWeight: FontWeightManager.medium,
                   ),
@@ -199,6 +263,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
             ],
           ),
           16.ph,
+          // المبلغ المدفوع
           Row(
             children: [
               SizedBox(
@@ -217,6 +282,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
             ],
           ),
           32.ph,
+          // التالى
           NextButton(onClick: () {
             if (validate != null && validate == true) {
               BlocProvider.of<ClientsBloc>(context).add(AddProductEvent(
@@ -231,6 +297,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
               widget.moveForward(chosenProductType);
             }
           }),
+          // الغاء
           const CancelButton(),
         ],
       ),

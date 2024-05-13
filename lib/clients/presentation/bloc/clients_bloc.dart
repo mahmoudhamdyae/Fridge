@@ -115,6 +115,8 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
         remoteProductsTypes: settingsResponse.data?.products ?? [],
         remotePackagingTypes: settingsResponse.data?.boxing ?? [],
         remotePrice: settingsResponse.data?.price,
+        remoteSmallBagPrice: settingsResponse.data?.smallBags,
+        remoteLargeBagPrice: settingsResponse.data?.largeBags,
       ));
     });
     // Get Wards
