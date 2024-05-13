@@ -17,8 +17,10 @@ import 'package:fridge/settings/presentation/bloc/settings_bloc.dart';
 import 'package:fridge/settings/presentation/components/add_button.dart';
 import 'package:fridge/settings/presentation/components/complete_button.dart';
 import 'package:fridge/settings/presentation/components/del_button.dart';
+import 'package:fridge/settings/presentation/components/large_bags_form_field.dart';
 import 'package:fridge/settings/presentation/components/packaging_type_form_field.dart';
 import 'package:fridge/settings/presentation/components/product_type_form_field.dart';
+import 'package:fridge/settings/presentation/components/small_bags_form_field.dart';
 import 'package:fridge/settings/presentation/components/unit_price_form_field.dart';
 import 'package:fridge/settings/presentation/components/wards_number_form_field.dart';
 
@@ -39,6 +41,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   List<TextEditingController> productTypeController = [];
   List<TextEditingController> packagingTypeController = [];
   TextEditingController unitPriceController = TextEditingController();
+  TextEditingController smallBagsController = TextEditingController();
+  TextEditingController largeBagsController = TextEditingController();
   String _unit = AppStrings.settingsScreenUnitKiloGram;
 
   bool? get validate => _formKey.currentState?.validate();
@@ -64,6 +68,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
     wardsNumberController.dispose();
     unitPriceController.dispose();
+    smallBagsController.dispose();
+    largeBagsController.dispose();
   }
 
   @override
@@ -117,6 +123,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                     wardsNumberController.text = (state.partsCount).toString();
                     unitPriceController.text = (state.price).toString();
+                    smallBagsController.text = (state.smallBags).toString();
+                    largeBagsController.text = (state.largeBags).toString();
 
                     // Product Type
                     productTypeController = [];
@@ -342,6 +350,40 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 )),
                           ],
                         ),
+                        32.ph,
+                        Row(
+                          children: [
+                            Text(
+                              AppStrings.settingsScreenSmallBagsLabel,
+                              style: getSmallStyle(
+                                fontWeight: FontWeightManager.medium,
+                                fontSize: 18.0,
+                              ),
+                            ),
+                            16.pw,
+                            Expanded(
+                                child: SmallBagsFormField(
+                                  smallBagsController: smallBagsController,
+                                )),
+                          ],
+                        ),
+                        32.ph,
+                        Row(
+                          children: [
+                            Text(
+                              AppStrings.settingsScreenLargeBagsLabel,
+                              style: getSmallStyle(
+                                fontWeight: FontWeightManager.medium,
+                                fontSize: 18.0,
+                              ),
+                            ),
+                            16.pw,
+                            Expanded(
+                                child: LargeBagsFormField(
+                                  largeBagsController: largeBagsController,
+                                )),
+                          ],
+                        ),
                         64.ph,
                         CompleteButton(
                           onTap: () {
@@ -361,6 +403,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 _unit,
                                 double.parse(unitPriceController.text),
                                 int.parse(wardsNumberController.text),
+                                double.parse(smallBagsController.text),
+                                double.parse(largeBagsController.text),
                               ));
                             }
                           },

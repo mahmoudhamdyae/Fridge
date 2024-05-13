@@ -6,12 +6,17 @@ class SettingsState extends Equatable {
   final List<dynamic>? boxing;
   final String? price;
   final int? partsCount;
+  final double? smallBags;
+  final double? largeBags;
+
   const SettingsState({
     this.products,
     this.units,
     this.boxing,
     this.price,
-    this.partsCount
+    this.partsCount,
+    this.smallBags,
+    this.largeBags,
   });
   @override
   List<Object?> get props => [
@@ -20,6 +25,8 @@ class SettingsState extends Equatable {
     boxing,
     price,
     partsCount,
+    smallBags,
+    largeBags
   ];
 }
 
@@ -40,7 +47,9 @@ class GetSettingsLoadedState extends SettingsState {
     super.units,
     super.boxing,
     super.price,
-    super.partsCount
+    super.partsCount,
+    super.smallBags,
+    super.largeBags,
   });
 }
 

@@ -14,11 +14,13 @@ class UpdateSettingsEvent extends SettingsEvent {
   final String units;
   final double price;
   final int wardsNumber;
+  final double smallBags;
+  final double largeBags;
 
-  const UpdateSettingsEvent(this.products, this.boxing, this.units, this.price, this.wardsNumber);
+  const UpdateSettingsEvent(this.products, this.boxing, this.units, this.price, this.wardsNumber, this.smallBags, this.largeBags);
 
   @override
-  List<Object> get props => [products, boxing, units, price, wardsNumber];
+  List<Object> get props => [products, boxing, units, price, wardsNumber, smallBags, largeBags];
 }
 
 class UpdateWardNumberEvent extends SettingsEvent {

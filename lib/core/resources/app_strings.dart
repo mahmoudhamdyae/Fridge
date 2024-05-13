@@ -185,7 +185,11 @@ class AppStrings {
   static const String settingsScreenUnitKiloGram = 'كجم';
   static const String settingsScreenUnitTon = 'طن';
   static const String settingsScreenUnitPriceLabel = 'سعر الوحدة';
+  static const String settingsScreenSmallBagsLabel = 'سعر الشكارة الصغيرة';
+  static const String settingsScreenLargeBagsLabel = 'سعر الشكارة الكبيرة';
   static const String settingsScreenUnitPriceHint = 'ادخل سعر الوحدة';
+  static const String settingsScreenSmallBagHint = 'ادخل سعر الشكارة الصغيرة';
+  static const String settingsScreenLargeBagHint = 'ادخل سعر الشكارة الكبيرة';
   static const String settingsScreenWardsNumberLabel = 'عدد العنابر';
   static const String settingsScreenWardsNumberHint = 'ادخل عدد العنابر';
   static const String settingsScreenCompleteButton = 'ادخال';

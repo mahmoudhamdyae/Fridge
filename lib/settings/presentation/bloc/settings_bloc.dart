@@ -51,7 +51,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           units: settingsResponse.data?.units ?? AppStrings.settingsScreenUnitKiloGram,
           boxing: settingsResponse.data?.boxing ?? [],
           price: settingsResponse.data?.price ?? '',
-          partsCount: settingsResponse.data?.partsCount ?? 0
+          partsCount: settingsResponse.data?.partsCount ?? 0,
+          smallBags: settingsResponse.data?.smallBags ?? 0.0,
+          largeBags: settingsResponse.data?.largeBags ?? 0.0,
         )
       );
     });
@@ -73,7 +75,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           boxing: boxing,
           units: event.units,
           price: event.price,
-          partsCount: event.wardsNumber
+          partsCount: event.wardsNumber,
+          smallBags: event.smallBags,
+          largeBags: event.largeBags,
         )
     );
     result.fold((l) {

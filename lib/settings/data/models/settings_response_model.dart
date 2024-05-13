@@ -11,7 +11,7 @@ class SettingsResponseModel extends SettingsResponse {
 }
 
 class DataModel extends Data {
-  const DataModel({super.products, super.units, super.boxing, super.price, super.partsCount});
+  const DataModel({super.products, super.units, super.boxing, super.price, super.partsCount, super.smallBags, super.largeBags});
 
   factory DataModel.fromJson(Map<String, dynamic> json) => DataModel(
     products: json['products'],
@@ -19,5 +19,7 @@ class DataModel extends Data {
     boxing: json['boxing'],
     price: json['price'],
     partsCount: json['parts_count'],
+    smallBags: json['small_bags'],
+    largeBags: json['large_bags'],
   );
 }

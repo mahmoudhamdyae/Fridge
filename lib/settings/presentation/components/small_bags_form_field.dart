@@ -6,24 +6,24 @@ import '../../../core/resources/app_strings.dart';
 import '../../../core/utils/validate_operations.dart';
 import '../bloc/settings_bloc.dart';
 
-class UnitPriceFormField extends StatelessWidget {
+class SmallBagsFormField extends StatelessWidget {
 
-  final TextEditingController unitPriceController;
-  const UnitPriceFormField({
+  final TextEditingController smallBagsController;
+  const SmallBagsFormField({
     super.key,
-    required this.unitPriceController,
+    required this.smallBagsController,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: getFilledTextFieldDecoration(
-        hint: AppStrings.settingsScreenUnitPriceHint,
+        hint: AppStrings.settingsScreenSmallBagHint,
       ),
       onChanged: (value) {
         BlocProvider.of<SettingsBloc>(context).add(UpdatePriceEvent(double.parse(value)));
       },
-      controller: unitPriceController,
+      controller: smallBagsController,
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.number,
       validator: (value) => ValidateOperations.normalValidation(value),
