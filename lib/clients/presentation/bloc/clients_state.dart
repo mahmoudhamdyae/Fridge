@@ -42,6 +42,9 @@ class ClientsState extends Equatable {
   final RequestState delStoreState;
   final String delStoreErrorMessage;
 
+  final RequestState editPaidState;
+  final String editPaidErrorMessage;
+
   const ClientsState({
     this.clients = const [],
     this.searchedClients = const [],
@@ -71,7 +74,9 @@ class ClientsState extends Equatable {
     this.delClientState = RequestState.init,
     this.delClientErrorMessage = '',
     this.delStoreState = RequestState.init,
-    this.delStoreErrorMessage = ''
+    this.delStoreErrorMessage = '',
+    this.editPaidState = RequestState.init,
+    this.editPaidErrorMessage = '',
 });
 
   ClientsState copyWith({
@@ -103,7 +108,9 @@ class ClientsState extends Equatable {
     RequestState? delClientState,
     String? delClientErrorMessage,
     RequestState? delStoreState,
-    String? delStoreErrorMessage
+    String? delStoreErrorMessage,
+    RequestState? editPaidState,
+    String? editPaidErrorMessage,
   }) {
     return ClientsState(
       clients: clients ?? this.clients,
@@ -134,7 +141,9 @@ class ClientsState extends Equatable {
       delClientState: delClientState ?? this.delClientState,
       delClientErrorMessage: delClientErrorMessage ?? this.delClientErrorMessage,
       delStoreState: delStoreState ?? this.delStoreState,
-      delStoreErrorMessage: delStoreErrorMessage ?? this.delStoreErrorMessage
+      delStoreErrorMessage: delStoreErrorMessage ?? this.delStoreErrorMessage,
+      editPaidState: editPaidState ?? this.editPaidState,
+      editPaidErrorMessage: editPaidErrorMessage ?? this.editPaidErrorMessage,
     );
   }
 
@@ -150,6 +159,7 @@ class ClientsState extends Equatable {
     stores, customMap, getStoresState, getStoresErrorMessage,
     invoice, getInvoiceState, getClientInvoiceErrorMessage,
     delClientState, delClientErrorMessage,
-    delStoreState, delStoreErrorMessage
+    delStoreState, delStoreErrorMessage,
+    editPaidState, editPaidErrorMessage,
   ];
 }

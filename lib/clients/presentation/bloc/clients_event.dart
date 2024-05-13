@@ -89,3 +89,11 @@ class DelStoreEvent extends ClientsEvent {
   @override
   List<Object?> get props => [storeId];
 }
+
+class EditPaidEvent extends ClientsEvent {
+  final String paid;
+  final int storeId;
+  const EditPaidEvent(this.paid, this.storeId);
+  @override
+  List<Object?> get props => [paid, storeId];
+}

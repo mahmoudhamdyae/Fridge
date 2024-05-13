@@ -14,6 +14,7 @@ import '../../../core/resources/app_strings.dart';
 import '../../../core/resources/styles_manager.dart';
 import '../../data/models/client_invoice.dart';
 import '../screens/client_ward_screen.dart';
+import 'edit_paid_dialog.dart';
 
 class ScreenshotWidget extends StatelessWidget {
   final List<ClientInvoiceStores> stores;
@@ -205,7 +206,10 @@ class ScreenshotWidget extends StatelessWidget {
                           : BlocListener<ClientsBloc, ClientsState>(
                               listenWhen: (previous, current) =>
                                   current.delStoreState == RequestState.error ||
-                                  current.delStoreState == RequestState.loaded,
+                                  current.delStoreState == RequestState.loaded ||
+                                  current.editPaidState == RequestState.error ||
+                                  current.editPaidState == RequestState.loaded
+                        ,
                               listener: (context, state) {
                                 if (state.delStoreState == RequestState.error) {
                                   NavigateUtil().navigateUp(context);
@@ -217,21 +221,47 @@ class ScreenshotWidget extends StatelessWidget {
                                   BlocProvider.of<ClientsBloc>(context).add(
                                       GetClientInvoiceEvent(
                                           store.customerId ?? -1));
+                                } else if (state.editPaidState == RequestState.error) {
+                                  NavigateUtil().navigateUp(context);
+                                  showError(context, state.delStoreErrorMessage,
+                                          () {});
+                                } else if (state.editPaidState ==
+                                    RequestState.loaded) {
+                                  NavigateUtil().navigateUp(context);
+                                  NavigateUtil().navigateUp(context);
+                                  NavigateUtil().navigateUp(context);
                                 }
                               },
-                              child: IconButton(
-                                  onPressed: () {
-                                    showDelDialog(
-                                        context: context,
-                                        text: AppStrings.delDialogStoreText,
-                                        action: () {
-                                          showLoading(context);
-                                          BlocProvider.of<ClientsBloc>(context)
-                                              .add(DelStoreEvent(store.id ?? -1));
-                                        }
-                                    );
-                                  },
-                                  icon: const Icon(Icons.delete)),
+                              child: Column(
+                                children: [
+                                  IconButton(
+                                      onPressed: () {
+                                        showDelDialog(
+                                            context: context,
+                                            text: AppStrings.delDialogStoreText,
+                                            action: () {
+                                              showLoading(context);
+                                              BlocProvider.of<ClientsBloc>(context)
+                                                  .add(DelStoreEvent(store.id ?? -1));
+                                            }
+                                        );
+                                      },
+                                      icon: const Icon(Icons.delete)),
+                                  8.ph,
+                                  IconButton(
+                                      onPressed: () {
+                                        showEditPaidDialog(
+                                            context: context,
+                                            action: (paid) {
+                                              showLoading(context);
+                                              BlocProvider.of<ClientsBloc>(context)
+                                                  .add(EditPaidEvent(paid, store.id ?? -1));
+                                            }
+                                        );
+                                      },
+                                      icon: const Icon(Icons.edit)),
+                                ],
+                              ),
                             )
                     ],
                   ),

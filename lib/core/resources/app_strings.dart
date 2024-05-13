@@ -40,6 +40,10 @@ class AppStrings {
   static const String delDialogClientText = 'هل أنت متأكد من حذف هذا العميل؟';
   static const String delDialogStoreText = 'هل أنت متأكد من حذف هذا المخزون؟';
   static const String delDialogOk = 'حذف';
+  // Edit Paid Dialog
+  static const String editPaidDialogTitle = 'تعديل المبلغ المدفوع';
+  static const String editPaidDialogLabel = 'المبلغ المدفوع';
+  static const String editPaidDialogOk = 'تعديل';
   // Update Dialog
   static const updateDialogTitle = 'تحديث جديد متاح';
   static const updateDialogMessage = 'يتوفر إصدار أحدث من التطبيق، يرجى تحديثه الآن.';

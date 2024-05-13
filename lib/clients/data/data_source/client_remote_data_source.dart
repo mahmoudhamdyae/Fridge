@@ -18,6 +18,7 @@ abstract class ClientRemoteDataSource {
   Future<ClientInvoiceData> getClientInvoice(int clientId);
   Future<void> delStore(int storeId);
   Future<void> delClient(int clientId);
+  Future<void> editPaid(int storeId, String paid);
 }
 
 class ClientRemoteDataSourceImpl extends ClientRemoteDataSource {
@@ -100,6 +101,23 @@ class ClientRemoteDataSourceImpl extends ClientRemoteDataSource {
   Future<void> delStore(int storeId) async {
     try {
       await dioManager.dio.get(ApiConstants.delStorePath(storeId));
+    }  on DioException catch (error) {
+      if (error.response != null) {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
+        );
+      }
+    }
+  }
+
+  @override
+  Future<void> editPaid(int storeId, String paid) async {
+    try {
+      await dioManager.dio.get(ApiConstants.editPaidPath(storeId, paid));
     }  on DioException catch (error) {
       if (error.response != null) {
         throw ServerException(

@@ -17,6 +17,7 @@ import '../../data/models/add_client_request.dart';
 import '../../domain/usecases/add_client_usecase.dart';
 import '../../domain/usecases/del_client_usecase.dart';
 import '../../domain/usecases/del_store_usecase.dart';
+import '../../domain/usecases/edit_paid_usecase.dart';
 import '../../domain/usecases/get_client_invoice_usecase.dart';
 import '../../domain/usecases/get_clients_usecase.dart';
 
@@ -33,6 +34,7 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
   final GetClientInvoiceUsecase _getClientInvoiceUsecase;
   final DelClientUsecase _delClientUsecase;
   final DelStoreUsecase _delStoresUsecase;
+  final EditPaidUsecase _editPaidUsecase;
 
   ClientsBloc(
       this._getSettingsUsecase,
@@ -42,7 +44,8 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
       this._getAllStoresUsecase,
       this._getClientInvoiceUsecase,
       this._delClientUsecase,
-      this._delStoresUsecase
+      this._delStoresUsecase,
+      this._editPaidUsecase,
       ) : super(const ClientsState()) {
     on<GetClientsEvent>((event, emit) async {
       await _getClients(event, emit);
@@ -82,6 +85,10 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
 
     on<DelStoreEvent>((event, emit) async {
       await _delStore(event, emit);
+    });
+
+    on<EditPaidEvent>((event, emit) async {
+      await _editPaid(event, emit);
     });
   }
 
@@ -309,5 +316,14 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
         delStoreState: RequestState.loaded,
       ));
     });
+  }
+
+  Future<void> _editPaid(EditPaidEvent event, Emitter<ClientsState> emit) async {
+    emit(state.copyWith(editPaidState: RequestState.loading));
+    final result = await _editPaidUsecase.call(event.storeId, event.paid);
+    result.fold((l) {
+      emit(state.copyWith(editPaidState: RequestState.error));
+    }, (r) {
+      emit(state.copyWith(editPaidState: RequestState.loaded));});
   }
 }
