@@ -57,6 +57,7 @@ Future<dynamic> buildShowModalBottomSheet(BuildContext context, List<Store> stor
                     StoreCustomer? customer = stores[index].customer;
                     return Column(
                       children: [
+                        // اسم العميل
                         Row(
                           children: [
                             Text(
@@ -85,6 +86,7 @@ Future<dynamic> buildShowModalBottomSheet(BuildContext context, List<Store> stor
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            // المنتج
                             Row(
                               children: [
                                 Text(
@@ -100,6 +102,7 @@ Future<dynamic> buildShowModalBottomSheet(BuildContext context, List<Store> stor
                               ],
                             ),
                             0.pw,
+                            // الكمية
                             Row(
                               children: [
                                 Text(
@@ -107,7 +110,7 @@ Future<dynamic> buildShowModalBottomSheet(BuildContext context, List<Store> stor
                                   style: getSmallStyle(),
                                 ),
                                 Text(
-                                  '${stores[index].totalWeight} ${stores[index].unit}',
+                                  '${stores[index].totalWeight != 0 ? stores[index].totalWeight : stores[index].quantity} ${stores[index].unit}',
                                   style: getSmallStyle(
                                     color: const Color(0xff6B6B6B),
                                   ),

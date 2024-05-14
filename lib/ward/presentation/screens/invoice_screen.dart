@@ -123,6 +123,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                             ],
                           ),
                           32.ph,
+                          // المنتج
                           Row(
                             children: [
                               Text(
@@ -137,8 +138,9 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                               )
                             ],
                           ),
-                          24.ph,
-                          Row(
+                          state.invoice.store?.totalWeight != '0.000' ? 24.ph : 0.ph,
+                          // الكمية
+                          state.invoice.store?.totalWeight != '0.000' ? Row(
                             children: [
                               Text(
                                 AppStrings.billScreenQuantity,
@@ -151,8 +153,9 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                                 ),
                               )
                             ],
-                          ),
+                          ) : Container(),
                           24.ph,
+                          // عدد الشكاير
                           Row(
                             children: [
                               Text(
@@ -168,6 +171,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                             ],
                           ),
                           24.ph,
+                          // رقم العنبر
                           Row(
                             children: [
                               Text(
