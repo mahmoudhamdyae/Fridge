@@ -200,7 +200,7 @@ class ScreenshotWidget extends StatelessWidget {
                                 style: getSmallStyle(),
                               ),
                               Text(
-                                '${(store.price ?? 0) - (store.paid ?? 0)} ${AppStrings.egp}',
+                                '${(store.totalWeight == '0.000' ? (store.totalBagPrice ?? 0) : (store.price ?? 0)) - (store.paid ?? 0)} ${AppStrings.egp}',
                                 style: getSmallStyle(
                                   color: const Color(0xff6B6B6B),
                                 ),
@@ -235,8 +235,6 @@ class ScreenshotWidget extends StatelessWidget {
                                           () {});
                                 } else if (state.editPaidState ==
                                     RequestState.loaded) {
-                                  NavigateUtil().navigateUp(context);
-                                  NavigateUtil().navigateUp(context);
                                   NavigateUtil().navigateUp(context);
                                 }
                               },

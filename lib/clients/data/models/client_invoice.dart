@@ -64,6 +64,7 @@ class ClientInvoiceStores {
   num? quantity;
   String? totalWeight;
   num? price;
+  num? totalBagPrice;
   int? xAxies;
   int? yAxies;
   String? partName;
@@ -80,6 +81,7 @@ class ClientInvoiceStores {
         this.quantity,
         this.totalWeight,
         this.price,
+        this.totalBagPrice,
         this.xAxies,
         this.yAxies,
         this.partName,
@@ -96,6 +98,7 @@ class ClientInvoiceStores {
     quantity = json['quantity'];
     totalWeight = json['total_weight'];
     price = json['price'];
+    totalBagPrice = json['total_bag_price'];
     xAxies = json['x_axies'];
     yAxies = json['y_axies'];
     partName = json['part_name'];
