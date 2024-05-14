@@ -28,7 +28,7 @@ class ChooseWardSecondScreen extends StatefulWidget {
 }
 
 class _ChooseWardSecondScreenState extends State<ChooseWardSecondScreen> {
-  int? selectedIndex;
+  List<int> selectedIndex = [];
 
   @override
   Widget build(BuildContext context) {
@@ -57,11 +57,6 @@ class _ChooseWardSecondScreenState extends State<ChooseWardSecondScreen> {
             const SecondaryAppBarWithImage(
                 text: AppStrings.addClientScreenChooseWardProduct,
                 image: AppAssets.person),
-            // todo fridge name
-            // 16.ph,
-            // ThirdAppBar(
-            //     text: '${state.ward.name}',
-            //     image: AppAssets.goods),
             16.ph,
             GridView.count(
               shrinkWrap: true,
@@ -90,7 +85,11 @@ class _ChooseWardSecondScreenState extends State<ChooseWardSecondScreen> {
                 return InkWell(
                   onTap: () {
                     setState(() {
-                      selectedIndex = index;
+                      if (selectedIndex.contains(index)) {
+                        selectedIndex.remove(index);
+                      } else {
+                        selectedIndex.add(index);
+                      }
                       debugPrint(
                           '======= index x ${((index) / (state.ward.width ?? 1)).floor()}');
                       debugPrint(
@@ -119,10 +118,10 @@ class _ChooseWardSecondScreenState extends State<ChooseWardSecondScreen> {
                         child: Text(
                           indexes.contains(index)
                               ?
-                          selectedIndex == index ? '${map[index]?.product} + ${widget.productType}'
+                          selectedIndex.contains(index) ? '${map[index]?.product} + ${widget.productType}'
                               :
                           text
-                              : selectedIndex == index
+                              : selectedIndex.contains(index)
                                   ? widget.productType : '',
                           textAlign: TextAlign.center,
                           style: getSmallStyle(
@@ -136,12 +135,16 @@ class _ChooseWardSecondScreenState extends State<ChooseWardSecondScreen> {
               }),
             ),
             16.ph,
-            NextButton(onClick: selectedIndex == null ? null : () {
+            NextButton(onClick: selectedIndex.isEmpty ? null : () {
               showLoading(context);
-              BlocProvider.of<ClientsBloc>(context).add(FinishEvent(
-                ((selectedIndex ?? 0) / (state.ward.width ?? 1)).floor(),
-                ((selectedIndex ?? 0) % (state.ward.width ?? 1)),
-              ));
+              List<Position> positions = [];
+              for (var element in selectedIndex) {
+                positions.add(Position(
+                  (element / (state.ward.width ?? 1)).floor(),
+                  (element % (state.ward.width ?? 1)),
+                ));
+              }
+              BlocProvider.of<ClientsBloc>(context).add(FinishEvent(positions));
             }),
             const CancelButton(),
           ],

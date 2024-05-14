@@ -57,19 +57,31 @@ class ChooseWardEvent extends ClientsEvent {
 }
 
 class ChoosePlaceEvent extends ClientsEvent {
+  final List<Position> positions;
+  const ChoosePlaceEvent(this.positions);
+  @override
+  List<Object?> get props => [positions];
+}
+
+class Position extends Equatable {
   final int x;
   final int y;
-  const ChoosePlaceEvent(this.x, this.y);
+  const Position(this.x, this.y);
   @override
   List<Object?> get props => [x, y];
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['x_axies'] = x;
+    data['y_axies'] = y;
+    return data;
+  }
 }
 
 class FinishEvent extends ClientsEvent {
-  final int x;
-  final int y;
-  const FinishEvent(this.x, this.y);
+  final List<Position> positions;
+  const FinishEvent(this.positions);
   @override
-  List<Object?> get props => [x, y];
+  List<Object?> get props => [positions];
 }
 
 class GetClientInvoiceEvent extends ClientsEvent {

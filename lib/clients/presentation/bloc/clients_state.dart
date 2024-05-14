@@ -23,8 +23,7 @@ class ClientsState extends Equatable {
 
   final ProductToAdd productToAdd;
 
-  final int x;
-  final int y;
+  final List<Position> positions;
 
   final RequestState addClientState;
   final String addClientErrorMessage;
@@ -64,8 +63,7 @@ class ClientsState extends Equatable {
     this.clientAddress = '',
     this.clientType = 0,
     this.productToAdd = const ProductToAdd(),
-    this.x = 0,
-    this.y = 0,
+    this.positions = const [],
     this.addClientState = RequestState.loading,
     this.addClientErrorMessage = '',
     this.stores = const [],
@@ -100,8 +98,7 @@ class ClientsState extends Equatable {
     String? clientAddress,
     int? clientType,
     ProductToAdd? productToAdd,
-    int? x,
-    int? y,
+    List<Position>? positions,
     RequestState? addClientState,
     String? addClientErrorMessage,
     List<Store>? stores,
@@ -135,8 +132,7 @@ class ClientsState extends Equatable {
       clientAddress: clientAddress ?? this.clientAddress,
       clientType: clientType ?? this.clientType,
       productToAdd: productToAdd ?? this.productToAdd,
-      x: x ?? this.x,
-      y: y ?? this.y,
+      positions: positions ?? this.positions,
       addClientState: addClientState ?? this.addClientState,
       addClientErrorMessage: addClientErrorMessage ?? this.addClientErrorMessage,
       stores: stores ?? this.stores,
@@ -163,7 +159,7 @@ class ClientsState extends Equatable {
     wards, ward,
     clientName, clientPhone, clientAddress, clientType,
     productToAdd,
-    x, y,
+    positions,
     addClientState, addClientErrorMessage,
     stores, customMap, getStoresState, getStoresErrorMessage,
     invoice, getInvoiceState, getClientInvoiceErrorMessage,

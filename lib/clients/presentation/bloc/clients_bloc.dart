@@ -187,8 +187,7 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
 
   Future<void> _choosePlace(ChoosePlaceEvent event, Emitter<ClientsState> emit) async {
     emit(state.copyWith(
-      x: event.x,
-      y: event.y,
+      positions: event.positions,
     ));
   }
 
@@ -208,8 +207,7 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
           totalWeight: state.productToAdd.totalWeight,
           price: state.productToAdd.price,
           paid: state.productToAdd.paid,
-          x: event.x,
-          y: event.y,
+          positions: event.positions,
           bagType: state.productToAdd.bagType
       )
     );
@@ -247,8 +245,7 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
         clientAddress: '',
         clientType: 0,
         productToAdd: const ProductToAdd(),
-        x: 0,
-        y: 0,
+        positions: [],
       ));
     });
   }

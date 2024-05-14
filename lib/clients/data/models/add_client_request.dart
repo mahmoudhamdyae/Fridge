@@ -1,3 +1,5 @@
+import 'package:fridge/clients/presentation/bloc/clients_bloc.dart';
+
 class AddClientRequest {
   String? name;
   String? phone;
@@ -11,8 +13,7 @@ class AddClientRequest {
   double? totalWeight;
   double? price;
   double? paid;
-  int? x;
-  int? y;
+  List<Position>? positions;
   String? bagType;
 
   AddClientRequest({
@@ -28,28 +29,28 @@ class AddClientRequest {
     required this.totalWeight,
     required this.price,
     required this.paid,
-    required this.x,
-    required this.y,
+    required this.positions,
     required this.bagType,
   });
 
   Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'phone': phone,
-      'address': address,
-      'type': type,
-      'product': productType,
-      'boxing': packagingType,
-      'fridge_part_id': wardId,
-      'quantity': number,
-      'unit_weight': unitWeight,
-      'total_weight': totalWeight,
-      'price': price,
-      'amount_paid': paid,
-      'x_axies': x,
-      'y_axies': y,
-      'bag_type': bagType,
-    };
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (positions != null) {
+      data['axies'] = positions!.map((v) => v.toJson()).toList();
+    }
+    data['name'] = name;
+    data['phone'] = phone;
+    data['address'] = address;
+    data['type'] = type;
+    data['product'] = productType;
+    data['boxing'] = packagingType;
+    data['fridge_part_id'] = wardId;
+    data['quantity'] = number;
+    data['unit_weight'] = unitWeight;
+    data['total_weight'] = totalWeight;
+    data['price'] = price;
+    data['amount_paid'] = paid;
+    data['bag_type'] = bagType;
+    return data;
   }
 }
