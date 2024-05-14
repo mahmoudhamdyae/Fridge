@@ -98,7 +98,10 @@ class _ClientInvoiceScreenState extends State<ClientInvoiceScreen> {
                                 textDirection: TextDirection.rtl,
                                 child: Padding(
                                   padding: const EdgeInsets.all(12.0),
-                                  child: ScreenshotWidget(stores: stores, name: name),
+                                  child: ScreenshotWidget(
+                                    stores: stores,
+                                    name: name,
+                                  ),
                                 ));
                           }
                       ),

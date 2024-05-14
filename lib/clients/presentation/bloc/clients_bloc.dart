@@ -115,8 +115,8 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
         remoteProductsTypes: settingsResponse.data?.products ?? [],
         remotePackagingTypes: settingsResponse.data?.boxing ?? [],
         remotePrice: settingsResponse.data?.price,
-        remoteSmallBagPrice: settingsResponse.data?.smallBags,
-        remoteLargeBagPrice: settingsResponse.data?.largeBags,
+        remoteSmallBagPrice: double.parse(settingsResponse.data?.smallBags),
+        remoteLargeBagPrice: double.parse(settingsResponse.data?.largeBags),
       ));
     });
     // Get Wards
@@ -144,10 +144,11 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
         productType: event.productType,
         packagingType: event.packagingType,
         number: int.parse(event.number),
-        unitWeight: double.parse(event.unitWeight),
-        totalWeight: double.parse(event.totalWeight),
+        unitWeight: double.parse(event.unitWeight == '' ? '0' : event.unitWeight),
+        totalWeight: double.parse(event.totalWeight == '' ? '0' : event.totalWeight),
         price: event.price,
         paid: event.paid,
+        bagType: event.bagType
       )
     ));
   }
@@ -209,6 +210,7 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
           paid: state.productToAdd.paid,
           x: event.x,
           y: event.y,
+          bagType: state.productToAdd.bagType
       )
     );
     result.fold((l) {

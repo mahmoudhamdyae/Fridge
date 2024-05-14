@@ -32,7 +32,7 @@ class AddProductScreen extends StatefulWidget {
 class _AddProductScreenState extends State<AddProductScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController numberController = TextEditingController();
-  TextEditingController unitWeightController = TextEditingController();
+  late TextEditingController unitWeightController;
   TextEditingController totalWeightController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController paidController = TextEditingController();
@@ -47,6 +47,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     super.initState();
     ClientsState state = BlocProvider.of<ClientsBloc>(context).state;
     numberController.text = (state.productToAdd.number ?? '').toString();
+    unitWeightController = TextEditingController(text: !widget.isTrader ? '0' : '');
     unitWeightController.text = (state.productToAdd.unitWeight ?? '').toString();
     totalWeightController.text =
         (state.productToAdd.totalWeight ?? '').toString();
@@ -154,6 +155,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         onChanged: (value) {
                           setState(() {
                             _bagType = value ?? '';
+                            priceController.text = (BlocProvider.of<ClientsBloc>(context).state.remoteSmallBagPrice).toString();
                           });
                         }),
                     Text(
@@ -171,6 +173,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         onChanged: (value) {
                           setState(() {
                             _bagType = value ?? '';
+                            priceController.text = (BlocProvider.of<ClientsBloc>(context).state.remoteLargeBagPrice).toString();
                           });
                         }),
                     Text(
@@ -293,6 +296,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 totalWeightController.text,
                 double.parse(priceController.text),
                 double.parse(paidController.text),
+                _bagType == AppStrings.addClientScreenBagTypeSmall ? '0' : '1'
               ));
               widget.moveForward(chosenProductType);
             }

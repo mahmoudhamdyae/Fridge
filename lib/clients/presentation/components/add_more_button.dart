@@ -27,7 +27,7 @@ class AddMoreButton extends StatelessWidget {
         ));
         NavigateUtil().navigateToScreen(context, BlocProvider.value(
           value: instance<ClientsBloc>(),
-          child: const AddClientTabsScreen(currentTab: 1,),
+          child: AddClientTabsScreen(currentTab: 1, isTrader: client.type == 0,),
         ),);
       },
       borderRadius: const BorderRadius.all(Radius.circular(10.0)),

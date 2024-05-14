@@ -13,7 +13,7 @@ class AddClientRequest {
   double? paid;
   int? x;
   int? y;
-
+  String? bagType;
 
   AddClientRequest({
     required this.name,
@@ -30,6 +30,7 @@ class AddClientRequest {
     required this.paid,
     required this.x,
     required this.y,
+    required this.bagType,
   });
 
   Map<String, dynamic> toJson() {
@@ -48,6 +49,7 @@ class AddClientRequest {
       'amount_paid': paid,
       'x_axies': x,
       'y_axies': y,
+      'bag_type': bagType,
     };
   }
 }

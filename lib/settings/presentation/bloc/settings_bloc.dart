@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/settings/data/models/settings_request.dart';
 import 'package:fridge/settings/domain/usecases/update_settings_usecase.dart';
@@ -46,14 +47,15 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     result.fold((l) {
       emit(GetSettingsErrorState(l.message));
     }, (settingsResponse) {
+      debugPrint('----------- ${settingsResponse.data?.smallBags}');
       emit(GetSettingsLoadedState(
           products: settingsResponse.data?.products ?? [],
           units: settingsResponse.data?.units ?? AppStrings.settingsScreenUnitKiloGram,
           boxing: settingsResponse.data?.boxing ?? [],
           price: settingsResponse.data?.price ?? '',
           partsCount: settingsResponse.data?.partsCount ?? 0,
-          smallBags: settingsResponse.data?.smallBags ?? 0.0,
-          largeBags: settingsResponse.data?.largeBags ?? 0.0,
+          smallBags: double.parse(settingsResponse.data?.smallBags),
+          largeBags: double.parse(settingsResponse.data?.largeBags),
         )
       );
     });

@@ -21,11 +21,12 @@ class ScreenshotWidget extends StatelessWidget {
   final String name;
   final bool isScreenshot;
 
-  const ScreenshotWidget(
-      {super.key,
-      required this.stores,
-      required this.name,
-      this.isScreenshot = true});
+  const ScreenshotWidget({
+    super.key,
+    required this.stores,
+    required this.name,
+    this.isScreenshot = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +91,7 @@ class ScreenshotWidget extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          // المنتج
                           Row(
                             children: [
                               Text(
@@ -104,8 +106,9 @@ class ScreenshotWidget extends StatelessWidget {
                               )
                             ],
                           ),
-                          24.ph,
-                          Row(
+                          store.totalWeight != '0.000' ? 24.ph : 0.ph,
+                          // الكمية
+                          store.totalWeight != '0.000' ? Row(
                             children: [
                               Text(
                                 AppStrings.billScreenQuantity,
@@ -118,9 +121,10 @@ class ScreenshotWidget extends StatelessWidget {
                                 ),
                               )
                             ],
-                          ),
-                          24.ph,
-                          Row(
+                          ) : Container(),
+                          store.totalWeight == '0.000' ? 24.ph : 0.ph,
+                          // عدد الشكاير
+                          store.totalWeight == '0.000' ? Row(
                             children: [
                               Text(
                                 AppStrings.billScreenNumber,
@@ -133,8 +137,9 @@ class ScreenshotWidget extends StatelessWidget {
                                 ),
                               )
                             ],
-                          ),
+                          ) : Container(),
                           24.ph,
+                          // رقم العنبر
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -155,6 +160,7 @@ class ScreenshotWidget extends StatelessWidget {
                             ],
                           ),
                           24.ph,
+                          // مكان التخزين
                           Row(
                             children: [
                               Text(
@@ -170,6 +176,7 @@ class ScreenshotWidget extends StatelessWidget {
                             ],
                           ),
                           24.ph,
+                          // المبلغ المدفوع
                           Row(
                             children: [
                               Text(
@@ -185,6 +192,7 @@ class ScreenshotWidget extends StatelessWidget {
                             ],
                           ),
                           24.ph,
+                          // المبلغ المتبقى
                           Row(
                             children: [
                               Text(

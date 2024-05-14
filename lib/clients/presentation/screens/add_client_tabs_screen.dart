@@ -19,10 +19,12 @@ import '../../domain/entities/contact.dart';
 class AddClientTabsScreen extends StatefulWidget {
 
   final int currentTab;
+  final bool isTrader;
 
   const AddClientTabsScreen({
     super.key,
     this.currentTab = 0,
+    this.isTrader = true,
   });
 
   @override
@@ -33,7 +35,7 @@ class _AddClientTabsScreenState extends State<AddClientTabsScreen> {
 
   late int currentTab;
   String productType = '';
-  bool isTrader = true;
+  late bool isTrader;
 
   List<CustomContact> customContacts = [];
 
@@ -42,6 +44,7 @@ class _AddClientTabsScreenState extends State<AddClientTabsScreen> {
     super.initState();
     currentTab = widget.currentTab;
     getContacts();
+    isTrader = widget.isTrader;
   }
 
   Future<void> getContacts() async {

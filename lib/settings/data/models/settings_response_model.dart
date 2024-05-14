@@ -19,7 +19,7 @@ class DataModel extends Data {
     boxing: json['boxing'],
     price: json['price'],
     partsCount: json['parts_count'],
-    smallBags: json['small_bags'],
-    largeBags: json['large_bags'],
+    smallBags: json['small_bag'],
+    largeBags: json['large_bag'],
   );
 }
