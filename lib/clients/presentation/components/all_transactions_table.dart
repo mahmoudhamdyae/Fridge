@@ -6,7 +6,11 @@ import '../../../core/resources/app_strings.dart';
 import '../../../core/resources/styles_manager.dart';
 
 class AllTransactionsTable extends StatelessWidget {
-  const AllTransactionsTable({super.key});
+
+  final int paid;
+  final int remain;
+
+  const AllTransactionsTable({super.key, required this.paid, required this.remain});
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +18,47 @@ class AllTransactionsTable extends StatelessWidget {
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
       children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                children: [
+                  Text(
+                    AppStrings.addClientScreenTotalPaid,
+                    style: getSmallStyle(
+                      fontSize: 12,
+                    ),
+                  ),
+                  Text(
+                    '$paid ${AppStrings.egp}',
+                    style: getSmallStyle(
+                        fontSize: 12,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Row(
+              children: [
+                Text(
+                  AppStrings.addClientScreenTotalRemain,
+                  style: getSmallStyle(
+                      fontSize: 12,
+                  ),
+                ),
+                Text(
+                  '$remain ${AppStrings.egp}',
+                  style: getSmallStyle(
+                      fontSize: 12,
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
+        16.ph,
         // First Row of the table
         Row(
           children: [
@@ -32,39 +77,6 @@ class AllTransactionsTable extends StatelessWidget {
             Expanded(
                 child: Text(
                   AppStrings.addClientScreenTableDate,
-                  textAlign: TextAlign.center,
-                  style: getSmallStyle(
-                      fontSize: 14.0,
-                      color: AppColors.colorRamps3
-                  ),
-                )
-            ),
-            // المنتج
-            Expanded(
-                child: Text(
-                  AppStrings.addClientScreenTableProduct,
-                  textAlign: TextAlign.center,
-                  style: getSmallStyle(
-                      fontSize: 14.0,
-                      color: AppColors.colorRamps3
-                  ),
-                )
-            ),
-            // رقم العنبر
-            Expanded(
-                child: Text(
-                  AppStrings.addClientScreenTableWardName,
-                  textAlign: TextAlign.center,
-                  style: getSmallStyle(
-                      fontSize: 14.0,
-                      color: AppColors.colorRamps3
-                  ),
-                )
-            ),
-            // مكان التخزين
-            Expanded(
-                child: Text(
-                  AppStrings.addClientScreenTablePlace,
                   textAlign: TextAlign.center,
                   style: getSmallStyle(
                       fontSize: 14.0,
@@ -97,30 +109,6 @@ class AllTransactionsTable extends StatelessWidget {
                     Expanded(
                         child: Text(
                           '1-3-2024',
-                          textAlign: TextAlign.center,
-                          style: getSmallStyle(fontSize: 10.0),
-                        )
-                    ),
-                    // المنتج
-                    Expanded(
-                        child: Text(
-                          'بطاطس',
-                          textAlign: TextAlign.center,
-                          style: getSmallStyle(fontSize: 10.0),
-                        )
-                    ),
-                    // رقم العنبر
-                    Expanded(
-                        child: Text(
-                          'عنبر 1',
-                          textAlign: TextAlign.center,
-                          style: getSmallStyle(fontSize: 10.0),
-                        )
-                    ),
-                    // مكان التخزين
-                    Expanded(
-                        child: Text(
-                          '3 * 4',
                           textAlign: TextAlign.center,
                           style: getSmallStyle(fontSize: 10.0),
                         )

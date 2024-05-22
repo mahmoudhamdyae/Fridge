@@ -15,7 +15,6 @@ import '../../../core/resources/app_strings.dart';
 import '../../../core/resources/styles_manager.dart';
 import '../../data/models/client_invoice.dart';
 import '../screens/client_ward_screen.dart';
-import 'edit_paid_dialog.dart';
 
 class ScreenshotWidget extends StatelessWidget {
   final List<ClientInvoiceStores> stores;
@@ -72,7 +71,11 @@ class ScreenshotWidget extends StatelessWidget {
                 fontSize: 22.0,
               ),
             ),
-            isScreenshot ? Container() : const ShowAllTransactionsButton(),
+            isScreenshot ? Container() : ShowAllTransactionsButton(
+              amountPaid: paid,
+              amountRemain: remain,
+              clientName: name,
+            ),
           ],
         ),
         24.ph,
@@ -233,9 +236,9 @@ class ScreenshotWidget extends StatelessWidget {
                           : BlocListener<ClientsBloc, ClientsState>(
                               listenWhen: (previous, current) =>
                                   current.delStoreState == RequestState.error ||
-                                  current.delStoreState == RequestState.loaded ||
-                                  current.editPaidState == RequestState.error ||
-                                  current.editPaidState == RequestState.loaded
+                                  current.delStoreState == RequestState.loaded
+                                  // current.editPaidState == RequestState.error ||
+                                  // current.editPaidState == RequestState.loaded
                         ,
                               listener: (context, state) {
                                 if (state.delStoreState == RequestState.error) {
@@ -248,14 +251,14 @@ class ScreenshotWidget extends StatelessWidget {
                                   BlocProvider.of<ClientsBloc>(context).add(
                                       GetClientInvoiceEvent(
                                           store.customerId ?? -1));
-                                } else if (state.editPaidState == RequestState.error) {
+                                } /*else if (state.editPaidState == RequestState.error) {
                                   NavigateUtil().navigateUp(context);
                                   showError(context, state.delStoreErrorMessage,
                                           () {});
                                 } else if (state.editPaidState ==
                                     RequestState.loaded) {
                                   NavigateUtil().navigateUp(context);
-                                }
+                                }*/
                               },
                               child: Column(
                                 children: [
@@ -272,19 +275,19 @@ class ScreenshotWidget extends StatelessWidget {
                                         );
                                       },
                                       icon: const Icon(Icons.delete)),
-                                  8.ph,
-                                  IconButton(
-                                      onPressed: () {
-                                        showEditPaidDialog(
-                                            context: context,
-                                            action: (paid) {
-                                              showLoading(context);
-                                              BlocProvider.of<ClientsBloc>(context)
-                                                  .add(EditPaidEvent(paid, store.id ?? -1));
-                                            }
-                                        );
-                                      },
-                                      icon: const Icon(Icons.edit)),
+                                  // 8.ph,
+                                  // IconButton(
+                                  //     onPressed: () {
+                                  //       showEditPaidDialog(
+                                  //           context: context,
+                                  //           action: (paid) {
+                                  //             showLoading(context);
+                                  //             BlocProvider.of<ClientsBloc>(context)
+                                  //                 .add(EditPaidEvent(paid, store.id ?? -1));
+                                  //           }
+                                  //       );
+                                  //     },
+                                  //     icon: const Icon(Icons.edit)),
                                 ],
                               ),
                             )

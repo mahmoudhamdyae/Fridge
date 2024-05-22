@@ -11,7 +11,17 @@ import '../../../core/components/appbar.dart';
 import '../../../core/components/decorations.dart';
 
 class AllTransactionsScreen extends StatefulWidget {
-  const AllTransactionsScreen({super.key});
+
+  final int amountPaid;
+  final int amountRemain;
+  final String clientName;
+
+  const AllTransactionsScreen({
+    super.key,
+    required this.amountPaid,
+    required this.amountRemain,
+    required this.clientName
+  });
 
   @override
   State<AllTransactionsScreen> createState() => _AllTransactionsScreenState();
@@ -35,7 +45,16 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
               physics: const ClampingScrollPhysics(),
               children: [
                 const MainAppBar(canNavigateUp: true,),
-                // تاريخ المعاملات المالية
+                Center(
+                  child: Text(
+                    widget.clientName,
+                    style: getLargeStyle(
+                      fontSize: 24
+                    ),
+                  ),
+                ),
+                16.ph,
+                // المعاملات المالية
                 InkWell(
                   onTap: () {
                     if (isPaidShown == null || isPaidShown == false) {
@@ -92,7 +111,7 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
                   ),
                 ),
                 16.ph,
-                isPaidShown == true ? const AllTransactionsTable() : Container(),
+                isPaidShown == true ? AllTransactionsTable(paid: widget.amountPaid, remain: widget.amountRemain,) : Container(),
                 isPaidShown == true ? 16.ph : 0.ph,
                 // تاريخ السحب
                 InkWell(

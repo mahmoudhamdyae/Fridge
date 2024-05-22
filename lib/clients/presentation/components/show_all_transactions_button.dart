@@ -8,13 +8,29 @@ import '../../../core/resources/styles_manager.dart';
 
 class ShowAllTransactionsButton extends StatelessWidget {
 
-  const ShowAllTransactionsButton({super.key});
+  final int amountPaid;
+  final int amountRemain;
+  final String clientName;
+
+  const ShowAllTransactionsButton({
+    super.key,
+    required this.amountPaid,
+    required this.amountRemain,
+    required this.clientName
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        NavigateUtil().navigateToScreen(context, const AllTransactionsScreen());
+        NavigateUtil().navigateToScreen(
+            context,
+            AllTransactionsScreen(
+              amountPaid: amountPaid,
+              amountRemain: amountRemain,
+              clientName: clientName,
+            )
+        );
       },
       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
       child: Container(

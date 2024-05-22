@@ -159,8 +159,10 @@ class AppStrings {
   static const String addClientScreenFridge = 'ثلاجة ';
   static const String addClientScreenSuccess = 'تم إضافة عميل جديد إلى قسم عملاء';
 
-  static const String addClientScreenShowAllTransactions1 = 'تاريخ المعاملات المالية';
+  static const String addClientScreenShowAllTransactions1 = 'المعاملات المالية';
   static const String addClientScreenShowAllTransactions2 = 'تاريخ السحب';
+  static const String addClientScreenTotalPaid = 'إجمالى المبلغ المدفوع: ';
+  static const String addClientScreenTotalRemain = 'إجمالى المبلغ المتبقى: ';
   static const String addClientScreenTableAmountPaid = 'المبلغ المدفوع';
   static const String addClientScreenTableDate = 'التاريخ';
   static const String addClientScreenTableProduct = 'المنتج';
