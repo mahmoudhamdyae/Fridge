@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fridge/clients/presentation/components/all_transactions_table.dart';
 import 'package:fridge/clients/presentation/components/sahb_table.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
+import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
@@ -25,16 +26,6 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-            },
-            shape: const CircleBorder(),
-            backgroundColor: AppColors.colorRamps3,
-            child: const Icon(
-              Icons.add,
-              color: AppColors.white,
-            ),
-          ),
           body: Container(
             height: context.height,
             padding: getMainPadding(context),
@@ -52,11 +43,33 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        AppStrings.addClientScreeShowAllTransactions1,
-                        style: getSmallStyle(
-                          color: AppColors.white
-                        ),
+                      Row(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                // todo: Add Transactions
+                              },
+                              icon: Container(
+                                padding: const EdgeInsets.all(4.0),
+                                decoration: const BoxDecoration(
+                                    color: AppColors.secondary,
+                                    shape: BoxShape.circle
+                                ),
+                                child: const Icon(
+                                  Icons.add,
+                                  color: AppColors.white,
+                                  size: 24,
+                                ),
+                              )
+                          ),
+                          8.pw,
+                          Text(
+                            AppStrings.addClientScreeShowAllTransactions1,
+                            style: getSmallStyle(
+                              color: AppColors.white
+                            ),
+                          ),
+                        ],
                       ),
                       IconButton(
                           onPressed: () {
@@ -87,11 +100,33 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        AppStrings.addClientScreeShowAllTransactions2,
-                        style: getSmallStyle(
-                            color: AppColors.white
-                        ),
+                      Row(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                // todo: Add Sahb
+                              },
+                              icon: Container(
+                                padding: const EdgeInsets.all(4.0),
+                                decoration: const BoxDecoration(
+                                    color: AppColors.secondary,
+                                    shape: BoxShape.circle
+                                ),
+                                child: const Icon(
+                                  Icons.add,
+                                  color: AppColors.white,
+                                  size: 24,
+                                ),
+                              )
+                          ),
+                          8.pw,
+                          Text(
+                            AppStrings.addClientScreeShowAllTransactions2,
+                            style: getSmallStyle(
+                                color: AppColors.white
+                            ),
+                          ),
+                        ],
                       ),
                       IconButton(
                           onPressed: () {
