@@ -119,6 +119,7 @@ class AppStrings {
   static const String clientsScreenAddClientButton = 'إضافة عميل جديد';
   static const String clientsScreenClientsDetails = 'تفاصيل العملاء';
   static const String clientsScreenAddMore = 'إضافة المزيد';
+  static const String clientsScreenShowAllTransactions = 'عرض جميع المعاملات';
 
   // Add Client Screen
   static const String addClientScreenAddClient = 'إضافة عميل جديد';
@@ -157,6 +158,9 @@ class AppStrings {
   static const String addClientScreenChooseWardProduct = 'اضف المنتج';
   static const String addClientScreeFridge = 'ثلاجة ';
   static const String addClientScreeSuccess = 'تم إضافة عميل جديد إلى قسم عملاء';
+
+  static const String addClientScreeShowAllTransactions1 = 'تاريخ المعاملات المالية';
+  static const String addClientScreeShowAllTransactions2 = 'تاريخ السحب';
 
   // Bill Screen
   static const String billScreenTitle = 'الفاتورة';

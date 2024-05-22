@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/presentation/bloc/clients_bloc.dart';
+import 'package:fridge/clients/presentation/components/show_all_transactions_button.dart';
 import 'package:fridge/core/components/dialogs/del_dialog.dart';
 import 'package:fridge/core/components/dialogs/error_dialog.dart';
 import 'package:fridge/core/components/dialogs/loading_dialog.dart';
@@ -58,11 +59,17 @@ class ScreenshotWidget extends StatelessWidget {
           ],
         ),
         8.ph,
-        Text(
-          name,
-          style: getLargeStyle(
-            fontSize: 22.0,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              name,
+              style: getLargeStyle(
+                fontSize: 22.0,
+              ),
+            ),
+            isScreenshot ? Container() : const ShowAllTransactionsButton(),
+          ],
         ),
         32.ph,
         Column(
