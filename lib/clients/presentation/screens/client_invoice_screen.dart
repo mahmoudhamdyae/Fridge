@@ -34,6 +34,8 @@ class _ClientInvoiceScreenState extends State<ClientInvoiceScreen> {
 
   List<ClientInvoiceStores> stores = [];
   String name = '';
+  int amountPaid = 0;
+  int amountRemain = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -76,10 +78,14 @@ class _ClientInvoiceScreenState extends State<ClientInvoiceScreen> {
                     } else if (state.getInvoiceState == RequestState.loaded) {
                       stores = state.invoice.stores ?? [];
                       name = state.invoice.name ?? '';
+                      name = state.invoice.name ?? '';
+                      name = state.invoice.name ?? '';
                       return ScreenshotWidget(
                         stores: stores,
                         name: name,
                         isScreenshot: false,
+                        paid: amountPaid,
+                        remain: amountRemain,
                       );
                     }
                     return Container();
@@ -101,6 +107,8 @@ class _ClientInvoiceScreenState extends State<ClientInvoiceScreen> {
                                   child: ScreenshotWidget(
                                     stores: stores,
                                     name: name,
+                                    paid: amountPaid,
+                                    remain: amountRemain,
                                   ),
                                 ));
                           }

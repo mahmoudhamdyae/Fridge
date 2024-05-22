@@ -19,6 +19,8 @@ class ClientInvoiceData extends Equatable {
   final String? address;
   final int? type;
   final int? fridgeId;
+  final int? amountPaid;
+  final int? amountRemain;
   final List<ClientInvoiceStores>? stores;
 
   const ClientInvoiceData({
@@ -28,6 +30,8 @@ class ClientInvoiceData extends Equatable {
     this.address,
     this.type,
     this.fridgeId,
+    this.amountPaid,
+    this.amountRemain,
     this.stores
   });
 
@@ -45,12 +49,14 @@ class ClientInvoiceData extends Equatable {
         address: json['address'],
         type: json['type'],
         fridgeId: json['fridge_id'],
+        amountPaid: json['amount_paid'],
+        amountRemain: json['amount_remain'],
         stores: stores
     );
   }
 
   @override
-  List<Object?> get props => [id, name, phone, address, type, fridgeId, stores];
+  List<Object?> get props => [id, name, phone, address, type, fridgeId,amountPaid, amountRemain, stores];
 }
 
 class ClientInvoiceStores {

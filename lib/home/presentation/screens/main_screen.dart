@@ -59,7 +59,7 @@ class _MainScreenState extends State<MainScreen> {
       var snackBar = SnackBar(
         content: Center(
             child: Text(
-          AppStrings.addClientScreeSuccess,
+          AppStrings.addClientScreenSuccess,
           style: getSmallStyle(
               fontWeight: FontWeightManager.semiBold, color: AppColors.white),
         )),

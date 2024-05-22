@@ -36,119 +36,123 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
               children: [
                 const MainAppBar(canNavigateUp: true,),
                 // تاريخ المعاملات المالية
-                Container(
-                  width: double.infinity,
-                  color: AppColors.colorRamps3,
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                // todo: Add Transactions
-                              },
-                              icon: Container(
-                                padding: const EdgeInsets.all(4.0),
-                                decoration: const BoxDecoration(
-                                    color: AppColors.secondary,
-                                    shape: BoxShape.circle
-                                ),
-                                child: const Icon(
-                                  Icons.add,
-                                  color: AppColors.white,
-                                  size: 24,
-                                ),
-                              )
-                          ),
-                          8.pw,
-                          Text(
-                            AppStrings.addClientScreeShowAllTransactions1,
-                            style: getSmallStyle(
-                              color: AppColors.white
+                InkWell(
+                  onTap: () {
+                    if (isPaidShown == null || isPaidShown == false) {
+                      setState(() {
+                        isPaidShown = true;
+                      });
+                    } else {
+                      setState(() {
+                        isPaidShown = null;
+                      });
+                    }
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    color: AppColors.colorRamps3,
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  // todo: Add Transactions
+                                },
+                                icon: Container(
+                                  padding: const EdgeInsets.all(4.0),
+                                  decoration: const BoxDecoration(
+                                      color: AppColors.secondary,
+                                      shape: BoxShape.circle
+                                  ),
+                                  child: const Icon(
+                                    Icons.add,
+                                    color: AppColors.white,
+                                    size: 24,
+                                  ),
+                                )
                             ),
-                          ),
-                        ],
-                      ),
-                      IconButton(
-                          onPressed: () {
-                            if (isPaidShown == null || isPaidShown == false) {
-                              setState(() {
-                                isPaidShown = true;
-                              });
-                            } else {
-                              setState(() {
-                                isPaidShown = null;
-                              });
-                            }
-                          },
-                          icon: Icon(
-                            isPaidShown == true ? Icons.expand_less : Icons.expand_more,
-                            color: AppColors.white,
-                          )
-                      )
-                    ],
-                  ),
-                ),
-                isPaidShown == true ? const AllTransactionsTable() : Container(),
-                // تاريخ السحب
-                Container(
-                  width: double.infinity,
-                  color: AppColors.colorRamps3,
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                // todo: Add Sahb
-                              },
-                              icon: Container(
-                                padding: const EdgeInsets.all(4.0),
-                                decoration: const BoxDecoration(
-                                    color: AppColors.secondary,
-                                    shape: BoxShape.circle
-                                ),
-                                child: const Icon(
-                                  Icons.add,
-                                  color: AppColors.white,
-                                  size: 24,
-                                ),
-                              )
-                          ),
-                          8.pw,
-                          Text(
-                            AppStrings.addClientScreeShowAllTransactions2,
-                            style: getSmallStyle(
+                            8.pw,
+                            Text(
+                              AppStrings.addClientScreenShowAllTransactions1,
+                              style: getSmallStyle(
                                 color: AppColors.white
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      IconButton(
-                          onPressed: () {
-                            if (isSahbShown == null || isSahbShown == false) {
-                              setState(() {
-                                isSahbShown = true;
-                              });
-                            } else {
-                              setState(() {
-                                isSahbShown = null;
-                              });
-                            }
-                          },
-                          icon: Icon(
-                            isSahbShown == true ? Icons.expand_less : Icons.expand_more,
-                            color: AppColors.white,
-                          )
-                      )
-                    ],
+                          ],
+                        ),
+                        Icon(
+                          isPaidShown == true ? Icons.expand_less : Icons.expand_more,
+                          color: AppColors.white,
+                        )
+                      ],
+                    ),
                   ),
                 ),
+                16.ph,
+                isPaidShown == true ? const AllTransactionsTable() : Container(),
+                isPaidShown == true ? 16.ph : 0.ph,
+                // تاريخ السحب
+                InkWell(
+                  onTap: () {
+                    if (isSahbShown == null || isSahbShown == false) {
+                      setState(() {
+                        isSahbShown = true;
+                      });
+                    } else {
+                      setState(() {
+                        isSahbShown = null;
+                      });
+                    }
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    color: AppColors.colorRamps3,
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  // todo: Add Sahb
+                                },
+                                icon: Container(
+                                  padding: const EdgeInsets.all(4.0),
+                                  decoration: const BoxDecoration(
+                                      color: AppColors.secondary,
+                                      shape: BoxShape.circle
+                                  ),
+                                  child: const Icon(
+                                    Icons.add,
+                                    color: AppColors.white,
+                                    size: 24,
+                                  ),
+                                )
+                            ),
+                            8.pw,
+                            Text(
+                              AppStrings.addClientScreenShowAllTransactions2,
+                              style: getSmallStyle(
+                                  color: AppColors.white
+                              ),
+                            ),
+                          ],
+                        ),
+                        Icon(
+                          isSahbShown == true ? Icons.expand_less : Icons.expand_more,
+                          color: AppColors.white,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                16.ph,
                 isSahbShown == true ? const SahbTable() : Container(),
+                isSahbShown == true ? 16.ph : 16.ph,
               ],
             ),
           ),

@@ -21,12 +21,16 @@ class ScreenshotWidget extends StatelessWidget {
   final List<ClientInvoiceStores> stores;
   final String name;
   final bool isScreenshot;
+  final int paid;
+  final int remain;
 
   const ScreenshotWidget({
     super.key,
     required this.stores,
     required this.name,
     this.isScreenshot = true,
+    required this.paid,
+    required this.remain,
   });
 
   @override
@@ -58,7 +62,7 @@ class ScreenshotWidget extends StatelessWidget {
             ),
           ],
         ),
-        8.ph,
+        16.ph,
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -71,7 +75,47 @@ class ScreenshotWidget extends StatelessWidget {
             isScreenshot ? Container() : const ShowAllTransactionsButton(),
           ],
         ),
-        32.ph,
+        24.ph,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // المبلغ المدفوع
+              Row(
+                children: [
+                  Text(
+                    AppStrings.billScreenPaid,
+                    style: getSmallStyle(),
+                  ),
+                  Text(
+                    '$paid ${AppStrings.egp}',
+                    style: getSmallStyle(
+                      color: const Color(0xff6B6B6B),
+                    ),
+                  )
+                ],
+              ),
+              // المبلغ المتبقى
+
+              Row(
+                children: [
+                  Text(
+                    AppStrings.billScreenTotal,
+                    style: getSmallStyle(),
+                  ),
+                  Text(
+                    '$remain ${AppStrings.egp}',
+                    style: getSmallStyle(
+                      color: const Color(0xff6B6B6B),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+        24.ph,
         Column(
           children: stores.map((store) {
             return InkWell(
@@ -176,38 +220,6 @@ class ScreenshotWidget extends StatelessWidget {
                               ),
                               Text(
                                 '${(store.xAxies ?? 0) + 1} * ${(store.yAxies ?? 0) + 1}',
-                                style: getSmallStyle(
-                                  color: const Color(0xff6B6B6B),
-                                ),
-                              )
-                            ],
-                          ),
-                          24.ph,
-                          // المبلغ المدفوع
-                          Row(
-                            children: [
-                              Text(
-                                AppStrings.billScreenPaid,
-                                style: getSmallStyle(),
-                              ),
-                              Text(
-                                '${(store.paid ?? 0)} ${AppStrings.egp}',
-                                style: getSmallStyle(
-                                  color: const Color(0xff6B6B6B),
-                                ),
-                              )
-                            ],
-                          ),
-                          24.ph,
-                          // المبلغ المتبقى
-                          Row(
-                            children: [
-                              Text(
-                                AppStrings.billScreenTotal,
-                                style: getSmallStyle(),
-                              ),
-                              Text(
-                                '${(store.totalWeight == '0.000' ? (store.totalBagPrice ?? 0) : (store.price ?? 0)) - (store.paid ?? 0)} ${AppStrings.egp}',
                                 style: getSmallStyle(
                                   color: const Color(0xff6B6B6B),
                                 ),

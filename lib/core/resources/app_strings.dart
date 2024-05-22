@@ -156,11 +156,16 @@ class AppStrings {
 
   static const String addClientScreenChooseWard = 'اختر العنبر';
   static const String addClientScreenChooseWardProduct = 'اضف المنتج';
-  static const String addClientScreeFridge = 'ثلاجة ';
-  static const String addClientScreeSuccess = 'تم إضافة عميل جديد إلى قسم عملاء';
+  static const String addClientScreenFridge = 'ثلاجة ';
+  static const String addClientScreenSuccess = 'تم إضافة عميل جديد إلى قسم عملاء';
 
-  static const String addClientScreeShowAllTransactions1 = 'تاريخ المعاملات المالية';
-  static const String addClientScreeShowAllTransactions2 = 'تاريخ السحب';
+  static const String addClientScreenShowAllTransactions1 = 'تاريخ المعاملات المالية';
+  static const String addClientScreenShowAllTransactions2 = 'تاريخ السحب';
+  static const String addClientScreenTableAmountPaid = 'المبلغ المدفوع';
+  static const String addClientScreenTableDate = 'التاريخ';
+  static const String addClientScreenTableProduct = 'المنتج';
+  static const String addClientScreenTableWardName = 'رقم العنبر';
+  static const String addClientScreenTablePlace = 'مكان التخزين';
 
   // Bill Screen
   static const String billScreenTitle = 'الفاتورة';
@@ -174,7 +179,7 @@ class AppStrings {
   static const String billScreenWardsNumber = 'رقم العنبر : ';
   static const String billScreenStoreType = 'طريقة التخزين : ';
   static const String billScreenStorePlace = 'مكان التخزين : ';
-  static const String billScreenPaid = 'المبلغ المدفوع : ';
+  static const String billScreenPaid = 'المبلغ المدفوع : '; // todo
   static const String billScreenTotal = 'المبلغ المتبقى : ';
   static const String billScreenPrice = 'سعر الوحدة : ';
   static const String billScreenTotalPrice = 'المبلغ المدفوع : ';
