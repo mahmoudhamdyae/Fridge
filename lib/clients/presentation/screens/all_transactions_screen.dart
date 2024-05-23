@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/presentation/components/all_transactions_table.dart';
 import 'package:fridge/clients/presentation/components/sahb_table.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
@@ -9,18 +10,26 @@ import 'package:fridge/core/resources/styles_manager.dart';
 
 import '../../../core/components/appbar.dart';
 import '../../../core/components/decorations.dart';
+import '../../../core/components/dialogs/error_dialog.dart';
+import '../../../core/components/dialogs/loading_dialog.dart';
+import '../../../core/enums/request_state.dart';
+import '../../../core/navigation/navigate_util.dart';
+import '../bloc/clients_bloc.dart';
+import '../components/edit_paid_dialog.dart';
 
 class AllTransactionsScreen extends StatefulWidget {
 
   final int amountPaid;
   final int amountRemain;
   final String clientName;
+  final int clientId;
 
   const AllTransactionsScreen({
     super.key,
     required this.amountPaid,
     required this.amountRemain,
-    required this.clientName
+    required this.clientName,
+    required this.clientId
   });
 
   @override
@@ -76,22 +85,43 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
                       children: [
                         Row(
                           children: [
-                            IconButton(
-                                onPressed: () {
-                                  // todo: Add Transactions
-                                },
-                                icon: Container(
-                                  padding: const EdgeInsets.all(4.0),
-                                  decoration: const BoxDecoration(
-                                      color: AppColors.secondary,
-                                      shape: BoxShape.circle
-                                  ),
-                                  child: const Icon(
-                                    Icons.add,
-                                    color: AppColors.white,
-                                    size: 24,
-                                  ),
-                                )
+                            BlocListener<ClientsBloc, ClientsState>(
+                              listenWhen: (previous, current) =>
+                              current.addPaidState == RequestState.error ||
+                              current.addPaidState == RequestState.loaded,
+                              listener: (context, state) {
+                               if (state.addPaidState == RequestState.error) {
+                                  NavigateUtil().navigateUp(context);
+                                  showError(context, state.addPaidErrorMessage,
+                                          () {});
+                                } else if (state.addPaidState ==
+                                    RequestState.loaded) {
+                                  NavigateUtil().navigateUp(context);
+                                }
+                              },
+                              child: IconButton(
+                                  onPressed: () {
+                                    showEditPaidDialog(
+                                        context: context,
+                                        action: (paid) {
+                                          showLoading(context);
+                                          BlocProvider.of<ClientsBloc>(context)
+                                              .add(AddPaidEvent(paid, widget.clientId));
+                                        });
+                                  },
+                                  icon: Container(
+                                    padding: const EdgeInsets.all(4.0),
+                                    decoration: const BoxDecoration(
+                                        color: AppColors.secondary,
+                                        shape: BoxShape.circle
+                                    ),
+                                    child: const Icon(
+                                      Icons.add,
+                                      color: AppColors.white,
+                                      size: 24,
+                                    ),
+                                  )
+                              ),
                             ),
                             8.pw,
                             Text(

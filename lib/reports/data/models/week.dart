@@ -32,7 +32,7 @@ class Week {
 class WeekChart {
   String? date;
   String? day;
-  int? count;
+  num? count;
 
   WeekChart({this.date, this.day, this.count});
 

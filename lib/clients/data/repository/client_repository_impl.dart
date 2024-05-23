@@ -61,9 +61,9 @@ class ClientRepositoryImpl extends ClientRepository {
   }
 
   @override
-  Future<Either<Failure, void>> editPaid(int storeId, String paid) async {
+  Future<Either<Failure, void>> addPaid(int clientId, String paid) async {
     try {
-      var response = await remoteDataSource.editPaid(storeId, paid);
+      var response = await remoteDataSource.addPaid(clientId, paid);
       return Right(response);
     } on ServerException catch (error) {
       return Left(ServerFailure(error.errorMessageModel.message));

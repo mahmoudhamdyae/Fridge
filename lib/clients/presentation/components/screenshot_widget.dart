@@ -18,7 +18,8 @@ import '../screens/client_ward_screen.dart';
 
 class ScreenshotWidget extends StatelessWidget {
   final List<ClientInvoiceStores> stores;
-  final String name;
+  final String clientName;
+  final int clientId;
   final bool isScreenshot;
   final int paid;
   final int remain;
@@ -26,7 +27,8 @@ class ScreenshotWidget extends StatelessWidget {
   const ScreenshotWidget({
     super.key,
     required this.stores,
-    required this.name,
+    required this.clientName,
+    required this.clientId,
     this.isScreenshot = true,
     required this.paid,
     required this.remain,
@@ -66,7 +68,7 @@ class ScreenshotWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              name,
+              clientName,
               style: getLargeStyle(
                 fontSize: 22.0,
               ),
@@ -74,7 +76,8 @@ class ScreenshotWidget extends StatelessWidget {
             isScreenshot ? Container() : ShowAllTransactionsButton(
               amountPaid: paid,
               amountRemain: remain,
-              clientName: name,
+              clientName: clientName, 
+              clientId: clientId,
             ),
           ],
         ),
@@ -236,10 +239,7 @@ class ScreenshotWidget extends StatelessWidget {
                           : BlocListener<ClientsBloc, ClientsState>(
                               listenWhen: (previous, current) =>
                                   current.delStoreState == RequestState.error ||
-                                  current.delStoreState == RequestState.loaded
-                                  // current.editPaidState == RequestState.error ||
-                                  // current.editPaidState == RequestState.loaded
-                        ,
+                                  current.delStoreState == RequestState.loaded,
                               listener: (context, state) {
                                 if (state.delStoreState == RequestState.error) {
                                   NavigateUtil().navigateUp(context);
@@ -251,14 +251,7 @@ class ScreenshotWidget extends StatelessWidget {
                                   BlocProvider.of<ClientsBloc>(context).add(
                                       GetClientInvoiceEvent(
                                           store.customerId ?? -1));
-                                } /*else if (state.editPaidState == RequestState.error) {
-                                  NavigateUtil().navigateUp(context);
-                                  showError(context, state.delStoreErrorMessage,
-                                          () {});
-                                } else if (state.editPaidState ==
-                                    RequestState.loaded) {
-                                  NavigateUtil().navigateUp(context);
-                                }*/
+                                }
                               },
                               child: Column(
                                 children: [

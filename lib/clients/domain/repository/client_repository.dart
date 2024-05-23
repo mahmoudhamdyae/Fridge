@@ -15,5 +15,5 @@ abstract class ClientRepository {
   Future<Either<Failure, ClientInvoiceData>> getClientInvoice(int clientId);
   Future<Either<Failure, void>> delStore(int storeId);
   Future<Either<Failure, void>> delClient(int clientId);
-  Future<Either<Failure, void>> editPaid(int storeId, String paid);
+  Future<Either<Failure, void>> addPaid(int clientId, String paid);
 }

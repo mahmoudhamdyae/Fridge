@@ -3,7 +3,8 @@ class ApiConstants {
   static String token = '';
   static bool isAuth = false;
 
-  static const String baseUrl = "https://talaga.coding-site.com/api/";
+  // static const String baseUrl = "https://talaga.coding-site.com/api/";
+  static const String baseUrl = "https://6b19-105-42-16-240.ngrok-free.app/api/"; // todo
 
   /// Authentication
   static const String loginPath = "auth/login";
@@ -31,7 +32,8 @@ class ApiConstants {
   static String getClientInvoicePath(int clientId) => "app/customer/report/$clientId";
   static String delStorePath(int storeId) => "app/store/delete/$storeId";
   static String delClientPath(int clientId) => "app/customer/delete/$clientId";
-  static String editPaidPath(int storeId, String paid) => "app/store/change_amount_paid/$storeId/$paid";
+  // todo
+  static String addPaidPath(int clientId, String paid) => "app/store/change_amount_paid/$clientId/$paid";
 
   /// Expenses
   static const String getExpensePath = "app/expense";

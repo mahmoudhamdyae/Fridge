@@ -33,7 +33,8 @@ class _ClientInvoiceScreenState extends State<ClientInvoiceScreen> {
   final ScreenshotController screenshotController = ScreenshotController();
 
   List<ClientInvoiceStores> stores = [];
-  String name = '';
+  String clientName = '';
+  int clientId = -1;
   int amountPaid = 0;
   int amountRemain = 0;
 
@@ -77,12 +78,14 @@ class _ClientInvoiceScreenState extends State<ClientInvoiceScreen> {
                       return ErrorScreen(error: state.getClientInvoiceErrorMessage);
                     } else if (state.getInvoiceState == RequestState.loaded) {
                       stores = state.invoice.stores ?? [];
-                      name = state.invoice.name ?? '';
-                      name = state.invoice.name ?? '';
-                      name = state.invoice.name ?? '';
+                      clientName = state.invoice.name ?? '';
+                      clientId = state.invoice.id ?? -1;
+                      amountPaid = state.invoice.amountPaid ?? 0;
+                      amountRemain = state.invoice.amountRemain ?? 0;
                       return ScreenshotWidget(
                         stores: stores,
-                        name: name,
+                        clientName: clientName,
+                        clientId: clientId,
                         isScreenshot: false,
                         paid: amountPaid,
                         remain: amountRemain,
@@ -106,7 +109,8 @@ class _ClientInvoiceScreenState extends State<ClientInvoiceScreen> {
                                   padding: const EdgeInsets.all(12.0),
                                   child: ScreenshotWidget(
                                     stores: stores,
-                                    name: name,
+                                    clientName: clientName,
+                                    clientId: clientId,
                                     paid: amountPaid,
                                     remain: amountRemain,
                                   ),

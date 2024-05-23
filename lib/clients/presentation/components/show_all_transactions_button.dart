@@ -1,7 +1,12 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fridge/clients/presentation/bloc/clients_bloc.dart';
 import 'package:fridge/clients/presentation/screens/all_transactions_screen.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/resources/app_strings.dart';
+import 'package:fridge/core/services/services_locator.dart';
 
 import '../../../core/resources/app_colors.dart';
 import '../../../core/resources/styles_manager.dart';
@@ -11,12 +16,14 @@ class ShowAllTransactionsButton extends StatelessWidget {
   final int amountPaid;
   final int amountRemain;
   final String clientName;
+  final int clientId;
 
   const ShowAllTransactionsButton({
     super.key,
     required this.amountPaid,
     required this.amountRemain,
-    required this.clientName
+    required this.clientName,
+    required this.clientId
   });
 
   @override
@@ -25,10 +32,14 @@ class ShowAllTransactionsButton extends StatelessWidget {
       onTap: () {
         NavigateUtil().navigateToScreen(
             context,
-            AllTransactionsScreen(
-              amountPaid: amountPaid,
-              amountRemain: amountRemain,
-              clientName: clientName,
+            BlocProvider.value(
+              value: instance<ClientsBloc>(),
+              child: AllTransactionsScreen(
+                amountPaid: amountPaid,
+                amountRemain: amountRemain,
+                clientName: clientName,
+                clientId: clientId,
+              ),
             )
         );
       },

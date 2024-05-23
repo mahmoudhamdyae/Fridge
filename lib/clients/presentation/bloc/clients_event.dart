@@ -105,10 +105,10 @@ class DelStoreEvent extends ClientsEvent {
   List<Object?> get props => [storeId];
 }
 
-class EditPaidEvent extends ClientsEvent {
+class AddPaidEvent extends ClientsEvent {
   final String paid;
-  final int storeId;
-  const EditPaidEvent(this.paid, this.storeId);
+  final int clientId;
+  const AddPaidEvent(this.paid, this.clientId);
   @override
-  List<Object?> get props => [paid, storeId];
+  List<Object?> get props => [paid, clientId];
 }
