@@ -112,3 +112,10 @@ class AddPaidEvent extends ClientsEvent {
   @override
   List<Object?> get props => [paid, clientId];
 }
+
+class GetAmountPaidEvent extends ClientsEvent {
+  final int clientId;
+  const GetAmountPaidEvent(this.clientId);
+  @override
+  List<Object?> get props => [clientId];
+}

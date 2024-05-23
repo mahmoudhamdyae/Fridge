@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:fridge/clients/data/models/add_client_request.dart';
 import 'package:fridge/clients/data/models/client_invoice.dart';
+import 'package:fridge/clients/domain/entities/amount_paid.dart';
 import 'package:fridge/core/error/exceptions.dart';
 
 import '../../../core/error/failure.dart';
@@ -64,6 +65,16 @@ class ClientRepositoryImpl extends ClientRepository {
   Future<Either<Failure, void>> addPaid(int clientId, String paid) async {
     try {
       var response = await remoteDataSource.addPaid(clientId, paid);
+      return Right(response);
+    } on ServerException catch (error) {
+      return Left(ServerFailure(error.errorMessageModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<AllAmount>>> getAmountPaid(int clientId) async {
+    try {
+      var response = await remoteDataSource.getAmountPaid(clientId);
       return Right(response);
     } on ServerException catch (error) {
       return Left(ServerFailure(error.errorMessageModel.message));

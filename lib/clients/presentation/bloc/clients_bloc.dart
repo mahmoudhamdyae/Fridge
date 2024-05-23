@@ -18,6 +18,7 @@ import '../../domain/usecases/add_client_usecase.dart';
 import '../../domain/usecases/del_client_usecase.dart';
 import '../../domain/usecases/del_store_usecase.dart';
 import '../../domain/usecases/add_paid_usecase.dart';
+import '../../domain/usecases/get_amount_paid_usecase.dart';
 import '../../domain/usecases/get_client_invoice_usecase.dart';
 import '../../domain/usecases/get_clients_usecase.dart';
 
@@ -35,6 +36,7 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
   final DelClientUsecase _delClientUsecase;
   final DelStoreUsecase _delStoresUsecase;
   final AddPaidUsecase _addPaidUsecase;
+  final GetAmountPaidUsecase _getAmountPaidUsecase;
 
   ClientsBloc(
       this._getSettingsUsecase,
@@ -46,6 +48,7 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
       this._delClientUsecase,
       this._delStoresUsecase,
       this._addPaidUsecase,
+      this._getAmountPaidUsecase
       ) : super(const ClientsState()) {
     on<GetClientsEvent>((event, emit) async {
       await _getClients(event, emit);
@@ -89,6 +92,10 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
 
     on<AddPaidEvent>((event, emit) async {
       await _addPaid(event, emit);
+    });
+
+    on<GetAmountPaidEvent>((event, emit) async {
+      await _getAmountPaid(event, emit);
     });
   }
 
@@ -323,8 +330,23 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
     emit(state.copyWith(addPaidState: RequestState.loading));
     final result = await _addPaidUsecase.call(event.clientId, event.paid);
     result.fold((l) {
-      emit(state.copyWith(addPaidState: RequestState.error));
+      emit(state.copyWith(
+          addPaidState: RequestState.error,
+          addPaidErrorMessage: l.message
+      ));
     }, (r) {
       emit(state.copyWith(addPaidState: RequestState.loaded));});
+  }
+
+  Future<void>_getAmountPaid(GetAmountPaidEvent event, Emitter<ClientsState> emit) async {
+    emit(state.copyWith(getAmountPaidState: RequestState.loading));
+    final result = await _getAmountPaidUsecase.call(event.clientId);
+    result.fold((l) {
+      emit(state.copyWith(
+          getAmountPaidState: RequestState.error,
+          getAmountPaidErrorMessage: l.message
+      ));
+    }, (r) {
+      emit(state.copyWith(getAmountPaidState: RequestState.loaded));});
   }
 }

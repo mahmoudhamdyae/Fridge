@@ -5,6 +5,7 @@ import 'package:fridge/clients/domain/entities/client.dart';
 import 'package:fridge/core/error/failure.dart';
 
 import '../../data/models/add_client_request.dart';
+import '../entities/amount_paid.dart';
 
 abstract class ClientRepository {
   final ClientRemoteDataSource remoteDataSource;
@@ -16,4 +17,5 @@ abstract class ClientRepository {
   Future<Either<Failure, void>> delStore(int storeId);
   Future<Either<Failure, void>> delClient(int clientId);
   Future<Either<Failure, void>> addPaid(int clientId, String paid);
+  Future<Either<Failure, List<AllAmount>>> getAmountPaid(int clientId);
 }

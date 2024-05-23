@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:fridge/clients/data/models/add_client_request.dart';
+import 'package:fridge/clients/data/models/amount_paid_model.dart';
 import 'package:fridge/clients/data/models/client_model.dart';
+import 'package:fridge/clients/domain/entities/amount_paid.dart';
 import 'package:fridge/clients/domain/entities/client.dart';
 import 'package:fridge/core/network/dio_manager.dart';
 
@@ -19,6 +21,7 @@ abstract class ClientRemoteDataSource {
   Future<void> delStore(int storeId);
   Future<void> delClient(int clientId);
   Future<void> addPaid(int clientId, String paid);
+  Future<List<AllAmount>> getAmountPaid(int clientId);
 }
 
 class ClientRemoteDataSourceImpl extends ClientRemoteDataSource {
@@ -118,12 +121,35 @@ class ClientRemoteDataSourceImpl extends ClientRemoteDataSource {
   Future<void> addPaid(int clientId, String paid) async {
     try {
       await dioManager.dio.post(
-          ApiConstants.addPaidPath(clientId, paid),
+          ApiConstants.addPaidPath,
           data: {
             'amount_paid': paid,
             'customer_id': clientId
           }
       );
+    }  on DioException catch (error) {
+      if (error.response != null) {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
+        );
+      }
+    }
+  }
+
+  @override
+  Future<List<AllAmount>> getAmountPaid(int clientId) async {
+    try {
+      var result = await dioManager.dio.get(
+          ApiConstants.getAmountPaidPath,
+          data: {
+            'customer_id': clientId
+          }
+      );
+      return AmountPaidModel.fromJson(result.data).allAmount ?? [];
     }  on DioException catch (error) {
       if (error.response != null) {
         throw ServerException(
