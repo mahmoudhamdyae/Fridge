@@ -101,7 +101,10 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
   }
 
   Future<void> _getClients(GetClientsEvent event, Emitter<ClientsState> emit) async {
-    emit(state.copyWith(addClientState: RequestState.init));
+    emit(state.copyWith(
+      addClientState: RequestState.init,
+      addPaidState: RequestState.init,
+    ));
     final result = await _getClientsUsecase.call();
     result.fold((l) {
       emit(state.copyWith(

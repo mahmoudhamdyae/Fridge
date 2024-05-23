@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/presentation/components/all_transactions_table.dart';
 import 'package:fridge/clients/presentation/components/sahb_table.dart';
+import 'package:fridge/clients/presentation/screens/clients_screen.dart';
 import 'package:fridge/core/components/states/error_screen.dart';
 import 'package:fridge/core/components/states/loading_screen.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
@@ -108,10 +109,11 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
                                           () {});
                                 } else if (state.addPaidState ==
                                     RequestState.loaded) {
-                                  NavigateUtil().navigateUp(context);
-                                  NavigateUtil().navigateUp(context);
-                                  NavigateUtil().navigateUp(context);
-                                  NavigateUtil().navigateUp(context);
+                                  NavigateUtil().navigateAndClear(
+                                      context, BlocProvider.value(
+                                    value: instance<ClientsBloc>(),
+                                    child: const ClientsScreen(),
+                                  ));
                                 }
                               },
                               child: IconButton(
@@ -170,7 +172,7 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
                     return AllTransactionsTable(
                       paid: widget.amountPaid,
                       remain: widget.amountRemain,
-                      amounts: state.amounts,
+                      amounts: state.amounts.reversed.toList(),
                     );
                   },
                 ) : Container(),
