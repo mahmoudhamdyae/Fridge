@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/core/resources/app_strings.dart';
-import 'package:fridge/clients/presentation/tabs/add_new_client_screen.dart';
 
 import '../../../core/resources/styles_manager.dart';
 

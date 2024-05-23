@@ -17,11 +17,10 @@ class AmountPaidModel extends AmountPaid {
 
 class AllAmountModel extends AllAmount {
 
-  const AllAmountModel({super.amountPaid, super.date, super.amountRemain});
+  const AllAmountModel({super.amountPaid, super.date});
 
   factory AllAmountModel.fromJson(Map<String, dynamic> json) => AllAmountModel(
     amountPaid: json['amount_paid'],
     date: json['date'],
-    amountRemain: json['amount_remain'],
   );
 }

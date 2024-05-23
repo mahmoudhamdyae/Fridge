@@ -48,6 +48,7 @@ class ClientsState extends Equatable {
 
   final RequestState getAmountPaidState;
   final String getAmountPaidErrorMessage;
+  final List<AllAmount> amounts;
 
   const ClientsState({
     this.clients = const [],
@@ -84,6 +85,7 @@ class ClientsState extends Equatable {
     this.addPaidErrorMessage = '',
     this.getAmountPaidState = RequestState.init,
     this.getAmountPaidErrorMessage = '',
+    this.amounts = const [],
 });
 
   ClientsState copyWith({
@@ -121,6 +123,7 @@ class ClientsState extends Equatable {
     String? addPaidErrorMessage,
     RequestState? getAmountPaidState,
     String? getAmountPaidErrorMessage,
+    List<AllAmount>? amounts,
   }) {
     return ClientsState(
       clients: clients ?? this.clients,
@@ -157,6 +160,7 @@ class ClientsState extends Equatable {
       addPaidErrorMessage: addPaidErrorMessage ?? this.addPaidErrorMessage,
       getAmountPaidState: getAmountPaidState ?? this.getAmountPaidState,
       getAmountPaidErrorMessage: getAmountPaidErrorMessage ?? this.getAmountPaidErrorMessage,
+      amounts: amounts ?? this.amounts,
     );
   }
 
@@ -175,6 +179,6 @@ class ClientsState extends Equatable {
     delClientState, delClientErrorMessage,
     delStoreState, delStoreErrorMessage,
     addPaidState, addPaidErrorMessage,
-    getAmountPaidState, getAmountPaidErrorMessage
+    getAmountPaidState, getAmountPaidErrorMessage, amounts
   ];
 }

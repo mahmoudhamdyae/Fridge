@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/presentation/components/all_transactions_table.dart';
 import 'package:fridge/clients/presentation/components/sahb_table.dart';
+import 'package:fridge/core/components/states/error_screen.dart';
+import 'package:fridge/core/components/states/loading_screen.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
+import 'package:fridge/core/services/services_locator.dart';
 
 import '../../../core/components/appbar.dart';
 import '../../../core/components/decorations.dart';
@@ -40,6 +43,15 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
 
   bool? isPaidShown;
   bool? isSahbShown;
+
+  late ClientsBloc bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    bloc = instance<ClientsBloc>();
+    bloc.add(GetAmountPaidEvent(widget.clientId));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +156,24 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
                   ),
                 ),
                 16.ph,
-                isPaidShown == true ? AllTransactionsTable(paid: widget.amountPaid, remain: widget.amountRemain,) : Container(),
+                isPaidShown == true ? BlocBuilder<ClientsBloc, ClientsState>(
+                  buildWhen: (previous, current) =>
+                  current.getAmountPaidState == RequestState.loading ||
+                  current.getAmountPaidState == RequestState.error ||
+                  current.getAmountPaidState == RequestState.loaded,
+                  builder: (BuildContext context, state) {
+                    if (state.getAmountPaidState == RequestState.loading) {
+                      return const LoadingScreen();
+                    } else if (state.getAmountPaidState == RequestState.error) {
+                      return ErrorScreen(error: state.getAmountPaidErrorMessage);
+                    }
+                    return AllTransactionsTable(
+                      paid: widget.amountPaid,
+                      remain: widget.amountRemain,
+                      amounts: state.amounts,
+                    );
+                  },
+                ) : Container(),
                 isPaidShown == true ? 16.ph : 0.ph,
                 // تاريخ السحب
                 InkWell(

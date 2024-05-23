@@ -12,10 +12,9 @@ class AmountPaid extends Equatable {
 class AllAmount extends Equatable {
   final int? amountPaid;
   final String? date;
-  final int? amountRemain;
 
-  const AllAmount({this.amountPaid, this.date, this.amountRemain});
+  const AllAmount({this.amountPaid, this.date});
 
   @override
-  List<Object?> get props => [amountPaid, date, amountRemain];
+  List<Object?> get props => [amountPaid, date];
 }

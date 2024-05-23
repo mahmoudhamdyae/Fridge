@@ -14,6 +14,7 @@ import '../../../ward/domain/entities/store.dart';
 import '../../../ward/domain/entities/ward.dart';
 import '../../../ward/domain/usecases/get_all_stores_usecase.dart';
 import '../../data/models/add_client_request.dart';
+import '../../domain/entities/amount_paid.dart';
 import '../../domain/usecases/add_client_usecase.dart';
 import '../../domain/usecases/del_client_usecase.dart';
 import '../../domain/usecases/del_store_usecase.dart';
@@ -347,6 +348,9 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
           getAmountPaidErrorMessage: l.message
       ));
     }, (r) {
-      emit(state.copyWith(getAmountPaidState: RequestState.loaded));});
+      emit(state.copyWith(
+          getAmountPaidState: RequestState.loaded,
+          amounts: r
+      ));});
   }
 }
