@@ -17,7 +17,7 @@ class PaidFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: getFilledTextFieldDecorationWithLabel(
-        label: AppStrings.editPaidDialogLabel,
+        label: AppStrings.addPaidDialogLabel,
       ),
       controller: paidController,
       textInputAction: TextInputAction.next,

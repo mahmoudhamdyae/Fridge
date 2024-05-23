@@ -6,7 +6,7 @@ import '../../../core/resources/app_colors.dart';
 import '../../../core/resources/app_strings.dart';
 import '../../../core/resources/styles_manager.dart';
 
-showEditPaidDialog({
+showAddPaidDialog({
   required BuildContext context,
   required Function(String) action,
 }) {
@@ -17,7 +17,7 @@ showEditPaidDialog({
       return AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         title: Text(
-          AppStrings.editPaidDialogTitle,
+          AppStrings.addPaidDialogTitle,
           style: getSmallStyle(),
         ),
         content: PaidFormField(paidController: paidController,),
@@ -32,7 +32,7 @@ showEditPaidDialog({
             style: getFilledButtonStyle(),
             onPressed: () => action(paidController.text),
             child: Text(
-              AppStrings.editPaidDialogOk,
+              AppStrings.addPaidDialogOk,
               style: getSmallStyle(
                   color: AppColors.white
               ),

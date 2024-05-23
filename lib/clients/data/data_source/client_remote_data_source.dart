@@ -117,7 +117,13 @@ class ClientRemoteDataSourceImpl extends ClientRemoteDataSource {
   @override
   Future<void> addPaid(int clientId, String paid) async {
     try {
-      await dioManager.dio.get(ApiConstants.addPaidPath(clientId, paid));
+      await dioManager.dio.post(
+          ApiConstants.addPaidPath(clientId, paid),
+          data: {
+            'amount_paid': paid,
+            'customer_id': clientId
+          }
+      );
     }  on DioException catch (error) {
       if (error.response != null) {
         throw ServerException(

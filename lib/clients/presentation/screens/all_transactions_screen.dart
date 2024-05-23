@@ -15,7 +15,7 @@ import '../../../core/components/dialogs/loading_dialog.dart';
 import '../../../core/enums/request_state.dart';
 import '../../../core/navigation/navigate_util.dart';
 import '../bloc/clients_bloc.dart';
-import '../components/edit_paid_dialog.dart';
+import '../components/add_paid_dialog.dart';
 
 class AllTransactionsScreen extends StatefulWidget {
 
@@ -97,11 +97,14 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
                                 } else if (state.addPaidState ==
                                     RequestState.loaded) {
                                   NavigateUtil().navigateUp(context);
+                                  NavigateUtil().navigateUp(context);
+                                  NavigateUtil().navigateUp(context);
+                                  NavigateUtil().navigateUp(context);
                                 }
                               },
                               child: IconButton(
                                   onPressed: () {
-                                    showEditPaidDialog(
+                                    showAddPaidDialog(
                                         context: context,
                                         action: (paid) {
                                           showLoading(context);
