@@ -54,6 +54,7 @@ import '../../clients/domain/usecases/del_store_usecase.dart';
 import '../../clients/domain/usecases/add_paid_usecase.dart';
 import '../../clients/domain/usecases/get_amount_paid_usecase.dart';
 import '../../clients/domain/usecases/get_client_invoice_usecase.dart';
+import '../../clients/domain/usecases/sahb_store_usecase.dart';
 import '../../expenses/domain/usecases/del_expenses_type_usecase.dart';
 import '../../expenses/domain/usecases/del_expenses_usecase.dart';
 import '../../expenses/domain/usecases/edit_expenses_usecase.dart';
@@ -178,6 +179,7 @@ class ServicesLocator {
       instance<DelStoreUsecase>(),
       instance<AddPaidUsecase>(),
       instance<GetAmountPaidUsecase>(),
+      instance<SahbStoreUsecase>(),
     ));
     // Use Cases
     instance.registerLazySingleton(() => GetClientsUsecase(instance<ClientRepository>()));
@@ -187,6 +189,7 @@ class ServicesLocator {
     instance.registerLazySingleton(() => DelStoreUsecase(instance<ClientRepository>()));
     instance.registerLazySingleton(() => AddPaidUsecase(instance<ClientRepository>()));
     instance.registerLazySingleton(() => GetAmountPaidUsecase(instance<ClientRepository>()));
+    instance.registerLazySingleton(() => SahbStoreUsecase(instance<ClientRepository>()));
     // Repository
     instance.registerLazySingleton<ClientRepository>(
             () => ClientRepositoryImpl(instance<ClientRemoteDataSource>()));

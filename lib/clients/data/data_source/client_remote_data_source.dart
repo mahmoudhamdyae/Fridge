@@ -22,6 +22,7 @@ abstract class ClientRemoteDataSource {
   Future<void> delClient(int clientId);
   Future<void> addPaid(int clientId, String paid);
   Future<List<AllAmount>> getAmountPaid(int clientId);
+  Future<void> sahbStore(int storeId);
 }
 
 class ClientRemoteDataSourceImpl extends ClientRemoteDataSource {
@@ -150,6 +151,23 @@ class ClientRemoteDataSourceImpl extends ClientRemoteDataSource {
           }
       );
       return AmountPaidModel.fromJson(result.data).allAmount ?? [];
+    }  on DioException catch (error) {
+      if (error.response != null) {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel.fromJson(error.response?.data)
+        );
+      } else {
+        throw ServerException(
+            errorMessageModel: ErrorMessageModel(status: false, message: error.message ?? '')
+        );
+      }
+    }
+  }
+
+  @override
+  Future<void> sahbStore(int storeId) async {
+    try {
+      await dioManager.dio.post(ApiConstants.sahbStore(storeId));
     }  on DioException catch (error) {
       if (error.response != null) {
         throw ServerException(

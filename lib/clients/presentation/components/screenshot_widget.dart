@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/presentation/bloc/clients_bloc.dart';
+import 'package:fridge/clients/presentation/components/sahb_button.dart';
 import 'package:fridge/clients/presentation/components/show_all_transactions_button.dart';
 import 'package:fridge/core/components/dialogs/del_dialog.dart';
 import 'package:fridge/core/components/dialogs/error_dialog.dart';
@@ -141,73 +142,93 @@ class ScreenshotWidget extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                       vertical: 16.0, horizontal: 24.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Stack(
                     children: [
-                      Column(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // المنتج
-                          Row(
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                AppStrings.billScreenProduct,
-                                style: getSmallStyle(),
-                              ),
-                              Text(
-                                store.product ?? '',
-                                style: getSmallStyle(
-                                  color: const Color(0xff6B6B6B),
-                                ),
-                              )
-                            ],
-                          ),
-                          store.totalWeight != '0.000' ? 24.ph : 0.ph,
-                          // الكمية
-                          store.totalWeight != '0.000' ? Row(
-                            children: [
-                              Text(
-                                AppStrings.billScreenQuantity,
-                                style: getSmallStyle(),
-                              ),
-                              Text(
-                                '${store.totalWeight} ${store.unit}',
-                                style: getSmallStyle(
-                                  color: const Color(0xff6B6B6B),
-                                ),
-                              )
-                            ],
-                          ) : Container(),
-                          store.totalWeight == '0.000' ? 24.ph : 0.ph,
-                          // عدد الشكاير
-                          store.totalWeight == '0.000' ? Row(
-                            children: [
-                              Text(
-                                AppStrings.billScreenNumber,
-                                style: getSmallStyle(),
-                              ),
-                              Text(
-                                '${store.quantity}',
-                                style: getSmallStyle(
-                                  color: const Color(0xff6B6B6B),
-                                ),
-                              )
-                            ],
-                          ) : Container(),
-                          24.ph,
-                          // رقم العنبر
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
+                              // المنتج
                               Row(
                                 children: [
                                   Text(
-                                    AppStrings.billScreenWardsNumber,
+                                    AppStrings.billScreenProduct,
                                     style: getSmallStyle(),
                                   ),
                                   Text(
-                                    store.partName ?? '',
+                                    store.product ?? '',
+                                    style: getSmallStyle(
+                                      color: const Color(0xff6B6B6B),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              store.totalWeight != '0.000' ? 24.ph : 0.ph,
+                              // الكمية
+                              store.totalWeight != '0.000' ? Row(
+                                children: [
+                                  Text(
+                                    AppStrings.billScreenQuantity,
+                                    style: getSmallStyle(),
+                                  ),
+                                  Text(
+                                    '${store.totalWeight} ${store.unit}',
+                                    style: getSmallStyle(
+                                      color: const Color(0xff6B6B6B),
+                                    ),
+                                  )
+                                ],
+                              ) : Container(),
+                              store.totalWeight == '0.000' ? 24.ph : 0.ph,
+                              // عدد الشكاير
+                              store.totalWeight == '0.000' ? Row(
+                                children: [
+                                  Text(
+                                    AppStrings.billScreenNumber,
+                                    style: getSmallStyle(),
+                                  ),
+                                  Text(
+                                    '${store.quantity}',
+                                    style: getSmallStyle(
+                                      color: const Color(0xff6B6B6B),
+                                    ),
+                                  )
+                                ],
+                              ) : Container(),
+                              24.ph,
+                              // رقم العنبر
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        AppStrings.billScreenWardsNumber,
+                                        style: getSmallStyle(),
+                                      ),
+                                      Text(
+                                        store.partName ?? '',
+                                        style: getSmallStyle(
+                                          color: const Color(0xff6B6B6B),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              24.ph,
+                              // مكان التخزين
+                              Row(
+                                children: [
+                                  Text(
+                                    AppStrings.billScreenStorePlace,
+                                    style: getSmallStyle(),
+                                  ),
+                                  Text(
+                                    '${(store.xAxies ?? 0) + 1} * ${(store.yAxies ?? 0) + 1}',
                                     style: getSmallStyle(
                                       color: const Color(0xff6B6B6B),
                                     ),
@@ -216,46 +237,26 @@ class ScreenshotWidget extends StatelessWidget {
                               ),
                             ],
                           ),
-                          24.ph,
-                          // مكان التخزين
-                          Row(
-                            children: [
-                              Text(
-                                AppStrings.billScreenStorePlace,
-                                style: getSmallStyle(),
-                              ),
-                              Text(
-                                '${(store.xAxies ?? 0) + 1} * ${(store.yAxies ?? 0) + 1}',
-                                style: getSmallStyle(
-                                  color: const Color(0xff6B6B6B),
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                      isScreenshot
-                          ? Container()
-                          : BlocListener<ClientsBloc, ClientsState>(
-                              listenWhen: (previous, current) =>
-                                  current.delStoreState == RequestState.error ||
-                                  current.delStoreState == RequestState.loaded,
-                              listener: (context, state) {
-                                if (state.delStoreState == RequestState.error) {
-                                  NavigateUtil().navigateUp(context);
-                                  showError(context, state.delStoreErrorMessage,
-                                      () {});
-                                } else if (state.delStoreState ==
-                                    RequestState.loaded) {
-                                  NavigateUtil().navigateUp(context);
-                                  BlocProvider.of<ClientsBloc>(context).add(
-                                      GetClientInvoiceEvent(
-                                          store.customerId ?? -1));
-                                }
-                              },
-                              child: Column(
-                                children: [
-                                  IconButton(
+                          isScreenshot
+                              ? Container()
+                              : BlocListener<ClientsBloc, ClientsState>(
+                                  listenWhen: (previous, current) =>
+                                      current.delStoreState == RequestState.error ||
+                                      current.delStoreState == RequestState.loaded,
+                                  listener: (context, state) {
+                                    if (state.delStoreState == RequestState.error) {
+                                      NavigateUtil().navigateUp(context);
+                                      showError(context, state.delStoreErrorMessage,
+                                          () {});
+                                    } else if (state.delStoreState ==
+                                        RequestState.loaded) {
+                                      NavigateUtil().navigateUp(context);
+                                      BlocProvider.of<ClientsBloc>(context).add(
+                                          GetClientInvoiceEvent(
+                                              store.customerId ?? -1));
+                                    }
+                                  },
+                                  child: IconButton(
                                       onPressed: () {
                                         showDelDialog(
                                             context: context,
@@ -268,22 +269,14 @@ class ScreenshotWidget extends StatelessWidget {
                                         );
                                       },
                                       icon: const Icon(Icons.delete)),
-                                  // 8.ph,
-                                  // IconButton(
-                                  //     onPressed: () {
-                                  //       showEditPaidDialog(
-                                  //           context: context,
-                                  //           action: (paid) {
-                                  //             showLoading(context);
-                                  //             BlocProvider.of<ClientsBloc>(context)
-                                  //                 .add(EditPaidEvent(paid, store.id ?? -1));
-                                  //           }
-                                  //       );
-                                  //     },
-                                  //     icon: const Icon(Icons.edit)),
-                                ],
-                              ),
-                            )
+                                )
+                        ],
+                      ),
+                      isScreenshot ? Container() : Positioned(
+                          bottom: 0,
+                          left: 0,
+                          child: SahbButton(storeId: store.id ?? -1,)
+                      )
                     ],
                   ),
                 ),

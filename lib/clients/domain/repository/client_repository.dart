@@ -18,4 +18,5 @@ abstract class ClientRepository {
   Future<Either<Failure, void>> delClient(int clientId);
   Future<Either<Failure, void>> addPaid(int clientId, String paid);
   Future<Either<Failure, List<AllAmount>>> getAmountPaid(int clientId);
+  Future<Either<Failure, void>> sahbStore(int storeId);
 }

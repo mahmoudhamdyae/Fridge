@@ -80,4 +80,14 @@ class ClientRepositoryImpl extends ClientRepository {
       return Left(ServerFailure(error.errorMessageModel.message));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> sahbStore(int storeId) async {
+    try {
+      var response = await remoteDataSource.sahbStore(storeId);
+      return Right(response);
+    } on ServerException catch (error) {
+      return Left(ServerFailure(error.errorMessageModel.message));
+    }
+  }
 }

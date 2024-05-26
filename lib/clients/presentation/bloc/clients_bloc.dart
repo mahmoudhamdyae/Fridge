@@ -22,6 +22,7 @@ import '../../domain/usecases/add_paid_usecase.dart';
 import '../../domain/usecases/get_amount_paid_usecase.dart';
 import '../../domain/usecases/get_client_invoice_usecase.dart';
 import '../../domain/usecases/get_clients_usecase.dart';
+import '../../domain/usecases/sahb_store_usecase.dart';
 
 part 'clients_event.dart';
 part 'clients_state.dart';
@@ -38,6 +39,7 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
   final DelStoreUsecase _delStoresUsecase;
   final AddPaidUsecase _addPaidUsecase;
   final GetAmountPaidUsecase _getAmountPaidUsecase;
+  final SahbStoreUsecase _sahbStoreUsecase;
 
   ClientsBloc(
       this._getSettingsUsecase,
@@ -49,7 +51,8 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
       this._delClientUsecase,
       this._delStoresUsecase,
       this._addPaidUsecase,
-      this._getAmountPaidUsecase
+      this._getAmountPaidUsecase,
+      this._sahbStoreUsecase,
       ) : super(const ClientsState()) {
     on<GetClientsEvent>((event, emit) async {
       await _getClients(event, emit);
@@ -98,12 +101,17 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
     on<GetAmountPaidEvent>((event, emit) async {
       await _getAmountPaid(event, emit);
     });
+
+    on<SahbStoreEvent>((event, emit) async {
+      await _sahbStore(event, emit);
+    });
   }
 
   Future<void> _getClients(GetClientsEvent event, Emitter<ClientsState> emit) async {
     emit(state.copyWith(
       addClientState: RequestState.init,
       addPaidState: RequestState.init,
+      storeSahbState: RequestState.init,
     ));
     final result = await _getClientsUsecase.call();
     result.fold((l) {
@@ -350,10 +358,24 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
           getAmountPaidState: RequestState.error,
           getAmountPaidErrorMessage: l.message
       ));
-    }, (r) {
+    }, (amounts) {
       emit(state.copyWith(
           getAmountPaidState: RequestState.loaded,
-          amounts: r
+          amounts: amounts
+      ));});
+  }
+
+  Future<void> _sahbStore(SahbStoreEvent event, Emitter<ClientsState> emit) async {
+    emit(state.copyWith(storeSahbState: RequestState.loading));
+    final result = await _sahbStoreUsecase.call(event.storeId);
+    result.fold((l) {
+      emit(state.copyWith(
+          storeSahbState: RequestState.error,
+          storeSahbErrorMessage: l.message
+      ));
+    }, (r) {
+      emit(state.copyWith(
+          storeSahbState: RequestState.loaded,
       ));});
   }
 }
