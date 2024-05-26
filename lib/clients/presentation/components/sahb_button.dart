@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/presentation/bloc/clients_bloc.dart';
-import 'package:fridge/clients/presentation/screens/clients_screen.dart';
 import 'package:fridge/core/components/dialogs/error_dialog.dart';
-import 'package:fridge/core/components/dialogs/loading_dialog.dart';
 import 'package:fridge/core/enums/request_state.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/resources/app_strings.dart';
-import 'package:fridge/core/services/services_locator.dart';
 
 import '../../../core/resources/app_colors.dart';
 import '../../../core/resources/styles_manager.dart';
 
 class SahbButton extends StatelessWidget {
 
-  final int storeId;
+  final Function onClick;
 
   const SahbButton({
     super.key,
-    required this.storeId
+    required this.onClick
   });
 
   @override
@@ -33,15 +30,14 @@ class SahbButton extends StatelessWidget {
           NavigateUtil().navigateUp(context);
           showError(context, state.storeSahbErrorMessage, () {});
         } else if (state.storeSahbState == RequestState.loaded) {
-          NavigateUtil().navigateUp(context);
-          NavigateUtil().navigateUp(context);
+          Future.delayed(Duration.zero).then((value) {
+            NavigateUtil().navigateUp(context);
+            NavigateUtil().navigateUp(context);
+          });
         }
       },
       child: InkWell(
-        onTap: () {
-          showLoading(context);
-          BlocProvider.of<ClientsBloc>(context).add(SahbStoreEvent(storeId));
-        },
+        onTap: () { onClick(); },
         borderRadius: const BorderRadius.all(Radius.circular(10.0)),
         child: Container(
           decoration: const BoxDecoration(

@@ -275,7 +275,10 @@ class ScreenshotWidget extends StatelessWidget {
                       isScreenshot ? Container() : Positioned(
                           bottom: 0,
                           left: 0,
-                          child: SahbButton(storeId: store.id ?? -1,)
+                          child: SahbButton(onClick: () {
+                            showLoading(context);
+                            BlocProvider.of<ClientsBloc>(context).add(SahbStoreEvent(store.id ?? -1));
+                          },)
                       )
                     ],
                   ),
