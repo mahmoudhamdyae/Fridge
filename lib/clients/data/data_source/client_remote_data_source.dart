@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:fridge/clients/data/models/add_client_request.dart';
-import 'package:fridge/clients/data/models/amount_paid_model.dart';
+import 'package:fridge/clients/data/models/amount_paid.dart';
 import 'package:fridge/clients/data/models/client_model.dart';
-import 'package:fridge/clients/domain/entities/amount_paid.dart';
 import 'package:fridge/clients/domain/entities/client.dart';
 import 'package:fridge/core/network/dio_manager.dart';
 
@@ -21,7 +20,7 @@ abstract class ClientRemoteDataSource {
   Future<void> delStore(int storeId);
   Future<void> delClient(int clientId);
   Future<void> addPaid(int clientId, String paid);
-  Future<List<AllAmount>> getAmountPaid(int clientId);
+  Future<AmountPaid> getAmountPaid(int clientId);
   Future<void> sahbStore(int storeId);
 }
 
@@ -142,7 +141,7 @@ class ClientRemoteDataSourceImpl extends ClientRemoteDataSource {
   }
 
   @override
-  Future<List<AllAmount>> getAmountPaid(int clientId) async {
+  Future<AmountPaid> getAmountPaid(int clientId) async {
     try {
       var result = await dioManager.dio.get(
           ApiConstants.getAmountPaidPath,
@@ -150,7 +149,7 @@ class ClientRemoteDataSourceImpl extends ClientRemoteDataSource {
             'customer_id': clientId
           }
       );
-      return AmountPaidModel.fromJson(result.data).allAmount ?? [];
+      return AmountPaid.fromJson(result.data);
     }  on DioException catch (error) {
       if (error.response != null) {
         throw ServerException(

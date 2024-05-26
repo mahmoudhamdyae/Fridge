@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:fridge/clients/data/models/amount_paid.dart';
 import 'package:fridge/clients/data/models/client_invoice.dart';
 import 'package:fridge/clients/data/models/client_model.dart';
 import 'package:fridge/clients/domain/entities/client.dart';
@@ -14,7 +15,6 @@ import '../../../ward/domain/entities/store.dart';
 import '../../../ward/domain/entities/ward.dart';
 import '../../../ward/domain/usecases/get_all_stores_usecase.dart';
 import '../../data/models/add_client_request.dart';
-import '../../domain/entities/amount_paid.dart';
 import '../../domain/usecases/add_client_usecase.dart';
 import '../../domain/usecases/del_client_usecase.dart';
 import '../../domain/usecases/del_store_usecase.dart';

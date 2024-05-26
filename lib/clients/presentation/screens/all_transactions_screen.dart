@@ -172,7 +172,7 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
                     return AllTransactionsTable(
                       paid: widget.amountPaid,
                       remain: widget.amountRemain,
-                      amounts: state.amounts.reversed.toList(),
+                      amounts: state.amounts,
                     );
                   },
                 ) : Container(),
@@ -197,33 +197,14 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  // todo: Add Sahb
-                                },
-                                icon: Container(
-                                  padding: const EdgeInsets.all(4.0),
-                                  decoration: const BoxDecoration(
-                                      color: AppColors.secondary,
-                                      shape: BoxShape.circle
-                                  ),
-                                  child: const Icon(
-                                    Icons.add,
-                                    color: AppColors.white,
-                                    size: 24,
-                                  ),
-                                )
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
+                          child: Text(
+                            AppStrings.addClientScreenShowAllTransactions2,
+                            style: getSmallStyle(
+                                color: AppColors.white
                             ),
-                            8.pw,
-                            Text(
-                              AppStrings.addClientScreenShowAllTransactions2,
-                              style: getSmallStyle(
-                                  color: AppColors.white
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                         Icon(
                           isSahbShown == true ? Icons.expand_less : Icons.expand_more,
@@ -234,7 +215,23 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
                   ),
                 ),
                 16.ph,
-                isSahbShown == true ? const SahbTable() : Container(),
+                isSahbShown == true ?
+                BlocBuilder<ClientsBloc, ClientsState>(
+                  buildWhen: (previous, current) =>
+                  current.getAmountPaidState == RequestState.loading ||
+                      current.getAmountPaidState == RequestState.error ||
+                      current.getAmountPaidState == RequestState.loaded,
+                  builder: (BuildContext context, state) {
+                    if (state.getAmountPaidState == RequestState.loading) {
+                      return const LoadingScreen();
+                    } else if (state.getAmountPaidState == RequestState.error) {
+                      return ErrorScreen(error: state.getAmountPaidErrorMessage);
+                    }
+                    return SahbTable(
+                      amounts: state.amounts,
+                    );
+                  },
+                ) : Container(),
                 isSahbShown == true ? 16.ph : 16.ph,
               ],
             ),

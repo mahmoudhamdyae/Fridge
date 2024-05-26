@@ -48,7 +48,7 @@ class ClientsState extends Equatable {
 
   final RequestState getAmountPaidState;
   final String getAmountPaidErrorMessage;
-  final List<AllAmount> amounts;
+  final AmountPaid amounts;
 
   final RequestState storeSahbState;
   final String storeSahbErrorMessage;
@@ -88,7 +88,7 @@ class ClientsState extends Equatable {
     this.addPaidErrorMessage = '',
     this.getAmountPaidState = RequestState.init,
     this.getAmountPaidErrorMessage = '',
-    this.amounts = const [],
+    this.amounts = const AmountPaid(),
     this.storeSahbState = RequestState.init,
     this.storeSahbErrorMessage = ''
 });
@@ -128,7 +128,7 @@ class ClientsState extends Equatable {
     String? addPaidErrorMessage,
     RequestState? getAmountPaidState,
     String? getAmountPaidErrorMessage,
-    List<AllAmount>? amounts,
+    AmountPaid? amounts,
     RequestState? storeSahbState,
     String? storeSahbErrorMessage
   }) {

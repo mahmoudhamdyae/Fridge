@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:fridge/clients/data/models/amount_paid.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/resources/app_colors.dart';
 
 import '../../../core/resources/app_strings.dart';
 import '../../../core/resources/styles_manager.dart';
-import '../../domain/entities/amount_paid.dart';
 
 class AllTransactionsTable extends StatelessWidget {
 
   final int paid;
   final int remain;
-  final List<AllAmount> amounts;
+  final AmountPaid amounts;
 
   const AllTransactionsTable({
     super.key,
@@ -97,7 +97,7 @@ class AllTransactionsTable extends StatelessWidget {
         ListView.builder(
           shrinkWrap: true,
           physics: const ClampingScrollPhysics(),
-          itemCount: amounts.length,
+          itemCount: amounts.allAmount?.length,
           itemBuilder: (BuildContext context, int index) {
             return Container(
                 padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
@@ -107,7 +107,7 @@ class AllTransactionsTable extends StatelessWidget {
                     // المبلغ المدفوع
                     Expanded(
                         child: Text(
-                          amounts[index].amountPaid.toString(),
+                          (amounts.allAmount ?? [])[index].amountPaid.toString(),
                           textAlign: TextAlign.center,
                           style: getSmallStyle(fontSize: 10.0),
                         )
@@ -115,7 +115,7 @@ class AllTransactionsTable extends StatelessWidget {
                     // التاريخ
                     Expanded(
                         child: Text(
-                          amounts[index].date ?? '',
+                          amounts.allAmount?[index].date ?? '',
                           textAlign: TextAlign.center,
                           style: getSmallStyle(fontSize: 10.0),
                         )
