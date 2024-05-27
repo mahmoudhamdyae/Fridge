@@ -20,10 +20,32 @@ class SahbTable extends StatelessWidget {
         // First Row of the table
         Row(
           children: [
-            // المبلغ المدفوع
+            // المنتج
             Expanded(
                 child: Text(
-                  AppStrings.addClientScreenTableAmountPaid,
+                  AppStrings.addClientScreenTableProduct,
+                  textAlign: TextAlign.center,
+                  style: getSmallStyle(
+                      fontSize: 14.0,
+                      color: AppColors.colorRamps3
+                  ),
+                )
+            ),
+            // رقم العنبر
+            Expanded(
+                child: Text(
+                  AppStrings.addClientScreenTableWardName,
+                  textAlign: TextAlign.center,
+                  style: getSmallStyle(
+                      fontSize: 14.0,
+                      color: AppColors.colorRamps3
+                  ),
+                )
+            ),
+            // مكان التخزين
+            Expanded(
+                child: Text(
+                  AppStrings.addClientScreenTablePlace,
                   textAlign: TextAlign.center,
                   style: getSmallStyle(
                       fontSize: 14.0,
@@ -48,17 +70,33 @@ class SahbTable extends StatelessWidget {
         ListView.builder(
           shrinkWrap: true,
           physics: const ClampingScrollPhysics(),
-          itemCount: amounts.allAmount?.length,
+          itemCount: amounts.allTrashed?.length,
           itemBuilder: (BuildContext context, int index) {
             return Container(
                 padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                 color: index % 2 == 0 ? const Color(0xffD9D9D9) : const Color(0xffEAEDF4),
                 child: Row(
                   children: [
-                    // المبلغ المدفوع
+                    // المنتج
                     Expanded(
                         child: Text(
-                          (amounts.allAmount ?? [])[index].amountPaid.toString(),
+                          amounts.allTrashed?[index].trashedStore?.product ?? '',
+                          textAlign: TextAlign.center,
+                          style: getSmallStyle(fontSize: 10.0),
+                        )
+                    ),
+                    // رقم العنبر
+                    Expanded(
+                        child: Text(
+                          amounts.allTrashed?[index].trashedStore?.partName.toString() ?? '',
+                          textAlign: TextAlign.center,
+                          style: getSmallStyle(fontSize: 10.0),
+                        )
+                    ),
+                    // مكان التخزين
+                    Expanded(
+                        child: Text(
+                          '${amounts.allTrashed?[index].trashedStore?.xAxies} * ${amounts.allTrashed?[index].trashedStore?.xAxies}',
                           textAlign: TextAlign.center,
                           style: getSmallStyle(fontSize: 10.0),
                         )
@@ -66,7 +104,7 @@ class SahbTable extends StatelessWidget {
                     // التاريخ
                     Expanded(
                         child: Text(
-                          amounts.allAmount?[index].date ?? '',
+                          amounts.allTrashed?[index].date ?? '',
                           textAlign: TextAlign.center,
                           style: getSmallStyle(fontSize: 10.0),
                         )

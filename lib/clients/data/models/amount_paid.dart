@@ -62,85 +62,34 @@ class AllTrashed extends Equatable {
 }
 
 class TrashedStore extends Equatable {
-  final int? id;
-  final int? fridgeId;
   final int? fridgePartId;
-  final int? customerId;
   final String? product;
-  final String? boxing;
-  final String? unit;
-  final int? quantity;
-  final dynamic totalWeight;
-  final int? price;
   final int? xAxies;
   final int? yAxies;
-  final String? createdAt;
-  final String? updatedAt;
-  final int? amountPaid;
-  final dynamic bagType;
-  final dynamic totalBagPrice;
-  final String? deletedAt;
+  final String? partName;
 
-  const TrashedStore(
-      {this.id,
-        this.fridgeId,
-        this.fridgePartId,
-        this.customerId,
-        this.product,
-        this.boxing,
-        this.unit,
-        this.quantity,
-        this.totalWeight,
-        this.price,
-        this.xAxies,
-        this.yAxies,
-        this.createdAt,
-        this.updatedAt,
-        this.amountPaid,
-        this.bagType,
-        this.totalBagPrice,
-        this.deletedAt});
+  const TrashedStore({
+    this.fridgePartId,
+    this.product,
+    this.xAxies,
+    this.yAxies,
+    this.partName,
+  });
 
   factory TrashedStore.fromJson(Map<String, dynamic> json) => TrashedStore(
-    id: json['id'],
-    fridgeId: json['fridge_id'],
     fridgePartId: json['fridge_part_id'],
-    customerId: json['customer_id'],
     product: json['product'],
-    boxing: json['boxing'],
-    unit: json['unit'],
-    quantity: json['quantity'],
-    totalWeight: json['total_weight'],
-    price: json['price'],
     xAxies: json['x_axies'],
     yAxies: json['y_axies'],
-    createdAt: json['created_at'],
-    updatedAt: json['updated_at'],
-    amountPaid: json['amount_paid'],
-    bagType: json['bag_type'],
-    totalBagPrice: json['total_bag_price'],
-    deletedAt: json['deleted_at'],
+    partName: json['part_name'],
   );
 
   @override
   List<Object?> get props => [
-    id,
-    fridgeId,
     fridgePartId,
-    customerId,
     product,
-    boxing,
-    unit,
-    quantity,
-    totalWeight,
-    price,
     xAxies,
     yAxies,
-    createdAt,
-    updatedAt,
-    amountPaid,
-    bagType,
-    totalBagPrice,
-    deletedAt
+    partName
   ];
 }
