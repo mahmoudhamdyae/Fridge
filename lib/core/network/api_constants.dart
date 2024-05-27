@@ -3,8 +3,7 @@ class ApiConstants {
   static String token = '';
   static bool isAuth = false;
 
-  // static const String baseUrl = "https://talaga.coding-site.com/api/";
-  static const String baseUrl = "https://d1cd-105-34-1-20.ngrok-free.app/api/"; // todo
+  static const String baseUrl = "https://talaga.coding-site.com/api/";
 
   /// Authentication
   static const String loginPath = "auth/login";
