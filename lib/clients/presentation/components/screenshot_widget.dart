@@ -74,12 +74,14 @@ class ScreenshotWidget extends StatelessWidget {
                 fontSize: 22.0,
               ),
             ),
-            isScreenshot ? Container() : ShowAllTransactionsButton(
-              amountPaid: paid,
-              amountRemain: remain,
-              clientName: clientName, 
-              clientId: clientId,
-            ),
+            isScreenshot
+                ? Container()
+                : ShowAllTransactionsButton(
+                    amountPaid: paid,
+                    amountRemain: remain,
+                    clientName: clientName,
+                    clientId: clientId,
+                  ),
           ],
         ),
         24.ph,
@@ -168,40 +170,45 @@ class ScreenshotWidget extends StatelessWidget {
                               ),
                               store.totalWeight != '0.000' ? 24.ph : 0.ph,
                               // الكمية
-                              store.totalWeight != '0.000' ? Row(
-                                children: [
-                                  Text(
-                                    AppStrings.billScreenQuantity,
-                                    style: getSmallStyle(),
-                                  ),
-                                  Text(
-                                    '${store.totalWeight} ${store.unit}',
-                                    style: getSmallStyle(
-                                      color: const Color(0xff6B6B6B),
-                                    ),
-                                  )
-                                ],
-                              ) : Container(),
+                              store.totalWeight != '0.000'
+                                  ? Row(
+                                      children: [
+                                        Text(
+                                          AppStrings.billScreenQuantity,
+                                          style: getSmallStyle(),
+                                        ),
+                                        Text(
+                                          '${store.totalWeight} ${store.unit}',
+                                          style: getSmallStyle(
+                                            color: const Color(0xff6B6B6B),
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  : Container(),
                               store.totalWeight == '0.000' ? 24.ph : 0.ph,
                               // عدد الشكاير
-                              store.totalWeight == '0.000' ? Row(
-                                children: [
-                                  Text(
-                                    AppStrings.billScreenNumber,
-                                    style: getSmallStyle(),
-                                  ),
-                                  Text(
-                                    '${store.quantity}',
-                                    style: getSmallStyle(
-                                      color: const Color(0xff6B6B6B),
-                                    ),
-                                  )
-                                ],
-                              ) : Container(),
+                              store.totalWeight == '0.000'
+                                  ? Row(
+                                      children: [
+                                        Text(
+                                          AppStrings.billScreenNumber,
+                                          style: getSmallStyle(),
+                                        ),
+                                        Text(
+                                          '${store.quantity}',
+                                          style: getSmallStyle(
+                                            color: const Color(0xff6B6B6B),
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  : Container(),
                               24.ph,
                               // رقم العنبر
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
@@ -241,13 +248,16 @@ class ScreenshotWidget extends StatelessWidget {
                               ? Container()
                               : BlocListener<ClientsBloc, ClientsState>(
                                   listenWhen: (previous, current) =>
-                                      current.delStoreState == RequestState.error ||
-                                      current.delStoreState == RequestState.loaded,
+                                      current.delStoreState ==
+                                          RequestState.error ||
+                                      current.delStoreState ==
+                                          RequestState.loaded,
                                   listener: (context, state) {
-                                    if (state.delStoreState == RequestState.error) {
+                                    if (state.delStoreState ==
+                                        RequestState.error) {
                                       NavigateUtil().navigateUp(context);
-                                      showError(context, state.delStoreErrorMessage,
-                                          () {});
+                                      showError(context,
+                                          state.delStoreErrorMessage, () {});
                                     } else if (state.delStoreState ==
                                         RequestState.loaded) {
                                       NavigateUtil().navigateUp(context);
@@ -263,23 +273,48 @@ class ScreenshotWidget extends StatelessWidget {
                                             text: AppStrings.delDialogStoreText,
                                             action: () {
                                               showLoading(context);
-                                              BlocProvider.of<ClientsBloc>(context)
-                                                  .add(DelStoreEvent(store.id ?? -1));
-                                            }
-                                        );
+                                              BlocProvider.of<ClientsBloc>(
+                                                      context)
+                                                  .add(DelStoreEvent(
+                                                      store.id ?? -1));
+                                            });
                                       },
                                       icon: const Icon(Icons.delete)),
                                 )
                         ],
                       ),
-                      isScreenshot ? Container() : Positioned(
-                          bottom: 0,
-                          left: 0,
-                          child: SahbButton(onClick: () {
-                            showLoading(context);
-                            BlocProvider.of<ClientsBloc>(context).add(SahbStoreEvent(store.id ?? -1));
-                          },)
-                      )
+                      isScreenshot
+                          ? Container()
+                          : Positioned(
+                              bottom: 0,
+                              left: 0,
+                              child: BlocListener<ClientsBloc, ClientsState>(
+                                listenWhen: (previous, current) =>
+                                    current.storeSahbState ==
+                                        RequestState.loaded ||
+                                    current.storeSahbState ==
+                                        RequestState.error,
+                                listener: (context, state) {
+                                  if (state.storeSahbState ==
+                                      RequestState.error) {
+                                    NavigateUtil().navigateUp(context);
+                                    showError(context,
+                                        state.storeSahbErrorMessage, () {});
+                                  } else if (state.storeSahbState ==
+                                      RequestState.loaded) {
+                                      NavigateUtil().navigateUp(context);
+                                      NavigateUtil().navigateUp(context);
+                                      NavigateUtil().navigateUp(context);
+                                  }
+                                },
+                                child: SahbButton(
+                                  onClick: () {
+                                    BlocProvider.of<ClientsBloc>(context).add(
+                                        SahbStoreEvent(store.id ?? -1,
+                                            store.customerId ?? -1));
+                                  },
+                                ),
+                              ))
                     ],
                   ),
                 ),

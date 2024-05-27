@@ -283,7 +283,10 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
   }
 
   Future<void> _getClientInvoice(GetClientInvoiceEvent event, Emitter<ClientsState> emit) async {
-    emit(state.copyWith(getInvoiceState: RequestState.loading));
+    emit(state.copyWith(
+        getInvoiceState: RequestState.loading,
+        storeSahbState: RequestState.init
+    ));
     final result = await _getClientInvoiceUsecase.call(event.clientId);
     result.fold((l) {
       emit(state.copyWith(getInvoiceState: RequestState.error));
@@ -366,16 +369,25 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
   }
 
   Future<void> _sahbStore(SahbStoreEvent event, Emitter<ClientsState> emit) async {
-    emit(state.copyWith(storeSahbState: RequestState.loading));
+    emit(state.copyWith(storeSahbState: RequestState.loading, getInvoiceState: RequestState.loading));
     final result = await _sahbStoreUsecase.call(event.storeId);
+    final invoiceResult = await _getClientInvoiceUsecase.call(event.customerId);
     result.fold((l) {
       emit(state.copyWith(
           storeSahbState: RequestState.error,
           storeSahbErrorMessage: l.message
       ));
     }, (r) {
-      emit(state.copyWith(
-          storeSahbState: RequestState.loaded,
-      ));});
+      emit(state.copyWith(getInvoiceState: RequestState.loading, storeSahbState: RequestState.loaded,));
+      invoiceResult.fold((l) {
+        emit(state.copyWith(getInvoiceState: RequestState.error));
+      }, (invoice) {
+        emit(state.copyWith(
+          storeSahbState: RequestState.init,
+          getInvoiceState: RequestState.loaded,
+          invoice: invoice,
+        ));
+      });
+    });
   }
 }
