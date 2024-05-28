@@ -77,7 +77,7 @@ class _MonthTabState extends State<MonthTab> {
                         fontSize: 12,
                       ),
                     ),
-                    16.ph,
+                    32.ph,
                     SizedBox(
                       height: 250,
                       child: SingleChildScrollView(
@@ -103,9 +103,26 @@ class _MonthTabState extends State<MonthTab> {
               ),
               16.ph,
               ExpensesBox(
-                expenses: state.months.totalExpense,
-                totalIncome: state.months.totalIncome,
+                firstLabel:  AppStrings.reportsTabExpenses,
+                firstValue: '${state.months.totalExpense} ${AppStrings.egp}',
+                secondLabel: AppStrings.reportsTabProfits,
+                secondValue: '${(state.months.totalIncome ?? 0) - (state.months.totalExpense ?? 0)} ${AppStrings.egp}',
               ),
+              16.ph,
+              ExpensesBox(
+                firstLabel:  AppStrings.reportsTabAmountPaid,
+                firstValue: '${state.months.amountPaid ?? 0} ${AppStrings.egp}',
+                secondLabel: AppStrings.reportsTabAmountRemain,
+                secondValue: '${state.months.amountRemain ?? 0} ${AppStrings.egp}',
+              ),
+              16.ph,
+              ExpensesBox(
+                firstLabel:  AppStrings.reportsTabTons,
+                firstValue: '${state.months.ton ?? 0} ${AppStrings.ton}',
+                secondLabel: AppStrings.reportsTabBags,
+                secondValue: '${state.months.bags ?? 0} ${AppStrings.bags}',
+              ),
+              16.ph,
             ],
           );
         }

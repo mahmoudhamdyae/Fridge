@@ -78,7 +78,7 @@ class _YearTabState extends State<YearTab> {
                         fontSize: 12,
                       ),
                     ),
-                    16.ph,
+                    32.ph,
                     SizedBox(
                       height: 250,
                       child: SingleChildScrollView(
@@ -104,9 +104,26 @@ class _YearTabState extends State<YearTab> {
               ),
               16.ph,
               ExpensesBox(
-                expenses: state.years.totalExpense,
-                totalIncome: state.years.totalIncome,
+                firstLabel:  AppStrings.reportsTabExpenses,
+                firstValue: '${state.years.totalExpense} ${AppStrings.egp}',
+                secondLabel: AppStrings.reportsTabProfits,
+                secondValue: '${(state.years.totalIncome ?? 0) - (state.years.totalExpense ?? 0)} ${AppStrings.egp}',
               ),
+              16.ph,
+              ExpensesBox(
+                firstLabel:  AppStrings.reportsTabAmountPaid,
+                firstValue: '${state.years.amountPaid ?? 0} ${AppStrings.egp}',
+                secondLabel: AppStrings.reportsTabAmountRemain,
+                secondValue: '${state.years.amountRemain ?? 0} ${AppStrings.egp}',
+              ),
+              16.ph,
+              ExpensesBox(
+                firstLabel:  AppStrings.reportsTabTons,
+                firstValue: '${state.years.ton ?? 0} ${AppStrings.ton}',
+                secondLabel: AppStrings.reportsTabBags,
+                secondValue: '${state.years.bags ?? 0} ${AppStrings.bags}',
+              ),
+              16.ph,
             ],
           );
         }

@@ -78,7 +78,7 @@ class _WeekTabState extends State<WeekTab> {
                         fontSize: 12,
                       ),
                     ),
-                    16.ph,
+                    32.ph,
                     SizedBox(
                       height: 200,
                       child: BarChart(
@@ -98,9 +98,26 @@ class _WeekTabState extends State<WeekTab> {
               ),
               16.ph,
               ExpensesBox(
-                expenses: state.weeks.totalExpense,
-                totalIncome: state.weeks.totalIncome,
+                firstLabel:  AppStrings.reportsTabExpenses,
+                firstValue: '${state.weeks.totalExpense} ${AppStrings.egp}',
+                secondLabel: AppStrings.reportsTabProfits,
+                secondValue: '${(state.weeks.totalIncome ?? 0) - (state.weeks.totalExpense ?? 0)} ${AppStrings.egp}',
               ),
+              16.ph,
+              ExpensesBox(
+                firstLabel:  AppStrings.reportsTabAmountPaid,
+                firstValue: '${state.weeks.amountPaid ?? 0} ${AppStrings.egp}',
+                secondLabel: AppStrings.reportsTabAmountRemain,
+                secondValue: '${state.weeks.amountRemain ?? 0} ${AppStrings.egp}',
+              ),
+              16.ph,
+              ExpensesBox(
+                firstLabel:  AppStrings.reportsTabTons,
+                firstValue: '${state.weeks.ton ?? 0} ${AppStrings.ton}',
+                secondLabel: AppStrings.reportsTabBags,
+                secondValue: '${state.weeks.bags ?? 0} ${AppStrings.bags}',
+              ),
+              16.ph,
             ],
           );
         }

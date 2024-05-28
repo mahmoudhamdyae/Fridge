@@ -12,10 +12,22 @@ class MonthResponse {
 
 class Month {
   List<MonthChart>? chart;
-  dynamic totalIncome;
-  dynamic totalExpense;
+  int? totalIncome;
+  int? totalExpense;
+  int? amountPaid;
+  int? amountRemain;
+  num? ton;
+  int? bags;
 
-  Month({this.chart, this.totalIncome, this.totalExpense});
+  Month({
+    this.chart,
+    this.totalIncome,
+    this.totalExpense,
+    this.amountPaid,
+    this.amountRemain,
+    this.ton,
+    this.bags,
+  });
 
   Month.fromJson(Map<String, dynamic> json) {
     if (json['chart'] != null) {
@@ -24,8 +36,12 @@ class Month {
         chart!.add(MonthChart.fromJson(v));
       });
     }
-    totalIncome = json['totalIncome'];
+    totalIncome = json['total_price'];
     totalExpense = json['totalExpense'];
+    amountPaid = json['amount_paid'];
+    amountRemain = json['amount_remain'];
+    ton = json['tons'];
+    bags = json['bags'];
   }
 }
 

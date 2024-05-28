@@ -123,17 +123,6 @@ class ClientItem extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    client.type == 0
-                        ? AppStrings.addClientScreenTraderWithQ
-                        : AppStrings.addClientScreenDealerWithQ,
-                    style: getSmallStyle(
-                      fontWeight: FontWeightManager.medium,
-                      fontSize: 12,
-                      color: const Color(0xff666666),
-                    ),
-                  ),
-                  8.ph,
-                  Text(
                     client.address ?? '',
                     style: getSmallStyle(
                       fontWeight: FontWeightManager.medium,

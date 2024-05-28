@@ -274,8 +274,6 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                       16.ph,
                       Row(
                         children: [
-                          Expanded(child: Container()),
-                          Expanded(child: Container()),
                           Expanded(child: Text(
                             AppStrings.expensesScreenTotal,
                             textAlign: TextAlign.center,
@@ -283,13 +281,15 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                               color: AppColors.colorRamps2
                             ),
                           )),
-                          Expanded(child: Text(
+                          Expanded(flex: 2, child: Text(
                             '$totalPrice ${AppStrings.egp}',
                             textAlign: TextAlign.center,
                             style: getSmallStyle(
                                 color: AppColors.colorRamps3
                             ),
                           )),
+                          Expanded(child: Container()),
+                          Expanded(child: Container()),
                         ],
                       ),
                     ],

@@ -51,18 +51,8 @@ class AppStrings {
   static const updateDialogButtonLabelCancel = 'لاحقًا';
 
   static const egp = 'ج.م';
-
-
-
-
-
-
-
-
-
-
-
-
+  static const ton = 'طن';
+  static const bags = 'شكاير';
 
   // Start Screen
   static const String startScreenHello = 'مرحبا..';
@@ -78,7 +68,6 @@ class AppStrings {
   static const String loginScreenPhoneHint = 'ادخل رقم التليفون';
   static const String loginScreenPasswordLabel = 'كلمة السر';
   static const String loginScreenPasswordHint = 'ادخل كلمة السر';
-  // static const String loginScreenForgotPassword = 'هل نسيت كلمة السر؟';
   static const String loginScreenLoginButton = 'تسجيل الدخول';
   static const String loginScreenNoAccount = 'ليس لديك حساب؟';
   static const String loginScreenNewAccount = 'تسجيل مستخدم جديد';
@@ -272,6 +261,10 @@ class AppStrings {
   static const String reportsTabEGP = 'ج.م';
   static const String reportsTabExpenses = 'المصاريف';
   static const String reportsTabProfits = 'الأرباح';
+  static const String reportsTabAmountPaid = 'المبالغ المدفوعة';
+  static const String reportsTabAmountRemain = 'المبالغ المتبقية';
+  static const String reportsTabTons = 'عدد الأطنان';
+  static const String reportsTabBags = 'عدد الشكاير';
   static const String reportsTabSat = 'سبت';
   static const String reportsTabSun = 'آحد';
   static const String reportsTabMon = 'إثنين';

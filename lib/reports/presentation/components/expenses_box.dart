@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:fridge/core/extensions/num_extensions.dart';
+import 'package:fridge/core/extensions/context_extension.dart';
 
 import '../../../core/resources/app_colors.dart';
-import '../../../core/resources/app_strings.dart';
 import '../../../core/resources/styles_manager.dart';
 
 class ExpensesBox extends StatelessWidget {
 
-  final dynamic expenses;
-  final dynamic totalIncome;
-  const ExpensesBox({super.key, required this.expenses, this.totalIncome});
+  final String firstLabel;
+  final String firstValue;
+  final String secondLabel;
+  final String secondValue;
+
+  const ExpensesBox({
+    super.key,
+    required this.firstLabel,
+    required this.firstValue,
+    required this.secondLabel,
+    required this.secondValue,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,37 +36,47 @@ class ExpensesBox extends StatelessWidget {
             ),
           ]
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            '$expenses ${AppStrings.egp}',
-            style: getLargeStyle(
-                fontSize: 20,
-                color: const Color(0xff193263)
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: context.dynamicWidth(.1)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              children: [
+                Text(
+                  firstValue,
+                  style: getLargeStyle(
+                      fontSize: 20,
+                      color: const Color(0xff193263)
+                  ),
+                ),
+                Text(
+                 firstLabel,
+                  style: getSmallStyle(
+                    fontSize: 16,
+                  ),
+                ),
+              ],
             ),
-          ),
-          Text(
-            AppStrings.reportsTabExpenses,
-            style: getSmallStyle(
-              fontSize: 16,
+            Column(
+              children: [
+                Text(
+                  secondValue,
+                  style: getLargeStyle(
+                      fontSize: 20,
+                      color: const Color(0xff193263)
+                  ),
+                ),
+                Text(
+                  secondLabel,
+                  style: getSmallStyle(
+                    fontSize: 16,
+                  ),
+                ),
+              ],
             ),
-          ),
-          32.ph,
-          Text(
-            '${double.parse(totalIncome.toString()) - double.parse(expenses.toString())} ${AppStrings.egp}',
-            style: getLargeStyle(
-                fontSize: 20,
-                color: const Color(0xff193263)
-            ),
-          ),
-          Text(
-            AppStrings.reportsTabProfits,
-            style: getSmallStyle(
-              fontSize: 16,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -40,31 +40,31 @@ class ScreenshotWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              AppStrings.billScreenClientName,
-              style: getSmallStyle(),
-            ),
-            Row(
-              children: [
-                32.pw,
-                Text(
-                  AppStrings.billScreenClientDate,
-                  style: getSmallStyle(),
-                ),
-                Text(
-                  '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
-                  style: getSmallStyle(
-                    color: const Color(0xff5D5D5D),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-        16.ph,
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     Text(
+        //       AppStrings.billScreenClientName,
+        //       style: getSmallStyle(),
+        //     ),
+        //     Row(
+        //       children: [
+        //         32.pw,
+        //         Text(
+        //           AppStrings.billScreenClientDate,
+        //           style: getSmallStyle(),
+        //         ),
+        //         Text(
+        //           '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
+        //           style: getSmallStyle(
+        //             color: const Color(0xff5D5D5D),
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //   ],
+        // ),
+        // 16.ph,
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
