@@ -40,31 +40,6 @@ class ScreenshotWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //   children: [
-        //     Text(
-        //       AppStrings.billScreenClientName,
-        //       style: getSmallStyle(),
-        //     ),
-        //     Row(
-        //       children: [
-        //         32.pw,
-        //         Text(
-        //           AppStrings.billScreenClientDate,
-        //           style: getSmallStyle(),
-        //         ),
-        //         Text(
-        //           '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
-        //           style: getSmallStyle(
-        //             color: const Color(0xff5D5D5D),
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //   ],
-        // ),
-        // 16.ph,
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -236,6 +211,22 @@ class ScreenshotWidget extends StatelessWidget {
                                   ),
                                   Text(
                                     '${(store.xAxies ?? 0) + 1} * ${(store.yAxies ?? 0) + 1}',
+                                    style: getSmallStyle(
+                                      color: const Color(0xff6B6B6B),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              24.ph,
+                              // التاريخ
+                              Row(
+                                children: [
+                                  Text(
+                                    AppStrings.billScreenDate,
+                                    style: getSmallStyle(),
+                                  ),
+                                  Text(
+                                    '${store.date}',
                                     style: getSmallStyle(
                                       color: const Color(0xff6B6B6B),
                                     ),
