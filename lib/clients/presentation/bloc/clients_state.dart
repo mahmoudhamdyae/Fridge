@@ -21,6 +21,11 @@ class ClientsState extends Equatable {
   final String clientAddress;
   final int clientType;
 
+  final int amountPaid;
+  final int amountRemain;
+  final num tons;
+  final int bags;
+
   final ProductToAdd productToAdd;
 
   final List<Position> positions;
@@ -69,6 +74,10 @@ class ClientsState extends Equatable {
     this.clientPhone = '',
     this.clientAddress = '',
     this.clientType = 0,
+    this.amountPaid = 0,
+    this.amountRemain = 0,
+    this.tons = 0,
+    this.bags = 0,
     this.productToAdd = const ProductToAdd(),
     this.positions = const [],
     this.addClientState = RequestState.loading,
@@ -109,6 +118,10 @@ class ClientsState extends Equatable {
     String? clientPhone,
     String? clientAddress,
     int? clientType,
+    int? amountPaid,
+    int? amountRemain,
+    num? tons,
+    int? bags,
     ProductToAdd? productToAdd,
     List<Position>? positions,
     RequestState? addClientState,
@@ -148,6 +161,10 @@ class ClientsState extends Equatable {
       clientPhone: clientPhone ?? this.clientPhone,
       clientAddress: clientAddress ?? this.clientAddress,
       clientType: clientType ?? this.clientType,
+      amountPaid: amountPaid ?? this.amountPaid,
+      amountRemain: amountRemain ?? this.amountRemain,
+      tons: tons ?? this.tons,
+      bags: bags ?? this.bags,
       productToAdd: productToAdd ?? this.productToAdd,
       positions: positions ?? this.positions,
       addClientState: addClientState ?? this.addClientState,
@@ -180,6 +197,7 @@ class ClientsState extends Equatable {
     remoteSmallBagPrice, remoteLargeBagPrice,
     wards, ward,
     clientName, clientPhone, clientAddress, clientType,
+    amountPaid, amountRemain, tons, bags,
     productToAdd,
     positions,
     addClientState, addClientErrorMessage,

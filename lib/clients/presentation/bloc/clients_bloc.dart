@@ -251,7 +251,11 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
             phone: state.clientPhone,
             address: state.clientAddress,
             type: state.clientType,
-            fridgeId: state.ward.id
+            fridgeId: state.ward.id,
+            amountPaid: state.amountPaid,
+            amountRemain: state.amountRemain,
+            tons: state.tons,
+            bags: state.bags
         ));
       }
 

@@ -110,6 +110,10 @@ class AppStrings {
   static const String clientsScreenAddMore = 'إضافة المزيد';
   static const String clientsScreenShowAllTransactions = 'عرض جميع المعاملات';
   static const String clientsScreenSahbButton = 'سحب';
+  static const String clientsScreenAmountPaid = 'المبلغ المدفوع: ';
+  static const String clientsScreenAmountRemain = 'المبلغ المتبقى: ';
+  static const String clientsScreenTons = 'عدد الأطنان: ';
+  static const String clientsScreenBags = 'عدد الشكاير: ';
 
   // Add Client Screen
   static const String addClientScreenAddClient = 'إضافة عميل جديد';

@@ -71,8 +71,7 @@ class ClientItem extends StatelessWidget {
                   SizedBox(
                     width: context.dynamicWidth(.8),
                     child: Row(
-                      mainAxisAlignment:
-                      MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           client.name ?? '',
@@ -122,7 +121,7 @@ class ClientItem extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Text(
+                  client.address == null ? Container() : Text(
                     client.address ?? '',
                     style: getSmallStyle(
                       fontWeight: FontWeightManager.medium,
@@ -131,6 +130,88 @@ class ClientItem extends StatelessWidget {
                     ),
                   ),
                   8.ph,
+                  SizedBox(
+                    width: context.dynamicWidth(.75),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // المبلغ المدفوع
+                        Row(
+                          children: [
+                            Text(
+                              AppStrings.clientsScreenAmountPaid,
+                              style: getSmallStyle(),
+                            ),
+                            Text(
+                              '${client.amountPaid} ${AppStrings.egp}',
+                              style: getSmallStyle(
+                                fontWeight:
+                                FontWeightManager.medium,
+                                fontSize: 14,
+                                color: const Color(0xff6B6B6B),
+                              ),
+                            ),
+                          ],
+                        ),
+                        // المبلغ المتبقى
+                        Row(
+                          children: [
+                            Text(
+                              AppStrings.clientsScreenAmountRemain,
+                              style: getSmallStyle(),
+                            ),
+                            Text(
+                              '${client.amountRemain} ${AppStrings.egp}',
+                              style: getSmallStyle(
+                                fontWeight:
+                                FontWeightManager.medium,
+                                fontSize: 14,
+                                color: const Color(0xff6B6B6B),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  8.ph,
+                  // عدد الأطنان
+                  client.bags == 0 ? Row(
+                    children: [
+                      Text(
+                        AppStrings.clientsScreenTons,
+                        style: getSmallStyle(),
+                      ),
+                      Text(
+                        client.tons.toString(),
+                        style: getSmallStyle(
+                          fontWeight:
+                          FontWeightManager.medium,
+                          fontSize: 14,
+                          color: const Color(0xff6B6B6B),
+                        ),
+                      ),
+                    ],
+                  ) :
+                  // عدد الشكاير
+                  Row(
+                    children: [
+                      Text(
+                        AppStrings.clientsScreenBags,
+                        style: getSmallStyle(),
+                      ),
+                      Text(
+                        client.bags.toString(),
+                        style: getSmallStyle(
+                          fontWeight:
+                          FontWeightManager.medium,
+                          fontSize: 14,
+                          color: const Color(0xff6B6B6B),
+                        ),
+                      ),
+                    ],
+                  ),
+                  12.ph,
                   SizedBox(
                       width: context.dynamicWidth(.8),
                       child: AddMoreButton(client: client,)

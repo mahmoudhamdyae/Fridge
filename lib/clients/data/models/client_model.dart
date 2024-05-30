@@ -25,7 +25,11 @@ class ClientModel extends Client {
     required super.phone,
     required super.address,
     required super.type,
-    required super.fridgeId
+    required super.fridgeId,
+    required super.amountPaid,
+    required super.amountRemain,
+    required super.tons,
+    required super.bags
   });
 
   factory ClientModel.fromJson(Map<String, dynamic> json) => ClientModel(
@@ -34,6 +38,10 @@ class ClientModel extends Client {
     phone: json['phone'],
     address: json['address'],
     type: json['type'],
-    fridgeId: json['fridge_id']
+    fridgeId: json['fridge_id'],
+    amountPaid: json['amount_paid'],
+    amountRemain: json['amount_remain'],
+    tons: json['tons'],
+    bags: json['bags'],
   );
 }
