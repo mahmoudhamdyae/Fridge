@@ -164,6 +164,8 @@ class AppStrings {
   static const String addClientScreenTotalRemain = 'إجمالى المبلغ المتبقى: ';
   static const String addClientScreenTableAmountPaid = 'المبلغ المدفوع';
   static const String addClientScreenTableDate = 'التاريخ';
+  static const String addClientScreenTableTons = 'عدد الأطنان المسحوبة';
+  static const String addClientScreenTableBags = 'عدد الشكاير المسحوبة';
   static const String addClientScreenTableProduct = 'المنتج';
   static const String addClientScreenTableWardName = 'رقم العنبر';
   static const String addClientScreenTablePlace = 'مكان التخزين';

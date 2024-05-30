@@ -31,6 +31,17 @@ class SahbTable extends StatelessWidget {
                   ),
                 )
             ),
+            // عدد الأطنان المسحوبة
+            Expanded(
+                child: Text(
+                  amounts.allTrashed?[0].trashedStore?.unitType == 'شكاره' ? AppStrings.addClientScreenTableBags : AppStrings.addClientScreenTableTons,
+                  textAlign: TextAlign.center,
+                  style: getSmallStyle(
+                      fontSize: 14.0,
+                      color: AppColors.colorRamps3
+                  ),
+                )
+            ),
             // رقم العنبر
             Expanded(
                 child: Text(
@@ -81,6 +92,14 @@ class SahbTable extends StatelessWidget {
                     Expanded(
                         child: Text(
                           amounts.allTrashed?[index].trashedStore?.product ?? '',
+                          textAlign: TextAlign.center,
+                          style: getSmallStyle(fontSize: 10.0),
+                        )
+                    ),
+                    // عدد الأطنان المسحوبة
+                    Expanded(
+                        child: Text(
+                          '${amounts.allTrashed?[index].trashedStore?.count}',
                           textAlign: TextAlign.center,
                           style: getSmallStyle(fontSize: 10.0),
                         )

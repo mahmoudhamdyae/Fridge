@@ -67,6 +67,8 @@ class TrashedStore extends Equatable {
   final int? xAxies;
   final int? yAxies;
   final String? partName;
+  final String? unitType;
+  final num? count;
 
   const TrashedStore({
     this.fridgePartId,
@@ -74,6 +76,8 @@ class TrashedStore extends Equatable {
     this.xAxies,
     this.yAxies,
     this.partName,
+    this.unitType,
+    this.count,
   });
 
   factory TrashedStore.fromJson(Map<String, dynamic> json) => TrashedStore(
@@ -82,6 +86,8 @@ class TrashedStore extends Equatable {
     xAxies: json['x_axies'],
     yAxies: json['y_axies'],
     partName: json['part_name'],
+    unitType: json['unit_type'],
+    count: json['count'],
   );
 
   @override
@@ -90,6 +96,8 @@ class TrashedStore extends Equatable {
     product,
     xAxies,
     yAxies,
-    partName
+    partName,
+    unitType,
+    count
   ];
 }
