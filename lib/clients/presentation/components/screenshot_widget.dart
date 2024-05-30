@@ -286,7 +286,9 @@ class ScreenshotWidget extends StatelessWidget {
                             current.storeSahbState ==
                                 RequestState.loaded ||
                                 current.storeSahbState ==
-                                    RequestState.error,
+                                    RequestState.error ||
+                                current.storeSahbState ==
+                                    RequestState.loading,
                             listener: (context, state) {
                               if (state.storeSahbState ==
                                   RequestState.error) {
@@ -297,6 +299,9 @@ class ScreenshotWidget extends StatelessWidget {
                                   RequestState.loaded) {
                                 NavigateUtil().navigateUp(context);
                                 NavigateUtil().navigateUp(context);
+                                NavigateUtil().navigateUp(context);
+                              } else if (state.storeSahbState ==
+                                  RequestState.loading) {
                                 NavigateUtil().navigateUp(context);
                               }
                             },

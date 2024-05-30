@@ -379,12 +379,17 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
     result.fold((l) {
       emit(state.copyWith(
           storeSahbState: RequestState.error,
-          storeSahbErrorMessage: l.message
+          storeSahbErrorMessage: l.message,
+          getInvoiceState: RequestState.error,
+          getClientInvoiceErrorMessage: l.message
       ));
     }, (r) {
       emit(state.copyWith(getInvoiceState: RequestState.loading, storeSahbState: RequestState.loaded,));
       invoiceResult.fold((l) {
-        emit(state.copyWith(getInvoiceState: RequestState.error));
+        emit(state.copyWith(
+            getInvoiceState: RequestState.error,
+            getClientInvoiceErrorMessage: l.message
+        ));
       }, (invoice) {
         emit(state.copyWith(
           storeSahbState: RequestState.init,

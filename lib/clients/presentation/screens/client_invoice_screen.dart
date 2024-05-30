@@ -74,7 +74,7 @@ class _ClientInvoiceScreenState extends State<ClientInvoiceScreen> {
                   builder: (context, state) {
                     if (state.getInvoiceState == RequestState.loading) {
                       return const LoadingScreen();
-                    } else if (state.getInvoiceState == RequestState.loading) {
+                    } else if (state.getInvoiceState == RequestState.error) {
                       return ErrorScreen(error: state.getClientInvoiceErrorMessage);
                     } else if (state.getInvoiceState == RequestState.loaded) {
                       stores = state.invoice.stores ?? [];
