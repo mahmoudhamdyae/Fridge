@@ -123,7 +123,8 @@ class GetAmountPaidEvent extends ClientsEvent {
 class SahbStoreEvent extends ClientsEvent {
   final int storeId;
   final int customerId;
-  const SahbStoreEvent(this.storeId, this.customerId);
+  final num tons;
+  const SahbStoreEvent(this.storeId, this.customerId, this.tons);
   @override
-  List<Object?> get props => [storeId, customerId];
+  List<Object?> get props => [storeId, customerId, tons];
 }

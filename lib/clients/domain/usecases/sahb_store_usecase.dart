@@ -7,7 +7,7 @@ class SahbStoreUsecase {
 
   SahbStoreUsecase(this.repository);
 
-  Future<Either<Failure, void>> call(int storeId) async {
-    return await repository.sahbStore(storeId);
+  Future<Either<Failure, void>> call(int storeId, num tons) async {
+    return await repository.sahbStore(storeId, tons);
   }
 }

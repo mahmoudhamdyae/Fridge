@@ -34,7 +34,7 @@ class ApiConstants {
   static String delClientPath(int clientId) => "app/customer/delete/$clientId";
   static String addPaidPath = "app/store/add_amount_paid";
   static String getAmountPaidPath = 'app/store/get_amount_paid';
-  static String sahbStore(int storeId) => 'app/store/trashed/$storeId';
+  static String sahbStore(int storeId, num tons) => 'app/store/trashed/$storeId/$tons';
 
   /// Expenses
   static const String getExpensePath = "app/expense";

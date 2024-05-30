@@ -21,7 +21,7 @@ abstract class ClientRemoteDataSource {
   Future<void> delClient(int clientId);
   Future<void> addPaid(int clientId, String paid);
   Future<AmountPaid> getAmountPaid(int clientId);
-  Future<void> sahbStore(int storeId);
+  Future<void> sahbStore(int storeId, num tons);
 }
 
 class ClientRemoteDataSourceImpl extends ClientRemoteDataSource {
@@ -164,9 +164,9 @@ class ClientRemoteDataSourceImpl extends ClientRemoteDataSource {
   }
 
   @override
-  Future<void> sahbStore(int storeId) async {
+  Future<void> sahbStore(int storeId, num tons) async {
     try {
-      await dioManager.dio.post(ApiConstants.sahbStore(storeId));
+      await dioManager.dio.post(ApiConstants.sahbStore(storeId, tons));
     }  on DioException catch (error) {
       if (error.response != null) {
         throw ServerException(

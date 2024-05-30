@@ -82,9 +82,9 @@ class ClientRepositoryImpl extends ClientRepository {
   }
 
   @override
-  Future<Either<Failure, void>> sahbStore(int storeId) async {
+  Future<Either<Failure, void>> sahbStore(int storeId, num tons) async {
     try {
-      var response = await remoteDataSource.sahbStore(storeId);
+      var response = await remoteDataSource.sahbStore(storeId, tons);
       return Right(response);
     } on ServerException catch (error) {
       return Left(ServerFailure(error.errorMessageModel.message));

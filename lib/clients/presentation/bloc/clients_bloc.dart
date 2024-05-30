@@ -374,7 +374,7 @@ class ClientsBloc extends Bloc<ClientsEvent, ClientsState> {
 
   Future<void> _sahbStore(SahbStoreEvent event, Emitter<ClientsState> emit) async {
     emit(state.copyWith(storeSahbState: RequestState.loading, getInvoiceState: RequestState.loading));
-    final result = await _sahbStoreUsecase.call(event.storeId);
+    final result = await _sahbStoreUsecase.call(event.storeId, event.tons);
     final invoiceResult = await _getClientInvoiceUsecase.call(event.customerId);
     result.fold((l) {
       emit(state.copyWith(

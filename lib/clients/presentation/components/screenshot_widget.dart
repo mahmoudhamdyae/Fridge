@@ -310,8 +310,11 @@ class ScreenshotWidget extends StatelessWidget {
                                     action: (tons) {
                                       BlocProvider.of<ClientsBloc>(context)
                                           .add(
-                                          SahbStoreEvent(store.id ?? -1,
-                                              store.customerId ?? -1));
+                                          SahbStoreEvent(
+                                              store.id ?? -1,
+                                              store.customerId ?? -1,
+                                              num.parse(tons)
+                                          ));
                                     }
                                 );
                               },
