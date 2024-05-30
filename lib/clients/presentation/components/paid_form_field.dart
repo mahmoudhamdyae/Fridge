@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fridge/core/resources/app_strings.dart';
 import 'package:fridge/core/resources/styles_manager.dart';
 
 import '../../../../core/utils/validate_operations.dart';
@@ -7,9 +6,12 @@ import '../../../../core/utils/validate_operations.dart';
 class PaidFormField extends StatelessWidget {
 
   final TextEditingController paidController;
+  final String label;
+
   const PaidFormField({
     super.key,
     required this.paidController,
+    required this.label,
   });
 
 
@@ -17,7 +19,7 @@ class PaidFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: getFilledTextFieldDecorationWithLabel(
-        label: AppStrings.addPaidDialogLabel,
+        label: label,
       ),
       controller: paidController,
       textInputAction: TextInputAction.next,

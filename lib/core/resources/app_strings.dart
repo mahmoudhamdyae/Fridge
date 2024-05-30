@@ -44,6 +44,11 @@ class AppStrings {
   static const String addPaidDialogTitle = 'إضافة مبلغ';
   static const String addPaidDialogLabel = 'المبلغ';
   static const String addPaidDialogOk = 'إضافة';
+  // Add Tons Dialog
+  static const String addTonsDialogTitle = 'سحب';
+  static const String addTonsDialogLabel = 'عدد الأطنان المراد سحبها';
+  static const String addBagsDialogLabel = 'عدد الشكاير المراد سحبها';
+  static const String addTonsDialogOk = 'سحب';
   // Update Dialog
   static const updateDialogTitle = 'تحديث جديد متاح';
   static const updateDialogMessage = 'يتوفر إصدار أحدث من التطبيق، يرجى تحديثه الآن.';

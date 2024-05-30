@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/clients/presentation/bloc/clients_bloc.dart';
 import 'package:fridge/clients/presentation/components/sahb_button.dart';
+import 'package:fridge/clients/presentation/components/sahb_dialog.dart';
 import 'package:fridge/clients/presentation/components/show_all_transactions_button.dart';
 import 'package:fridge/core/components/dialogs/del_dialog.dart';
 import 'package:fridge/core/components/dialogs/error_dialog.dart';
@@ -52,11 +53,11 @@ class ScreenshotWidget extends StatelessWidget {
             isScreenshot
                 ? Container()
                 : ShowAllTransactionsButton(
-                    amountPaid: paid,
-                    amountRemain: remain,
-                    clientName: clientName,
-                    clientId: clientId,
-                  ),
+              amountPaid: paid,
+              amountRemain: remain,
+              clientName: clientName,
+              clientId: clientId,
+            ),
           ],
         ),
         24.ph,
@@ -147,43 +148,43 @@ class ScreenshotWidget extends StatelessWidget {
                               // الكمية
                               store.totalWeight != '0.000'
                                   ? Row(
-                                      children: [
-                                        Text(
-                                          AppStrings.billScreenQuantity,
-                                          style: getSmallStyle(),
-                                        ),
-                                        Text(
-                                          '${store.totalWeight} ${store.unit}',
-                                          style: getSmallStyle(
-                                            color: const Color(0xff6B6B6B),
-                                          ),
-                                        )
-                                      ],
-                                    )
+                                children: [
+                                  Text(
+                                    AppStrings.billScreenQuantity,
+                                    style: getSmallStyle(),
+                                  ),
+                                  Text(
+                                    '${store.totalWeight} ${store.unit}',
+                                    style: getSmallStyle(
+                                      color: const Color(0xff6B6B6B),
+                                    ),
+                                  )
+                                ],
+                              )
                                   : Container(),
                               store.totalWeight == '0.000' ? 24.ph : 0.ph,
                               // عدد الشكاير
                               store.totalWeight == '0.000'
                                   ? Row(
-                                      children: [
-                                        Text(
-                                          AppStrings.billScreenNumber,
-                                          style: getSmallStyle(),
-                                        ),
-                                        Text(
-                                          '${store.quantity}',
-                                          style: getSmallStyle(
-                                            color: const Color(0xff6B6B6B),
-                                          ),
-                                        )
-                                      ],
-                                    )
+                                children: [
+                                  Text(
+                                    AppStrings.billScreenNumber,
+                                    style: getSmallStyle(),
+                                  ),
+                                  Text(
+                                    '${store.quantity}',
+                                    style: getSmallStyle(
+                                      color: const Color(0xff6B6B6B),
+                                    ),
+                                  )
+                                ],
+                              )
                                   : Container(),
                               24.ph,
                               // رقم العنبر
                               Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
@@ -210,7 +211,8 @@ class ScreenshotWidget extends StatelessWidget {
                                     style: getSmallStyle(),
                                   ),
                                   Text(
-                                    '${(store.xAxies ?? 0) + 1} * ${(store.yAxies ?? 0) + 1}',
+                                    '${(store.xAxies ?? 0) + 1} * ${(store
+                                        .yAxies ?? 0) + 1}',
                                     style: getSmallStyle(
                                       color: const Color(0xff6B6B6B),
                                     ),
@@ -238,74 +240,83 @@ class ScreenshotWidget extends StatelessWidget {
                           isScreenshot
                               ? Container()
                               : BlocListener<ClientsBloc, ClientsState>(
-                                  listenWhen: (previous, current) =>
-                                      current.delStoreState ==
-                                          RequestState.error ||
-                                      current.delStoreState ==
-                                          RequestState.loaded,
-                                  listener: (context, state) {
-                                    if (state.delStoreState ==
-                                        RequestState.error) {
-                                      NavigateUtil().navigateUp(context);
-                                      showError(context,
-                                          state.delStoreErrorMessage, () {});
-                                    } else if (state.delStoreState ==
-                                        RequestState.loaded) {
-                                      NavigateUtil().navigateUp(context);
-                                      BlocProvider.of<ClientsBloc>(context).add(
-                                          GetClientInvoiceEvent(
-                                              store.customerId ?? -1));
-                                    }
-                                  },
-                                  child: IconButton(
-                                      onPressed: () {
-                                        showDelDialog(
-                                            context: context,
-                                            text: AppStrings.delDialogStoreText,
-                                            action: () {
-                                              showLoading(context);
-                                              BlocProvider.of<ClientsBloc>(
-                                                      context)
-                                                  .add(DelStoreEvent(
-                                                      store.id ?? -1));
-                                            });
-                                      },
-                                      icon: const Icon(Icons.delete)),
-                                )
+                            listenWhen: (previous, current) =>
+                            current.delStoreState ==
+                                RequestState.error ||
+                                current.delStoreState ==
+                                    RequestState.loaded,
+                            listener: (context, state) {
+                              if (state.delStoreState ==
+                                  RequestState.error) {
+                                NavigateUtil().navigateUp(context);
+                                showError(context,
+                                    state.delStoreErrorMessage, () {});
+                              } else if (state.delStoreState ==
+                                  RequestState.loaded) {
+                                NavigateUtil().navigateUp(context);
+                                BlocProvider.of<ClientsBloc>(context).add(
+                                    GetClientInvoiceEvent(
+                                        store.customerId ?? -1));
+                              }
+                            },
+                            child: IconButton(
+                                onPressed: () {
+                                  showDelDialog(
+                                      context: context,
+                                      text: AppStrings.delDialogStoreText,
+                                      action: () {
+                                        showLoading(context);
+                                        BlocProvider.of<ClientsBloc>(
+                                            context)
+                                            .add(DelStoreEvent(
+                                            store.id ?? -1));
+                                      });
+                                },
+                                icon: const Icon(Icons.delete)),
+                          )
                         ],
                       ),
                       isScreenshot
                           ? Container()
                           : Positioned(
-                              bottom: 0,
-                              left: 0,
-                              child: BlocListener<ClientsBloc, ClientsState>(
-                                listenWhen: (previous, current) =>
-                                    current.storeSahbState ==
-                                        RequestState.loaded ||
-                                    current.storeSahbState ==
-                                        RequestState.error,
-                                listener: (context, state) {
-                                  if (state.storeSahbState ==
-                                      RequestState.error) {
-                                    NavigateUtil().navigateUp(context);
-                                    showError(context,
-                                        state.storeSahbErrorMessage, () {});
-                                  } else if (state.storeSahbState ==
-                                      RequestState.loaded) {
-                                      NavigateUtil().navigateUp(context);
-                                      NavigateUtil().navigateUp(context);
-                                      NavigateUtil().navigateUp(context);
-                                  }
-                                },
-                                child: SahbButton(
-                                  onClick: () {
-                                    BlocProvider.of<ClientsBloc>(context).add(
-                                        SahbStoreEvent(store.id ?? -1,
-                                            store.customerId ?? -1));
-                                  },
-                                ),
-                              ))
+                          bottom: 0,
+                          left: 0,
+                          child: BlocListener<ClientsBloc, ClientsState>(
+                            listenWhen: (previous, current) =>
+                            current.storeSahbState ==
+                                RequestState.loaded ||
+                                current.storeSahbState ==
+                                    RequestState.error,
+                            listener: (context, state) {
+                              if (state.storeSahbState ==
+                                  RequestState.error) {
+                                NavigateUtil().navigateUp(context);
+                                showError(context,
+                                    state.storeSahbErrorMessage, () {});
+                              } else if (state.storeSahbState ==
+                                  RequestState.loaded) {
+                                NavigateUtil().navigateUp(context);
+                                NavigateUtil().navigateUp(context);
+                                NavigateUtil().navigateUp(context);
+                              }
+                            },
+                            child: SahbButton(
+                              onClick: () {
+                                showSahbDialog(
+                                    context: context,
+                                    label: store.totalWeight != '0.000' ?
+                                    AppStrings.addTonsDialogLabel :
+                                    AppStrings.addBagsDialogLabel,
+                                    action: (tons) {
+                                      BlocProvider.of<ClientsBloc>(context)
+                                          .add(
+                                          SahbStoreEvent(store.id ?? -1,
+                                              store.customerId ?? -1));
+                                    }
+                                );
+                              },
+                            ),
+                          ))
                     ],
                   ),
                 ),
