@@ -49,7 +49,7 @@ class ClientItem extends StatelessWidget {
             children: [
               Container(
                 width: 7,
-                height: 165,
+                height: 185,
                 decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(10.0),
