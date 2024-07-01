@@ -4,12 +4,24 @@ import 'package:flutter/cupertino.dart';
 
 @immutable
 class AppColors {
+  static const Color primary = Color(0xff153D8B);
+  static const Color h1 = Color(0xff241A4D);
+  static const Color h2 = Color(0xff302755);
+  static const Color h3 = Color(0xff797199);
+
+
+
+
+
+
+
+
+
   static const Color teal = Color(0xff37A492);
 
 
 
 
-  static const Color primary = Color(0xff101A32);
   static const Color primaryLight = Color(0xffB7C3DB);
   static const Color primaryDark = Color(0xff37A492);
   static const Color secondary = Color(0xffEE8626);
