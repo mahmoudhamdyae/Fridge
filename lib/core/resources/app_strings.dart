@@ -67,7 +67,7 @@ class AppStrings {
 
   // Login Screen
   static const String loginScreenTitle = 'تسجيل الدخول';
-  static const String loginScreenWelcome = 'مرحبا بعودتك';
+  static const String loginScreenWelcome = 'مرحبا بك';
   static const String loginScreenWelcomeDesc = 'قم بتسجيل الدخول للمتابعة';
   static const String loginScreenPhoneLabel = 'رقم التليفون';
   static const String loginScreenPhoneHint = 'ادخل رقم التليفون';

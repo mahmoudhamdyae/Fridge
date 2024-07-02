@@ -73,14 +73,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             AppStrings.registerScreenJoinNow,
                             style: getLargeStyle(
                               fontWeight: FontWeightManager.medium,
+                              fontSize: 28
                             ),
                           ),
-                          4.ph,
+                          8.ph,
                           Text(
                             AppStrings.registerScreenJoinNowDesc,
                             style: getSmallStyle(),
                           ),
-                          16.ph,
+                          8.ph,
                           Text(
                             AppStrings.registerScreenNameLabel,
                             style: getSmallStyle(
@@ -89,7 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           8.ph,
                           NameFormField(nameController: nameController),
-                          16.ph,
+                          8.ph,
                           Text(
                             AppStrings.registerScreenPhoneLabel,
                             style: getSmallStyle(
@@ -98,7 +99,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           8.ph,
                           PhoneFormField(phoneController: phoneController),
-                          16.ph,
+                          8.ph,
+                          Text(
+                            AppStrings.registerScreenFridgeNameLabel,
+                            style: getSmallStyle(
+                              fontWeight: FontWeightManager.medium,
+                            ),
+                          ),
+                          8.ph,
+                          FridgeNameFormField(fridgeNameController: fridgeNameController),
+                          8.ph,
+                          Text(
+                            AppStrings.registerScreenAddressLabel,
+                            style: getSmallStyle(
+                              fontWeight: FontWeightManager.medium,
+                            ),
+                          ),
+                          8.ph,
+                          AddressFormField(addressController: addressController),
+                          8.ph,
                           Text(
                             AppStrings.registerScreenPasswordLabel,
                             style: getSmallStyle(
@@ -108,24 +127,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           8.ph,
                           PasswordFormField(
                               passwordController: passwordController),
-                          16.ph,
-                          Text(
-                            AppStrings.registerScreenFridgeNameLabel,
-                            style: getSmallStyle(
-                              fontWeight: FontWeightManager.medium,
-                            ),
-                          ),
-                          8.ph,
-                          FridgeNameFormField(fridgeNameController: fridgeNameController),
-                          16.ph,
-                          Text(
-                            AppStrings.registerScreenAddressLabel,
-                            style: getSmallStyle(
-                              fontWeight: FontWeightManager.medium,
-                            ),
-                          ),
-                          8.ph,
-                          AddressFormField(addressController: addressController),
                           24.ph,
                           AuthButton(
                             onTap: () {
@@ -148,7 +149,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             children: [
                               Text(
                                 AppStrings.registerScreenExistingAccount,
-                                style: getSmallStyle(),
+                                style: getSmallStyle(
+                                    color: AppColors.h3
+                                ),
                               ),
                               4.pw,
                               TextButton(
@@ -159,7 +162,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     AppStrings.registerScreenLogin,
                                     style: getSmallStyle(
                                         decoration: TextDecoration.underline,
-                                        color: AppColors.dark1
+                                        color: AppColors.primary
                                     ),
                                   )
                               ),

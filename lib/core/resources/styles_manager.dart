@@ -67,14 +67,14 @@ ButtonStyle getOutlinedButtonStyle({Color color = AppColors.primary}) {
 
 InputDecoration getFilledTextFieldDecoration({
   required String hint,
-  double radius = 15.0,
+  double radius = 8.0,
   IconData? prefixIcon,
   TextStyle? textStyle
 }) {
   return InputDecoration(
     hintStyle: textStyle ?? getSmallStyle(
       fontSize: 14.0,
-      color: AppColors.dark2,
+      color: AppColors.h3,
     ),
     filled: true,
     fillColor: AppColors.grey,
@@ -84,10 +84,19 @@ InputDecoration getFilledTextFieldDecoration({
     ),
     prefixIcon: Icon(prefixIcon, color: const Color(0xff545454), size: 17,),
     hintText: hint,
-    border: OutlineInputBorder(
-      borderSide: const BorderSide(color: AppColors.grey),
-      borderRadius: BorderRadius.all(Radius.circular(radius)),
-    ),
+    disabledBorder: getOutlineInputBorder(radius),
+    enabledBorder: getOutlineInputBorder(radius),
+    errorBorder: getOutlineInputBorder(radius),
+    focusedBorder : getOutlineInputBorder(radius),
+    focusedErrorBorder : getOutlineInputBorder(radius),
+    border: getOutlineInputBorder(radius),
+  );
+}
+
+OutlineInputBorder getOutlineInputBorder(double radius) {
+  return OutlineInputBorder(
+    borderSide: const BorderSide(color: AppColors.grey),
+    borderRadius: BorderRadius.all(Radius.circular(radius)),
   );
 }
 
@@ -115,9 +124,6 @@ InputDecoration getFilledTextFieldDecorationWithLabel({
           fontWeight: FontWeightManager.medium
       ),
     ),
-    border: OutlineInputBorder(
-      borderSide: const BorderSide(color: AppColors.grey),
-      borderRadius: BorderRadius.all(Radius.circular(radius)),
-    ),
+    border: getOutlineInputBorder(radius),
   );
 }

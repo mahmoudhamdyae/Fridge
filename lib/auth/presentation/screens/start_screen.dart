@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/auth/presentation/screens/login_screen.dart';
 import 'package:fridge/auth/presentation/screens/register_screen.dart';
-import 'package:fridge/core/components/coding_site_widget.dart';
-import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/resources/app_assets.dart';

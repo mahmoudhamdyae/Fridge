@@ -14,37 +14,21 @@ class AuthAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: context.width,
-      color: AppColors.colorRamps2,
+      height: 120,
+      color: AppColors.primary,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              IconButton(
-                  onPressed: () {
-                    NavigateUtil().navigateUp(context);
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: AppColors.white,
-                  )
+          Padding(
+            padding: const EdgeInsets.only(right: 24),
+            child: Text(
+              title,
+              style: getLargeStyle(
+                fontSize: 24.0,
+                color: AppColors.white
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                    right: context.dynamicWidth(0.09),
-                    bottom: context.dynamicHeight(0.035),
-                ),
-                child: Text(
-                  title,
-                  style: getLargeStyle(
-                    fontSize: 24.0,
-                    color: AppColors.white
-                  ),
-                ),
-              )
-            ],
+            ),
           ),
-          Expanded(child: Container()),
           Stack(
             children: [
               Container(
@@ -72,6 +56,19 @@ class AuthAppBar extends StatelessWidget {
                     height: 144,
                   ),
                 ),
+              ),
+              Positioned(
+                  left: 0,
+                  top: 24,
+                  child: IconButton(
+                      onPressed: () {
+                        NavigateUtil().navigateUp(context);
+                      },
+                      icon: const Icon(
+                        Icons.arrow_forward,
+                        color: AppColors.white,
+                      )
+                  ),
               )
             ],
           ),

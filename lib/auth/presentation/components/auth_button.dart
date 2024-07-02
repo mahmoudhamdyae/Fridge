@@ -12,14 +12,17 @@ class AuthButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FilledButton(
       style: getFilledButtonStyle(
-        color: AppColors.colorRamps2
+        color: AppColors.primary
       ),
       onPressed: onTap,
-      child: Text(
-        text,
-        style: getSmallStyle(
-          fontSize: 18.0,
-          color: AppColors.white
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        child: Text(
+          text,
+          style: getSmallStyle(
+            fontSize: 18.0,
+            color: AppColors.white
+          ),
         ),
       )
     );
