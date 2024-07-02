@@ -18,4 +18,5 @@ class AppAssets {
   static const String write = '$imagePath/write.png';
   static const String person = '$imagePath/person.png';
   static const String package = '$imagePath/package.png';
+  static const String contact = '$imagePath/contact.png';
 }
