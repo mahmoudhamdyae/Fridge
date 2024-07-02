@@ -68,10 +68,11 @@ class _StartScreenState extends State<StartScreen> {
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+              child: ListView(
+                shrinkWrap: true,
+                physics: const ClampingScrollPhysics(),
                 children: [
-                  141.ph,
+                  89.ph,
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 32.0),
                     child: Image.asset(
@@ -130,6 +131,7 @@ class _StartScreenState extends State<StartScreen> {
                         ),
                       )
                   ),
+                  50.ph,
                 ],
               ),
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
+import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/resources/app_assets.dart';
 import 'package:fridge/core/resources/app_colors.dart';
@@ -19,15 +20,27 @@ class AuthAppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 24),
-            child: Text(
-              title,
-              style: getLargeStyle(
-                fontSize: 24.0,
-                color: AppColors.white
+          Row(
+            children: [
+              16.pw,
+              IconButton(
+                  onPressed: () {
+                    NavigateUtil().navigateUp(context);
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_outlined,
+                    color: AppColors.white,
+                  )
               ),
-            ),
+              16.pw,
+              Text(
+                title,
+                style: getLargeStyle(
+                  fontSize: 24.0,
+                  color: AppColors.white
+                ),
+              ),
+            ],
           ),
           Stack(
             children: [
@@ -57,19 +70,6 @@ class AuthAppBar extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
-                  left: 0,
-                  top: 24,
-                  child: IconButton(
-                      onPressed: () {
-                        NavigateUtil().navigateUp(context);
-                      },
-                      icon: const Icon(
-                        Icons.arrow_forward,
-                        color: AppColors.white,
-                      )
-                  ),
-              )
             ],
           ),
         ],

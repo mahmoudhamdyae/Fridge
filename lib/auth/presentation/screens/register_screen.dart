@@ -7,7 +7,6 @@ import 'package:fridge/auth/presentation/components/fridge_name_form_field.dart'
 import 'package:fridge/auth/presentation/components/name_form_field.dart';
 import 'package:fridge/auth/presentation/screens/login_screen.dart';
 import 'package:fridge/core/components/dialogs/loading_dialog.dart';
-import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/extensions/num_extensions.dart';
 import 'package:fridge/core/navigation/navigate_util.dart';
 import 'package:fridge/core/resources/app_colors.dart';
@@ -49,10 +48,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
             children: [
               const AuthAppBar(title: AppStrings.registerScreenTitle,),
               Container(
-                padding: EdgeInsets.only(
-                  top: context.dynamicHeight(.04),
-                  right: context.dynamicHeight(.03),
-                  left: context.dynamicHeight(.03),
+                padding: const EdgeInsets.only(
+                  top: 32,
+                  right: 32,
+                  left: 32,
                 ),
                 decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
