@@ -61,7 +61,7 @@ class AppStrings {
 
   // Start Screen
   static const String startScreenHello = 'مرحبا..';
-  static const String startScreenHelloDesc = 'يرجى تسجيل الدخول للوصول إلى خدماتنا\nوبدء تجربتك مع ثلاجة';
+  static const String startScreenHelloDesc = 'يرجى تسجيل الدخول للوصول إلى خدماتنا وبدء تجربتك مع ثلاجة';
   static const String startScreenLoginButton = 'تسجيل الدخول';
   static const String startScreenRegisterButton = 'مستخدم جديد';
 

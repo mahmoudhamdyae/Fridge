@@ -9,7 +9,7 @@ TextStyle _getTextStyle(
     FontWeight fontWeight,
     Color color, TextDecoration decoration
     ) {
-  return GoogleFonts.inter(
+  return GoogleFonts.roboto(
       fontSize: fontSize,
       color: color,
       fontWeight: fontWeight,
@@ -46,7 +46,7 @@ ButtonStyle getFilledButtonStyle({Color color = AppColors.primary}) {
   return ButtonStyle(
     shape: MaterialStateProperty.all(
         const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+          borderRadius: BorderRadius.all(Radius.circular(8.0)),
         )
     ),
     backgroundColor: MaterialStateProperty.all(color),
@@ -60,7 +60,7 @@ ButtonStyle getOutlinedButtonStyle({Color color = AppColors.primary}) {
       color: color,
     ),
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(15.0),
+      borderRadius: BorderRadius.circular(8.0),
     ),
   );
 }
