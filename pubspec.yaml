@@ -80,11 +80,12 @@ flutter_native_splash:
   image: assets/images/splash.png
   android: true
   ios: true
-  ios_content_mode: center
+  ios_content_mode: scaleAspectFit
   android_gravity: center
   branding: assets/images/coding_site.png
   android_12:
     color: "#153D8B"
+    image: assets/images/splash.png
     branding: assets/images/coding_site.png
 flutter_launcher_icons:
   android: "launcher_icon"

@@ -43,7 +43,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: AppColors.colorRamps2,
+        backgroundColor: AppColors.primary,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -153,7 +153,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     color: AppColors.h3
                                 ),
                               ),
-                              4.pw,
                               TextButton(
                                   onPressed: () {
                                     NavigateUtil().navigateAndClear(context, const LoginScreen());
