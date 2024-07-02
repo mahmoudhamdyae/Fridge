@@ -8,6 +8,7 @@ class AppColors {
   static const Color h1 = Color(0xff241A4D);
   static const Color h2 = Color(0xff302755);
   static const Color h3 = Color(0xff797199);
+  static const Color notSelected = Color(0xffA19CB8);
 
 
 

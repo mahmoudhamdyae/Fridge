@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fridge/core/extensions/context_extension.dart';
 import 'package:fridge/core/navigation/navigate_extension.dart';
 import 'package:fridge/core/resources/app_assets.dart';
+import 'package:fridge/core/resources/app_colors.dart';
 import 'package:fridge/core/resources/app_constants.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 
@@ -38,11 +39,12 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.primary,
       body: Center(
         child: Image.asset(
           AppAssets.appLogo,
-          height: context.dynamicHeight(0.2),
-          width: context.dynamicWidth(0.9),
+          height: 260,
+          width: 260,
         ),
       ),
     );

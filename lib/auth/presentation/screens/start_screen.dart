@@ -52,88 +52,80 @@ class _StartScreenState extends State<StartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColors.white,
-        body: BlocProvider(
-          create: (BuildContext context) => instance<AuthBloc>(),
-          child: BlocListener<AuthBloc, AuthState>(
-            listener: (BuildContext context, AuthState state) {
-              if (state.error != null) {
-                NavigateUtil().navigateUp(context);
-                showError(context, state.error ?? '', () {});
-              } else if (state.status == AuthStatus.authenticated) {
-                NavigateUtil().navigateAndClear(context, const MainScreen());
-              }
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32.0),
-              child: ListView(
-                shrinkWrap: true,
-                physics: const ClampingScrollPhysics(),
-                children: [
-                  89.ph,
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                    child: Image.asset(
-                      AppAssets.start,
-                      width: double.infinity,
-                    ),
+    return Scaffold(
+      backgroundColor: AppColors.white,
+      body: BlocProvider(
+        create: (BuildContext context) => instance<AuthBloc>(),
+        child: BlocListener<AuthBloc, AuthState>(
+          listener: (BuildContext context, AuthState state) {
+            if (state.error != null) {
+              NavigateUtil().navigateUp(context);
+              showError(context, state.error ?? '', () {});
+            } else if (state.status == AuthStatus.authenticated) {
+              NavigateUtil().navigateAndClear(context, const MainScreen());
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            child: ListView(
+              shrinkWrap: true,
+              physics: const ClampingScrollPhysics(),
+              children: [
+                141.ph,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                  child: Image.asset(
+                    AppAssets.start,
+                    width: double.infinity,
                   ),
-                  40.ph,
-                  Text(
-                    AppStrings.startScreenHello,
-                    style: getLargeStyle(
-                      color: AppColors.h1,
-                    ),
+                ),
+                40.ph,
+                Text(
+                  AppStrings.startScreenHello,
+                  style: getLargeStyle(
+                    color: AppColors.h1,
                   ),
-                  8.ph,
-                  Text(
-                    AppStrings.startScreenHelloDesc,
-                    style: getSmallStyle(
-                      color: AppColors.h2,
-                      fontWeight: FontWeightManager.medium
-                    ),
+                ),
+                8.ph,
+                Text(
+                  AppStrings.startScreenHelloDesc,
+                  style: getSmallStyle(
+                    color: AppColors.h2,
+                    fontWeight: FontWeightManager.medium
                   ),
-                  93.ph,
-                  FilledButton(
-                      style: getFilledButtonStyle(),
-                      onPressed: () {
-                        NavigateUtil().navigateToScreen(context, const LoginScreen());
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16.0),
-                        child: Text(
-                          AppStrings.startScreenLoginButton,
-                          style: getSmallStyle(
-                            color: AppColors.white,
-                            fontSize: 18.0,
-                          ),
-                        ),
-                      )
-                  ),
-                  16.ph,
-                  OutlinedButton(
-                      style: getOutlinedButtonStyle(
-                          color: AppColors.primary
+                ),
+                93.ph,
+                FilledButton(
+                    style: getFilledButtonStyle(),
+                    onPressed: () {
+                      NavigateUtil().navigateToScreen(context, const LoginScreen());
+                    },
+                    child: Text(
+                      AppStrings.startScreenLoginButton,
+                      style: getSmallStyle(
+                        color: AppColors.white,
+                        fontSize: 18.0,
                       ),
-                      onPressed: () {
-                        NavigateUtil().navigateToScreen(context, const RegisterScreen());
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16.0),
-                        child: Text(
-                          AppStrings.startScreenRegisterButton,
-                          style: getSmallStyle(
-                            color: AppColors.primary,
-                            fontSize: 18.0,
-                          ),
-                        ),
-                      )
-                  ),
-                  50.ph,
-                ],
-              ),
+                    )
+                ),
+                16.ph,
+                OutlinedButton(
+                    style: getOutlinedButtonStyle(
+                        color: AppColors.primary
+                    ),
+                    onPressed: () {
+                      NavigateUtil().navigateToScreen(context, const RegisterScreen());
+                    },
+                    child: Text(
+                      AppStrings.startScreenRegisterButton,
+                      style: getSmallStyle(
+                        color: AppColors.primary,
+                        fontSize: 18.0,
+                      ),
+                    )
+                ),
+                80.ph,
+              ],
             ),
           ),
         ),

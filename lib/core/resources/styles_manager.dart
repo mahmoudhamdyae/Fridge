@@ -49,6 +49,7 @@ ButtonStyle getFilledButtonStyle({Color color = AppColors.primary}) {
           borderRadius: BorderRadius.all(Radius.circular(8.0)),
         )
     ),
+    padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.symmetric(vertical: 9.0)),
     backgroundColor: MaterialStateProperty.all(color),
   );
 }
@@ -59,6 +60,7 @@ ButtonStyle getOutlinedButtonStyle({Color color = AppColors.primary}) {
       width: 1.0,
       color: color,
     ),
+    padding: const EdgeInsets.symmetric(vertical: 9.0),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(8.0),
     ),

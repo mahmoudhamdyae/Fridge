@@ -15,14 +15,11 @@ class AuthButton extends StatelessWidget {
         color: AppColors.primary
       ),
       onPressed: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16.0),
-        child: Text(
-          text,
-          style: getSmallStyle(
-            fontSize: 18.0,
-            color: AppColors.white
-          ),
+      child: Text(
+        text,
+        style: getSmallStyle(
+          fontSize: 18.0,
+          color: AppColors.white
         ),
       )
     );
